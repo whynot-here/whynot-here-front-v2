@@ -1,5 +1,6 @@
 <template>
   <div>
+    <TopBar />
     <div>
       <h1>
         👋 난 {{ category }} 카테고리야 여기에 카드들이 들어가지
@@ -10,23 +11,16 @@
         😉 난 카드야 1번 포스팅 보러갈래?
       </h2>
     </nuxt-link>
-    <div style="cursor: pointer; width: max-content;" @click="loginPopupOpen = true">
-      🔑 로그인
-    </div>
-    <LoginPopup
-      v-if="loginPopupOpen"
-      @closePopup="closeLoginPopup"
-    />
   </div>
 </template>
 
 <script>
-import LoginPopup from '@/components/login/LoginPopup'
+import TopBar from '@/components/common/TopBar'
 
 export default {
   name: 'CategoryPage',
   components: {
-    LoginPopup
+    TopBar
   },
   asyncData({ params }) {
     return {
@@ -35,13 +29,9 @@ export default {
   },
   data () {
     return {
-      loginPopupOpen: false
     }
   },
   methods: {
-    closeLoginPopup () {
-      this.loginPopupOpen = false
-    }
   }
 }
 </script>
