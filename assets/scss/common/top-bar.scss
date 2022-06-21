@@ -1,0 +1,62 @@
+@import '@/assets/scss/util.scss';
+
+#TopBar {
+  @include mobile {
+    width: 100vw; height: 50px;
+    .topbar {
+      display: flex;
+      .logo {
+        padding-top: 6px; padding-left: 10px;
+        img {
+          width: 90px; height: 20px;
+        }
+      }
+      .search {
+        flex-grow: 1;
+      }
+      .login {
+        padding-top: 10px; margin-right: 20px;
+        font-size: .94rem; font-weight: 700;
+        color: #737373;
+        cursor: pointer;
+      }
+      .profile {
+        padding-top: 2px;
+        padding-right: 15px;
+        img {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+  }
+  @include min-desktop {
+    width: 1368px; height: 73px;
+    margin: 0 auto;
+    .topbar {
+      display: flex;
+      .logo {
+        padding-top: 16px;
+        img {
+          width: 139px; height: 33px;
+        }
+      }
+      .search {
+        flex-grow: 1;
+      }
+      .login {
+        padding-top: 24px; margin-right: 32px;
+        font-size: .94rem; font-weight: 700;
+        color: #737373;
+        cursor: pointer;
+      }
+      .profile {
+        padding-top: 16px;
+        img {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+  }
+}

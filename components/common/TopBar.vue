@@ -44,33 +44,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#TopBar {
-  width: 1368px; height: 73px;
-  margin: 0 auto;
-  .topbar {
-    display: flex;
-    .logo {
-      padding-top: 16px;
-      img {
-        width: 139px; height: 33px;
-      }
-    }
-    .search {
-      flex-grow: 1;
-    }
-    .login {
-      padding-top: 24px; margin-right: 32px;
-      font-size: .94rem; font-weight: 700;
-      color: #737373;
-      cursor: pointer;
-    }
-    .profile {
-      padding-top: 16px;
-      img {
-        width: 32px;
-        height: 32px;
-      }
-    }
-  }
-}
+@import '@/assets/scss/common/top-bar.scss';
 </style>
