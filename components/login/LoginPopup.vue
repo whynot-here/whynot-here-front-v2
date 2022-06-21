@@ -20,13 +20,13 @@
           시작하기
         </div>
         <div class="social-login-btn">
-          <img src="@/assets/img/login/google-login-btn.png" alt="">
+          <img src="@/assets/img/login/google-login-btn.png" alt="" @click="googleLogin()">
         </div>
         <div class="social-login-btn">
-          <img src="@/assets/img/login/kakao-login-btn.png" alt="">
+          <img src="@/assets/img/login/kakao-login-btn.png" alt="" @click="kakaoLogin()">
         </div>
         <div class="social-login-btn">
-          <img src="@/assets/img/login/naver-login-btn.png" alt="">
+          <img src="@/assets/img/login/naver-login-btn.png" alt="" @click="naverLogin()">
         </div>
       </section>
       <section class="popup-bottom">
@@ -42,6 +42,17 @@ export default {
   name: 'LoginPopup',
   data () {
     return {
+    }
+  },
+  methods: {
+    googleLogin () {
+      this.$auth.loginWith('google')
+    },
+    kakaoLogin () {
+
+    },
+    naverLogin () {
+
     }
   }
 }
