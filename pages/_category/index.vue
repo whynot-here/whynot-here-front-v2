@@ -1,7 +1,7 @@
 <template>
   <div>
     <TopBar />
-    <div>
+    <!-- <div>
       <h1>
         👋 난 {{ category }} 카테고리야 여기에 카드들이 들어가지
       </h1>
@@ -10,7 +10,7 @@
       <h2>
         😉 난 카드야 1번 포스팅 보러갈래?
       </h2>
-    </nuxt-link>
+    </nuxt-link> -->
   </div>
 </template>
 
