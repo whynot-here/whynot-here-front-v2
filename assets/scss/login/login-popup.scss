@@ -9,8 +9,9 @@
     background: #FFFFFF;
     .popup-top {
       .close-btn {
-        padding-top: 40px; padding-right: 20px;
+        margin-top: 40px; margin-right: 20px;
         text-align: right;
+        cursor: pointer;
         img {
           width: 32px; height: 32px;
         }
