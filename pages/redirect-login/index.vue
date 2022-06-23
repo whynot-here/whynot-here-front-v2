@@ -12,14 +12,16 @@ export default {
   components: {
     TopBar
   },
+  middleware: 'auth',
   data () {
     return {
     }
   },
+  mounted () {
+    console.log('hihih')
+    console.log(this.$auth.user)
+  },
   methods: {
-    mounted () {
-      console.log('hihih')
-    }
   }
 }
 </script>

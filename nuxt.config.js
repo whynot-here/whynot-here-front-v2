@@ -38,17 +38,19 @@ export default {
   ],
   auth: {
     redirect: {
-      callback: '/callback',
+      callback: '/redirect-login',
       logout: '/signed-out'
     },
     strategies: {
       google: {
-        clientId: '113133979148-2u2680m3cfqhel8o0t1ccgu9cic1uqne.apps.googleusercontent.com',
+        clientId: '233320917463-3dse7qmlpfpq0b2ph6lcfjvt1esbijtm.apps.googleusercontent.com',
         codeChallengeMethod: '',
         responseType: 'code',
         endpoints: {
-          token: 'http://localhost:8000/user/google/', // somm backend url to resolve your auth with google and give you the token back
-          userInfo: 'http://localhost:8000/auth/user/' // the endpoint to get the user info after you recived the token 
+          token: 'http://localhost:8030', // somm backend url to resolve your auth with google and give you the token back
+          userInfo: 'http://localhost:8030' // the endpoint to get the user info after you recived the token 
+          // token: 'http://localhost:8030/user/google/', // somm backend url to resolve your auth with google and give you the token back
+          // userInfo: 'http://localhost:8030/auth/user/' // the endpoint to get the user info after you recived the token 
         },
       },
       social: {
