@@ -45,22 +45,7 @@ export default {
       google: {
         clientId: '233320917463-3dse7qmlpfpq0b2ph6lcfjvt1esbijtm.apps.googleusercontent.com',
         codeChallengeMethod: '',
-        responseType: 'code',
-        endpoints: {
-          token: 'http://localhost:8030', // somm backend url to resolve your auth with google and give you the token back
-          userInfo: 'http://localhost:8030' // the endpoint to get the user info after you recived the token 
-          // token: 'http://localhost:8030/user/google/', // somm backend url to resolve your auth with google and give you the token back
-          // userInfo: 'http://localhost:8030/auth/user/' // the endpoint to get the user info after you recived the token 
-        },
-      },
-      social: {
-        scheme: 'oauth2',
-        endpoints: {
-          authorization: 'https://accounts.google.com/o/oauth2/auth',
-          token: undefined,
-          userInfo: 'https://www.googleapis.com/oauth2/v3/userinfo',
-          logout: 'https://example.com/logout'
-        },
+        responseType: 'token id_token',
         token: {
           property: 'access_token',
           type: 'Bearer',
@@ -70,19 +55,43 @@ export default {
           property: 'refresh_token',
           maxAge: 60 * 60 * 24 * 30
         },
-        responseType: 'token',
-        grantType: 'authorization_code',
-        accessType: undefined,
-        redirectUri: '/callback',
-        logoutRedirectUri: '/logout',
-        clientId: 'SET_ME',
+        // responseType: 'code',
         scope: ['openid', 'profile', 'email'],
-        state: 'UNIQUE_AND_NON_GUESSABLE',
-        codeChallengeMethod: '',
-        responseMode: '',
-        acrValues: '',
-        // autoLogout: false
+        // endpoints: {
+        //   token: undefined,
+        //   userInfo: 'https://www.googleapis.com/oauth2/v3/userinfo',
+        // },
       }
+      // social: {
+      //   scheme: 'oauth2',
+      //   endpoints: {
+      //     authorization: 'https://accounts.google.com/o/oauth2/auth',
+      //     token: undefined,
+      //     userInfo: 'https://www.googleapis.com/oauth2/v3/userinfo',
+      //     logout: 'https://example.com/logout'
+      //   },
+      //   token: {
+      //     property: 'access_token',
+      //     type: 'Bearer',
+      //     maxAge: 1800
+      //   },
+      //   refreshToken: {
+      //     property: 'refresh_token',
+      //     maxAge: 60 * 60 * 24 * 30
+      //   },
+      //   responseType: 'token',
+      //   grantType: 'authorization_code',
+      //   accessType: undefined,
+      //   redirectUri: '/callback',
+      //   logoutRedirectUri: '/logout',
+      //   clientId: 'SET_ME',
+      //   scope: ['openid', 'profile', 'email'],
+      //   state: 'UNIQUE_AND_NON_GUESSABLE',
+      //   codeChallengeMethod: '',
+      //   responseMode: '',
+      //   acrValues: '',
+      //   // autoLogout: false
+      // }
     }
   },
   
