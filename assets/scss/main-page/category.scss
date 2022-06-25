@@ -1,0 +1,39 @@
+#Category {
+  width: 236px;
+  margin-left: 5vw; margin-top: 111px;
+  .category {
+    padding-left: 18px;
+    .title {
+      height: 55px; line-height: 55px;
+      font-size: 1.38rem; font-weight: 700;
+      cursor: pointer;
+    }
+    .sub-title {
+      height: 48px; line-height: 48px;
+      padding-left: 20px;
+      font-size: 1.13rem; font-weight: 500;
+      color: #737373;
+      &.selected {
+        color: #000000;
+        background: #F3F3F3;
+        border-radius: 8px;
+      }
+    }
+    .sub-title:hover {
+      color: #000000;
+      background: #F3F3F3;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  }
+  .posting-btn {
+    width: 205px; height: 48px; line-height: 48px;
+    margin-top: 30px; margin-left: 18px;
+    font-size: 1rem; font-weight: 550;
+    text-align: center;
+    background-color: #FFFFFF;
+    border: 2px solid #3E82F1;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}

@@ -8,8 +8,7 @@ export default {
   mounted () {
     this.$router.push('/project')
     // console.log(JSON.stringify(this.$auth.$state, undefined, 2))
-    console.log(this.$auth.strategy.token.status())
-    console.log(this.$auth.strategy.refreshToken.get())
+    console.log(this.$auth.strategy.token.get())
   }
 }
 </script>

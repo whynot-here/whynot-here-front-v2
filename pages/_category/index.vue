@@ -1,6 +1,10 @@
 <template>
-  <div>
+  <div id="CategoryPage">
     <TopBar />
+    <div class="panel">
+      <Category />
+      <Card />
+    </div>
     <!-- <div>
       <h1>
         👋 난 {{ category }} 카테고리야 여기에 카드들이 들어가지
@@ -15,12 +19,16 @@
 </template>
 
 <script>
-import TopBar from '@/components/common/TopBar'
+import TopBar from '@/components/main-page/TopBar'
+import Category from '@/components/main-page/Category'
+import Card from '@/components/main-page/Card'
 
 export default {
   name: 'CategoryPage',
   components: {
-    TopBar
+    TopBar,
+    Category,
+    Card
   },
   asyncData({ params }) {
     return {
@@ -37,5 +45,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+#CategoryPage {
+  width: 100vw; height: 100vh;
+  overflow: scroll;
+  background: #FAFAFA;
+  #TopBar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .panel {
+    display: flex;
+    #Category {
+      position: sticky;
+      top: 15vh;
+      height: max-content;
+    }
+  }
+}
 </style>
