@@ -31,27 +31,40 @@
     }
   }
   @include min-desktop {
-    width: 1368px; height: 73px;
+    height: 80px;
+    background: #FAFAFA;
+    box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 22px rgba(0, 0, 0, 0.06);
     margin: 0 auto;
     .topbar {
       display: flex;
+      .logo-left {
+        padding: 32px 12px 32px 10vw;
+        font-size: .75rem; font-weight: 500;
+        color: #737373;
+      }
       .logo {
-        padding-top: 16px;
+        padding-top: 22px;
         img {
-          width: 139px; height: 33px;
+          width: 139px; height: 35px;
         }
       }
       .search {
         flex-grow: 1;
       }
-      .login {
-        padding-top: 24px; margin-right: 32px;
+      .posting-btn {
+        padding-top: 31px; margin-right: 24px;
         font-size: .94rem; font-weight: 700;
-        color: #737373;
+        color: #005B9A;
+        cursor: pointer;
+      }
+      .login {
+        padding-top: 31px; margin-right: 32px;
+        font-size: .94rem; font-weight: 700;
+        color: #391B1B;
         cursor: pointer;
       }
       .profile {
-        padding-top: 16px;
+        padding-top: 24px; padding-right: 10vw;
         img {
           width: 32px;
           height: 32px;
