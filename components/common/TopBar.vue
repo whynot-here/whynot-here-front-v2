@@ -1,10 +1,18 @@
 <template>
   <div id="TopBar">
     <div class="topbar">
+      <div class="logo-left">
+        사람이 모이는 공간
+      </div>
       <div class="logo">
         <img src="@/assets/img/common/whynot-here-logo.png" alt="">
       </div>
       <div class="search"></div>
+      <div
+        class="posting-btn"
+      >
+        글쓰기
+      </div>
       <div
         class="login"
         @click="loginPopupOpen = true"
