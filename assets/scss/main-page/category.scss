@@ -1,6 +1,6 @@
 #Category {
   width: 236px;
-  margin-left: 10vw; margin-top: 111px;
+  margin-left: 5vw; margin-top: 111px;
   .category {
     padding-left: 18px;
     .title {
@@ -34,5 +34,6 @@
     background-color: #FFFFFF;
     border: 2px solid #3E82F1;
     border-radius: 8px;
+    cursor: pointer;
   }
 }

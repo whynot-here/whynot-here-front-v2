@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TopBar from '@/components/common/TopBar'
+import TopBar from '@/components/main-page/TopBar'
 
 export default {
   name: 'CallBackPage',

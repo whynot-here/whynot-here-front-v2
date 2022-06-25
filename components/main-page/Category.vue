@@ -46,6 +46,7 @@ export default {
   methods: {
     selectCategory ({ type }) {
       this.selectedCategory = type
+      this.selectedSubCategory = ''
       this.$router.push(`/${type}`)
     },
     selectSubCategory ({ type }) {
@@ -58,5 +59,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/common/whynot-category.scss';
+@import '@/assets/scss/main-page/category.scss';
 </style>

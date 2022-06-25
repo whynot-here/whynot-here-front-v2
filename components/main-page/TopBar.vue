@@ -52,5 +52,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/common/top-bar.scss';
+@import '@/assets/scss/main-page/top-bar.scss';
 </style>

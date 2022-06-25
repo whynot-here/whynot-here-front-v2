@@ -3,6 +3,7 @@
     <TopBar />
     <div class="panel">
       <Category />
+      <Card />
     </div>
     <!-- <div>
       <h1>
@@ -18,14 +19,16 @@
 </template>
 
 <script>
-import TopBar from '@/components/common/TopBar'
-import Category from '@/components/common/Category'
+import TopBar from '@/components/main-page/TopBar'
+import Category from '@/components/main-page/Category'
+import Card from '@/components/main-page/Card'
 
 export default {
   name: 'CategoryPage',
   components: {
     TopBar,
-    Category
+    Category,
+    Card
   },
   asyncData({ params }) {
     return {
@@ -46,8 +49,18 @@ export default {
   width: 100vw; height: 100vh;
   overflow: scroll;
   background: #FAFAFA;
+  #TopBar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
   .panel {
     display: flex;
+    #Category {
+      position: sticky;
+      top: 15vh;
+      height: max-content;
+    }
   }
 }
 </style>
