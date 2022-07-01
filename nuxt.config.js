@@ -99,6 +99,11 @@ export default {
     // middleware: ['auth']
   },
 
+  axios: {
+    // baseURL: 'https://whynot-here.o-r.kr'
+    baseURL: 'http://localhost:9000'
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 }

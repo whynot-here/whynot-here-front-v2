@@ -8,11 +8,13 @@
         <img src="@/assets/img/common/whynot-here-logo.png" alt="">
       </div>
       <div class="search"></div>
-      <div
-        class="posting-btn"
-      >
-        글쓰기
-      </div>
+      <nuxt-link :to="`/${category}/posting`">
+        <div
+          class="posting-btn"
+        >
+          글쓰기
+        </div>
+      </nuxt-link>
       <div
         class="login"
         @click="loginPopupOpen = true"
@@ -37,6 +39,12 @@ export default {
   name: 'TopBar',
   components: {
     LoginPopup
+  },
+  props:{
+    category: {
+      type: String,
+      default: ''
+    }
   },
   data () {
     return {

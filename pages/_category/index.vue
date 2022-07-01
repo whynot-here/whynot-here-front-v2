@@ -1,6 +1,8 @@
 <template>
   <div id="CategoryPage">
-    <TopBar />
+    <TopBar
+      :category="category"
+    />
     <div class="panel">
       <Category />
       <Card />
@@ -39,7 +41,16 @@ export default {
     return {
     }
   },
+  mounted () {
+    this.getPosts()
+  },
   methods: {
+    getPosts () {
+      this.$axios.get('/v1/posts')
+      .then(res => {
+        console.log(res)
+      })
+    }
   }
 }
 </script>

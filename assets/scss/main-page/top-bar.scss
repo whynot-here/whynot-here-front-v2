@@ -5,24 +5,34 @@
     width: 100vw; height: 50px;
     .topbar {
       display: flex;
+      .logo-left {
+        padding: 32px 12px 32px 10vw;
+        font-size: .75rem; font-weight: 500;
+        color: #737373;
+      }
       .logo {
-        padding-top: 6px; padding-left: 10px;
+        padding-top: 22px;
         img {
-          width: 90px; height: 20px;
+          width: 139px; height: 35px;
         }
       }
       .search {
         flex-grow: 1;
       }
-      .login {
-        padding-top: 10px; margin-right: 20px;
+      .posting-btn {
+        padding-top: 31px; margin-right: 24px;
         font-size: .94rem; font-weight: 700;
-        color: #737373;
+        color: #005B9A;
+        cursor: pointer;
+      }
+      .login {
+        padding-top: 31px; margin-right: 32px;
+        font-size: .94rem; font-weight: 700;
+        color: #391B1B;
         cursor: pointer;
       }
       .profile {
-        padding-top: 2px;
-        padding-right: 15px;
+        padding-top: 24px; padding-right: 10vw;
         img {
           width: 32px;
           height: 32px;
