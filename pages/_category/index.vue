@@ -67,6 +67,8 @@ export default {
   }
   .panel {
     display: flex;
+    width: max-content;
+    margin: 0 auto;
     #Category {
       position: sticky;
       top: 15vh;

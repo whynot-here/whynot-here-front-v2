@@ -47,8 +47,10 @@
     margin: 0 auto;
     .topbar {
       display: flex;
+      width: 70vw;
+      margin: 0 auto;
       .logo-left {
-        padding: 32px 12px 32px 10vw;
+        padding: 32px 12px 32px 0;
         font-size: .75rem; font-weight: 500;
         color: #737373;
       }
@@ -74,7 +76,7 @@
         cursor: pointer;
       }
       .profile {
-        padding-top: 24px; padding-right: 10vw;
+        padding-top: 24px;
         img {
           width: 32px;
           height: 32px;

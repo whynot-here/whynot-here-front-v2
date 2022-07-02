@@ -1,16 +1,48 @@
+@import '@/assets/scss/util.scss';
+
 #Card {
-  width: 1032px; height: auto;
+  display: grid;
+  grid-gap: 30px; height: auto;
+  // margin-left: 100px;
   padding-top: 70px; padding-bottom: 100px;
   overflow: scroll;
   .card-wrp {
-    display: inline-block;
-    width: 300px; height: 280px;
-    margin-top: 38px; margin-left: 30px;
+    // display: inline-block;
+    // width: 300px; height: 280px;
+    // margin-top: 38px; margin-left: 30px;
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
     border-radius: 16px;
     &.selected {
       border: 2px solid #3E82F1;
+    }
+  }
+  @include mobile {
+    width: 500px;
+    grid-template-columns: repeat(1,324px);
+    .card-wrp {
+      width: 324px; height: 280px;
+    }
+  }
+  @include tablet {
+    width: 800px; 
+    grid-template-columns: repeat(2,324px);
+    .card-wrp {
+      width: 324px; height: 280px;
+    }
+  }
+  @include desktop {
+    width: 1036px; 
+    grid-template-columns: repeat(3,324px);
+    .card-wrp {
+      width: 324px; height: 280px;
+    }
+  }
+  @include screen {
+    width: 1400px;
+    grid-template-columns: repeat(4,324px);
+    .card-wrp {
+      width: 324px; height: 280px;
     }
   }
 }
