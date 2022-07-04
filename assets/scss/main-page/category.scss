@@ -1,5 +1,6 @@
+@import '@/assets/scss/util.scss';
+
 #Category {
-  width: 356px;
   margin-top: 111px;
   // margin-left: 2vw;
   .category {
@@ -36,5 +37,17 @@
     border: 2px solid #3E82F1;
     border-radius: 8px;
     cursor: pointer;
+  }
+  @include mobile {
+    width: 200px;
+  }
+  @include tablet {
+    width: 250px;
+  }
+  @include desktop {
+    width: 300px;
+  }
+  @include screen {
+    width: 356px;
   }
 }

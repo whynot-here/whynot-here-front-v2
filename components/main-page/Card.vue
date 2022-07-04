@@ -1,11 +1,19 @@
 <template>
   <div id="Card">
     <div
-      v-for="(card, idx) in cardList"
+      v-for="(post, idx) in postsList"
       :key="idx"
       class="card-wrp"
     >
-
+      <div>
+        {{ post.title }}
+      </div>
+      <div>
+        {{ post.writer.nickname }}
+      </div>
+      <div>
+        {{ post.content }}
+      </div>
     </div>
   </div>
 </template>
@@ -15,11 +23,19 @@ export default {
   name: 'WhynotCard',
   components: {
   },
+  props: {
+    postsList: {
+      type: Object,
+      default: null
+    }
+  },
   data () {
     return {
-      cardList: [
-        1,2,3,4,5,6,7,8
-      ]
+    }
+  },
+  computed: {
+    postsListProc () {
+      return 1
     }
   },
   methods: {

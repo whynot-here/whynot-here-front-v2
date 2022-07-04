@@ -5,7 +5,9 @@
     />
     <div class="panel">
       <Category />
-      <Card />
+      <Card
+        :posts-list="postsList"
+      />
     </div>
     <!-- <div>
       <h1>
@@ -39,6 +41,7 @@ export default {
   },
   data () {
     return {
+      postsList:[]
     }
   },
   mounted () {
@@ -48,7 +51,9 @@ export default {
     getPosts () {
       this.$axios.get('/v1/posts')
       .then(res => {
-        console.log(res)
+        res.data.map((res) => {
+          return this.postsList.push(res)
+        })
       })
     }
   }

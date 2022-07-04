@@ -12,10 +12,15 @@
     // margin-top: 38px; margin-left: 30px;
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
+    border: 2px solid #FFFFFF;
     border-radius: 16px;
-    &.selected {
-      border: 2px solid #3E82F1;
-    }
+    cursor: pointer;
+    // &.selected {
+    //   border: 2px solid #3E82F1;
+    // }
+  }
+  .card-wrp:hover {
+    border: 2px solid #3E82F1;
   }
   @include mobile {
     width: 500px;
@@ -33,9 +38,9 @@
   }
   @include desktop {
     width: 1036px; 
-    grid-template-columns: repeat(3,324px);
+    grid-template-columns: repeat(3,310px);
     .card-wrp {
-      width: 324px; height: 280px;
+      width: 310px; height: 280px;
     }
   }
   @include screen {
