@@ -38,7 +38,7 @@ export default {
   ],
   auth: {
     redirect: {
-      callback: '/redirect-login',
+      callback: '/oauth/redirect',
       logout: '/signed-out'
     },
     strategies: {
@@ -96,7 +96,6 @@ export default {
   },
   
   router: {
-    // middleware: ['auth']
   },
 
   axios: {

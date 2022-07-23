@@ -45,17 +45,24 @@ export default {
     }
   },
   mounted () {
-    this.getPosts()
+    // this.getPosts()
   },
   methods: {
-    getPosts () {
-      this.$axios.get('/v1/posts')
-      .then(res => {
-        res.data.map((res) => {
-          return this.postsList.push(res)
-        })
-      })
-    }
+  //   getPosts () {(
+  //     this.$axios.get('/api/v2/posts'),
+  //     {
+  //       withCredentials: true,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer asdfadsfasdfsdfasf`
+  //       }
+  //     }
+  //   ).then(res => {
+  //       res.data.map((res) => {
+  //         return this.postsList.push(res)
+  //       })
+  //     })
+  //   }
   }
 }
 </script>
