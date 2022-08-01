@@ -62,7 +62,7 @@ export default {
         } else {
           post.content_light = post.content
         }
-        console.log(post.jobs[2])
+        // console.log(post.jobs[2])
         return post
       })
     }

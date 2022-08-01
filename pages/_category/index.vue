@@ -45,9 +45,17 @@ export default {
     }
   },
   mounted () {
-    // this.getPosts()
+    this.getPosts()
   },
   methods: {
+    getPosts () {
+      this.$axios.get('https://whynot-here.o-r.kr/v1/posts')
+      .then(res => {
+        res.data.map((res) => {
+          return this.postsList.push(res)
+        })
+      })
+    }
   //   getPosts () {(
   //     this.$axios.get('/api/v2/posts'),
   //     {

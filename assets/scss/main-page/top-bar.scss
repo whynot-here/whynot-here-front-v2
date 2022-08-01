@@ -5,6 +5,7 @@
     width: 100vw; height: 50px;
     .topbar {
       display: flex;
+      background-color: #FAFAFA;
       .logo-left {
         padding: 32px 12px 32px 10vw;
         font-size: .75rem; font-weight: 500;
@@ -31,11 +32,36 @@
         color: #391B1B;
         cursor: pointer;
       }
+      .logined {
+        padding-top: 31px; margin-right: 32px;
+        font-size: .94rem; font-weight: 700;
+        color: #391B1B;
+      }
       .profile {
         padding-top: 24px; padding-right: 10vw;
         img {
           width: 32px;
           height: 32px;
+          border: 2px solid #aaa;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+        .open-account {
+          position: absolute;
+          right: 11px;
+          width: 260px;
+          height: 249px;
+          border-radius: 15px;
+          box-shadow: 10px 20px 20px hsl(230deg 4% 8% / 30%);
+          background: hsl(230,6%,18%);
+          .sub-menu-wrp {
+            position: relative;
+            color: hsl(230,4%,90%);
+            .sub-menu {
+              padding: 10px 20px;
+              height: 30px;
+            }
+          }
         }
       }
     }
@@ -49,6 +75,7 @@
       display: flex;
       width: 90vw;
       margin: 0 auto;
+      background-color: #FAFAFA;
       .logo-left {
         padding: 32px 12px 32px 0;
         font-size: .75rem; font-weight: 500;
@@ -75,11 +102,36 @@
         color: #391B1B;
         cursor: pointer;
       }
+      .logined {
+        padding-top: 31px; margin-right: 32px;
+        font-size: .94rem; font-weight: 700;
+        color: #391B1B;
+      }
       .profile {
         padding-top: 24px;
         img {
           width: 32px;
           height: 32px;
+          border: 2px solid #aaa;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+        .open-account {
+          position: absolute;
+          right: 11px;
+          width: 260px;
+          height: 249px;
+          border-radius: 15px;
+          box-shadow: 10px 20px 20px hsl(230deg 4% 8% / 30%);
+          background: hsl(230,6%,18%);
+          .sub-menu-wrp {
+            position: relative;
+            color: hsl(230,4%,90%);
+            .sub-menu {
+              padding: 10px 20px;
+              height: 30px;
+            }
+          }
         }
       }
     }
@@ -94,6 +146,7 @@
       display: flex;
       width: 90vw;
       margin: 0 auto;
+      background-color: #FAFAFA;
       .logo-left {
         padding: 32px 12px 32px 0;
         font-size: .75rem; font-weight: 500;
@@ -120,11 +173,36 @@
         color: #391B1B;
         cursor: pointer;
       }
+      .logined {
+        padding-top: 31px; margin-right: 32px;
+        font-size: .94rem; font-weight: 700;
+        color: #391B1B;
+      }
       .profile {
         padding-top: 24px;
         img {
           width: 32px;
           height: 32px;
+          border: 2px solid #aaa;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+        .open-account {
+          position: absolute;
+          right: 11px;
+          width: 260px;
+          height: 249px;
+          border-radius: 15px;
+          box-shadow: 10px 20px 20px hsl(230deg 4% 8% / 30%);
+          background: hsl(230,6%,18%);
+          .sub-menu-wrp {
+            position: relative;
+            color: hsl(230,4%,90%);
+            .sub-menu {
+              padding: 10px 20px;
+              height: 30px;
+            }
+          }
         }
       }
     }

@@ -20,7 +20,14 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    '~/plugins/mixins/common.js',
+    '~/plugins/main.js',
+    '~/plugins/vue-cookies.js',
+    {
+      src: '~plugins/persistedState.js',
+    }
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -33,69 +40,36 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/axios'
+    // '@nuxtjs/auth-next'
   ],
-  auth: {
-    redirect: {
-      callback: '/oauth/redirect',
-      logout: '/signed-out'
-    },
-    strategies: {
-      google: {
-        clientId: '233320917463-3dse7qmlpfpq0b2ph6lcfjvt1esbijtm.apps.googleusercontent.com',
-        codeChallengeMethod: '',
-        responseType: 'token id_token',
-        token: {
-          property: 'access_token',
-          type: 'Bearer',
-          maxAge: 1800
-        },
-        refreshToken: {
-          property: 'refresh_token',
-          maxAge: 60 * 60 * 24 * 30
-        },
-        // responseType: 'code',
-        scope: ['openid', 'profile', 'email'],
-        // endpoints: {
-        //   token: undefined,
-        //   userInfo: 'https://www.googleapis.com/oauth2/v3/userinfo',
-        // },
-      }
-      // social: {
-      //   scheme: 'oauth2',
-      //   endpoints: {
-      //     authorization: 'https://accounts.google.com/o/oauth2/auth',
-      //     token: undefined,
-      //     userInfo: 'https://www.googleapis.com/oauth2/v3/userinfo',
-      //     logout: 'https://example.com/logout'
-      //   },
-      //   token: {
-      //     property: 'access_token',
-      //     type: 'Bearer',
-      //     maxAge: 1800
-      //   },
-      //   refreshToken: {
-      //     property: 'refresh_token',
-      //     maxAge: 60 * 60 * 24 * 30
-      //   },
-      //   responseType: 'token',
-      //   grantType: 'authorization_code',
-      //   accessType: undefined,
-      //   redirectUri: '/callback',
-      //   logoutRedirectUri: '/logout',
-      //   clientId: 'SET_ME',
-      //   scope: ['openid', 'profile', 'email'],
-      //   state: 'UNIQUE_AND_NON_GUESSABLE',
-      //   codeChallengeMethod: '',
-      //   responseMode: '',
-      //   acrValues: '',
-      //   // autoLogout: false
-      // }
-    }
-  },
+  // nuxt auth 모듈을 사용할 때. 지금은 사용하지 않고 api 서버에서 처리
+  // auth: {
+  //   redirect: {
+  //     callback: '/oauth/redirect',
+  //     logout: '/signed-out'
+  //   },
+  //   strategies: {
+  //     google: {
+  //       clientId: '233320917463-3dse7qmlpfpq0b2ph6lcfjvt1esbijtm.apps.googleusercontent.com',
+  //       codeChallengeMethod: '',
+  //       responseType: 'token id_token',
+  //       token: {
+  //         property: 'access_token',
+  //         type: 'Bearer',
+  //         maxAge: 1800
+  //       },
+  //       refreshToken: {
+  //         property: 'refresh_token',
+  //         maxAge: 60 * 60 * 24 * 30
+  //       },
+  //       scope: ['openid', 'profile', 'email'],
+  //     }
+  //   }
+  // },
   
   router: {
+    middleware: 'auth'
   },
 
   axios: {
