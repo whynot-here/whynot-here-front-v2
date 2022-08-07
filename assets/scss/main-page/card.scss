@@ -1,97 +1,107 @@
 @import '@/assets/scss/util.scss';
 
 #Card {
-  display: grid;
-  grid-gap: 30px; height: auto;
-  // margin-left: 100px;
-  padding-top: 70px; padding-bottom: 100px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  .card-wrp {
-    // display: inline-block;
-    // width: 300px; height: 280px;
-    // margin-top: 38px; margin-left: 30px;
-    padding: 24px;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
-    border: 2px solid #FFFFFF;
-    border-radius: 16px;
-    cursor: pointer;
-    // &.selected {
-    //   border: 2px solid #3E82F1;
-    // }
-    .card-top {
-      display: flex;
-      height: 60px;
-      .card-title {
-        flex-grow: 1;
-        line-height: 2rem;
-        margin-top: -30px;
-        white-space: pre-line;
-        font-size: 1.38rem; font-weight: 700;
+  flex-grow: 1;
+  .cards-wrp {
+    display: grid;
+    grid-gap: 30px;
+    padding-top: 70px; padding-bottom: 100px;
+    width: 890px; margin: 0 auto;
+    .card-wrp {
+      // display: inline-block;
+      // width: 300px; height: 280px;
+      // margin-top: 38px; margin-left: 30px;
+      width: 230px; height: 230px;
+      padding: 20px;
+      background: #FFFFFF;
+      box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
+      border: 2px solid #FFFFFF;
+      border-radius: 16px;
+      cursor: pointer;
+      // &.selected {
+      //   border: 2px solid #3E82F1;
+      // }
+      .card-top {
+        display: flex;
+        height: 60px;
+        .card-title {
+          flex-grow: 1;
+          line-height: 2rem;
+          margin-top: -30px;
+          white-space: pre-line;
+          font-size: 1.13rem; font-weight: 500;
+        }
+        .book-mark {
+          img {
+            width: 16px; height: 22px;
+          }
+        }
       }
-      .book-mark {
-        img {
-          width: 16px; height: 22px;
+      .card-middle {
+        color: #737373;
+        .line-01 {
+          height: 62px; line-height: 62px;
+          font-size: 1rem; font-weight: 500;
+          border-bottom: 1px solid #E7E7E7;
+        }
+        .line-02 {
+          height: 75px;
+          padding-top: 16px;
+        }
+      }
+      .card-bottom {
+        display: grid;
+        grid-gap: 9px;
+        grid-template-columns: repeat(3,85px);
+        .role {
+          width: 85px; height: 33px; line-height: 33px;
+          // padding: 0 12px;
+          background: #FFFFFF;
+          border: 1px solid #E7E7E7;
+          border-radius: 6px;
+          font-size: .88rem;
+          text-align: center;
         }
       }
     }
-    .card-middle {
-      color: #737373;
-      .line-01 {
-        height: 62px; line-height: 62px;
-        font-size: 1rem; font-weight: 500;
-        border-bottom: 1px solid #E7E7E7;
-      }
-      .line-02 {
-        height: 75px;
-        padding-top: 16px;
-      }
+    .card-wrp:hover {
+      border: 2px solid #3E82F1;
     }
-    .card-bottom {
-      display: grid;
-      grid-gap: 9px;
-      grid-template-columns: repeat(3,85px);
-      .role {
-        width: 85px; height: 33px; line-height: 33px;
-        // padding: 0 12px;
-        background: #FFFFFF;
-        border: 1px solid #E7E7E7;
-        border-radius: 6px;
-        font-size: .88rem;
-        text-align: center;
+    @include mobile {
+      width: 500px;
+      grid-template-columns: repeat(1,324px);
+      .cards-wrp {
+        .card-wrp {
+          width: 276px; height: 252px;
+        } 
       }
     }
-  }
-  .card-wrp:hover {
-    border: 2px solid #3E82F1;
-  }
-  @include mobile {
-    width: 500px;
-    grid-template-columns: repeat(1,324px);
-    .card-wrp {
-      width: 276px; height: 252px;
+    @include tablet {
+      width: 800px; 
+      grid-template-columns: repeat(2,324px);
+      .cards-wrp {
+        .card-wrp {
+          width: 276px; height: 252px;
+        } 
+      }
     }
-  }
-  @include tablet {
-    width: 800px; 
-    grid-template-columns: repeat(2,324px);
-    .card-wrp {
-      width: 276px; height: 252px;
+    @include desktop {
+      // width: 890px; 
+      grid-template-columns: repeat(3,270px);
+      .cards-wrp {
+        .card-wrp {
+          width: 230px; height: 230px;
+        } 
+      }
     }
-  }
-  @include desktop {
-    width: 1036px; 
-    grid-template-columns: repeat(3,310px);
-    .card-wrp {
-      width: 276px; height: 252px;
-    }
-  }
-  @include screen {
-    width: 1400px;
-    grid-template-columns: repeat(4,324px);
-    .card-wrp {
-      width: 276px; height: 252px;
+    @include screen {
+      // width: 890px;
+      grid-template-columns: repeat(3,270px);
+      .cards-wrp {
+        .card-wrp {
+          width: 230px; height: 230px;
+        } 
+      }
     }
   }
 }

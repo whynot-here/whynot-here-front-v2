@@ -9,16 +9,6 @@
         :posts-list="postsList"
       />
     </div>
-    <!-- <div>
-      <h1>
-        👋 난 {{ category }} 카테고리야 여기에 카드들이 들어가지
-      </h1>
-    </div>
-    <nuxt-link style="text-decoration: none; color: #1e1e1e;" :to="`/${category}/posts/${1}`">
-      <h2>
-        😉 난 카드야 1번 포스팅 보러갈래?
-      </h2>
-    </nuxt-link> -->
   </div>
 </template>
 
@@ -35,6 +25,8 @@ export default {
     Card
   },
   asyncData({ params }) {
+    console.log('hihi')
+    console.log(params)
     return {
       category: params.category
     }
@@ -78,7 +70,8 @@ export default {
 <style lang="scss" scoped>
 #CategoryPage {
   width: 100vw; height: 100vh;
-  overflow: scroll;
+  // overflow: hidden;
+  // overflow: scroll;
   background: #FAFAFA;
   #TopBar {
     position: sticky;
@@ -87,12 +80,18 @@ export default {
   }
   .panel {
     display: flex;
-    width: max-content;
+    width: 100vw; 
+    height: calc(100vh - 80px);
+    overflow: scroll;
     margin: 0 auto;
+    // width: max-content;
+    // width: 100vw;
+    // margin: 0 auto;
     #Category {
+      width: 300px;
       position: sticky;
-      top: 15vh;
-      height: max-content;
+      top: 0px;
+      // height: max-content;
     }
   }
 }

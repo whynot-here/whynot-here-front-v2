@@ -1,34 +1,36 @@
 <template>
   <div id="Card">
-    <div
-      v-for="(post, idx) in postsListProc"
-      :key="idx"
-      class="card-wrp"
-    >
-      <nuxt-link style="text-decoration: none; color: #181818" :to="`/project/posts/${idx}`">
-        <div class="card-top">
-          <div class="card-title">
-            {{ post.br_title }}
+    <div class="cards-wrp">
+      <div
+        v-for="(post, idx) in postsListProc"
+        :key="idx"
+        class="card-wrp"
+      >
+        <nuxt-link style="text-decoration: none; color: #181818" :to="`/project/posts/${idx}`">
+          <div class="card-top">
+            <div class="card-title">
+              {{ post.br_title }}
+            </div>
+            <div class="book-mark" @click="post.selected = !post.selected">
+              <img v-if="!post.selected" src="@/assets/img/category/bookmark.png" alt="">
+              <img v-if="post.selected" src="@/assets/img/category/bookmark-selected.png" alt="">
+            </div>
           </div>
-          <div class="book-mark" @click="post.selected = !post.selected">
-            <img v-if="!post.selected" src="@/assets/img/category/bookmark.png" alt="">
-            <img v-if="post.selected" src="@/assets/img/category/bookmark-selected.png" alt="">
+          <div class="card-middle">
+            <div class="line-01">
+              {{ post.writer.nickname }}
+            </div>
+            <div class="line-02">
+              {{ post.content_light }}
+            </div>
           </div>
-        </div>
-        <div class="card-middle">
-          <div class="line-01">
-            {{ post.writer.nickname }}
-          </div>
-          <div class="line-02">
-            {{ post.content_light }}
-          </div>
-        </div>
-        <div class="card-bottom">
-          <div v-if="post.jobs[0] !== undefined" class="role">📝 기획자</div>
-          <div v-if="post.jobs[1] !== undefined" class="role">🖌 디자이너</div>
-          <div v-if="post.jobs[2] !== undefined" class="role">⚙️ 개발자</div>
-        </div>
-      </nuxt-link>
+          <!-- <div class="card-bottom">
+            <div v-if="post.jobs[0] !== undefined" class="role">📝 기획자</div>
+            <div v-if="post.jobs[1] !== undefined" class="role">🖌 디자이너</div>
+            <div v-if="post.jobs[2] !== undefined" class="role">⚙️ 개발자</div>
+          </div> -->
+        </nuxt-link>
+      </div>
     </div>
   </div>
 </template>

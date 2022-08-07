@@ -1,8 +1,10 @@
 
-export default function ({ route, store, redirect }) {
+export default function ({ params, route, store, redirect }) {
     
   const exceptPath = [
-    '/project'
+    '/gather',
+    `/gather/study`,
+    `/gather/${params.category}`
   ]
   // let token = ''
   // token = window.$cookies.get('token')
@@ -13,7 +15,7 @@ export default function ({ route, store, redirect }) {
   // console.log(store.state.userInfo.initLoginDone)
   if (!route.query.accessToken && !exceptPath.includes(route.path) && !store.state.userInfo.initLoginDone) {
     // console.log('?????')
-    return redirect('/project')
+    return redirect('/gather/study')
   }
 
   // if (!exceptPath.includes(route.path) && token && store ) {

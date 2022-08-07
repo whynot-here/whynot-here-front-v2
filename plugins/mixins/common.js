@@ -21,8 +21,7 @@ const common = {
     },
     cmn_getUserInfo (accessToken) {
       (this.$axios.get(
-        // ('https://whynot-here.o-r.kr/v2/account/info'),
-        ('http://localhost:9000/v2/account/info'),
+        ('https://whynot-here.o-r.kr/v2/account/info'),
         {
           withCredentials: true,
           headers: {
@@ -37,7 +36,7 @@ const common = {
         this.$store.commit('userInfo/setDetail', { info: res.data })
         this.cmn_setCookie('token', accessToken, 8760)
 
-        this.$router.push('/project')
+        this.$router.push('/gather/study')
       })
     },
     cmn_logout () {
