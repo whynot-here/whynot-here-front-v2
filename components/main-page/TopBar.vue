@@ -8,13 +8,13 @@
         <img src="@/assets/img/common/whynot-here-logo.png" alt="">
       </div>
       <div class="search"></div>
-      <nuxt-link :to="`/posting`">
+      <!-- <nuxt-link :to="`/posting`">
         <div
           class="posting-btn"
         >
           글쓰기
         </div>
-      </nuxt-link>
+      </nuxt-link> -->
       <div
         v-if="!$store.state.userInfo.initLoginDone"
         class="login"
@@ -60,7 +60,7 @@ export default {
   components: {
     LoginPopup
   },
-  props:{
+  props: {
     category: {
       type: String,
       default: ''
@@ -75,7 +75,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$store.state.userInfo.detail)
     this.profileImg = this.$store.state.userInfo.detail.profileImg
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
   },

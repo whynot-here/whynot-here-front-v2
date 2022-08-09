@@ -4,13 +4,31 @@
       <div class="posting-btn">
         📝 글쓰기
       </div>
+      <div class="sub-menu-wrp">
+        <div class="menu">
+          <div>
+            ⭐️ My 모임
+          </div>
+          <div>
+            <img src="@/assets/img/category/right-arrow.png" alt="">
+          </div>
+        </div>
+        <div class="menu">
+          <div>
+            🔖 북마크
+          </div>
+          <div>
+            <img src="@/assets/img/category/right-arrow.png" alt="">
+          </div>
+        </div>
+      </div>
       <div
-        v-for="(cat, idx) in category"
+        v-for="(cat, idx) in categoryGroup"
         :key="idx"
         class="category-wrp"
       >
         <div
-          class="title"
+          :class="cat.type === selectedCategory ? 'title selected' : 'title'"
           @click="selectCategory({ type: cat.type })"
         >
           {{ cat.title }}
@@ -18,7 +36,7 @@
         <div
           v-for="(sub, sIdx) in cat.subCategory"
           :key="sIdx"
-          :class="selectedSubCategory === 'sideProject' ? 'sub-title selected' : 'sub-title'"
+          :class="sub.type === selectedSubCategory ? 'sub-title selected' : 'sub-title'"
           @click="selectSubCategory({ type: cat.type, subType: sub.type })"
         >
           {{ sub.title }}
@@ -33,11 +51,21 @@ export default {
   name: 'WhynotCategory',
   components: {
   },
+  props: {
+    category: {
+      type: String,
+      default: ''
+    },
+    subCategory: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
-      selectedCategory: 'study',
+      selectedCategory: '',
       selectedSubCategory: '',
-      category: [
+      categoryGroup: [
         {
           title: '📂 스터디',
           type: 'study',
@@ -56,7 +84,7 @@ export default {
             },
             {
               title: '그 외',
-              type: 'etc'
+              type: 'study-etc'
             }
           ]
         },
@@ -86,7 +114,7 @@ export default {
             },
             {
               title: '그 외',
-              type: 'etc'
+              type: 'amity-etc'
             }
           ]
         },
@@ -104,7 +132,7 @@ export default {
             },
             {
               title: '그 외',
-              type: 'etc'
+              type: 'transportation-etc'
             }
           ]
         },
@@ -122,7 +150,7 @@ export default {
             },
             {
               title: '그 외',
-              type: 'etc'
+              type: 'selling-etc'
             }
           ]
         },
@@ -140,7 +168,7 @@ export default {
             },
             {
               title: '그 외',
-              type: 'etc'
+              type: 'exercise-etc'
             }
           ]
         },
@@ -158,7 +186,7 @@ export default {
             },
             {
               title: '그 외',
-              type: 'etc'
+              type: 'part-time-etc'
             }
           ]
         },
@@ -176,7 +204,7 @@ export default {
             },
             {
               title: '그 외',
-              type: 'etc'
+              type: 'game-etc'
             }
           ]
         },
@@ -190,7 +218,7 @@ export default {
             },
             {
               title: '그 외',
-              type: 'etc'
+              type: 'faith-etc'
             }
           ]
         },
@@ -208,12 +236,16 @@ export default {
             },
             {
               title: '그 외',
-              type: 'etc'
+              type: 'buying-etc'
             }
           ]
         },
       ]
     }
+  },
+  mounted () {
+    this.selectedCategory = this.category
+    this.selectedSubCategory = this.subCategory
   },
   methods: {
     selectCategory ({ type }) {
@@ -222,8 +254,6 @@ export default {
       this.$router.push(`/gather/${type}`)
     },
     selectSubCategory ({ type, subType }) {
-      console.log(type)
-      console.log(subType)
       this.selectedCategory = type
       this.selectedSubCategory = subType
       // this.$router.push({ path: `/${this.selectedCategory}`, params: { sub: `${type}` } })

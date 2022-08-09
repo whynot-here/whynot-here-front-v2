@@ -9,7 +9,6 @@ export default ({ store, req }) => {
       getItem: (key) => {
         // See https://nuxtjs.org/guide/plugins/#using-process-flags
         if (process.server) {
-          console.log(req.headers.cookie);
           const parsedCookies = cookie.parse(req.headers.cookie ?? "");
           return parsedCookies[key];
         } else {

@@ -16,10 +16,15 @@
     margin: 0 auto;
     height: calc(100vh - 80px); overflow: scroll;
     .title {
-      padding-top: 20px;
-      height: 35px; line-height: 35px;
+      // padding-top: 20px;
+      margin: 20px 0px 15px 0px;
+      padding-left: 10px;
+      height: 20px; line-height: 20px;
       font-size: 1rem; font-weight: 700;
       cursor: pointer;
+      &.selected {
+        border-left: 2px solid #3E82F1;
+      }
     }
     .sub-title {
       height: 33px; line-height: 33px;
@@ -48,6 +53,22 @@
     border: 2px solid #3E82F1;
     border-radius: 8px;
     cursor: pointer;
+  }
+  .sub-menu-wrp {
+    height: 79px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #E7E7E7;
+    .menu {
+      display: flex;
+      height: 38px; line-height: 38px;
+      font-size: 1rem; font-weight: 500;
+      div:first-child {
+        flex-grow: 1;
+      }
+      div > img {
+        width: 6px; height: 12px;
+      }
+    }
   }
   @include mobile {
     width: 170px;

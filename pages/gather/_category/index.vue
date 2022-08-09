@@ -4,7 +4,10 @@
       :category="category"
     />
     <div class="panel">
-      <Category />
+      <Category
+        :category="category"
+        :sub-category="subCategory"
+      />
       <Card
         :posts-list="postsList"
       />
@@ -24,11 +27,10 @@ export default {
     Category,
     Card
   },
-  asyncData({ params }) {
-    console.log('hihi')
-    console.log(params)
+  asyncData({ params, route }) {
     return {
-      category: params.category
+      category: params.category,
+      subCategory: route.query.sub
     }
   },
   data () {
