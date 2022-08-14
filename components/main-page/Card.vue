@@ -2,14 +2,19 @@
   <div id="Card">
     <div class="cards-wrp">
       <div
-        v-for="(post, idx) in postsListProc"
+        v-for="(post, idx) in postsProc"
         :key="idx"
         class="card-wrp"
       >
         <nuxt-link style="text-decoration: none; color: #181818" :to="`/project/posts/${idx}`">
           <div class="card-top">
-            <div class="card-title">
-              {{ post.br_title }}
+            <div class="writer-title-wrp">
+              <div class="writer">
+                {{ post.writer.nickname }}
+              </div>
+              <div class="card-title">
+                {{ post.title_short }}
+              </div>
             </div>
             <div class="book-mark" @click="post.selected = !post.selected">
               <img v-if="!post.selected" src="@/assets/img/category/bookmark.png" alt="">
@@ -17,18 +22,16 @@
             </div>
           </div>
           <div class="card-middle">
-            <div class="line-01">
-              {{ post.writer.nickname }}
-            </div>
-            <div class="line-02">
+            <div class="content">
               {{ post.content_light }}
             </div>
           </div>
-          <!-- <div class="card-bottom">
-            <div v-if="post.jobs[0] !== undefined" class="role">📝 기획자</div>
-            <div v-if="post.jobs[1] !== undefined" class="role">🖌 디자이너</div>
-            <div v-if="post.jobs[2] !== undefined" class="role">⚙️ 개발자</div>
-          </div> -->
+          <div class="card-bottom">
+            <div />
+            <div class="gather-d-day">
+              마감 D-8
+            </div>
+          </div>
         </nuxt-link>
       </div>
     </div>
@@ -41,7 +44,7 @@ export default {
   components: {
   },
   props: {
-    postsList: {
+    posts: {
       type: Array,
       default: null
     }
@@ -51,16 +54,16 @@ export default {
     }
   },
   computed: {
-    postsListProc () {
-      return this.postsList.map((post) => {
+    postsProc () {
+      return this.posts.map((post) => {
         if (post.title.length > 16) {
-          post.br_title = post.title.split(' ', 3).join(' ') + '\n' + post.title.split(' ').slice(3)
+          post.title_short = post.title.substr(0, 20) + '...'
         } else {
-          post.br_title = post.title
+          post.title_short = post.title
         }
         post.selected = false
-        if (post.content.length > 40) {
-          post.content_light = post.content.substr(0, 40) + '...'
+        if (post.content.length > 30) {
+          post.content_light = post.content.substr(0, 30) + '...'
         } else {
           post.content_light = post.content
         }

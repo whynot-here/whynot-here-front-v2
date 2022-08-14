@@ -9,7 +9,7 @@
         :sub-category="subCategory"
       />
       <Card
-        :posts-list="postsList"
+        :posts="posts"
       />
     </div>
   </div>
@@ -35,7 +35,7 @@ export default {
   },
   data () {
     return {
-      postsList:[]
+      posts:[]
     }
   },
   mounted () {
@@ -46,7 +46,7 @@ export default {
       this.$axios.get('https://whynot-here.o-r.kr/v1/posts')
       .then(res => {
         res.data.map((res) => {
-          return this.postsList.push(res)
+          return this.posts.push(res)
         })
       })
     }
