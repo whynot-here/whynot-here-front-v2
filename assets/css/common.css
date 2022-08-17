@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  font-family: 'Pretendard', Helvetica, Arial;
+  font-family: 'Noto Sans KR', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0px;

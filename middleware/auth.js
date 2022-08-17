@@ -9,6 +9,13 @@ export default function ({ params, route, store, redirect }) {
   // token = window.$cookies.get('token')
 
   if (!route.query.accessToken && !exceptPath.includes(route.path) && !store.state.userInfo.initLoginDone) {
-    return redirect('/gather/study')
+    console.log('hi')
+    return redirect({
+      name: 'gather-category',
+      params: {
+        category: 'study'
+      }
+    })
+    // return redirect('/gather/study')
   }
 }

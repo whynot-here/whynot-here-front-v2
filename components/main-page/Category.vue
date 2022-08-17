@@ -1,8 +1,10 @@
 <template>
   <div id="Category">
     <section class="category">
-      <div class="posting-btn">
-        📝 글쓰기
+      <div @click="checkLogin()">
+        <div class="posting-btn">
+          📝 글쓰기
+        </div>
       </div>
       <div class="sub-menu-wrp">
         <div class="menu">
@@ -258,6 +260,14 @@ export default {
       this.selectedSubCategory = subType
       // this.$router.push({ path: `/${this.selectedCategory}`, params: { sub: `${type}` } })
       this.$router.push(`/gather/${this.selectedCategory}?sub=${this.selectedSubCategory}`)
+    },
+    checkLogin() {
+      console.log('hihi')
+      if (!this.$store.state.userInfo.initLoginDone) {
+        this.$emit('setLoginPopupOpen', {})
+      } else {
+        this.$router.push('/posting')
+      }
     }
   }
 }

@@ -1,15 +1,20 @@
 <template>
   <div id="CategoryPage">
     <TopBar
+      ref="TopBar"
       :category="category"
     />
     <div class="panel">
       <Category
         :category="category"
         :sub-category="subCategory"
+        @sendCategory="sendCategory"
+        @setLoginPopupOpen="setLoginPopupOpen"
       />
       <Card
         :posts="posts"
+        :category-title="categoryTitle"
+        :sub-category-title="subCategoryTitle"
       />
     </div>
   </div>
@@ -27,21 +32,30 @@ export default {
     Category,
     Card
   },
-  asyncData({ params, route }) {
+  asyncData({ params, route, redirect }) {
+    console.log(params)
     return {
       category: params.category,
-      subCategory: route.query.sub
+      subCategory: route.query.sub,
+      needLogin: params.needLogin
     }
   },
   data () {
     return {
-      posts:[]
+      posts:[],
+      categoryTitle: '',
+      subCategoryTitle: '',
+      loginPopupOpen: false
     }
   },
   mounted () {
     this.getPosts()
   },
   methods: {
+    sendCategory ({ category, subCategory }) {
+      console.log(category)
+      console.log(subCategory)
+    },
     getPosts () {
       this.$axios.get('https://whynot-here.o-r.kr/v1/posts')
       .then(res => {
@@ -49,6 +63,10 @@ export default {
           return this.posts.push(res)
         })
       })
+    },
+    setLoginPopupOpen () {
+      console.log('hihihi')
+      this.$refs.TopBar.openLoginPopup()
     }
   //   getPosts () {(
   //     this.$axios.get('/api/v2/posts'),

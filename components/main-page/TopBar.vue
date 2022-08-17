@@ -18,7 +18,7 @@
       <div
         v-if="!$store.state.userInfo.initLoginDone"
         class="login"
-        @click="loginPopupOpen = true"
+        @click="openLoginPopup"
       >
         로그인
       </div>
@@ -79,6 +79,9 @@ export default {
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
   },
   methods: {
+    openLoginPopup () {
+      this.loginPopupOpen = true
+    },
     closeLoginPopup () {
       this.loginPopupOpen = false
     },

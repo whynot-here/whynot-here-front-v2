@@ -1,5 +1,8 @@
 <template>
   <div id="Card">
+    <div class="category-wrp">
+
+    </div>
     <div class="cards-wrp">
       <div
         v-for="(post, idx) in postsProc"
