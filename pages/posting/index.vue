@@ -5,33 +5,49 @@
     />
     <div class="panel">
       <section class="info">
-        <div class="title">프로젝트 정보</div>
-        <div class="line">
-          <div class="form-wrp _01">
-            <div class="sub-title">카테고리</div>
-            <select name="" class="sub-wrp">
-              <option value="">사이드 프로젝트</option>
-            </select>
+        <div class="title">📝 글쓰기</div>
+        <div>
+          <div class="sub-title">모집정보</div>
+          <div class="line">
+            <div class="form-wrp _01">
+              <div class="sub-title">카테고리</div>
+              <select name="" class="sub-wrp">
+                <option value="">사이드 프로젝트</option>
+              </select>
+            </div>
+            <div class="form-wrp _01">
+              <div class="sub-title">모집 마감일</div>
+              <select name="" class="sub-wrp">
+              </select>
+            </div>
+            <div class="form-wrp _01">
+              <div class="sub-title">진행방식</div>
+              <div class="sub-wrp">만나서</div>
+            </div>
           </div>
-          <div class="form-wrp _02">
-            <div class="sub-title">모집 인원 수</div>
-            <div class="sub-wrp">개발자</div>
+          <div class="line">
+            <div class="form-wrp _02">
+              <div class="sub-title">모집 인원 수</div>
+              <div class="sub-wrp">개발자</div>
+            </div>
+            <div class="form-wrp _03">
+              <div class="sub-title">연락수단</div>
+              <div class="sub-wrp">수단 선택</div>
+            </div>
           </div>
         </div>
-        <div class="line">
-          <div class="form-wrp _03">
-            <div class="sub-title">연락수단</div>
-            <div class="sub-wrp">수단 선택</div>
-          </div>
-          <div class="form-wrp _03">
-            <div class="sub-title">예상 기간</div>
-            <div class="sub-wrp">YY.MM.DD</div>
-          </div>
-          <div class="form-wrp _01">
-            <div class="sub-title">진행방식</div>
-            <div class="sub-wrp">만나서</div>
+        <div>
+          <div class="sub-title">모집소개</div>
+          <div class="line">
+            <div class="form-wrp">
+              <div class="sub-title">내용</div>
+              <textarea name="introduce" cols="30" rows="10"></textarea>
+            </div>
           </div>
         </div>
+      </section>
+      <section>
+        글 업로드
       </section>
       <!-- <section class="content">
         <div class="title">프로젝트 소개</div>

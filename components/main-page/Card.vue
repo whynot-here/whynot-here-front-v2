@@ -9,7 +9,7 @@
         :key="idx"
         class="card-wrp"
       >
-        <nuxt-link style="text-decoration: none; color: #181818" :to="`/project/posts/${idx}`">
+        <nuxt-link style="text-decoration: none; color: #181818" :to="`/gather/posts/${post.id}`">
           <div class="card-top">
             <div class="writer-title-wrp">
               <div class="writer">
@@ -50,6 +50,14 @@ export default {
     posts: {
       type: Array,
       default: null
+    },
+    category: {
+      type: String,
+      default: ''
+    },
+    subCategory: {
+      type: String,
+      default: ''
     }
   },
   data () {

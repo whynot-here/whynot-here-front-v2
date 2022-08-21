@@ -4,7 +4,7 @@
       <div class="logo-left">
         사람이 모이는 공간
       </div>
-      <div class="logo">
+      <div class="logo" @click="mainPage">
         <img src="@/assets/img/common/whynot-here-logo.png" alt="">
       </div>
       <div class="search"></div>
@@ -79,6 +79,9 @@ export default {
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
   },
   methods: {
+    mainPage () {
+      this.$router.push('/')
+    },
     openLoginPopup () {
       this.loginPopupOpen = true
     },

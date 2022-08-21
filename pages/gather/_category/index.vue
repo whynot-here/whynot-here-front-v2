@@ -13,6 +13,8 @@
       />
       <Card
         :posts="posts"
+        :category="category"
+        :sub-category="subCategory"
         :category-title="categoryTitle"
         :sub-category-title="subCategoryTitle"
       />
@@ -57,7 +59,7 @@ export default {
       console.log(subCategory)
     },
     getPosts () {
-      this.$axios.get('https://whynot-here.o-r.kr/v1/posts')
+      this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
       .then(res => {
         res.data.map((res) => {
           return this.posts.push(res)
