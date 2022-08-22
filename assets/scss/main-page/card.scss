@@ -92,7 +92,7 @@
     }
     @include screen {
       // width: 890px;
-      grid-template-columns: repeat(3,400px);
+      grid-template-columns: repeat(2,400px);
       .cards-wrp {
         .card-wrp {
           width: 360px; height: 114px;

@@ -8,9 +8,9 @@ export default {
   mounted () {
     if (this.$route.query.accessToken) {
       this.cmn_getUserInfo(this.$route.query.accessToken)
-    } else {
-      this.$router.push('/gather/study')
     }
+    this.$router.push('/gather/study')
+    
     // } else if (window.$cookies.get('token') !== null) {
     //   const token = window.$cookies.get('token')
     //   this.cmn_getUserInfo(token)

@@ -2,7 +2,6 @@
   <div id="CategoryPage">
     <TopBar
       ref="TopBar"
-      :category="category"
     />
     <div class="panel">
       <Category

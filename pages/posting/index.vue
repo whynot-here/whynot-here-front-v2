@@ -1,8 +1,6 @@
 <template>
   <div id="PostingPage">
-    <TopBar
-      :category="category"
-    />
+    <TopBar />
     <div class="panel">
       <section class="info">
         <div class="title">📝 글쓰기</div>

@@ -41,6 +41,7 @@
           <div class="sub-menu-wrp">
             <div class="sub-menu">{{ $store.state.userInfo.detail.nickname }}님 안녕하세요!</div>
             <div class="sub-menu" style="cursor:pointer" @click="logout()">👋 로그아웃</div>
+            <div class="sub-menu" style="cursor:pointer" @click="moveMyPage()">👤 마이페이지</div>
           </div>
         </div>
       </div>
@@ -61,10 +62,10 @@ export default {
     LoginPopup
   },
   props: {
-    category: {
-      type: String,
-      default: ''
-    }
+    // category: {
+    //   type: String,
+    //   default: ''
+    // }
   },
   data () {
     return {
@@ -90,6 +91,9 @@ export default {
     },
     toggleAccountPopup () {
       this.openAccount = !this.openAccount
+    },
+    moveMyPage () {
+      this.$router.push('/mypage')
     },
     logout() {
       this.cmn_logout()

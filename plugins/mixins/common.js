@@ -35,8 +35,6 @@ const common = {
         this.$store.commit('userInfo/setInitLoginDone', { loginDone: true })
         this.$store.commit('userInfo/setDetail', { info: res.data })
         this.cmn_setCookie('token', accessToken, 8760)
-
-        this.$router.push('/gather/study')
       })
     },
     cmn_logout () {
