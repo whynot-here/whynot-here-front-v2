@@ -109,7 +109,7 @@ export default {
     // width: 100vw;
     // margin: 0 auto;
     #Category {
-      width: 300px;
+      width: 30%;
       position: sticky;
       top: 0px;
       // height: max-content;
