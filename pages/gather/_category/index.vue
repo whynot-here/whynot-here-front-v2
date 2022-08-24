@@ -7,7 +7,7 @@
       <Category
         :category="category"
         :sub-category="subCategory"
-        @sendCategory="sendCategory"
+        @sendCategoryId="sendCategoryId"
         @setLoginPopupOpen="setLoginPopupOpen"
       />
       <Card
@@ -34,7 +34,6 @@ export default {
     Card
   },
   asyncData({ params, route, redirect }) {
-    console.log(params)
     return {
       category: params.category,
       subCategory: route.query.sub,
@@ -46,44 +45,31 @@ export default {
       posts:[],
       categoryTitle: '',
       subCategoryTitle: '',
-      loginPopupOpen: false
+      loginPopupOpen: false,
+      categoryId: 1
     }
   },
   mounted () {
     this.getPosts()
   },
   methods: {
-    sendCategory ({ category, subCategory }) {
-      console.log(category)
-      console.log(subCategory)
+    sendCategoryId ({ id }) {
+      this.categoryId = id
+      this.getPosts()
     },
     getPosts () {
-      this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
+      // this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
+      this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
       .then(res => {
+        this.posts = []
         res.data.map((res) => {
           return this.posts.push(res)
         })
       })
     },
     setLoginPopupOpen () {
-      console.log('hihihi')
       this.$refs.TopBar.openLoginPopup()
     }
-  //   getPosts () {(
-  //     this.$axios.get('/api/v2/posts'),
-  //     {
-  //       withCredentials: true,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer asdfadsfasdfsdfasf`
-  //       }
-  //     }
-  //   ).then(res => {
-  //       res.data.map((res) => {
-  //         return this.postsList.push(res)
-  //       })
-  //     })
-  //   }
   }
 }
 </script>
@@ -91,8 +77,6 @@ export default {
 <style lang="scss" scoped>
 #CategoryPage {
   width: 100vw; height: 100vh;
-  // overflow: hidden;
-  // overflow: scroll;
   background: #FAFAFA;
   #TopBar {
     position: sticky;
@@ -105,14 +89,10 @@ export default {
     height: calc(100vh - 80px);
     overflow: scroll;
     margin: 0 auto;
-    // width: max-content;
-    // width: 100vw;
-    // margin: 0 auto;
     #Category {
       width: 30%;
       position: sticky;
       top: 0px;
-      // height: max-content;
     }
   }
 }

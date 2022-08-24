@@ -30,18 +30,18 @@
         class="category-wrp"
       >
         <div
-          :class="cat.type === selectedCategory ? 'title selected' : 'title'"
-          @click="selectCategory({ type: cat.type })"
+          :class="cat.parentCode.toLowerCase() === selectedCategory ? 'title selected' : 'title'"
+          @click="selectCategory({ id: cat.parentId, type: cat.parentCode.toLowerCase() })"
         >
-          {{ cat.title }}
+          {{ cat.parentName }}
         </div>
         <div
-          v-for="(sub, sIdx) in cat.subCategory"
+          v-for="(sub, sIdx) in cat.children"
           :key="sIdx"
-          :class="sub.type === selectedSubCategory ? 'sub-title selected' : 'sub-title'"
-          @click="selectSubCategory({ type: cat.type, subType: sub.type })"
+          :class="sub.code.toLowerCase() === selectedSubCategory ? 'sub-title selected' : 'sub-title'"
+          @click="selectSubCategory({ id: sub.id, type: cat.parentCode.toLowerCase(), subType: sub.code.toLowerCase() })"
         >
-          {{ sub.title }}
+          {{ sub.name }}
         </div>
       </div>
     </section>
@@ -66,183 +66,7 @@ export default {
   data () {
     return {
       selectedCategory: '',
-      selectedSubCategory: '',
-      categoryGroup: [
-        {
-          title: '📂 스터디',
-          type: 'study',
-          subCategory: [
-            {
-              title: '프로젝트',
-              type: 'project'
-            },
-            {
-              title: '전공공부',
-              type: 'major'
-            },
-            {
-              title: '리크루팅',
-              type: 'recruit'
-            },
-            {
-              title: '그 외',
-              type: 'study-etc'
-            }
-          ]
-        },
-        {
-          title: '🕺 친목',
-          type: 'amity',
-          subCategory: [
-            {
-              title: '산책',
-              type: 'walk'
-            },
-            {
-              title: '야식 모임',
-              type: 'snack'
-            },
-            {
-              title: '티타임',
-              type: 'tea'
-            },
-            {
-              title: '소개팅',
-              type: 'meeting'
-            },
-            {
-              title: '알코올',
-              type: 'alcohol'
-            },
-            {
-              title: '그 외',
-              type: 'amity-etc'
-            }
-          ]
-        },
-        {
-          title: '🚌 교통수단',
-          type: 'transportation',
-          subCategory: [
-            {
-              title: '카풀',
-              type: 'carpool'
-            },
-            {
-              title: 'KTX 동반석',
-              type: 'ktx'
-            },
-            {
-              title: '그 외',
-              type: 'transportation-etc'
-            }
-          ]
-        },
-        {
-          title: '💰 중고거래',
-          type: 'selling',
-          subCategory: [
-            {
-              title: '양도',
-              type: 'assign'
-            },
-            {
-              title: '전공책',
-              type: 'majorbook'
-            },
-            {
-              title: '그 외',
-              type: 'selling-etc'
-            }
-          ]
-        },
-        {
-          title: '⚽️ 운동',
-          type: 'exercise',
-          subCategory: [
-            {
-              title: '풋살',
-              type: 'putsal'
-            },
-            {
-              title: '탁구',
-              type: 'pingpong'
-            },
-            {
-              title: '그 외',
-              type: 'exercise-etc'
-            }
-          ]
-        },
-        {
-          title: '🧑‍🌾 알바',
-          type: 'part-time',
-          subCategory: [
-            {
-              title: '교내',
-              type: 'oncampus'
-            },
-            {
-              title: '교외',
-              type: 'outcampus'
-            },
-            {
-              title: '그 외',
-              type: 'part-time-etc'
-            }
-          ]
-        },
-        {
-          title: '🎮 게임',
-          type: 'game',
-          subCategory: [
-            {
-              title: '보드게임',
-              type: 'board'
-            },
-            {
-              title: '롤',
-              type: 'lol'
-            },
-            {
-              title: '그 외',
-              type: 'game-etc'
-            }
-          ]
-        },
-        {
-          title: '⛪️ 신앙',
-          type: 'faith',
-          subCategory: [
-            {
-              title: '기도모임',
-              type: 'pray'
-            },
-            {
-              title: '그 외',
-              type: 'faith-etc'
-            }
-          ]
-        },
-        {
-          title: '🧾 공동구매',
-          type: 'buying',
-          subCategory: [
-            {
-              title: '물건',
-              type: 'product'
-            },
-            {
-              title: 'OTT 구독',
-              type: 'OTT'
-            },
-            {
-              title: '그 외',
-              type: 'buying-etc'
-            }
-          ]
-        },
-      ]
+      selectedSubCategory: ''
     }
   },
   mounted () {
@@ -250,12 +74,14 @@ export default {
     this.selectedSubCategory = this.subCategory
   },
   methods: {
-    selectCategory ({ type }) {
+    selectCategory ({ id, type }) {
+      this.$emit('sendCategoryId', { id })
       this.selectedCategory = type
       this.selectedSubCategory = ''
       this.$router.push(`/gather/${type}`)
     },
-    selectSubCategory ({ type, subType }) {
+    selectSubCategory ({ id, type, subType }) {
+      this.$emit('sendCategoryId', { id })
       this.selectedCategory = type
       this.selectedSubCategory = subType
       // this.$router.push({ path: `/${this.selectedCategory}`, params: { sub: `${type}` } })
