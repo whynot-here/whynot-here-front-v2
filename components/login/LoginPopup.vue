@@ -47,9 +47,7 @@ export default {
   methods: {
     googleLogin () {
       // this.$auth.loginWith('google')
-      // location.href = 'https://whynot-here.o-r.kr/auth/login/google?redirect_uri=http://localhost:3000';
-      location.href = 'https://whynot-here.o-r.kr/auth/login/google';
-      // location.href = 'http://localhost:9000/auth/login/google';
+      location.href = `https://whynot-here.o-r.kr/auth/login/google?redirect_uri=http://${this.frontUrl}`;
     },
     kakaoLogin () {
 

@@ -88,7 +88,6 @@ export default {
       this.$router.push(`/gather/${this.selectedCategory}?sub=${this.selectedSubCategory}`)
     },
     checkLogin() {
-      console.log('hihi')
       if (!this.$store.state.userInfo.initLoginDone) {
         this.$emit('setLoginPopupOpen', {})
       } else {

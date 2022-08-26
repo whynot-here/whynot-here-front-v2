@@ -3,6 +3,12 @@ export default {
   generate: {
     fallback: true
   },
+  env: {
+    frontUrl:
+      process.env.NODE_ENV === 'production'
+        ? 'https://why-not-here.netlify.app'
+        : 'http://127.0.0.1:3000'
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'whynot-here-front',
