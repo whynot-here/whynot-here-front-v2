@@ -14,7 +14,10 @@
             </div>
             <div class="form-wrp d-day">
               <div class="sub-title">모집 마감일</div>
-              <div class="sub-wrp"></div>
+              <div class="sub-wrp d-day-input">
+                <div>D&nbsp;-</div>
+                <input>
+              </div>
             </div>
             <div class="form-wrp process">
               <div class="sub-title">진행방식</div>
@@ -30,7 +33,7 @@
           <div class="line">
             <div class="form-wrp people-count">
               <div class="sub-title">모집 인원 수</div>
-              <input class="sub-wrp" placeholder="모집 인원">
+              <input v-model="postingRegisterParams.recruitTotalCnt" class="sub-wrp" placeholder="모집 인원">
             </div>
             <div class="form-wrp call">
               <div class="sub-title">연락수단</div>
@@ -52,6 +55,7 @@
           <div class="line">
             <div class="form-wrp">
               <textarea
+                v-model="postingRegisterParams.content" 
                 class="content"
                 name="introduce"
                 cols="30"
@@ -73,7 +77,7 @@
         </div>
       </section>
       <section>
-        <div class="upload">
+        <div class="upload" @click="postingUpload">
           📄 글 업로드
         </div>
       </section>
@@ -137,7 +141,21 @@ export default {
         {
           value: '줌으로'
         },
-      ]
+      ],
+      postingRegisterParams: {        
+        title: '',
+        content: '',
+        imageLinks: [],
+        categoryId: 0,
+        closedDt: "2022-09-01T06:46:13.688Z",
+        ownerContact: {
+          type: "KAKAO_OPEN_CHAT",
+          value: "string"
+        },
+        recruitTotalCnt: 0,
+        recruitCurrentCnt: 1,
+        communicationTool: "ONLINE"
+      }
     }
   },
   mounted () {
@@ -148,6 +166,49 @@ export default {
     },
     setProcess () {
 
+    },
+    postingUpload() {
+      if (!this.checkRegisterParamsValid()) {
+        return false
+      }
+      (this.$axios.post(
+        ('https://whynot-here.o-r.kr/v2/posts'),
+        this.postingRegisterParams,
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+      )
+      ).then(res => {
+        // 상세 페이지로 넘어가기
+      }).catch((error) => {
+        window.alert(error.response.data.message)
+      })
+    },
+    checkRegisterParamsValid () {
+      // if (this.cmn_emptyCheck(this.postingRegisterParams.title)) {
+      //   window.alert('제목을 입력해주세요.')
+      //   return false
+      // }
+      if (this.cmn_emptyCheck(this.postingRegisterParams.content)) {
+        window.alert('내용을 입력해주세요.')
+        return false
+      }
+      if (this.cmn_emptyCheck(this.postingRegisterParams.closedDt)) {
+        window.alert('모집 마감일을 입력해주세요.')
+        return false
+      }
+      if (this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.value)) {
+        window.alert('연락 수단을 입력해주세요.')
+        return false
+      }
+      if (this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.recruitTotalCnt)) {
+        window.alert('모집 인원수를 입력해주세요.')
+        return false
+      }
     }
   }
 }
@@ -195,6 +256,20 @@ export default {
             background-color: #ffffff;
             border: 1px solid #E7E7E7;
             border-radius: 8px;
+          }
+          .d-day-input {
+            display: flex;
+            div {
+              font-size: .88rem;
+              padding: 0 13px;
+            }
+            input {
+              width: 100px;
+              border: none;
+            }
+            input:focus {
+              outline: none;
+            }
           }
           .content {
             width: 706px; height: 400px;

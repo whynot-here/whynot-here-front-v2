@@ -145,6 +145,7 @@ const common = {
         // document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/;domain=;'
       }
     },
+    
     cmn_getUserInfo(accessToken) {
       this.$axios
         .get('https://whynot-here.o-r.kr/v2/account/info', {
@@ -161,6 +162,16 @@ const common = {
           this.cmn_setCookie('token', accessToken, 8760)
         })
     },
+
+
+    cmn_emptyCheck (t) {
+      if (t) {
+        return String(t).trim().length === 0
+      } else {
+        return true
+      }
+    },
+
     cmn_logout() {
       if (window.confirm('로그아웃 하시겠어요?')) {
         this.$cookies.remove('token')
