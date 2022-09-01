@@ -8,7 +8,7 @@
       </div>
       <div class="sub-menu-wrp">
         <div class="menu">
-          <div>
+          <div @click="moveMyPostingsPage()">
             ⭐️ My 모임
           </div>
           <div>
@@ -74,6 +74,15 @@ export default {
     this.selectedSubCategory = this.subCategory
   },
   methods: {
+    moveMyPostingsPage () {
+      console.log('...')
+      this.$router.push({
+        name: 'gather-category',
+        params: {
+          category: 'mypostings'
+        }
+      })
+    },
     selectCategory ({ id, type }) {
       this.$emit('sendCategoryId', { id })
       this.selectedCategory = type

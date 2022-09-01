@@ -5,6 +5,8 @@
     />
     <div class="panel">
       <Category
+        :is-my-postings="isMyPostings"
+        :is-book-mark="isBookMark"
         :category="category"
         :sub-category="subCategory"
         @sendCategoryId="sendCategoryId"
@@ -34,10 +36,12 @@ export default {
     Card
   },
   asyncData({ params, route, redirect }) {
+    console.log('?')
     return {
       category: params.category,
       subCategory: route.query.sub,
-      needLogin: params.needLogin
+      isMyPostings: params.isMyPostings,
+      isBookMark: params.isBookMark
     }
   },
   data () {
@@ -46,7 +50,9 @@ export default {
       categoryTitle: '',
       subCategoryTitle: '',
       loginPopupOpen: false,
-      categoryId: 1
+      categoryId: 1,
+      isMyPostings: false,
+      isBookMark: false
     }
   },
   mounted () {
@@ -58,14 +64,33 @@ export default {
       this.getPosts()
     },
     getPosts () {
-      // this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
-      this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
-      .then(res => {
-        this.posts = []
-        res.data.map((res) => {
-          return this.posts.push(res)
+      if (this.category === 'mypostings') {
+        this.$axios.get(
+        ('https://whynot-here.o-r.kr/v2/posts/own'),
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+        )
+        .then(res => {
+          this.posts = []
+          res.data.map((res) => {
+            return this.posts.push(res)
+          })
         })
-      })
+      } else {
+        // this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
+        this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
+        .then(res => {
+          this.posts = []
+          res.data.map((res) => {
+            return this.posts.push(res)
+          })
+        })
+      }
     },
     setLoginPopupOpen () {
       this.$refs.TopBar.openLoginPopup()

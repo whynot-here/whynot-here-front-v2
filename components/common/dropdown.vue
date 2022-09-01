@@ -6,7 +6,7 @@
       </button>
       <ul class="option-list">
         <li v-for="(item, idx) in optionList" :key="idx" class="option-item" @click="selectOption(item)">
-          {{ item.value }}
+          {{ item.text }}
         </li>
       </ul>
     </div>
@@ -21,7 +21,7 @@ export default {
       type: String,
       default: ''
     },
-    // [{ value: '',  }] 형식으로 보내주면 됨
+    // [{ text: '',  }] 형식으로 보내주면 됨
     optionList: {
       type: Array,
       default: null
@@ -43,7 +43,7 @@ export default {
       }
     },
     selectOption (item) {
-      document.querySelector(`.${this.label}`).innerHTML = item.value + ''
+      document.querySelector(`.${this.label}`).innerHTML = item.text + ''
       document.querySelector(`.${this.label}`).style.color = '#000'
       document.querySelector(`.${this.label}`).parentNode.classList.remove('active')
       this.$emit('get-label', item)

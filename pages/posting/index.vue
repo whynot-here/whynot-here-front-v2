@@ -16,7 +16,7 @@
               <div class="sub-title">모집 마감일</div>
               <div class="sub-wrp d-day-input">
                 <div>D&nbsp;-</div>
-                <input>
+                <input v-model="d_day" oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');">
               </div>
             </div>
             <div class="form-wrp process">
@@ -25,7 +25,7 @@
                 <DropDown
                   :label="'방식'"
                   :option-list="processList"
-                  @get-label="setProcess"
+                  @get-label="setCommunicationTool"
                 />
               </div>
             </div>
@@ -33,7 +33,12 @@
           <div class="line">
             <div class="form-wrp people-count">
               <div class="sub-title">모집 인원 수</div>
-              <input v-model="postingRegisterParams.recruitTotalCnt" class="sub-wrp" placeholder="모집 인원">
+              <input
+                v-model="recruitTotalCntTxt"
+                class="sub-wrp"
+                placeholder="모집 인원"
+                oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+              >
             </div>
             <div class="form-wrp call">
               <div class="sub-title">연락수단</div>
@@ -42,11 +47,19 @@
                   <DropDown
                     :label="'연락수단'"
                     :option-list="callList"
-                    @get-label="setCall"
+                    @get-label="setOwnerContact"
                   />
                 </div>
-                <input class="call-input" type="text" placeholder="입력">
+                <input v-model="postingRegisterParams.ownerContact.value" class="call-input" type="text" placeholder="입력">
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="group">
+          <div class="posting-group">한줄 소개</div>
+          <div class="line">
+            <div class="form-wrp">
+              <input v-model="postingRegisterParams.title" type="text" style="width: 770px;" class="sub-wrp">
             </div>
           </div>
         </div>
@@ -122,50 +135,59 @@ export default {
     return {
       callList: [
         {
-          value: '이메일'
+          text: '이메일',
+          value: 'EMAIL'
         },
         {
-          value: '카카오톡 오픈채팅'
+          text: '카카오톡 오픈채팅',
+          value: 'KAKAO_OPEN_CHAT'
         },
         {
-          value: '구글폼'
+          text: '구글폼',
+          value: 'GOOGLE_FORM'
         },
         {
-          value: '전화번호'
+          text: '전화번호',
+          value: 'PHONE'
         }
       ],
       processList: [
         {
-          value: '만나서'
+          text: '만나서',
+          value: 'OFFLINE'
         },
         {
-          value: '줌으로'
+          text: '줌으로',
+          value: 'ONLINE'
         },
       ],
+      d_day: '',
+      recruitTotalCntTxt: '',
       postingRegisterParams: {        
         title: '',
         content: '',
         imageLinks: [],
-        categoryId: 0,
+        categoryId: 3,
         closedDt: "2022-09-01T06:46:13.688Z",
         ownerContact: {
-          type: "KAKAO_OPEN_CHAT",
-          value: "string"
+          type: '',
+          value: ''
         },
         recruitTotalCnt: 0,
         recruitCurrentCnt: 1,
-        communicationTool: "ONLINE"
+        communicationTool: ''
       }
     }
   },
   mounted () {
   },
   methods: {
-    setCall () {
-
+    setOwnerContact (item) {
+      this.postingRegisterParams.ownerContact.type = item.value
     },
-    setProcess () {
-
+    setCommunicationTool (item) {
+      console.log(item.value)
+      this.postingRegisterParams.communicationTool = item.value
     },
     postingUpload() {
       if (!this.checkRegisterParamsValid()) {
@@ -184,31 +206,43 @@ export default {
       )
       ).then(res => {
         // 상세 페이지로 넘어가기
+        alert('공고 생성 성공')
       }).catch((error) => {
         window.alert(error.response.data.message)
       })
     },
     checkRegisterParamsValid () {
-      // if (this.cmn_emptyCheck(this.postingRegisterParams.title)) {
-      //   window.alert('제목을 입력해주세요.')
-      //   return false
-      // }
+      if (this.cmn_emptyCheck(this.postingRegisterParams.title)) {
+        window.alert('제목을 입력해주세요.')
+        return false
+      }
       if (this.cmn_emptyCheck(this.postingRegisterParams.content)) {
         window.alert('내용을 입력해주세요.')
         return false
       }
-      if (this.cmn_emptyCheck(this.postingRegisterParams.closedDt)) {
+      if (this.cmn_emptyCheck(this.d_day)) {
         window.alert('모집 마감일을 입력해주세요.')
         return false
       }
-      if (this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.value)) {
-        window.alert('연락 수단을 입력해주세요.')
+      if (this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.value) || this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.type)) {
+        window.alert('연락 수단을 정확히 입력해주세요.')
         return false
       }
-      if (this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.recruitTotalCnt)) {
+      if (this.cmn_emptyCheck(this.postingRegisterParams.communicationTool)) {
+        window.alert('진행방식을 선택해주세요.')
+        return false
+      }
+      if (this.cmn_emptyCheck(this.recruitTotalCntTxt)) {
         window.alert('모집 인원수를 입력해주세요.')
         return false
       }
+      let closedDt = new Date()
+      closedDt.setDate(closedDt.getDate() + this.d_day)
+      closedDt = closedDt.toISOString()
+      closedDt = closedDt.split('T')[0] + ' ' + closedDt.split('T')[1].substring(0, 5)
+      this.postingRegisterParams.closedDt = closedDt
+      this.postingRegisterParams.recruitTotalCnt = this.recruitTotalCntTxt * 1
+      return true
     }
   }
 }
