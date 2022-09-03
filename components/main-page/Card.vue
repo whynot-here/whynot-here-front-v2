@@ -5,11 +5,11 @@
     </div>
     <div class="cards-wrp">
       <div
-        v-for="(post, idx) in postsProc"
+        v-for="(post, idx) in postsProc.slice().reverse()"
         :key="idx"
         class="card-wrp"
       >
-        <nuxt-link style="text-decoration: none; color: #181818" :to="`/gather/posts/${post.id}`">
+        <div @click="moveDetailPage(post.id)">
           <div class="card-top">
             <div class="writer-title-wrp">
               <div class="writer">
@@ -19,7 +19,15 @@
                 {{ post.title_short }}
               </div>
             </div>
-            <div class="book-mark" @click="post.selected = !post.selected">
+            <div v-if="category === 'mypostings'" class="sub-menu-btn">
+              <img src="@/assets/img/common/dot-btn.png" alt="" @click.stop="openSubMenuPopup(post.id)">
+              <div v-if="!post.isOpenSubMenu" class="sub-menu">
+                <div @click.stop="editPosting(post.id)">수정하기</div>
+                <div>모집완료</div>
+                <div @click.stop="deletePosting(post.id)">삭제</div>
+              </div>
+            </div>
+            <div v-else class="book-mark" @click="post.selected = !post.selected">
               <img v-if="!post.selected" src="@/assets/img/category/bookmark.png" alt="">
               <img v-if="post.selected" src="@/assets/img/category/bookmark-selected.png" alt="">
             </div>
@@ -35,7 +43,7 @@
               마감 D-8
             </div>
           </div>
-        </nuxt-link>
+        </div>
       </div>
     </div>
   </div>
@@ -78,11 +86,45 @@ export default {
         } else {
           post.content_light = post.content
         }
+        post.isOpenSubMenu = false
         return post
       })
     }
   },
   methods: {
+    openSubMenuPopup (id) {
+      this.posts.forEach((post) => {
+        if (post.id === id) {
+          post.isOpenSubMenu = true
+        }
+      })
+    },
+    moveDetailPage (id) {
+      console.log('?')
+      this.$router.push(`/gather/posts/${id}`)
+    },
+    editPosting (id) {
+      this.$router.push(`/posting?m=edit&id=${id}`)
+    },
+    deletePosting (id) {
+      if(confirm("삭제하시겠습니까?")) {
+        this.$axios.delete(
+        (`https://whynot-here.o-r.kr/v2/posts/${id}`),
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+        )
+        .then(res => {
+          // 카드 새로고침
+          alert('삭제했습니다')
+          this.$emit('refreshCard', {})
+        })
+      }
+    }
   }
 }
 </script>

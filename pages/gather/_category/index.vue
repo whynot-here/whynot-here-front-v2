@@ -18,6 +18,7 @@
         :sub-category="subCategory"
         :category-title="categoryTitle"
         :sub-category-title="subCategoryTitle"
+        @refreshCard="getPosts"
       />
     </div>
   </div>
@@ -40,7 +41,7 @@ export default {
     return {
       category: params.category,
       subCategory: route.query.sub,
-      isMyPostings: params.isMyPostings,
+      // isMyPostings: params.isMyPostings,
       isBookMark: params.isBookMark
     }
   },

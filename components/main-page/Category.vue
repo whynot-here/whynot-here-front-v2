@@ -100,7 +100,7 @@ export default {
       if (!this.$store.state.userInfo.initLoginDone) {
         this.$emit('setLoginPopupOpen', {})
       } else {
-        this.$router.push('/posting')
+        this.$router.push('/posting?m=wirte')
       }
     }
   }

@@ -35,6 +35,34 @@
             width: 16px; height: 22px;
           }
         }
+        .sub-menu-btn {
+          position: relative;
+          img {
+            width: 4px; height: 24px;
+          }
+          .sub-menu {
+            position: absolute;
+            width: 96px; height: 98px;
+            margin: -30px 15px;
+            background-color: #FFFFFF;
+            border: 1px solid #E1E2E3;
+            border-radius: 4px;
+            div {
+              text-align: center;
+              height: 32px; line-height: 32px;
+              font-size: .75rem; font-weight: 400;
+              color: #D05F5F;
+              cursor: pointer;
+            }
+            div:not(div:nth-child(3)) {
+              border-bottom: 1px solid #E1E2E3;
+              color: #414243;
+            }
+            div:hover {
+              background-color: #F5F5F5;
+            }
+          }
+        }
       }
       .card-middle {
         color: #4D4D4D;

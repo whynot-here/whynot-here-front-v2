@@ -59,7 +59,7 @@
           <div class="posting-group">한줄 소개</div>
           <div class="line">
             <div class="form-wrp">
-              <input v-model="postingRegisterParams.title" type="text" style="width: 770px;" class="sub-wrp">
+              <input v-model="postingRegisterParams.title" type="text" style="width: 770px; padding-left: 20px;" class="sub-wrp">
             </div>
           </div>
         </div>
@@ -90,8 +90,11 @@
         </div>
       </section>
       <section>
-        <div class="upload" @click="postingUpload">
-          📄 글 업로드
+        <div v-if="mode === 'write'" class="upload" @click="uploadPosting">
+          📄 업로드
+        </div>
+        <div v-else class="upload" @click="editPosting">
+          📄 수정하기
         </div>
       </section>
       <!-- <section class="content">
@@ -126,9 +129,12 @@ export default {
     TopBar,
     DropDown
   },
-  asyncData({ params }) {
+  asyncData({ params, query }) {
+    console.log(query)
     return {
-      category: params.category
+      category: params.category,
+      mode: query.m,
+      id: query.id
     }
   },
   data () {
@@ -180,8 +186,25 @@ export default {
     }
   },
   mounted () {
+    if (this.id !== undefined) {
+      this.getPost()
+    }
   },
   methods: {
+    getPost() {
+      this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/${this.id}`)
+      .then(res => {
+        Object.keys(this.postingRegisterParams)
+          .map((key) => {
+            if (res.data[key] !== null) {
+              this.postingRegisterParams[key] = res.data[key]
+            }
+            return key
+          })
+        
+        console.log(res.data)
+      })
+    },
     setOwnerContact (item) {
       this.postingRegisterParams.ownerContact.type = item.value
     },
@@ -189,7 +212,7 @@ export default {
       console.log(item.value)
       this.postingRegisterParams.communicationTool = item.value
     },
-    postingUpload() {
+    uploadPosting () {
       if (!this.checkRegisterParamsValid()) {
         return false
       }
@@ -207,6 +230,28 @@ export default {
       ).then(res => {
         // 상세 페이지로 넘어가기
         alert('공고 생성 성공')
+      }).catch((error) => {
+        window.alert(error.response.data.message)
+      })
+    },
+    editPosting() {
+      if (!this.checkRegisterParamsValid()) {
+        return false
+      }
+      (this.$axios.put(
+        (`https://whynot-here.o-r.kr/v2/posts/${this.id}`),
+        this.postingRegisterParams,
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+      )
+      ).then(res => {
+        // 상세 페이지로 넘어가기
+        alert('공고 수정 성공')
       }).catch((error) => {
         window.alert(error.response.data.message)
       })
