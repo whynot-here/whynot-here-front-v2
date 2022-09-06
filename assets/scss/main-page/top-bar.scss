@@ -104,9 +104,8 @@
       .posting-wrp {
         position: relative;
         .posting-btn {
-          padding-top: 31px; margin-right: 24px;
+          padding-top: 27px; margin-right: 24px;
           font-size: .94rem; font-weight: 700;
-          color: #005B9A;
           cursor: pointer;
           &.not-login {
             color: #484848; opacity: 0.3;
@@ -121,9 +120,12 @@
         }
       }
       .login {
-        padding-top: 31px; margin-right: 32px;
+        height: 18px;
+        padding-left: 24px;
+        margin-top: 31px; margin-right: 32px;
         font-size: .94rem; font-weight: 700;
         color: #391B1B;
+        border-left: 1px solid #D9D9D9;
         cursor: pointer;
       }
       .logined {
