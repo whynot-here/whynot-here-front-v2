@@ -130,7 +130,6 @@ export default {
     DropDown
   },
   asyncData({ params, query }) {
-    console.log(query)
     return {
       category: params.category,
       mode: query.m,
@@ -202,14 +201,12 @@ export default {
             return key
           })
         
-        console.log(res.data)
       })
     },
     setOwnerContact (item) {
       this.postingRegisterParams.ownerContact.type = item.value
     },
     setCommunicationTool (item) {
-      console.log(item.value)
       this.postingRegisterParams.communicationTool = item.value
     },
     uploadPosting () {

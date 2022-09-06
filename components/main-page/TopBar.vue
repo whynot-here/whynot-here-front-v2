@@ -1,20 +1,21 @@
 <template>
   <div id="TopBar">
     <div class="topbar" @click.self="toggleAccountPopup">
-      <div class="logo-left">
+      <!-- <div class="logo-left">
         사람이 모이는 공간
       </div>
       <div class="logo" @click="mainPage">
         <img src="@/assets/img/common/whynot-here-logo.png" alt="">
-      </div>
+      </div> -->
       <div class="search"></div>
-      <!-- <nuxt-link :to="`/posting`">
-        <div
-          class="posting-btn"
-        >
-          글쓰기
+      <div class="posting-wrp" @click="checkLogin()">
+        <div :class="$store.state.userInfo.initLoginDone ? 'posting-btn' : 'posting-btn not-login'">
+          📝 글쓰기
         </div>
-      </nuxt-link> -->
+        <div v-if="!$store.state.userInfo.initLoginDone" class="login-notice">
+          <img src="@/assets/img/login/login-notice.png" alt="">
+        </div>
+      </div>
       <div
         v-if="!$store.state.userInfo.initLoginDone"
         class="login"
@@ -94,6 +95,14 @@ export default {
     },
     moveMyPage () {
       this.$router.push('/mypage')
+    },
+    checkLogin() {
+      if (!this.$store.state.userInfo.initLoginDone) {
+        // this.$emit('setLoginPopupOpen', {})
+        this.openLoginPopup()
+      } else {
+        this.$router.push('/posting?m=wirte')
+      }
     },
     logout() {
       this.cmn_logout()
