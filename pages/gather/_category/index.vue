@@ -1,16 +1,19 @@
 <template>
   <div id="CategoryPage">
-    <TopBar
-      ref="TopBar"
-    />
-    <div class="panel">
+    <div>
       <Category
         :is-my-postings="isMyPostings"
         :is-book-mark="isBookMark"
         :category="category"
         :sub-category="subCategory"
-        @sendCategoryId="sendCategoryId"
+        @setSubCategoryId="setSubCategoryId"
+        @getCategoryId="getCategoryId"
         @setLoginPopupOpen="setLoginPopupOpen"
+      />
+    </div>
+    <div>
+      <TopBar
+        ref="TopBar"
       />
       <Card
         :posts="posts"
@@ -36,8 +39,7 @@ export default {
     Category,
     Card
   },
-  asyncData({ params, route, redirect }) {
-    console.log('?')
+  asyncData({ params, route, query, redirect }) {
     return {
       category: params.category,
       subCategory: route.query.sub,
@@ -51,16 +53,27 @@ export default {
       categoryTitle: '',
       subCategoryTitle: '',
       loginPopupOpen: false,
-      categoryId: 1,
       isMyPostings: false,
-      isBookMark: false
+      isBookMark: false,
+      categoryId: 1
     }
   },
   mounted () {
-    this.getPosts()
+    // 대분류 카테고리 선택했을 때만 불러오도록
+    // 소분류 카테고리 선택했을 때는 setSubCategoryId에서 호출
+    if (this.subCategory === undefined) {
+      this.getCategoryId()
+    }
   },
   methods: {
-    sendCategoryId ({ id }) {
+    getCategoryId () {
+      const category = this.categoryGroup.filter((category) => {
+        return category.parentCode.toLowerCase() === this.category
+      })
+      this.categoryId = category[0].parentId
+      this.getPosts()
+    },
+    setSubCategoryId ({ id }) {
       this.categoryId = id
       this.getPosts()
     },
@@ -102,24 +115,25 @@ export default {
 
 <style lang="scss" scoped>
 #CategoryPage {
+  display: flex;
   width: 100vw; height: 100vh;
-  background: #FAFAFA;
+  // background: #FAFAFA;
   #TopBar {
     position: sticky;
     top: 0;
     z-index: 100;
   }
-  .panel {
-    display: flex;
-    width: 100vw; 
-    height: calc(100vh - 80px);
-    overflow: scroll;
-    margin: 0 auto;
-    #Category {
-      width: 30%;
-      position: sticky;
-      top: 0px;
-    }
-  }
+  // .panel {
+  //   display: flex;
+  //   width: 100vw; 
+  //   height: calc(100vh - 80px);
+  //   overflow: scroll;
+  //   margin: 0 auto;
+  //   #Category {
+  //     width: 30%;
+  //     position: sticky;
+  //     top: 0px;
+  //   }
+  // }
 }
 </style>

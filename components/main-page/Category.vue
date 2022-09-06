@@ -1,12 +1,26 @@
 <template>
   <div id="Category">
+    <section class="logo">
+      <div class="logo-desc">
+        사람이 모이는 공간
+      </div>
+      <div class="logo-img" @click="mainPage">
+        <img src="@/assets/img/common/whynot-here-logo.png" alt="">
+      </div>
+    </section>
     <section class="category">
-      <div @click="checkLogin()">
+      <!-- <div @click="checkLogin()">
         <div class="posting-btn">
           📝 글쓰기
         </div>
-      </div>
+      </div> -->
       <div class="sub-menu-wrp">
+        <div class="search">
+          <div>통합검색</div>
+          <div class="search-img">
+            <img src="@/assets/img/category/search.png" alt="">
+          </div>
+        </div>
         <div class="menu">
           <div @click="moveMyPostingsPage()">
             ⭐️ My 모임
@@ -74,6 +88,9 @@ export default {
     this.selectedSubCategory = this.subCategory
   },
   methods: {
+    mainPage () {
+      this.$router.push('/')
+    },
     moveMyPostingsPage () {
       console.log('...')
       this.$router.push({
@@ -84,13 +101,13 @@ export default {
       })
     },
     selectCategory ({ id, type }) {
-      this.$emit('sendCategoryId', { id })
+      this.$emit('getCategoryId', {})
       this.selectedCategory = type
       this.selectedSubCategory = ''
       this.$router.push(`/gather/${type}`)
     },
     selectSubCategory ({ id, type, subType }) {
-      this.$emit('sendCategoryId', { id })
+      this.$emit('setSubCategoryId', { id })
       this.selectedCategory = type
       this.selectedSubCategory = subType
       // this.$router.push({ path: `/${this.selectedCategory}`, params: { sub: `${type}` } })

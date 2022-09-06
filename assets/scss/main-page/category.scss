@@ -1,47 +1,100 @@
 @import '@/assets/scss/util.scss';
 
 #Category {
-  // margin-top: 80px;
-  // margin-left: 2vw;
-  .category {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-  .category::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera*/
-  }
-  .category {
-    // padding-left: 18px;
-    width: 170px;
-    margin: 0 auto;
-    height: calc(100vh - 80px); overflow: scroll;
-    .title {
-      // padding-top: 20px;
-      margin: 20px 0px 15px 0px;
-      padding-left: 10px;
-      height: 20px; line-height: 20px;
-      font-size: 1rem; font-weight: 700;
-      cursor: pointer;
-      &.selected {
-        border-left: 2px solid #3E82F1;
-      }
-    }
-    .sub-title {
-      height: 33px; line-height: 33px;
-      padding-left: 20px;
-      font-size: .88rem; font-weight: 500;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+#Category::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+#Category {
+  width: 270px; height: 100vh; 
+  background: #FAFAFA;
+  border-right: 1px solid #E7E7E7;
+  overflow-y: scroll;
+  .logo {
+    margin: 0 60px; padding: 36px 0;
+    text-align: center;
+    .logo-desc {
+      font-size: .88rem;
       color: #737373;
-      &.selected {
-        color: #000000;
-        background: #F3F3F3;
-        border-radius: 8px;
+    }
+    .logo-img {
+      margin-top: 6px;
+      img {
+        width: 148px; height: 36px;
       }
     }
-    .sub-title:hover {
-      color: #000000;
-      background: #F3F3F3;
-      border-radius: 8px;
-      cursor: pointer;
+  }
+  .category {
+    margin: 0 8px;
+    .sub-menu-wrp {
+      margin: 0 16px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #E7E7E7;
+      .search {
+        display: flex;
+        width: 222px; height: 42px; line-height: 42px;
+        margin-bottom: 16px;
+        background: #FFFFFF;
+        border: 1px solid #E7E7E7;
+        border-radius: 8px;
+        div:first-child {
+          flex-grow: 1;
+          padding-left: 12px;
+          font-size: .88rem;
+          color: #A3A3A3;
+        }
+        .search-img {
+          width: 32px;
+          margin-top: 3px;
+          img {
+            width: 16px; height: 18px;
+          }
+        }
+      }
+      .menu {
+        display: flex;
+        height: 48px; line-height: 48px;
+        font-size: 1rem; font-weight: 500;
+        padding-top: 8px;
+        cursor: pointer;
+        div:first-child {
+          flex-grow: 1;
+        }
+        div > img {
+          width: 6px; height: 12px;
+        }
+      }
+    }
+    .category-wrp {
+      margin-top: 24px;
+      .title {
+        height: 20px; line-height: 20px;
+        margin: 14px 0px 14px 6px; padding-left: 10px;
+        font-size: 1rem; font-weight: 500;
+        cursor: pointer;
+        &.selected {
+          border-left: 2px solid #3E82F1;
+        }
+      }
+      .sub-title {
+        height: 42px; line-height: 42px;
+        padding-left: 24px;
+        font-size: .88rem; font-weight: 500;
+        color: #a3a3a3;
+        &.selected {
+          color: #181818;
+          background: #EBEEF1;
+          border-radius: 8px;
+        }
+      }
+      .sub-title:hover {
+        color: #181818;
+        background: #EBEEF1;
+        border-radius: 8px;
+        cursor: pointer;
+      }
     }
   }
   a {
@@ -57,34 +110,5 @@
     border: 2px solid #3E82F1;
     border-radius: 8px;
     cursor: pointer;
-  }
-  .sub-menu-wrp {
-    height: 79px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #E7E7E7;
-    .menu {
-      display: flex;
-      height: 38px; line-height: 38px;
-      font-size: 1rem; font-weight: 500;
-      cursor: pointer;
-      div:first-child {
-        flex-grow: 1;
-      }
-      div > img {
-        width: 6px; height: 12px;
-      }
-    }
-  }
-  @include mobile {
-    width: 170px;
-  }
-  @include tablet {
-    width: 170px;
-  }
-  @include desktop {
-    width: 170px;
-  }
-  @include screen {
-    width: 170px;
   }
 }

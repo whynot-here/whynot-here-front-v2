@@ -1,8 +1,5 @@
 <template>
   <div id="Card">
-    <div class="category-wrp">
-
-    </div>
     <div class="cards-wrp">
       <div
         v-for="(post, idx) in postsProc.slice().reverse()"
@@ -100,7 +97,6 @@ export default {
       })
     },
     moveDetailPage (id) {
-      console.log('?')
       this.$router.push(`/gather/posts/${id}`)
     },
     editPosting (id) {
