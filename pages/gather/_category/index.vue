@@ -69,6 +69,7 @@ export default {
   },
   methods: {
     getCategoryIdAndGetPosts () {
+      if (this.category !== 'mypostings')
       this.getCategoryId()
       this.getPosts()
     },
