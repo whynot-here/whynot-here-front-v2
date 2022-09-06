@@ -53,7 +53,7 @@
           v-for="(sub, sIdx) in cat.children"
           :key="sIdx"
           :class="sub.code.toLowerCase() === selectedSubCategory ? 'sub-title selected' : 'sub-title'"
-          @click="selectSubCategory({ id: sub.id, type: cat.parentCode.toLowerCase(), subType: sub.code.toLowerCase() })"
+          @click="selectSubCategory({ id: sub.id, type: cat.parentCode.toLowerCase(), subType: sub.code.toLowerCase(), name: sub.name, catName: cat.parentName })"
         >
           {{ sub.name }}
         </div>
@@ -101,13 +101,13 @@ export default {
       })
     },
     selectCategory ({ id, type }) {
-      this.$emit('getCategoryId', {})
+      this.$emit('getCategoryIdAndGetPosts', {})
       this.selectedCategory = type
       this.selectedSubCategory = ''
       this.$router.push(`/gather/${type}`)
     },
-    selectSubCategory ({ id, type, subType }) {
-      this.$emit('setSubCategoryId', { id })
+    selectSubCategory ({ id, type, subType, name, catName }) {
+      this.$emit('setSubCategoryId', { id, name, catName })
       this.selectedCategory = type
       this.selectedSubCategory = subType
       // this.$router.push({ path: `/${this.selectedCategory}`, params: { sub: `${type}` } })

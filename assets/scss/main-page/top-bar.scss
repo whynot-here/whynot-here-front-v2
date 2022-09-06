@@ -75,78 +75,86 @@
   // box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 22px rgba(0, 0, 0, 0.06);
   margin: 0 auto;
   .topbar {
-    display: flex;
     width: calc(100vw - 270px);
-    margin: 0 auto;
     background-color: #FAFAFA;
-    .logo-left {
-      padding: 32px 12px 32px 0;
-      font-size: .75rem; font-weight: 500;
-      color: #737373;
-    }
-    .logo {
-      padding-top: 22px;
-      cursor: pointer;
-      img {
-        width: 139px; height: 35px;
+    .topbar-wrp {
+      display: flex;
+      width: 1064px;
+      margin: 0 auto;
+      .category-wrp {
+        display: flex;
+        height: 80px; line-height: 80px;
+        div:first-child {
+          font-size: 1.38rem; font-weight: 500;
+          color: #4D4D4D;
+        }
+        div:nth-child(2) {
+          img {
+            width: 8px; height: 12px;
+            margin: 0 20px;
+          }
+        }
+        div:nth-child(3) {
+          font-size: 1.5rem; font-weight: 600;
+        }
       }
-    }
-    .search {
-      flex-grow: 1;
-    }
-    .posting-wrp {
-      position: relative;
-      .posting-btn {
-        padding-top: 31px; margin-right: 24px;
+      .search {
+        flex-grow: 1;
+      }
+      .posting-wrp {
+        position: relative;
+        .posting-btn {
+          padding-top: 31px; margin-right: 24px;
+          font-size: .94rem; font-weight: 700;
+          color: #005B9A;
+          cursor: pointer;
+          &.not-login {
+            color: #484848; opacity: 0.3;
+          }
+        }
+        .login-notice {
+          position: absolute;
+          img {
+            width: 199px; height: 46px;
+            margin-top: 10px; margin-left: -70px;
+          }
+        }
+      }
+      .login {
+        padding-top: 31px; margin-right: 32px;
         font-size: .94rem; font-weight: 700;
-        color: #005B9A;
+        color: #391B1B;
         cursor: pointer;
-        &.not-login {
-          color: #484848; opacity: 0.3;
-        }
       }
-      .login-notice {
-        position: absolute;
+      .logined {
+        padding-top: 31px; margin-right: 32px;
+        font-size: .94rem; font-weight: 700;
+        color: #391B1B;
+      }
+      .profile {
+        padding-top: 24px;
         img {
-          width: 199px; height: 46px;
-          margin-top: 10px; margin-left: -70px;
+          width: 32px;
+          height: 32px;
+          border: 2px solid #aaa;
+          border-radius: 10px;
+          cursor: pointer;
         }
-      }
-    }
-    .login {
-      padding-top: 31px; margin-right: 32px;
-      font-size: .94rem; font-weight: 700;
-      color: #391B1B;
-      cursor: pointer;
-    }
-    .logined {
-      padding-top: 31px; margin-right: 32px;
-      font-size: .94rem; font-weight: 700;
-      color: #391B1B;
-    }
-    .profile {
-      padding-top: 24px;
-      img {
-        width: 32px;
-        height: 32px;
-        border: 2px solid #aaa;
-        border-radius: 10px;
-        cursor: pointer;
-      }
-      .open-account {
-        position: absolute;
-        right: 11px;
-        width: 260px;
-        height: 249px;
-        border-radius: 15px;
-        box-shadow: 10px 20px 20px hsl(230deg 4% 8% / 30%);
-        background: hsl(230,6%,18%);
-        .sub-menu-wrp {
-          position: relative;
-          color: hsl(230,4%,90%);
-          .sub-menu {
-            padding: 10px 20px;
-            height: 30px;
+        .open-account {
+          position: absolute;
+          right: 11px;
+          width: 260px;
+          height: 249px;
+          border-radius: 15px;
+          box-shadow: 10px 20px 20px hsl(230deg 4% 8% / 30%);
+          background: hsl(230,6%,18%);
+          .sub-menu-wrp {
+            position: relative;
+            color: hsl(230,4%,90%);
+            .sub-menu {
+              padding: 10px 20px;
+              height: 30px;
+            }
           }
         }
       }

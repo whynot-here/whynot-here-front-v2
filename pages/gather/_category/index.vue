@@ -7,20 +7,20 @@
         :category="category"
         :sub-category="subCategory"
         @setSubCategoryId="setSubCategoryId"
-        @getCategoryId="getCategoryId"
+        @getCategoryIdAndGetPosts="getCategoryIdAndGetPosts"
         @setLoginPopupOpen="setLoginPopupOpen"
       />
     </div>
     <div>
       <TopBar
         ref="TopBar"
+        :category="categoryTitle"
+        :sub-category="subCategoryTitle"
       />
       <Card
         :posts="posts"
         :category="category"
         :sub-category="subCategory"
-        :category-title="categoryTitle"
-        :sub-category-title="subCategoryTitle"
         @refreshCard="getPosts"
       />
     </div>
@@ -62,19 +62,46 @@ export default {
     // 대분류 카테고리 선택했을 때만 불러오도록
     // 소분류 카테고리 선택했을 때는 setSubCategoryId에서 호출
     if (this.subCategory === undefined) {
-      this.getCategoryId()
+      this.getCategoryIdAndGetPosts()
+    } else {
+      this.geySubCategoryIdAndGetPosts()
     }
   },
   methods: {
+    getCategoryIdAndGetPosts () {
+      this.getCategoryId()
+      this.getPosts()
+    },
     getCategoryId () {
       const category = this.categoryGroup.filter((category) => {
         return category.parentCode.toLowerCase() === this.category
       })
       this.categoryId = category[0].parentId
+      this.categoryTitle = category[0].parentName
+      this.subCategoryTitle = ''
+    },
+    geySubCategoryIdAndGetPosts () {
+      this.getSubCategoryId()
       this.getPosts()
     },
-    setSubCategoryId ({ id }) {
+    getSubCategoryId () {
+      const category = this.categoryGroup.filter((category) => {
+        return category.parentCode.toLowerCase() === this.category
+      })[0]
+      
+      const subCategory = category.children
+      const selectedSubCategory = subCategory.filter((category) => {
+        return category.code.toLowerCase() === this.subCategory
+      })[0]
+
+      this.categoryTitle = category.parentName
+      this.categoryId = selectedSubCategory.id
+      this.subCategoryTitle = selectedSubCategory.name
+    },
+    setSubCategoryId ({ id, name, catName }) {
       this.categoryId = id
+      this.subCategoryTitle = name
+      this.categoryTitle = catName
       this.getPosts()
     },
     getPosts () {

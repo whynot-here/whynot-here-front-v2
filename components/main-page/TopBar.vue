@@ -1,48 +1,61 @@
 <template>
   <div id="TopBar">
     <div class="topbar" @click.self="toggleAccountPopup">
-      <!-- <div class="logo-left">
-        사람이 모이는 공간
-      </div>
-      <div class="logo" @click="mainPage">
-        <img src="@/assets/img/common/whynot-here-logo.png" alt="">
-      </div> -->
-      <div class="search"></div>
-      <div class="posting-wrp" @click="checkLogin()">
-        <div :class="$store.state.userInfo.initLoginDone ? 'posting-btn' : 'posting-btn not-login'">
-          📝 글쓰기
+      <div class="topbar-wrp">
+        <!-- <div class="logo-left">
+          사람이 모이는 공간
         </div>
-        <div v-if="!$store.state.userInfo.initLoginDone" class="login-notice">
-          <img src="@/assets/img/login/login-notice.png" alt="">
+        <div class="logo" @click="mainPage">
+          <img src="@/assets/img/common/whynot-here-logo.png" alt="">
+        </div> -->
+        <div class="category-wrp">
+          <div>
+            {{ category }}
+          </div>
+          <div v-if="subCategory !== ''">
+            <img src="@/assets/img/category/right-arrow.png" alt="">
+          </div>
+          <div>
+            {{ subCategory }}
+          </div>
         </div>
-      </div>
-      <div
-        v-if="!$store.state.userInfo.initLoginDone"
-        class="login"
-        @click="openLoginPopup"
-      >
-        로그인
-      </div>
-      <!-- <div
-        v-else
-        class="logined"
-      >
-        {{ $store.state.userInfo.detail.nickname }}님 안녕하세요!
-      </div> -->
-      <div 
-        v-if="initLoginDone"
-        class="profile"
-        @click="toggleAccountPopup"
-      >
-        <img :src="profileImg" alt="">
+        <div class="search"></div>
+        <div class="posting-wrp" @click="checkLogin()">
+          <div :class="$store.state.userInfo.initLoginDone ? 'posting-btn' : 'posting-btn not-login'">
+            📝 글쓰기
+          </div>
+          <div v-if="!$store.state.userInfo.initLoginDone" class="login-notice">
+            <img src="@/assets/img/login/login-notice.png" alt="">
+          </div>
+        </div>
         <div
-          v-if="openAccount"
-          class="open-account"
+          v-if="!$store.state.userInfo.initLoginDone"
+          class="login"
+          @click="openLoginPopup"
         >
-          <div class="sub-menu-wrp">
-            <div class="sub-menu">{{ $store.state.userInfo.detail.nickname }}님 안녕하세요!</div>
-            <div class="sub-menu" style="cursor:pointer" @click="logout()">👋 로그아웃</div>
-            <div class="sub-menu" style="cursor:pointer" @click="moveMyPage()">👤 마이페이지</div>
+          로그인
+        </div>
+        <!-- <div
+          v-else
+          class="logined"
+        >
+          {{ $store.state.userInfo.detail.nickname }}님 안녕하세요!
+        </div> -->
+        <div 
+          v-if="initLoginDone"
+          class="profile"
+          @click="toggleAccountPopup"
+        >
+          <img :src="profileImg" alt="">
+          <div
+            v-if="openAccount"
+            class="open-account"
+          >
+            <div class="sub-menu-wrp">
+              <div class="sub-menu">{{ $store.state.userInfo.detail.nickname }}님 안녕하세요!</div>
+              <div class="sub-menu" style="cursor:pointer" @click="logout()">👋 로그아웃</div>
+              <div class="sub-menu" style="cursor:pointer" @click="moveMyPage()">👤 마이페이지</div>
+            </div>
           </div>
         </div>
       </div>
@@ -63,10 +76,14 @@ export default {
     LoginPopup
   },
   props: {
-    // category: {
-    //   type: String,
-    //   default: ''
-    // }
+    category: {
+      type: String,
+      default: ''
+    },
+    subCategory: {
+      type: String,
+      default: ''
+    }
   },
   data () {
     return {

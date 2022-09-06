@@ -10,9 +10,9 @@
     grid-gap: 32px;
     padding-top: 70px; padding-bottom: 100px;
     margin: 0 auto;
-    width: 890px;
+    width: 1070px;
     .card-wrp {
-      width: 360px; height: 114px;
+      width: 480px; height: 114px;
       padding: 20px;
       background: #FFFFFF;
       box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
@@ -97,28 +97,28 @@
     }
     @include mobile {
       width: 500px;
-      grid-template-columns: repeat(1,402px);
+      grid-template-columns: repeat(1,530px);
       .cards-wrp {
         .card-wrp {
-          width: 360px; height: 114px;
+          width: 480px; height: 114px;
         } 
       }
     }
     @include tablet {
       width: 800px; 
-      grid-template-columns: repeat(2,402px);
+      grid-template-columns: repeat(2,530px);
       .cards-wrp {
         .card-wrp {
-          width: 360px; height: 114px;
+          width: 480px; height: 114px;
         } 
       }
     }
     @include desktop {
       // width: 890px; 
-      grid-template-columns: repeat(2,402px);
+      grid-template-columns: repeat(2,530px);
       .cards-wrp {
         .card-wrp {
-          width: 360px; height: 114px;
+          width: 480px; height: 114px;
         } 
       }
     }
@@ -127,7 +127,7 @@
       grid-template-columns: repeat(2,400px);
       .cards-wrp {
         .card-wrp {
-          width: 360px; height: 114px;
+          width: 480px; height: 114px;
         } 
       }
     }
