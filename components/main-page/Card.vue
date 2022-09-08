@@ -1,5 +1,13 @@
 <template>
   <div id="Card">
+    <div class="sts-i-wrp">
+      <div>
+        <input type="checkbox" name="color" value="blue">
+      </div>
+      <div>
+        모집중만 보기
+      </div>
+    </div>
     <div class="cards-wrp">
       <div
         v-for="(post, idx) in postsProc.slice().reverse()"

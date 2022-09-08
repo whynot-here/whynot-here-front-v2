@@ -2,72 +2,6 @@
 
 #TopBar {
   @include mobile {
-    width: 100vw; height: 50px;
-    .topbar {
-      display: flex;
-      background-color: #FAFAFA;
-      .logo-left {
-        padding: 32px 12px 32px 10vw;
-        font-size: .75rem; font-weight: 500;
-        color: #737373;
-      }
-      .logo {
-        padding-top: 22px;
-        img {
-          width: 139px; height: 35px;
-        }
-      }
-      .search {
-        flex-grow: 1;
-      }
-      .posting-btn {
-        padding-top: 31px; margin-right: 24px;
-        font-size: .94rem; font-weight: 700;
-        color: #005B9A;
-        cursor: pointer;
-        &.not-login {
-          color: #484848;
-        }
-      }
-      .login {
-        padding-top: 31px; margin-right: 32px;
-        font-size: .94rem; font-weight: 700;
-        color: #391B1B;
-        cursor: pointer;
-      }
-      .logined {
-        padding-top: 31px; margin-right: 32px;
-        font-size: .94rem; font-weight: 700;
-        color: #391B1B;
-      }
-      .profile {
-        padding-top: 24px; padding-right: 10vw;
-        img {
-          width: 32px;
-          height: 32px;
-          border: 2px solid #aaa;
-          border-radius: 10px;
-          cursor: pointer;
-        }
-        .open-account {
-          position: absolute;
-          right: 11px;
-          width: 260px;
-          height: 249px;
-          border-radius: 15px;
-          box-shadow: 10px 20px 20px hsl(230deg 4% 8% / 30%);
-          background: hsl(230,6%,18%);
-          .sub-menu-wrp {
-            position: relative;
-            color: hsl(230,4%,90%);
-            .sub-menu {
-              padding: 10px 20px;
-              height: 30px;
-            }
-          }
-        }
-      }
-    }
   }
 
   height: 80px;
@@ -104,7 +38,7 @@
       .posting-wrp {
         position: relative;
         .posting-btn {
-          padding-top: 27px; margin-right: 24px;
+          margin-top: 31px; margin-right: 24px;
           font-size: .94rem; font-weight: 700;
           cursor: pointer;
           &.not-login {
@@ -138,25 +72,74 @@
         img {
           width: 32px;
           height: 32px;
-          border: 2px solid #aaa;
-          border-radius: 10px;
+          border: 1px solid #D9D9D9;
+          border-radius: 8px;
           cursor: pointer;
         }
         .open-account {
           position: absolute;
-          right: 11px;
-          width: 260px;
-          height: 249px;
-          border-radius: 15px;
-          box-shadow: 10px 20px 20px hsl(230deg 4% 8% / 30%);
-          background: hsl(230,6%,18%);
+          right: 50px;
+          width: 146px;
+          // height: 100px;
+          margin-top: 10px;
+          background: #FFFFFF;
+          border: 1px solid #EFEFEF;
+          border-radius: 8px;
           .sub-menu-wrp {
             position: relative;
             color: hsl(230,4%,90%);
             .sub-menu {
-              padding: 10px 20px;
-              height: 30px;
+              margin: 8px; padding: 14px 8px;
+              font-size: .88rem; font-weight: 500;
+              color: #454545;
             }
+            .sub-menu:hover {
+              background: #F3F7FE;
+              border-radius: 6px;
+              color: #005B9A;
+            }
+            .sub-menu::after {
+              border-color: #ffffff transparent;
+              border-style: solid;
+              border-width: 0 6px 8px 6.5px;
+              content: '';
+              display: block;
+              left: 120px;
+              position: absolute;
+              top: -16px;
+              width: 0;
+              z-index: 1;
+            }
+            
+            .sub-menu::before {
+              border-color: #eef3fd transparent;
+              border-style: solid;
+              border-width: 0 6px 8px 6.5px;
+              content: '';
+              display: block;
+              left: 120px;
+              position: absolute;
+              top: -18px;
+              width: 0;
+              z-index: 0;
+            }
+            // .sub-menu:after {
+            //   content: '';
+            //   position: absolute;
+            //   top: 0;
+            //   left: 86%;
+            //   width: 0;
+            //   height: 0;
+            //   border-color: #eef3fd transparent;
+            //   border-style: solid;
+            //   // border: 20px solid transparent;
+            //   border-width: 0 6px 8px 6.5px;
+            //   border-bottom-color: #ffffff;
+            //   top: -7px;
+            //   // border-top: 0;
+            //   // margin-left: -20px;
+            //   // margin-top: -15px;
+            // }
           }
         }
       }

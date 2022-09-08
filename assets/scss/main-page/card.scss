@@ -5,10 +5,30 @@
   height: calc(100vh - 80px);
   overflow-y: scroll;
   background-color: #F3F3F3;
+  .sts-i-wrp {
+    display: flex;
+    width: 1070px;
+    margin: 0 auto;
+    padding-top: 62px;
+    color: #005B9A;
+    input[type="checkbox" i] {
+      width: 16px; height: 16px;
+      background-color: #005B9A;
+    }
+    div:first-child {
+      flex-grow: 1;
+      text-align: right;
+    }
+    div:nth-child(2) {
+      width: max-content; height: 22px; line-height: 22px;
+      font-size: .75rem; font-weight: 500;
+      padding-left: 8px;
+    }
+  }
   .cards-wrp {
     display: grid;
     grid-gap: 32px;
-    padding-top: 70px; padding-bottom: 100px;
+    padding-top: 40px; padding-bottom: 100px;
     margin: 0 auto;
     width: 1070px;
     .card-wrp {
