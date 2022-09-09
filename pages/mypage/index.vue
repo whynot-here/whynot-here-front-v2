@@ -6,24 +6,30 @@
         마이페이지
       </div>
       <div class="sub-title">
-        프로필
+        안녕하세요 <strong>{{currentNickName}}</strong> 님!
       </div>
       <div class="img-nickname-grp">
         <div class="img"><img :src="$store.state.userInfo.detail.profileImg" alt=""></div>
         <div v-if="!editNickNameMode" class="nickname">
-          <div>
+          <div class="nickname-left">
+            닉네임
+          </div>
+          <div @click="editNickNameMode = true">
             {{ currentNickName }}
           </div>
-          <div class="edit-pencil">
+          <!-- <div class="edit-pencil">
             <img src="@/assets/img/common/edit-pencil.png" alt="" @click="editNickNameMode = true">
-          </div>
+          </div> -->
         </div>
-        <div v-else class="nickname">
-          <div class="edit-input">
-            <input v-model="inputNickName" type="text">
+        <div v-else class="nickname selected">
+          <div class="nickname-left">
+            닉네임
           </div>
-          <div class="edit-button">
-            <div @click="editNickName()">완료</div>
+          <div class="edit-input-wrp">
+            <input v-model="inputNickName" class="edit-input" type="text">
+          </div>
+          <div class="edit-button-wrp">
+            <div @click="editNickName()">저장</div>
           </div>
         </div>
       </div>
@@ -83,28 +89,54 @@ export default {
 <style lang="scss" scoped>
 #MyPage {
   .mypage-wrp {
-    width: 1032px; height: 385px;
-    margin: 0 auto; padding-top: 117px;
+    width: 970px; height: 572px;
+    margin: 0 auto; padding-top: 123px;
     .title {
-      font-size: 1.63rem; font-weight: 700;
+      font-size: 1.38rem; font-weight: 500;
+      color: #737373;
     }
     .sub-title {
-      margin-top: 39px;
-      font-size: 1.5rem; font-weight: 500;
+      margin-top: 24px;
+      font-size: 2rem; font-weight: 600;
+      strong {
+        color: #3E82F1;
+      }
     }
     .img-nickname-grp {
+      margin-top: 120px;
       text-align: center;
       .img {
         img {
-          border-radius: 20px;
+          border-radius: 24px;
+          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 8px rgba(0, 52, 138, 0.06);
         }
       }
       .nickname {
+        &.selected {
+          border: 1px solid #3E82F1;
+        }
         display: flex;
-        width: max-content;
-        margin: 10px auto;
-        font-size: 1.25rem; font-weight: 500;
+        width: 370px; height: 56px;
+        margin: 32px auto 0 auto;
+        font-size: 1rem; font-weight: 500;
         color: #454545;
+        background: #FFFFFF;
+        border: 1px solid #EFEFEF;
+        border-radius: 12px;
+        .nickname-left {
+          width: 65px; height: 18px;
+          margin-top: 20px;
+          border-right: 1px solid #EFEFEF;
+          font-size: .88rem;
+          color: #C8C8C8
+        }
+        div:nth-child(2) {
+          line-height: 56px;
+          padding-left: 12px;
+          text-align: left;
+          flex-grow: 1;
+          cursor: pointer;
+        }
         .edit-pencil {
           img {
             width: 15px; height: 23px;
@@ -112,34 +144,40 @@ export default {
             cursor: pointer;
           }
         }
-        .edit-input {
-          input {
-            font-size: 1.25rem; font-weight: 500;
-            padding: 5px 12px;
-            border: 1px solid #ccc;
+        .edit-input-wrp {
+          .edit-input {
+            font-size: 1rem; font-weight: 500;
+            padding: 12px;
+            border: none;
             border-radius: 10px;
           }
+          .edit-input:focus {
+            outline: none;
+          }
         }
-        .edit-button {
-          width: 50px; height: 30px; line-height: 30px;
-          margin-left: 10px;
-          border-radius: 10px;
-          background-color: #eee;
-          font-size: 1rem;
+        .edit-button-wrp {
+          width: 50px; height: 28px; line-height: 28px;
+          margin: 14px 16px;
+          background: #F3F3F3;
+          border-radius: 16px;
+          font-size: 1rem; font-weight: 500;
+          color: #3E82F1;
+          cursor: pointer;
         }
       }
     }
     .email {
-      width: 502px; height: 52px; 
-      margin: 0 auto;
+      width: 370px; height: 56px; line-height: 56px;
+      margin: 24px auto;
       input {
-        width: 100%; line-height: 52px;
+        width: 100%; height: 100%;
         padding-left: 12px;
         font-size: 1rem;
         color: #A3A3A3;
-        background-image: #FFFFFF;
-        border: 1px solid #E7E7E7;
-        border-radius: 8px;
+        background: #EFEFEF;
+        border-radius: 12px;
+        border: none;
+        text-align: center;
       }
     }
   }
