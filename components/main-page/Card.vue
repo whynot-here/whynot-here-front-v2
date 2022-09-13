@@ -60,26 +60,28 @@ export default {
   components: {
   },
   props: {
-    posts: {
+    postsProps: {
       type: Array,
       default: null
     },
-    category: {
-      type: String,
-      default: ''
-    },
-    subCategory: {
+    categoryProps: {
       type: String,
       default: ''
     }
+    // subCategory: {
+    //   type: String,
+    //   default: ''
+    // }
   },
   data () {
     return {
+      posts: [],
+      category: ''
     }
   },
   computed: {
     postsProc () {
-      return this.posts.map((post) => {
+      return this.postsProps.map((post) => {
         if (post.title.length > 16) {
           post.title_short = post.title.substr(0, 20) + '...'
         } else {
@@ -95,6 +97,10 @@ export default {
         return post
       })
     }
+  },
+  created () {
+    this.posts = this.postsProps
+    this.category = this.categoryProps
   },
   methods: {
     openSubMenuPopup (id) {

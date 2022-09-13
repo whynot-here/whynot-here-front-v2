@@ -19,6 +19,7 @@
 <script>
 export default {
   name: 'PostingPage',
+  layout: 'why-not',
   asyncData({ params }) {
     return {
       id: params.id

@@ -1,43 +1,23 @@
 <template>
   <div id="CategoryPage">
-    <div>
-      <Category
-        :is-my-postings="isMyPostings"
-        :is-book-mark="isBookMark"
-        :category="category"
-        :sub-category="subCategory"
-        @setSubCategoryId="setSubCategoryId"
-        @getCategoryIdAndGetPosts="getCategoryIdAndGetPosts"
-        @setLoginPopupOpen="setLoginPopupOpen"
-      />
-    </div>
-    <div>
-      <TopBar
-        ref="TopBar"
-        :category="categoryTitle"
-        :sub-category="subCategoryTitle"
-      />
       <Card
-        :posts="posts"
+        :posts-props="posts"
         :category="category"
-        :sub-category="subCategory"
         @refreshCard="getPosts"
       />
-    </div>
   </div>
 </template>
 
 <script>
-import TopBar from '@/components/main-page/TopBar'
-import Category from '@/components/main-page/Category'
 import Card from '@/components/main-page/Card'
 
 export default {
   name: 'CategoryPage',
   components: {
-    TopBar,
-    Category,
     Card
+  },
+  layout: 'why-not',
+  props: {
   },
   asyncData({ params, route, query, redirect }) {
     return {
@@ -50,13 +30,22 @@ export default {
   data () {
     return {
       posts:[],
-      categoryTitle: '',
-      subCategoryTitle: '',
       loginPopupOpen: false,
       isMyPostings: false,
       isBookMark: false,
       categoryId: 1
     }
+  },
+  created () {
+    this.$bus.$off('setSubCategoryId')
+    this.$bus.$off('getCategoryIdAndGetPosts')
+
+    this.$bus.$on('setSubCategoryId', ({ id, name, catName }) => {
+      this.setSubCategoryId({ id, name, catName })
+    })
+    this.$bus.$on('getCategoryIdAndGetPosts', () => {
+      this.getCategoryIdAndGetPosts()
+    })
   },
   mounted () {
     // 대분류 카테고리 선택했을 때만 불러오도록
@@ -80,6 +69,8 @@ export default {
       this.categoryId = category[0].parentId
       this.categoryTitle = category[0].parentName
       this.subCategoryTitle = ''
+
+      this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
     },
     geySubCategoryIdAndGetPosts () {
       this.getSubCategoryId()
@@ -98,6 +89,8 @@ export default {
       this.categoryTitle = category.parentName
       this.categoryId = selectedSubCategory.id
       this.subCategoryTitle = selectedSubCategory.name
+
+      this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
     },
     setSubCategoryId ({ id, name, catName }) {
       this.categoryId = id
@@ -144,24 +137,6 @@ export default {
 <style lang="scss" scoped>
 #CategoryPage {
   display: flex;
-  width: 100vw; height: 100vh;
-  // background: #FAFAFA;
-  #TopBar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  // .panel {
-  //   display: flex;
-  //   width: 100vw; 
-  //   height: calc(100vh - 80px);
-  //   overflow: scroll;
-  //   margin: 0 auto;
-  //   #Category {
-  //     width: 30%;
-  //     position: sticky;
-  //     top: 0px;
-  //   }
-  // }
+  height: calc(100vh - 80px);
 }
 </style>

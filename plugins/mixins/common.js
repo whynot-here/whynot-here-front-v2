@@ -4,6 +4,10 @@ import Vue from 'vue'
 const common = {
   data() {
     return {
+      // category: '',
+      // subCategory: '',
+      // categoryTitle: '',
+      // subCategoryTitle: '',
       categoryGroup: [
         {
           parentId: 1,

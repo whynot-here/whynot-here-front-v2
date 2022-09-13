@@ -1,8 +1,8 @@
 @import '@/assets/scss/util.scss';
 
 #Card {
-  flex-grow: 1;
-  height: calc(100vh - 80px);
+  // flex-grow: 1;
+  width: 100%; height: calc(100vh - 80px);
   overflow-y: scroll;
   background-color: #F3F3F3;
   .sts-i-wrp {

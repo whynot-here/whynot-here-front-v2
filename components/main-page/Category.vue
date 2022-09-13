@@ -68,11 +68,11 @@ export default {
   components: {
   },
   props: {
-    category: {
+    categoryInLayout: {
       type: String,
       default: ''
     },
-    subCategory: {
+    subCategoryInLayout: {
       type: String,
       default: ''
     }
@@ -83,16 +83,15 @@ export default {
       selectedSubCategory: ''
     }
   },
-  mounted () {
-    this.selectedCategory = this.category
-    this.selectedSubCategory = this.subCategory
+  async fetch () {
+    this.selectedCategory = await this.categoryInLayout
+    this.selectedSubCategory = await this.subCategoryInLayout
   },
   methods: {
     mainPage () {
       this.$router.push('/')
     },
     moveMyPostingsPage () {
-      console.log('...')
       this.$router.push({
         name: 'gather-category',
         params: {

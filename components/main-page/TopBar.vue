@@ -10,13 +10,13 @@
         </div> -->
         <div class="category-wrp">
           <div>
-            {{ category }}
+            {{ categoryTitleProps }}
           </div>
-          <div v-if="subCategory !== ''">
+          <div v-if="subCategoryTitleProps !== ''">
             <img src="@/assets/img/category/right-arrow.png" alt="">
           </div>
           <div>
-            {{ subCategory }}
+            {{ subCategoryTitleProps }}
           </div>
         </div>
         <div class="search"></div>
@@ -76,11 +76,11 @@ export default {
     LoginPopup
   },
   props: {
-    category: {
+    categoryTitleProps: {
       type: String,
       default: ''
     },
-    subCategory: {
+    subCategoryTitleProps: {
       type: String,
       default: ''
     }
@@ -90,7 +90,9 @@ export default {
       loginPopupOpen: false,
       profileImg: '',
       initLoginDone: false,
-      openAccount: false
+      openAccount: false,
+      categoryTitle: '',
+      subCategoryTitle: '',
     }
   },
   mounted () {
