@@ -1,7 +1,10 @@
 @import '@/assets/scss/util.scss';
 
 #TopBar {
-  @include mobile {
+  @include screen {
+    .open-account {
+      right: 15vw !important;
+    }
   }
   
   width: calc(100vw - 270px); height: 80px;

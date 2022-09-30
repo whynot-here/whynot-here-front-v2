@@ -1,8 +1,9 @@
 <template>
   <div id="CategoryPage">
       <Card
-        :posts-props="posts"
-        :category="category"
+        ref="Card"
+        :category-id="categoryId"
+        :category-props="category"
         @refreshCard="getPosts"
       />
   </div>
@@ -22,17 +23,17 @@ export default {
   asyncData({ params, route, query, redirect }) {
     return {
       category: params.category,
-      subCategory: route.query.sub,
+      subCategory: route.query.sub
       // isMyPostings: params.isMyPostings,
-      isBookMark: params.isBookMark
+      // isBookMark: params.isBookMark
     }
   },
   data () {
     return {
       posts:[],
       loginPopupOpen: false,
-      isMyPostings: false,
-      isBookMark: false,
+      // isMyPostings: false,
+      // isBookMark: false,
       categoryId: 1
     }
   },
@@ -58,9 +59,18 @@ export default {
   },
   methods: {
     getCategoryIdAndGetPosts () {
-      if (this.category !== 'mypostings')
-      this.getCategoryId()
-      this.getPosts()
+      if (this.category !== 'mypostings' && this.category !== 'bookmark') {
+        this.getCategoryId()
+        // this.getPosts()
+      } else {
+        let categoryTitle = ''
+        if (this.category === 'mypostings') {
+          categoryTitle = 'My 모임'
+        } else {
+          categoryTitle = '북마크'
+        }
+        this.$bus.$emit('sendCategoryTitle', { categoryTitle })
+      }
     },
     getCategoryId () {
       const category = this.categoryGroup.filter((category) => {
@@ -74,7 +84,7 @@ export default {
     },
     geySubCategoryIdAndGetPosts () {
       this.getSubCategoryId()
-      this.getPosts()
+      // this.getPosts()
     },
     getSubCategoryId () {
       const category = this.categoryGroup.filter((category) => {
@@ -99,33 +109,34 @@ export default {
       this.getPosts()
     },
     getPosts () {
-      if (this.category === 'mypostings') {
-        this.$axios.get(
-        ('https://whynot-here.o-r.kr/v2/posts/own'),
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        }
-        )
-        .then(res => {
-          this.posts = []
-          res.data.map((res) => {
-            return this.posts.push(res)
-          })
-        })
-      } else {
-        // this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
-        this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
-        .then(res => {
-          this.posts = []
-          res.data.map((res) => {
-            return this.posts.push(res)
-          })
-        })
-      }
+      this.$refs.Card.getPosts()
+      // if (this.category === 'mypostings') {
+      //   this.$axios.get(
+      //   ('https://whynot-here.o-r.kr/v2/posts/own'),
+      //   {
+      //     withCredentials: true,
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       Authorization: this.$store.state.userInfo.token
+      //     }
+      //   }
+      //   )
+      //   .then(res => {
+      //     this.posts = []
+      //     res.data.map((res) => {
+      //       return this.posts.push(res)
+      //     })
+      //   })
+      // } else {
+      //   // this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
+      //   this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
+      //   .then(res => {
+      //     this.posts = []
+      //     res.data.map((res) => {
+      //       return this.posts.push(res)
+      //     })
+      //   })
+      // }
     },
     setLoginPopupOpen () {
       this.$refs.TopBar.openLoginPopup()

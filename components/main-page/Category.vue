@@ -21,15 +21,15 @@
             <img src="@/assets/img/category/search.png" alt="">
           </div>
         </div>
-        <div class="menu">
-          <div @click="moveMyPostingsPage()">
+        <div :class="selectedCategory === 'mypostings' ? 'menu selected' : 'menu'" @click="moveMyPostingsPage()">
+          <div>
             ⭐️ My 모임
           </div>
           <div>
             <img src="@/assets/img/category/right-arrow.png" alt="">
           </div>
         </div>
-        <div class="menu">
+        <div :class="selectedCategory === 'bookmark' ? 'menu selected' : 'menu'" @click="moveBookMarkPage()">
           <div>
             🔖 북마크
           </div>
@@ -92,10 +92,20 @@ export default {
       this.$router.push('/')
     },
     moveMyPostingsPage () {
+      this.selectedCategory = 'mypostings'
       this.$router.push({
         name: 'gather-category',
         params: {
           category: 'mypostings'
+        }
+      })
+    },
+    moveBookMarkPage () {
+      this.selectedCategory = 'bookmark'
+      this.$router.push({
+        name: 'gather-category',
+        params: {
+          category: 'bookmark'
         }
       })
     },

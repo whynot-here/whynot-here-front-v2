@@ -14,7 +14,7 @@
         :key="idx"
         class="card-wrp"
       >
-        <div @click="moveDetailPage(post.id)">
+        <div @click.stop="moveDetailPage(post.id)">
           <div class="card-top">
             <div class="writer-title-wrp">
               <div class="writer">
@@ -24,15 +24,15 @@
                 {{ post.title_short }}
               </div>
             </div>
-            <div v-if="category === 'mypostings'" class="sub-menu-btn">
+            <div v-if="categoryProps === 'mypostings'" class="sub-menu-btn">
               <img src="@/assets/img/common/dot-btn.png" alt="" @click.stop="openSubMenuPopup(post.id)">
-              <div v-if="!post.isOpenSubMenu" class="sub-menu">
+              <div v-if="post.isOpenSubMenu" class="sub-menu">
                 <div @click.stop="editPosting(post.id)">수정하기</div>
                 <div>모집완료</div>
                 <div @click.stop="deletePosting(post.id)">삭제</div>
               </div>
             </div>
-            <div v-else class="book-mark" @click="post.selected = !post.selected">
+            <div v-else class="book-mark" @click.stop="bookMark(post.id)">
               <img v-if="!post.selected" src="@/assets/img/category/bookmark.png" alt="">
               <img v-if="post.selected" src="@/assets/img/category/bookmark-selected.png" alt="">
             </div>
@@ -60,9 +60,13 @@ export default {
   components: {
   },
   props: {
-    postsProps: {
-      type: Array,
-      default: null
+    // postsProps: {
+    //   type: Array,
+    //   default: null
+    // },
+    categoryId: {
+      type: Number,
+      default: 1
     },
     categoryProps: {
       type: String,
@@ -81,33 +85,150 @@ export default {
   },
   computed: {
     postsProc () {
-      return this.postsProps.map((post) => {
+      return this.posts.map((post) => {
         if (post.title.length > 16) {
           post.title_short = post.title.substr(0, 20) + '...'
         } else {
           post.title_short = post.title
         }
-        post.selected = false
+        // post.selected = false
         if (post.content.length > 30) {
           post.content_light = post.content.substr(0, 30) + '...'
         } else {
           post.content_light = post.content
         }
-        post.isOpenSubMenu = false
+
+        // post.bookMark = post.selected
+        // post.isOpenSubMenu = false
         return post
       })
     }
   },
-  created () {
-    this.posts = this.postsProps
+  watch: {
+    // bookMarkMode: {
+    //   deep: true,
+    //   handler () {
+    //     if (this.bookMarkMode) {
+    //       this.bookMarkMode = false
+    //     }
+    //   }
+    // },
+    // postsProps: {
+    //   deep: true,
+    //   handler () {
+    //   }
+    // }
+  },
+  mounted () {
     this.category = this.categoryProps
+    console.log(this.categoryProps)
+    this.getPosts()
   },
   methods: {
-    openSubMenuPopup (id) {
-      this.posts.forEach((post) => {
-        if (post.id === id) {
-          post.isOpenSubMenu = true
+    getPosts () {
+      if (this.categoryProps === 'mypostings') {
+        this.$axios.get(
+        ('https://whynot-here.o-r.kr/v2/posts/own'),
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
         }
+        )
+        .then(res => {
+          this.posts = []
+          res.data.map((res) => {
+            res.isOpenSubMenu = false
+            return this.posts.push(res)
+          })
+        })
+      } else if (this.categoryProps === 'bookmark') {
+        console.log('why')
+        this.$axios.get(
+        ('https://whynot-here.o-r.kr/v2/posts/favorite'),
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+        )
+        .then(res => {
+          this.posts = []
+          res.data.map((res) => {
+            return this.posts.push(res)
+          })
+        })
+      } else {
+        // this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
+        this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
+        .then(res => {
+          this.posts = []
+          res.data.map((res) => {
+            res.selected = false
+            return this.posts.push(res)
+          })
+        })
+      }
+    },
+    bookMark (id) {
+      this.posts.map((post) => {
+        if (id === post.id) {
+          if (post.selected) {
+            (this.$axios.delete(
+              (`https://whynot-here.o-r.kr/v2/posts/favorite/${id}`),
+              {},
+              {
+                withCredentials: true,
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: this.$store.state.userInfo.token
+                }
+              }
+            )
+            ).then(res => {
+              post.selected = false
+              console.log('bookmark')
+            }).catch((error) => {
+              window.alert(error.response.data.message)
+            })
+          } else {
+            (this.$axios.post(
+              (`https://whynot-here.o-r.kr/v2/posts/favorite/${id}`),
+              {},
+              {
+                withCredentials: true,
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: this.$store.state.userInfo.token
+                }
+              }
+            )
+            ).then(res => {
+              post.selected = true
+              console.log('bookmark')
+            }).catch((error) => {
+              window.alert(error.response.data.message)
+            })
+          }
+        }
+        return post
+      })
+      this.bookMarkMode = true
+    },
+    openSubMenuPopup (id) {
+      this.posts.map((post) => {
+        if (post.id === id) {
+          if (post.isOpenSubMenu) {
+            post.isOpenSubMenu = false
+          } else {
+            post.isOpenSubMenu = true
+          }
+        }
+        return post
       })
     },
     moveDetailPage (id) {
