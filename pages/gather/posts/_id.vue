@@ -32,7 +32,26 @@
         </div>
       </section>
       <section class="comment-panel">
-  
+        <div class="top">
+          <div>
+            <img :src="postComp.writerProfileImage" alt="">
+          </div>
+          <div>
+            {{ postComp.writerName }}
+          </div>
+          <div>
+            {{ postComp.contactText }} 연락
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="comment-count">
+            댓글 <strong>{{ commentCount }}</strong>
+          </div>
+          <div class="comment-wrp">
+            <textarea class="comment-input" rows="10" placeholder="Why Not Here에 가입하고 댓글을 달아보세요!"></textarea>
+            <div class="comment-register">댓글달기</div>
+          </div>
+        </div>
       </section>
     </div>
     <!-- <div>
@@ -54,7 +73,8 @@ export default {
   data () {
     return {
       post: {
-      }
+      },
+      commentCount: 0
     }
   },
   computed: {
@@ -65,6 +85,9 @@ export default {
       const result = this.post
       result.communicationToolText = {'ONLINE' : '온라인', 'OFFLINE' : '만나서'}[this.post.communicationTool]
       result.categoryName = this.post.category.name
+      result.contactText = {'EMAIL' : '이메일', 'PHONE' : '휴대폰'}[this.post.ownerContact.type]
+      result.writerName = this.post.writer.nickname
+      result.writerProfileImage = this.post.writer.profileImg
       return result
     }
   },
@@ -148,12 +171,83 @@ export default {
       }
     }
     .comment-panel {
-      width: 410px; height: 290px;
+      width: 362px; height: 250px;
+      padding: 24px;
       margin-left: 30px;
       background: #FFFFFF;
       border: 1px solid #E7E7E7;
       box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
       border-radius: 12px;
+      .top {
+        display: flex;
+        div:first-child {
+          margin-right: 12px;
+          img {
+            width: 32px; height: 32px;
+            margin-top: 7px;
+            border-radius: 30px;
+          }
+        }
+        div:nth-child(2) {
+          flex-grow: 1;
+          line-height: 44px;
+          font-size: .88rem;
+          font-weight: 500;
+          color: #737373;
+        }
+        div:nth-child(3) {
+          width: 121px; height: 44px; line-height: 44px;
+          font-size: .88rem;
+          font-weight: 600;
+          color: #ffffff;
+          text-align: center;
+          background: #FF8A00;
+          border-radius: 10px;
+        }
+      }
+      .bottom {
+        margin-top: 32px;
+        .comment-count {
+          font-size: .88rem;
+          font-weight: 500;
+          strong {
+            color: #3E82F1;
+          }
+        }
+        .comment-wrp {
+          position: relative;
+          .comment-input {
+            width: 332px; height: 106px;
+            padding: 15px; margin-top: 14px;
+            background: #FAFAFA;
+            border-radius: 8px;
+            border: none !important;
+            resize: none;
+          }          
+          .comment-input:focus {
+            outline: none;
+          }
+          .comment-input::placeholder {
+            color: #C8C8C8;
+          }
+          .comment-register {
+            position: absolute;
+            margin-top: -50px;
+            margin-left: 260px;
+            width: 77px; height: 33px; line-height: 33px;
+            padding: 0 4px;
+            font-size: .88rem;
+            font-weight: 500;
+            color: #737373;
+            text-align: center;
+            background: #FFFFFF;
+            mix-blend-mode: normal;
+            border: 1px solid #E7E7E7;
+            border-radius: 32px;
+            cursor: pointer;
+          }
+        }
+      }
     }
   }
 }
