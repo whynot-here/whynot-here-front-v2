@@ -85,7 +85,7 @@ export default {
       const result = this.post
       result.communicationToolText = {'ONLINE' : '온라인', 'OFFLINE' : '만나서'}[this.post.communicationTool]
       result.categoryName = this.post.category.name
-      result.contactText = {'EMAIL' : '이메일', 'PHONE' : '휴대폰'}[this.post.ownerContact.type]
+      result.contactText = {'EMAIL' : '이메일', 'KAKAO_OPEN_CHAT' : '카카오톡', 'PHONE' : '휴대전화'}[this.post.ownerContact.type]
       result.writerName = this.post.writer.nickname
       result.writerProfileImage = this.post.writer.profileImg
       return result
