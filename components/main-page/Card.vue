@@ -33,8 +33,8 @@
               </div>
             </div>
             <div v-else class="book-mark" @click.stop="bookMark(post.id)">
-              <img v-if="!post.selected" src="@/assets/img/category/bookmark.png" alt="">
-              <img v-if="post.selected" src="@/assets/img/category/bookmark-selected.png" alt="">
+              <img v-if="post.isBookMarked === undefined" src="@/assets/img/category/bookmark.png" alt="">
+              <img v-if="post.isBookMarked" src="@/assets/img/category/bookmark-selected.png" alt="">
             </div>
           </div>
           <div class="card-middle">
@@ -123,6 +123,7 @@ export default {
     this.category = this.categoryProps
     console.log(this.categoryProps)
     this.getPosts()
+    this.getBookMark()
   },
   methods: {
     getPosts () {
@@ -172,6 +173,31 @@ export default {
             return this.posts.push(res)
           })
         })
+      }
+    },
+    getBookMark () {
+      if (this.$store.state.userInfo.initLoginDone && this.categoryProps !== 'bookmark' && this.categoryProps !== 'mypostings') {
+        this.$axios.get(
+          ('https://whynot-here.o-r.kr/v2/posts/favorite'),
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          }
+          )
+          .then(res => {
+            console.log(res)
+            res.data.forEach(bookMark => {
+              this.posts.map((post) => {
+                if (bookMark.id === post.id) {
+                  post.isBookMarked = true
+                }
+                return post
+              })
+            });
+          })
       }
     },
     bookMark (id) {
