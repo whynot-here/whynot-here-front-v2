@@ -1,6 +1,6 @@
 <template>
   <div id="PostingPage">
-    <TopBar />
+    <TopBarOnly />
     <div class="panel">
       <section class="form">
         <div class="title">📝 글쓰기</div>
@@ -120,13 +120,13 @@
 </template>
 
 <script>
-import TopBar from '@/components/main-page/TopBar'
+import TopBarOnly from '@/components/main-page/TopBarOnly'
 import DropDown from '@/components/common/dropdown'
 
 export default {
   name: 'CategoryPage',
   components: {
-    TopBar,
+    TopBarOnly,
     DropDown
   },
   asyncData({ params, query }) {
@@ -294,7 +294,7 @@ export default {
 #PostingPage {
   width: 100vw; height: 100vh;
   overflow: scroll;
-  background: #FAFAFA;
+  background-color: #F3F3F3;
   #TopBar {
     position: sticky;
     top: 0;
