@@ -120,7 +120,7 @@ export default {
         // this.$emit('setLoginPopupOpen', {})
         this.openLoginPopup()
       } else {
-        this.$router.push('/posting?m=wirte')
+        this.$router.push('/posting?m=write')
       }
     },
     logout() {

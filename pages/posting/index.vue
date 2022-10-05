@@ -90,8 +90,8 @@
         </div>
       </section>
       <section>
-        <div v-if="mode === 'write'" class="upload" @click="uploadPosting">
-          📄 업로드
+        <div v-if="postingMode === 'write'" class="upload" @click="uploadPosting">
+          📄 글 업로드
         </div>
         <div v-else class="upload" @click="editPosting">
           📄 수정하기
@@ -124,7 +124,7 @@ import TopBarOnly from '@/components/main-page/TopBarOnly'
 import DropDown from '@/components/common/dropdown'
 
 export default {
-  name: 'CategoryPage',
+  name: 'PostingPage',
   components: {
     TopBarOnly,
     DropDown
@@ -182,6 +182,11 @@ export default {
         recruitCurrentCnt: 1,
         communicationTool: ''
       }
+    }
+  },
+  computed: {
+    postingMode () {
+      return this.mode
     }
   },
   mounted () {
