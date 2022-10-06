@@ -3,9 +3,14 @@
     <TopBarOnly />
     <div class="panel">
       <section class="form">
-        <div class="title">📝 글쓰기</div>
+        <div class="title-group">
+          <div class="title">📝 글쓰기</div>
+          <div class="close">
+            <img src="@/assets/img/common/close-page.png" alt="" @click="cmn_goMainPage">
+          </div>
+        </div>
         <div class="group info">
-          <div class="posting-group">모집 정보</div>
+          <div class="posting-group">모집 정보 <strong>*</strong></div>
           <div class="line">
             <div class="form-wrp category">
               <div class="sub-title">카테고리</div>
@@ -56,15 +61,22 @@
           </div>
         </div>
         <div class="group">
-          <div class="posting-group">한줄 소개</div>
+          <div class="posting-group">모집 한줄 소개</div>
           <div class="line">
             <div class="form-wrp">
-              <input v-model="postingRegisterParams.title" type="text" style="width: 770px; padding-left: 20px;" class="sub-wrp">
+              <input
+                v-model="postingRegisterParams.title"
+                type="text" 
+                style="width: 770px; 
+                padding-left: 20px;" 
+                placeholder="카테고리와 관련된 내용을 입력해 주세요."
+                class="sub-wrp"
+              >
             </div>
           </div>
         </div>
         <div class="group">
-          <div class="posting-group">모집 소개</div>
+          <div class="posting-group">모집 소개 <strong>*</strong></div>
           <div class="line">
             <div class="form-wrp">
               <textarea
@@ -315,12 +327,25 @@ export default {
           border-bottom: 1px solid #E7E7E7;
         }
       }
-      .title {
-        font-size: 1.38rem; font-weight: 700;
+      .title-group {
+        display: flex;
+        .title {
+          font-size: 1.38rem; font-weight: 700;
+          flex-grow: 1;
+        }
+        .close {
+          img {
+            width: 32px; height: 32px;
+            cursor: pointer;
+          }
+        }
       }
       .posting-group {
         margin-top: 52px;
         font-size: 1.25rem; font-weight: 500;
+        strong {
+          color: #E74133;
+        }
       }
       .line {
         display: flex;
@@ -337,6 +362,10 @@ export default {
             background-color: #ffffff;
             border: 1px solid #E7E7E7;
             border-radius: 8px;
+          }
+
+          .sub-wrp::placeholder {
+            color: #C8C8C8;
           }
           .d-day-input {
             display: flex;

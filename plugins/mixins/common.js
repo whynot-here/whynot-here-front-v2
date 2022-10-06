@@ -176,7 +176,11 @@ const common = {
       }
     },
 
-    cmn_logout() {
+    cmn_goMainPage () {
+      this.$router.push('/')
+    },
+
+    cmn_logout () {
       if (window.confirm('로그아웃 하시겠어요?')) {
         this.$cookies.remove('token')
 
