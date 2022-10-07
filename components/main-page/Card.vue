@@ -80,11 +80,16 @@ export default {
   data () {
     return {
       posts: [],
-      category: ''
+      category: '',
+      bookMarkComp: false
     }
   },
   computed: {
     postsProc () {
+      // 북마크 받아오는 시점 이후에 처리 가능하도록
+      if (!this.bookMarkComp) {
+        return []
+      }
       return this.posts.map((post) => {
         if (post.title.length > 16) {
           post.title_short = post.title.substr(0, 20) + '...'
@@ -197,6 +202,7 @@ export default {
                 return post
               })
             });
+            this.bookMarkComp = true
           })
       }
     },
