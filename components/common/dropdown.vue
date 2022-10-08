@@ -65,7 +65,7 @@ export default {
   .select-box {
     position: relative;
     width: 100%;
-    height: 49px;
+    height: 46px;
     border-radius: 8px;
     // border: 1px solid #CFD5CF;
     border-radius: 8px;

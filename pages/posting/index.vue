@@ -15,6 +15,10 @@
             <div class="form-wrp category">
               <div class="sub-title">카테고리</div>
               <div name="" class="sub-wrp">
+                <DropdownCategory
+                  :label-first="'카테고리'"
+                  :label-second="'상세'"
+                />
               </div>
             </div>
             <div class="form-wrp d-day">
@@ -67,8 +71,7 @@
               <input
                 v-model="postingRegisterParams.title"
                 type="text" 
-                style="width: 770px; 
-                padding-left: 20px;" 
+                style="width: 750px; padding-left: 20px;" 
                 placeholder="카테고리와 관련된 내용을 입력해 주세요."
                 class="sub-wrp"
               >
@@ -103,10 +106,10 @@
       </section>
       <section>
         <div v-if="postingMode === 'write'" class="upload" @click="uploadPosting">
-          📄 글 업로드
+          글 업로드
         </div>
         <div v-else class="upload" @click="editPosting">
-          📄 수정하기
+          수정하기
         </div>
       </section>
       <!-- <section class="content">
@@ -133,12 +136,14 @@
 
 <script>
 import TopBarOnly from '@/components/main-page/TopBarOnly'
+import DropdownCategory from '@/components/common/dropdownCategory'
 import DropDown from '@/components/common/dropdown'
 
 export default {
   name: 'PostingPage',
   components: {
     TopBarOnly,
+    DropdownCategory,
     DropDown
   },
   asyncData({ params, query }) {
@@ -356,7 +361,7 @@ export default {
             color: #7A7A7A;
           }
           .sub-wrp {
-            height: 50px; line-height: 50px;
+            height: 46px; line-height: 46px;
             margin-top: 12px;
             // padding-left: 12px;
             background-color: #ffffff;
@@ -423,8 +428,8 @@ export default {
               width: 146px;
             }
             .call-input {
-              width: 200px; height: 28px;
-              padding: 0 20px; margin: 10px 0px;
+              width: 200px; height: 16px;
+              padding: 0 20px; margin: 16px 0px;
               border: none;
               border-left: 1px solid #E7E7E7;
             }
@@ -463,6 +468,7 @@ export default {
       margin: 0 auto;
       font-size: 1rem; font-weight: 500;
       background: #FFFFFF;
+      // opacity: 0.4;
       border: 1px solid #E1E2E3;
       border-radius: 8px;
       text-align: center;
