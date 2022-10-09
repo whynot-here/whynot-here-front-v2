@@ -47,13 +47,12 @@ export default {
   methods: {
     googleLogin () {
       location.href = `https://whynot-here.o-r.kr/auth/login/google?redirect_uri=${process.env.frontUrl}`
-      console.log()
     },
     kakaoLogin () {
-
+      location.href = `https://whynot-here.o-r.kr/auth/login/kakao?redirect_uri=${process.env.frontUrl}`
     },
     naverLogin () {
-
+      location.href = `https://whynot-here.o-r.kr/auth/login/naver?redirect_uri=${process.env.frontUrl}`
     }
   }
 }
