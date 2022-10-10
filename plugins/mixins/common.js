@@ -189,7 +189,7 @@ const common = {
         this.$store.commit('userInfo/setDetail', { info: null })
 
         Cookies.remove('vuex')
-        // this.$router.replace('/project')
+        this.$bus.$emit('refreshCard', {})
       }
     }
   }

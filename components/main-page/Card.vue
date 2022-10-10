@@ -124,6 +124,12 @@ export default {
     //   }
     // }
   },
+  created () {
+    this.$bus.$off('refreshCard')
+    this.$bus.$on('refreshCard', () => {
+      this.refreshCard()
+    })
+  },
   mounted () {
     this.category = this.categoryProps
     console.log(this.categoryProps)
@@ -131,6 +137,11 @@ export default {
     this.getBookMark()
   },
   methods: {
+    refreshCard() {
+      console.log('bye')
+      this.getPosts()
+      this.getBookMark()
+    },
     getPosts () {
       if (this.categoryProps === 'mypostings') {
         this.$axios.get(
@@ -181,6 +192,7 @@ export default {
       }
     },
     getBookMark () {
+      this.bookMarkComp = false
       if (this.$store.state.userInfo.initLoginDone && this.categoryProps !== 'bookmark' && this.categoryProps !== 'mypostings') {
         this.$axios.get(
           ('https://whynot-here.o-r.kr/v2/posts/favorite'),
@@ -204,15 +216,20 @@ export default {
             });
             this.bookMarkComp = true
           })
+      } else {
+        this.bookMarkComp = true
       }
+      // setTimeout(() => {
+      //   this.bookMarkComp = false
+      // }, 1000)
+
     },
     bookMark (id) {
       this.posts.map((post) => {
         if (id === post.id) {
-          if (post.selected) {
+          if (post.isBookMarked) {
             (this.$axios.delete(
               (`https://whynot-here.o-r.kr/v2/posts/favorite/${id}`),
-              {},
               {
                 withCredentials: true,
                 headers: {
@@ -222,7 +239,7 @@ export default {
               }
             )
             ).then(res => {
-              post.selected = false
+              post.isBookMarked = false
               console.log('bookmark')
             }).catch((error) => {
               window.alert(error.response.data.message)
@@ -240,7 +257,7 @@ export default {
               }
             )
             ).then(res => {
-              post.selected = true
+              post.isBookMarked = true
               console.log('bookmark')
             }).catch((error) => {
               window.alert(error.response.data.message)
@@ -249,7 +266,8 @@ export default {
         }
         return post
       })
-      this.bookMarkMode = true
+      this.getBookMark()
+      // this.bookMarkMode = true
     },
     openSubMenuPopup (id) {
       this.posts.map((post) => {
