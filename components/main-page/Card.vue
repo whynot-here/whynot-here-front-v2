@@ -90,6 +90,7 @@ export default {
       if (!this.bookMarkComp) {
         return []
       }
+      console.log('hihihi')
       return this.posts.map((post) => {
         if (post.title.length > 16) {
           post.title_short = post.title.substr(0, 20) + '...'
