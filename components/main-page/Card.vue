@@ -33,7 +33,7 @@
               </div>
             </div>
             <div v-else class="book-mark" @click.stop="bookMark(post.id)">
-              <img v-if="post.isBookMarked === undefined" src="@/assets/img/category/bookmark.png" alt="">
+              <img v-if="post.isBookMarked === undefined || !post.isBookMarked" src="@/assets/img/category/bookmark.png" alt="">
               <img v-if="post.isBookMarked" src="@/assets/img/category/bookmark-selected.png" alt="">
             </div>
           </div>
@@ -177,6 +177,7 @@ export default {
         .then(res => {
           this.posts = []
           res.data.map((res) => {
+            res.isBookMarked = true
             return this.posts.push(res)
           })
         })
@@ -267,7 +268,11 @@ export default {
         }
         return post
       })
-      this.getBookMark()
+      // this.refreshCard()
+      // 사간 간격 안 두면 결과 반영이 안되는 경우가 있어서
+      setTimeout(() => {
+        this.getBookMark()
+      }, 300)
       // this.bookMarkMode = true
     },
     openSubMenuPopup (id) {
