@@ -7,7 +7,7 @@
             마감 D - 8
           </div>
           <div class="img-wrp">
-            <img src="@/assets/img/posting/copy-detail.png" alt="">
+            <img src="@/assets/img/posting/copy-detail.png" alt="" @click="copyUrl()">
           </div>
           <div class="img-wrp">
             <img src="@/assets/img/posting/bookmark-detail.png" alt="">
@@ -100,6 +100,19 @@ export default {
       .then(res => {
         this.post = res.data
       })
+    },
+    copyUrl() {
+      let url = '';
+      const textarea = document.createElement("textarea");
+      
+      document.body.appendChild(textarea);
+      url = window.document.location.href;
+      textarea.value = url;
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      
+      alert("URL이 복사되었습니다.")
     }
   }
 }
@@ -139,6 +152,7 @@ export default {
           margin-left: 16px;
           img {
             width: 36px; height: 36px;
+            cursor: pointer;
           }
         }
         div:nth-child(2) {
