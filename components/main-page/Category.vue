@@ -16,7 +16,7 @@
       </div> -->
       <div class="sub-menu-wrp">
         <div class="search">
-          <div>통합검색</div>
+          <input class="total-search" type="text" placeholder="통합검색" />
           <div class="search-img">
             <img src="@/assets/img/category/search.png" alt="">
           </div>
