@@ -4,6 +4,7 @@
         ref="Card"
         :category-id="categoryId"
         :category-props="category"
+        :search-text="searchText"
         @refreshCard="getPosts"
       />
   </div>
@@ -23,7 +24,8 @@ export default {
   asyncData({ params, route, query, redirect }) {
     return {
       category: params.category,
-      subCategory: route.query.sub
+      subCategory: route.query.sub,
+      searchText: query.t,
       // isMyPostings: params.isMyPostings,
       // isBookMark: params.isBookMark
     }
@@ -37,14 +39,27 @@ export default {
       categoryId: 1
     }
   },
+  watch:{
+    $route () {
+      // 사간 간격 안 두면 keyword 반영이 안되는 경우가 있어서
+      setTimeout(() => {
+        this.$bus.$emit('refreshCard', {})
+      }, 300)
+    }
+  },
+  watchQuery: ['t'],
   created () {
     this.$bus.$off('setSubCategoryId')
     this.$bus.$off('getCategoryIdAndGetPosts')
+    this.$bus.$off('refreshSearch')
 
     this.$bus.$on('setSubCategoryId', ({ id, name, catName }) => {
       this.setSubCategoryId({ id, name, catName })
     })
     this.$bus.$on('getCategoryIdAndGetPosts', () => {
+      this.getCategoryIdAndGetPosts()
+    })
+    this.$bus.$on('refreshSearch', () => {
       this.getCategoryIdAndGetPosts()
     })
   },
@@ -59,15 +74,17 @@ export default {
   },
   methods: {
     getCategoryIdAndGetPosts () {
-      if (this.category !== 'mypostings' && this.category !== 'bookmark') {
+      if (this.category !== 'mypostings' && this.category !== 'bookmark' && this.category !== 'search') {
         this.getCategoryId()
         // this.getPosts()
       } else {
         let categoryTitle = ''
         if (this.category === 'mypostings') {
           categoryTitle = 'My 모임'
-        } else {
+        } else if (this.category === 'bookmark') {
           categoryTitle = '북마크'
+        } else if (this.category === 'search') {
+          categoryTitle = '검색 결과'
         }
         this.$bus.$emit('sendCategoryTitle', { categoryTitle })
       }

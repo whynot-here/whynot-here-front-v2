@@ -71,6 +71,10 @@ export default {
     categoryProps: {
       type: String,
       default: ''
+    },
+    searchText: {
+      type: String,
+      default: ''
     }
     // subCategory: {
     //   type: String,
@@ -90,7 +94,6 @@ export default {
       if (!this.bookMarkComp) {
         return []
       }
-      console.log('hihihi')
       return this.posts.map((post) => {
         if (post.title.length > 16) {
           post.title_short = post.title.substr(0, 20) + '...'
@@ -133,13 +136,10 @@ export default {
   },
   mounted () {
     this.category = this.categoryProps
-    console.log(this.categoryProps)
-    this.getPosts()
-    this.getBookMark()
+    this.refreshCard()
   },
   methods: {
     refreshCard() {
-      console.log('bye')
       this.getPosts()
       this.getBookMark()
     },
@@ -163,7 +163,6 @@ export default {
           })
         })
       } else if (this.categoryProps === 'bookmark') {
-        console.log('why')
         this.$axios.get(
         ('https://whynot-here.o-r.kr/v2/posts/favorite'),
         {
@@ -178,6 +177,23 @@ export default {
           this.posts = []
           res.data.map((res) => {
             res.isBookMarked = true
+            return this.posts.push(res)
+          })
+        })
+      } else if (this.categoryProps === 'search') {
+        this.$axios.get(
+        (`https://whynot-here.o-r.kr/v2/posts/search?keyword=` + this.searchText),
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+        )
+        .then(res => {
+          this.posts = []
+          res.data.map((res) => {
             return this.posts.push(res)
           })
         })
@@ -207,7 +223,6 @@ export default {
           }
           )
           .then(res => {
-            console.log(res)
             res.data.forEach(bookMark => {
               this.posts.map((post) => {
                 if (bookMark.id === post.id) {
@@ -242,7 +257,6 @@ export default {
             )
             ).then(res => {
               post.isBookMarked = false
-              console.log('bookmark')
             }).catch((error) => {
               window.alert(error.response.data.message)
             })
@@ -260,7 +274,6 @@ export default {
             )
             ).then(res => {
               post.isBookMarked = true
-              console.log('bookmark')
             }).catch((error) => {
               window.alert(error.response.data.message)
             })

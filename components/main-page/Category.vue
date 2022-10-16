@@ -16,9 +16,9 @@
       </div> -->
       <div class="sub-menu-wrp">
         <div class="search">
-          <input class="total-search" type="text" placeholder="통합검색" />
+          <input v-model="searchText" class="total-search" type="text" placeholder="통합검색" />
           <div class="search-img">
-            <img src="@/assets/img/category/search.png" alt="">
+            <img src="@/assets/img/category/search.png" alt="" @click="search()">
           </div>
         </div>
         <div :class="selectedCategory === 'mypostings' ? 'menu selected' : 'menu'" @click="moveMyPostingsPage()">
@@ -80,7 +80,8 @@ export default {
   data () {
     return {
       selectedCategory: '',
-      selectedSubCategory: ''
+      selectedSubCategory: '',
+      searchText: ''
     }
   },
   async fetch () {
@@ -90,6 +91,18 @@ export default {
   methods: {
     mainPage () {
       this.$router.push('/')
+    },
+    search () {
+      this.selectedCategory = 'search'
+      this.$router.push({
+        name: 'gather-category',
+        params: {
+          category: 'search'
+        },
+        query: {
+          t: this.searchText
+        }
+      })
     },
     moveMyPostingsPage () {
       this.selectedCategory = 'mypostings'

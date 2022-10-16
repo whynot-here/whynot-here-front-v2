@@ -85,7 +85,6 @@ export default {
       // if (this.optionList === null) {
       //   return false
       // }
-      console.log('????')
       if (document.querySelector(`.${this.labelFirst}`).parentNode.classList.contains('active')) {
         document.querySelector(`.${this.labelFirst}`).parentNode.classList.remove('active')
         document.querySelector(`.${this.labelSecond}`).parentNode.classList.remove('active')
