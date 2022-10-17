@@ -6,7 +6,7 @@
           {{ labelFirst }}
         </button>
         <ul class="option-list main">
-          <li v-for="(item, idx) in categoryList" :key="idx" class="option-item" @click="selectOptionMain(item)">
+          <li v-for="(item, idx) in categoryList" :key="idx" :class="item.id === parentId ? 'option-item selected' : 'option-item'" @click="selectOptionMain(item)">
             {{ item.name }}
           </li>
         </ul>
@@ -16,7 +16,7 @@
           {{ labelSecond }}
         </button>
         <ul class="option-list sub">
-          <li v-for="(item, idx) in subCategoryList" :key="idx" class="option-item" @click="selectOptionSub(item)">
+          <li v-for="(item, idx) in subCategoryList" :key="idx" :class="item.id === childrenId ? 'option-item-sub selected-sub' : 'option-item-sub'" @click="selectOptionSub(item)">
             {{ item.name }}
           </li>
         </ul>
@@ -48,7 +48,9 @@ export default {
   },
   data () {
     return {
-      selectedCategoryId: 1
+      selectedCategoryId: 1,
+      parentId: 1,
+      childrenId: 2
     }
   },
   computed: {
@@ -97,12 +99,23 @@ export default {
       document.querySelector(`.${this.labelFirst}`).innerHTML = item.name + ''
       document.querySelector(`.${this.labelFirst}`).style.color = '#000'
       this.selectedCategoryId = item.id
+      this.parentId = item.id
     },
-    selectOption (item) {
-      document.querySelector(`.${this.label}`).innerHTML = item.text + ''
-      document.querySelector(`.${this.label}`).style.color = '#000'
-      document.querySelector(`.${this.label}`).parentNode.classList.remove('active')
-      this.$emit('get-label', item)
+    selectOptionSub (item) {
+      // 처음에 메인 카테고리 선택 안하고 서브 카테고리 바로 선택한 경우 때문에
+      if (this.selectedCategoryId === 1) {
+        const firstItem = {
+          name: '스터디',
+          id: 1
+        }
+        this.selectOptionMain(firstItem)
+      }
+      document.querySelector(`.${this.labelSecond}`).innerHTML = item.name + ''
+      document.querySelector(`.${this.labelSecond}`).style.color = '#000'
+      document.querySelector(`.${this.labelFirst}`).parentNode.classList.remove('active')
+      document.querySelector(`.${this.labelSecond}`).parentNode.classList.remove('active')
+      this.childrenId = item.id
+      // this.$emit('get-label', item)
     }
   }
 }
@@ -230,8 +243,22 @@ export default {
     transition: .3s;
   }
 
-    .select-box .option-item:last-child {
+  .select-box .option-item-sub {
+    width: 130px; height: 42px; line-height: 42px;
+    font-size: .88rem;
+    color: #C8C8C8;
+    // border-bottom: 1px dashed rgb(132, 132, 132);
+    padding: 0px 5px;
+    margin-top: 8px;
+    transition: .3s;
+  }
+
+    .select-box .option-item:last-child, .select-box .option-item-sub:last-child {
     margin-bottom: 8px;
+  }
+
+  .select-box .option-item:last-child, .select-box .option-item-sub:last-child {
+    border-bottom: 0 none;
   }
 
   .select-box .option-item:hover {
@@ -240,9 +267,22 @@ export default {
     color: #005B9A;
   }
 
-  .select-box .option-item:last-child {
-    border-bottom: 0 none;
+  .select-box .selected {
+    background: #F3F7FE;
+    border-radius: 6px;
+    color: #005B9A;
   }
+
+  // .select-box .option-item-sub:hover {
+  //   color: #454545;
+  //   font-weight: 500;
+  // }
+
+  .select-box .selected-sub {
+    color: #454545;
+    font-weight: 500;
+  }
+  
 
   // 스크롤 커스텀
   .select-box .option-list::-webkit-scrollbar {width: 6px;}
