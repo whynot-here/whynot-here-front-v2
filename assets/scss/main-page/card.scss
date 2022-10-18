@@ -5,6 +5,44 @@
   width: 100%; height: calc(100vh - 80px);
   overflow-y: scroll;
   background-color: #F3F3F3;
+  .comp-modal {
+    position: fixed;
+    z-index: 100;
+    width: 100vw; height: 100vh;
+    top: 0; left: 0;
+    background-color: rgba(24, 24, 24, 0.4);
+    .comp-wrp {
+      margin: calc(100vh / 3) auto;
+      width: 400px; height: 208px;
+      background-color: #FFFFFF;
+      border-radius: 12px;
+      text-align: center;
+      .notice {
+        padding: 28px 90px;
+        line-height: 1.6;
+        font-size: 1.13rem;
+        strong {
+          font-weight: 700;
+        }
+      }
+      .select-wrp {
+        display: flex;
+        margin: 0 24px;
+        border-top: 1px solid #E7E7E7;
+        div {
+          width: 50%; height: 30px; line-height: 30px;
+          margin: 16px 0;
+          cursor: pointer;
+        }
+        div:first-child {
+          color: #E74133;
+          border-right: 1px solid #E7E7E7;
+        }
+        div:nth-child(2) {
+        }
+      }
+    }
+  }
   .sts-i-wrp {
     display: flex;
     width: 1070px;

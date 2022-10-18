@@ -28,7 +28,7 @@
               <img src="@/assets/img/common/dot-btn.png" alt="" @click.stop="openSubMenuPopup(post.id)">
               <div v-if="post.isOpenSubMenu" class="sub-menu">
                 <div @click.stop="editPosting(post.id)">수정하기</div>
-                <div>모집완료</div>
+                <div @click="compModalOpen = true">모집완료</div>
                 <div @click.stop="deletePosting(post.id)">삭제</div>
               </div>
             </div>
@@ -48,6 +48,19 @@
               마감 D-8
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="!compModalOpen" class="comp-modal">
+      <div class="comp-wrp">
+        <div class="notice">
+          모집 완료를 누르시면 해당 글<br>
+          <strong>수정 / 모집이 불가합니다.</strong><br>
+          그래도 진행 하시겠습니까?
+        </div>
+        <div class="select-wrp">
+          <div @click="compModalOpen = false">아니요</div>
+          <div>네</div>
         </div>
       </div>
     </div>
@@ -85,7 +98,8 @@ export default {
     return {
       posts: [],
       category: '',
-      bookMarkComp: false
+      bookMarkComp: false,
+      compModalOpen: false
     }
   },
   computed: {
