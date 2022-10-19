@@ -154,6 +154,42 @@
     .card-wrp:hover {
       border: 2px solid #3E82F1;
     }
+
+    .comp-card {
+      z-index: 10;
+      width: 484px; height: 116px;
+      background-color: rgba(24, 24, 24, 0.7);
+      color: #FFFFFF;
+      padding: 20px;
+      border-radius: 16px;
+      margin-left: -22px;
+      margin-top: -135px;
+      .close {
+        z-index: 10;
+        margin-top: 24px 24px 27px;
+        width: 24px; height: 24px;
+        float: right;
+        img {
+          width: 24px; height: 24px;
+        }
+      }
+      .notice {
+        display: flex;
+        width: max-content;
+        margin: 50px auto;
+        .check {
+          img {
+            margin-top: 1.5px;
+            width: 28px; height: 28px;
+          }
+        }
+        .comp-text {
+          margin-left: 8px;
+          font-size: 1.25rem;
+          font-weight: 700;
+        }
+      }
+    }
     @include mobile {
       width: 500px;
       grid-template-columns: repeat(1,530px);

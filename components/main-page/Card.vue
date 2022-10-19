@@ -25,10 +25,10 @@
               </div>
             </div>
             <div v-if="categoryProps === 'mypostings'" class="sub-menu-btn">
-              <img src="@/assets/img/common/dot-btn.png" alt="" @click.stop="openSubMenuPopup(post.id)">
+              <img v-if="post.recruiting" src="@/assets/img/common/dot-btn.png" alt="" @click.stop="openSubMenuPopup(post.id)">
               <div v-if="post.isOpenSubMenu" class="sub-menu">
                 <div @click.stop="editPosting(post.id)">수정하기</div>
-                <div @click="compModalOpen = true">모집완료</div>
+                <div @click.stop="compModalToggle(post.id)">모집마감</div>
                 <div @click.stop="deletePosting(post.id)">삭제</div>
               </div>
             </div>
@@ -49,18 +49,31 @@
             </div>
           </div>
         </div>
+        <div v-if="!post.recruiting" class="comp-card">
+          <div class="close">
+            <img src="@/assets/img/common/close-gray.png" alt="">
+          </div>
+          <div class="notice">
+            <div class="check">
+              <img src="@/assets/img/common/check.png" alt="" @click="deletePosting(post.id)">
+            </div>
+            <div class="comp-text">
+              모집마감
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div v-if="!compModalOpen" class="comp-modal">
+    <div v-if="compModalOpen" class="comp-modal">
       <div class="comp-wrp">
         <div class="notice">
-          모집 완료를 누르시면 해당 글<br>
+          모집 마감을 누르시면 해당 글<br>
           <strong>수정 / 모집이 불가합니다.</strong><br>
           그래도 진행 하시겠습니까?
         </div>
         <div class="select-wrp">
           <div @click="compModalOpen = false">아니요</div>
-          <div>네</div>
+          <div @click="compRecruit()">네</div>
         </div>
       </div>
     </div>
@@ -99,7 +112,8 @@ export default {
       posts: [],
       category: '',
       bookMarkComp: false,
-      compModalOpen: false
+      compModalOpen: false,
+      compRecruitId: ''
     }
   },
   computed: {
@@ -338,6 +352,38 @@ export default {
           this.$emit('refreshCard', {})
         })
       }
+    },
+    compModalToggle (id) {
+      if (this.compModalOpen) {
+        this.compModalOpen = false
+      } else {
+        this.compModalOpen = true
+      }
+
+      this.compRecruitId = id
+    },
+    compRecruit () {
+      (this.$axios.post(
+        (`https://whynot-here.o-r.kr/v2/posts/own/${this.compRecruitId}`),
+        {
+          isRecruit: false
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+      )
+      ).then(res => {
+        this.compModalOpen = false
+        this.compRecruitId = ''
+        this.refreshCard()
+        alert('모집이 마감되었습니다.')
+      }).catch((error) => {
+        window.alert(error.response.data.message)
+      })
     }
   }
 }
