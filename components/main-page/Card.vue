@@ -50,12 +50,12 @@
           </div>
         </div>
         <div v-if="!post.recruiting" class="comp-card">
-          <div class="close">
-            <img src="@/assets/img/common/close-gray.png" alt="">
+          <div v-if="categoryProps === 'mypostings'" class="close">
+            <img src="@/assets/img/common/close-gray.png" alt="" @click="deletePosting(post.id)">
           </div>
-          <div class="notice">
+          <div :class="categoryProps === 'mypostings' ? 'notice mypage' : 'notice'">
             <div class="check">
-              <img src="@/assets/img/common/check.png" alt="" @click="deletePosting(post.id)">
+              <img src="@/assets/img/common/check.png" alt="">
             </div>
             <div class="comp-text">
               모집마감

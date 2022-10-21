@@ -166,17 +166,19 @@
       margin-top: -135px;
       .close {
         z-index: 10;
-        margin-top: 24px 24px 27px;
+        margin: 0 24px 0 455px;
         width: 24px; height: 24px;
-        float: right;
         img {
           width: 24px; height: 24px;
         }
       }
       .notice {
         display: flex;
-        width: max-content;
+        width: 110px;
         margin: 50px auto;
+        &.mypage {
+          margin: 25px auto;
+        }
         .check {
           img {
             margin-top: 1.5px;
