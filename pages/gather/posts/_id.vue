@@ -45,11 +45,30 @@
         </div>
         <div class="bottom">
           <div class="comment-count">
-            댓글 <strong>{{ commentCount }}</strong>
+            댓글 <strong>{{ comments.length }}</strong>
           </div>
           <div class="comment-wrp">
-            <textarea class="comment-input" rows="10" placeholder="Why Not Here에 가입하고 댓글을 달아보세요!"></textarea>
-            <div class="comment-register">댓글달기</div>
+            <textarea v-model="currentComment" class="comment-input" rows="10" placeholder="Why Not Here에 가입하고 댓글을 달아보세요!"></textarea>
+            <div class="comment-register" @click="registerComment()">댓글달기</div>
+          </div>
+        </div>
+        <div v-if="commentComp.length > 0" class="comment-list">
+          <div
+            v-for="(comment, idx) in commentComp"
+            :key="idx"
+            class="comment"
+          >
+            <div class="top">
+              <div>
+                <img :src="comment.account.profileImg" alt="">
+              </div>
+              <div>
+                {{ comment.account.nickname }}
+              </div>
+            </div>
+            <div class="comment-content">
+              {{ comment.content }}
+            </div>
           </div>
         </div>
       </section>
@@ -74,11 +93,13 @@ export default {
     return {
       post: {
       },
-      commentCount: 0
+      comments: [],
+      commentCount: 0,
+      currentComment: ''
     }
   },
   computed: {
-    postComp () {
+    postComp() {
       if (this.post.category === undefined) {
         return this.post
       }
@@ -89,16 +110,26 @@ export default {
       result.writerName = this.post.writer.nickname
       result.writerProfileImage = this.post.writer.profileImg
       return result
+    },
+    commentComp() {
+      return this.comments
     }
   },
   created () {
     this.getPost()
+    this.getComment()
   },
   methods: {
     getPost() {
       this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/${this.id}`)
       .then(res => {
         this.post = res.data
+      })
+    },
+    getComment() {
+      this.$axios.get(`https://whynot-here.o-r.kr/v2/comments/${this.id}`)
+      .then(res => {
+        this.comments = res.data
       })
     },
     copyUrl() {
@@ -113,6 +144,32 @@ export default {
       document.body.removeChild(textarea);
       
       alert("URL이 복사되었습니다.")
+    },
+    registerComment() {
+      if (!this.currentComment.length > 0) {
+        alert('댓글을 입력해주세요')
+        return false
+      }
+      (this.$axios.post(
+        ('https://whynot-here.o-r.kr/v2/comments'),
+        {
+          postId: this.id,
+          comment: this.currentComment
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+      )
+      ).then(res => {
+        alert('댓글이 등록되었습니다.')
+        this.getComment()
+      }).catch((error) => {
+        window.alert(error.response.data.message)
+      })
     }
   }
 }
@@ -129,7 +186,7 @@ export default {
     margin: 40px auto;
     .detail-panel {
       width: 582px; 
-      // height: 582px;
+      height: max-content;
       padding: 24px;
       background: #FFFFFF;
       border: 1px solid #E7E7E7;
@@ -185,7 +242,7 @@ export default {
       }
     }
     .comment-panel {
-      width: 362px; height: 250px;
+      width: 362px; min-height: 250px;
       padding: 24px;
       margin-left: 30px;
       background: #FFFFFF;
@@ -259,6 +316,20 @@ export default {
             border: 1px solid #E7E7E7;
             border-radius: 32px;
             cursor: pointer;
+          }
+        }
+      }
+      .comment-list {
+        .comment {
+          width: 330px; min-height: 102px;
+          padding: 16px;
+          .comment-writer {
+            display:flex;
+          }
+          .comment-content {
+            margin-top: 24px; margin-left: 13px;
+            color: #454545;
+            font-size: .88rem; font-weight: 500;
           }
         }
       }
