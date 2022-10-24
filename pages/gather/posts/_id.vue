@@ -39,7 +39,7 @@
           <div>
             {{ postComp.writerName }}
           </div>
-          <div>
+          <div class="contact">
             {{ postComp.contactText }} 연락
           </div>
         </div>
@@ -64,6 +64,13 @@
               </div>
               <div>
                 {{ comment.account.nickname }}
+              </div>
+              <div
+                v-if="comment.account.email === $store.state.userInfo.detail.email"
+                class="delete-comment"
+                @click="deleteComment(comment.commentId)"
+              >
+                <img src="@/assets/img/common/close-page.png" alt="">
               </div>
             </div>
             <div class="comment-content">
@@ -170,6 +177,24 @@ export default {
       }).catch((error) => {
         window.alert(error.response.data.message)
       })
+    },
+    deleteComment (id) {
+      (this.$axios.delete(
+        (`https://whynot-here.o-r.kr/v2/comments/${id}`),
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+      )
+      ).then(res => {
+        alert('댓글이 삭제되었습니다.')
+        this.getComment()
+      }).catch((error) => {
+        window.alert(error.response.data.message)
+      })
     }
   }
 }
@@ -266,7 +291,7 @@ export default {
           font-weight: 500;
           color: #737373;
         }
-        div:nth-child(3) {
+        .contact {
           width: 121px; height: 44px; line-height: 44px;
           font-size: .88rem;
           font-weight: 600;
@@ -274,6 +299,13 @@ export default {
           text-align: center;
           background: #FF8A00;
           border-radius: 10px;
+        }
+        .delete-comment {
+          line-height: 44px;
+          img {
+            width: 20px; height: 20px;
+            cursor: pointer;
+          }
         }
       }
       .bottom {
