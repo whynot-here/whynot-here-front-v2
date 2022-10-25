@@ -1,21 +1,26 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div id="WhyNotLayout">
+    <main>
+      <div>
+        <Category
+          :category-in-layout="categoryInLayout"
+          :sub-category-in-layout="subCategoryInLayout"
+          @setSubCategoryId="setSubCategoryId"
+          @getCategoryIdAndGetPosts="getCategoryIdAndGetPosts"
+        />
+      </div>
+      <div>
+        <TopBar
+          ref="TopBar"
+          :category-title-props="categoryTitle"
+          :sub-category-title-props="subCategoryTitle"
+        />
+        <Nuxt />
+      </div>
+    </main>
     <div>
-      <Category
-        :category-in-layout="categoryInLayout"
-        :sub-category-in-layout="subCategoryInLayout"
-        @setSubCategoryId="setSubCategoryId"
-        @getCategoryIdAndGetPosts="getCategoryIdAndGetPosts"
-      />
-    </div>
-    <div>
-      <TopBar
-        ref="TopBar"
-        :category-title-props="categoryTitle"
-        :sub-category-title-props="subCategoryTitle"
-      />
-      <Nuxt />
+      <Review />
     </div>
   </div>
 </template>
@@ -23,11 +28,13 @@
 <script>
 import TopBar from '@/components/main-page/TopBar'
 import Category from '@/components/main-page/Category'
+import Review from '@/components/main-page/Review'
 
 export default {
   components: {
     TopBar,
-    Category
+    Category,
+    Review
   },
   data () {
     return {
@@ -73,12 +80,16 @@ export default {
 
 <style lang="scss" scoped>
   #WhyNotLayout {
-    display: flex;
-    width: 100vw; height: 100vh;
-    #TopBar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    height: 100vh;
+    overflow: hidden;
+    main {
+      display: flex;
+      width: 100vw; height: calc(100vh - 44px);
+      #TopBar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
     }
   }
   </style>

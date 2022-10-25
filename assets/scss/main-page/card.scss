@@ -2,7 +2,7 @@
 
 #Card {
   // flex-grow: 1;
-  width: 100%; height: calc(100vh - 80px);
+  width: 100%; height: calc(100vh - 80px - 44px);
   overflow-y: scroll;
   background-color: #F3F3F3;
   .comp-modal {

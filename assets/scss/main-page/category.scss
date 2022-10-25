@@ -8,7 +8,7 @@
     display: none; /* Chrome, Safari, Opera*/
 }
 #Category {
-  width: 270px; height: 100vh; 
+  width: 270px; height: calc(100vh - 44px); 
   background: #FAFAFA;
   border-right: 1px solid #E7E7E7;
   overflow-y: scroll;
