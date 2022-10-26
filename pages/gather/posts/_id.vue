@@ -203,7 +203,7 @@ export default {
 <style lang="scss" scoped>
 #PostingPage {
   background-color: #F3F3F3;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 80px - 44px);
   overflow: scroll;
   .panel-wrp {
     display: flex;

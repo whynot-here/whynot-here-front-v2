@@ -23,7 +23,6 @@ export default {
 
 <style lang="scss" scoped>
 #ReviewComponent {
-  
   background-color: #181818;
   height: 44px; line-height: 44px;
   color: #ffffff;
