@@ -11,7 +11,7 @@ export default {
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'whynot-here-front',
+    title: 'whynot-here',
     htmlAttrs: {
       lang: 'en',
     },
