@@ -43,9 +43,27 @@
             </div>
           </div>
           <div class="card-bottom">
-            <div />
-            <div class="gather-d-day">
+            <div
+              v-if="categoryProps === 'mypostings' || categoryProps === 'bookmark'"
+              class="category-name"
+            >
+              {{ post.categoryName }}
+            </div>
+            <div class="item d-day">
               마감 D-8
+            </div>
+            <div class="item com-tool">
+              {{ post.communicationToolText }}
+            </div>
+            <div class="item rec-cnt">
+              <strong>{{ post.recruitCurrentCnt }}</strong> / {{ post.recruitTotalCnt }}
+            </div>
+            <div class="gap"></div>
+            <div class="views">
+              <img src="@/assets/img/common/views.png" alt="">
+              <div>
+                {{ post.views }}
+              </div>
             </div>
           </div>
         </div>
@@ -134,6 +152,10 @@ export default {
         } else {
           post.content_light = post.content
         }
+
+        post.categoryName = post.category.name
+        post.communicationToolText = {'ONLINE' : '온라인', 'OFFLINE' : '만나서'}[post.communicationTool]
+        post.contactText = {'EMAIL' : '이메일', 'KAKAO_OPEN_CHAT' : '카카오톡', 'PHONE' : '휴대전화'}[post.ownerContact.type]
 
         // post.bookMark = post.selected
         // post.isOpenSubMenu = false

@@ -17,14 +17,20 @@
           {{ postComp.title }}
         </div>
         <div class="info">
-          <div>
+          <div class="left">
             {{ postComp.categoryName }}
           </div>
-          <div>
+          <div class="left">
             {{ postComp.communicationToolText }}
           </div>
-          <div>
+          <div class="left">
             {{ postComp.recruitCurrentCnt }} / {{ postComp.recruitTotalCnt }}
+          </div>
+          <div class="right">
+            <img src="@/assets/img/common/views.png" alt="">
+            <div>
+              {{ postComp.views }}
+            </div>
           </div>
         </div>
         <div class="content">
@@ -251,12 +257,23 @@ export default {
         display: flex;
         height: 54px;
         margin-top: 42px;
-        div {
+        .left {
           height: 30px; line-height: 30px;
           padding: 0 14px; margin-right: 12px;
           font-size: .88rem;
           background: #F5F5F5;
           border-radius: 16px;
+        }
+        .right {
+          display: flex;
+          line-height: 18px;
+          margin-left: 300px;
+          font-size: .75rem; font-weight: 500;
+          color: #A1A2A3;
+          img {
+            width: 16px; height: 16px;
+            margin-right: 8px;
+          }
         }
       }
       .content {
