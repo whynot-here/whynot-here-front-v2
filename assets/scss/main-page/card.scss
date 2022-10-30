@@ -148,6 +148,9 @@
           font-size: .88rem; 
           text-align: center;
         }
+        .comp {
+          opacity: 0.5;
+        }
         .category-name {
           height: 16px; line-height: 16px;
           padding: 6px 10px;
@@ -202,7 +205,7 @@
       padding: 20px;
       border-radius: 16px;
       margin-left: -22px;
-      margin-top: -135px;
+      margin-top: -137px;
       .close {
         z-index: 10;
         margin: 0 24px 0 455px;

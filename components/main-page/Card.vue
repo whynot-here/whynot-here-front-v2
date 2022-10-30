@@ -49,13 +49,13 @@
             >
               {{ post.categoryName }}
             </div>
-            <div class="item d-day">
+            <div :class="!post.recruiting ? 'item d-day comp' : 'item d-day'">
               마감 D-8
             </div>
-            <div class="item com-tool">
+            <div :class="!post.recruiting ? 'item com-tool comp' : 'item com-tool'">
               {{ post.communicationToolText }}
             </div>
-            <div class="item rec-cnt">
+            <div :class="!post.recruiting ? 'item rec-cnt comp' : 'item rec-cnt'">
               <strong>{{ post.recruitCurrentCnt }}</strong> / {{ post.recruitTotalCnt }}
             </div>
             <div class="gap"></div>
