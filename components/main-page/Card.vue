@@ -292,6 +292,11 @@ export default {
 
     },
     bookMark (id) {
+      if (!this.$store.state.userInfo.initLoginDone) {
+        alert('로그인 후 이용해 주세요')
+        return false
+      }
+
       this.posts.map((post) => {
         if (id === post.id) {
           if (post.isBookMarked) {
