@@ -62,7 +62,7 @@
             <div class="views">
               <img src="@/assets/img/common/views.png" alt="">
               <div>
-                {{ post.views }}
+                {{ post.views === null ? 0 : post.views }}
               </div>
             </div>
           </div>

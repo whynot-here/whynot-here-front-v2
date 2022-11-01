@@ -247,8 +247,9 @@ export default {
         }
       )
       ).then(res => {
-        // 상세 페이지로 넘어가기
+        // todo: 상세 페이지로 넘어가기
         alert('공고 생성 성공')
+
       }).catch((error) => {
         window.alert(error.response.data.message)
       })

@@ -105,6 +105,11 @@ export default {
       })
     },
     moveMyPostingsPage () {
+      if (!this.$store.state.userInfo.initLoginDone) {
+        alert('로그인 후 이용해 주세요')
+        return false
+      }
+
       this.selectedCategory = 'mypostings'
       this.$router.push({
         name: 'gather-category',
@@ -114,6 +119,11 @@ export default {
       })
     },
     moveBookMarkPage () {
+      if (!this.$store.state.userInfo.initLoginDone) {
+        alert('로그인 후 이용해 주세요')
+        return false
+      }
+
       this.selectedCategory = 'bookmark'
       this.$router.push({
         name: 'gather-category',

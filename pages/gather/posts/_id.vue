@@ -29,7 +29,7 @@
           <div class="right">
             <img src="@/assets/img/common/views.png" alt="">
             <div>
-              {{ postComp.views }}
+              {{ post.views === null ? 0 : post.views }}
             </div>
           </div>
         </div>

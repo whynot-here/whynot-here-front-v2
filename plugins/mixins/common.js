@@ -191,6 +191,7 @@ const common = {
 
         Cookies.remove('vuex')
         this.$bus.$emit('refreshCard', {})
+        this.cmn_goMainPage()
       }
     }
   }
