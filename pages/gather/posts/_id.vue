@@ -4,7 +4,7 @@
       <section class="detail-panel">
         <div class="top">
           <div class="d-day">
-            마감 D - 8
+            마감 {{ postComp.dDay }}
           </div>
           <div class="img-wrp">
             <img src="@/assets/img/posting/copy-detail.png" alt="" @click="copyUrl()">
@@ -122,6 +122,7 @@ export default {
       result.contactText = {'EMAIL' : '이메일', 'KAKAO_OPEN_CHAT' : '카카오톡', 'PHONE' : '휴대전화'}[this.post.ownerContact.type]
       result.writerName = this.post.writer.nickname
       result.writerProfileImage = this.post.writer.profileImg
+      result.dDay = this.cmn_getDday(result.closedDt)
       return result
     },
     commentComp() {

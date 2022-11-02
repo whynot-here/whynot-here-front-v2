@@ -168,6 +168,19 @@ const common = {
         })
     },
 
+    cmn_getDday(endDate) {
+        // 디데이 계산
+        const today = new Date()
+        const end = new Date(endDate)
+
+        const diff = (end.getTime() - today.getTime()) / (1000 * 3600 * 24)
+        
+        if (diff === 0) {
+          return 'D-Day'
+        } else {
+          return 'D' + (diff > 0 ? '-' + Math.ceil(diff) : '+' + Math.abs(Math.ceil(diff)))
+        }
+    },
 
     cmn_emptyCheck (t) {
       if (t) {

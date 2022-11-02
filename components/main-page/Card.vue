@@ -50,7 +50,7 @@
               {{ post.categoryName }}
             </div>
             <div :class="!post.recruiting ? 'item d-day comp' : 'item d-day'">
-              마감 D-8
+              {{ post.dDay }}
             </div>
             <div :class="!post.recruiting ? 'item com-tool comp' : 'item com-tool'">
               {{ post.communicationToolText }}
@@ -156,6 +156,8 @@ export default {
         post.categoryName = post.category.name
         post.communicationToolText = {'ONLINE' : '온라인', 'OFFLINE' : '만나서'}[post.communicationTool]
         post.contactText = {'EMAIL' : '이메일', 'KAKAO_OPEN_CHAT' : '카카오톡', 'PHONE' : '휴대전화'}[post.ownerContact.type]
+
+        post.dDay = this.cmn_getDday(post.closedDt)
 
         // post.bookMark = post.selected
         // post.isOpenSubMenu = false
