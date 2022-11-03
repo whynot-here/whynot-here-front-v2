@@ -2,7 +2,7 @@
   <div id="Card">
     <div class="sts-i-wrp">
       <div>
-        <input type="checkbox" name="color" value="blue">
+        <input v-model="onlyRecruit" type="checkbox" name="color" value="blue">
       </div>
       <div>
         모집중만 보기
@@ -11,6 +11,7 @@
     <div class="cards-wrp">
       <div
         v-for="(post, idx) in postsProc.slice().reverse()"
+        v-show="onlyRecruit ? (post.recruiting ? true : false) : true" 
         :key="idx"
         class="card-wrp"
       >
@@ -131,7 +132,8 @@ export default {
       category: '',
       bookMarkComp: false,
       compModalOpen: false,
-      compRecruitId: ''
+      compRecruitId: '',
+      onlyRecruit: false
     }
   },
   computed: {
