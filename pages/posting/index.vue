@@ -16,6 +16,7 @@
               <div class="sub-title">카테고리</div>
               <div name="" class="sub-wrp">
                 <DropdownCategory
+                  ref="DropdownCategory"
                   :label-first="'카테고리'"
                   :label-second="'상세'"
                 />
@@ -32,6 +33,7 @@
               <div class="sub-title">진행방식</div>
               <div class="sub-wrp">
                 <DropDown
+                  ref="DropdownProcess"
                   :label="'방식'"
                   :option-list="processList"
                   @get-label="setCommunicationTool"
@@ -54,6 +56,7 @@
               <div class="sub-wrp">
                 <div class="call-dropdown">
                   <DropDown
+                    ref="DropdownCall"
                     :label="'연락수단'"
                     :option-list="callList"
                     @get-label="setOwnerContact"
@@ -189,14 +192,18 @@ export default {
         title: '',
         content: '',
         imageLinks: [],
-        categoryId: 3,
+        category: {
+          code: '',
+          id: 0,
+          name: '',
+        },
         closedDt: "2022-09-01T06:46:13.688Z",
         ownerContact: {
           type: '',
           value: ''
         },
-        recruitTotalCnt: 0,
-        recruitCurrentCnt: 1,
+        recruitTotalCnt: '',
+        recruitCurrentCnt: '',
         communicationTool: ''
       }
     }
@@ -213,6 +220,7 @@ export default {
   },
   methods: {
     getPost() {
+      // 수정하기 데이터 세팅
       this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/${this.id}`)
       .then(res => {
         Object.keys(this.postingRegisterParams)
@@ -222,7 +230,55 @@ export default {
             }
             return key
           })
-        
+          this.recruitTotalCntTxt = this.postingRegisterParams.recruitTotalCnt
+          this.d_day = this.cmn_getDday(this.postingRegisterParams.closedDt).substring(2) * 1
+
+          // 카테고리
+          let categoryItem = ''
+          this.categoryGroup.forEach((category) => {
+            if (category.id === this.postingRegisterParams.category.id) {
+              categoryItem = {
+                id: category.parentId,
+                name: category.parentName
+              }
+              this.$refs.DropdownCategory.selectOptionMain(categoryItem)
+            } else {
+              category.children.forEach((child) => {
+                if (child.id === this.postingRegisterParams.category.id) {
+                  categoryItem = {
+                    id: child.id,
+                    name: child.name
+                  }
+                  this.$refs.DropdownCategory.selectOptionSub(categoryItem)
+                  categoryItem = {
+                    id: category.parentId,
+                    name: category.parentName
+                  }
+                  this.$refs.DropdownCategory.selectOptionMain(categoryItem)
+                }
+              })
+            }
+          })
+
+          // 진행방식
+          let processItem = ''
+          this.processList.forEach((item) => {
+            if (item.value === this.postingRegisterParams.communicationTool) {
+              processItem = item
+              return ''
+            }
+          })
+          this.$refs.DropdownProcess.selectOption(processItem)
+
+          // 연락수단
+          let callItem = ''
+          this.callList.forEach((item) => {
+            if (item.value === this.postingRegisterParams.ownerContact.type) {
+              callItem = item
+              return false
+            }
+          })
+          this.$refs.DropdownCall.selectOption(callItem)
       })
     },
     setOwnerContact (item) {
