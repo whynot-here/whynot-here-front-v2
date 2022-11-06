@@ -96,12 +96,46 @@
             </div>
           </div>
           <div>
-            <div class="add-img">
-              <div>
+            <div id="AddPostImg" class="add-img">
+              <div class="camera-img">
                 <img src="@/assets/img/posting/camera.png" alt="">
               </div>
-              <div>
+              <b-button class="reg-btn">
                 이미지 추가 (최대 4장)
+              </b-button>
+              <b-form-group id="fileInput" class="dragdrop">
+                <b-form-file
+                  multiple
+                  accept="image/jpeg, image/png, image/gif"
+                  @change="onFileChange"
+                ></b-form-file>
+              </b-form-group>
+              <div
+                v-if="inputImg && inputImg.length > 0"
+                class="img-grp"
+              >
+                <div
+                  id="postingImages"
+                >
+                  <div
+                    v-for="(image, idx) in inputImg"
+                    :key="idx"
+                  >
+                    <b-img
+                      thumbnail
+                      :src="image.prev_url"
+                      class="obj"
+                    />
+                    <div class="img-btn-grp">
+                      <img
+                        class="del"
+                        src="@/assets/img/common/close-review.png"
+                        alt=""
+                        @click="cancelPhoto(idx)"
+                      >
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -205,7 +239,9 @@ export default {
         recruitTotalCnt: '',
         recruitCurrentCnt: '',
         communicationTool: ''
-      }
+      },
+      inputImg: [],
+      files:[]
     }
   },
   computed: {
@@ -331,6 +367,31 @@ export default {
       }).catch((error) => {
         window.alert(error.response.data.message)
       })
+    },    
+    // 사진 선택
+    onFileChange (event) {
+      if (this.inputImg.length >= 4) {
+        alert('사진은 최대 4장까지 등록 가능합니다.')
+        return false
+      }
+
+      const input = event.target.files
+      if (input.length > 0) {
+        const fileReader = new FileReader()
+        fileReader.onload = (e) => {
+          this.inputImg.push({
+            prev_url: e.target.result
+          })
+        }
+        fileReader.readAsDataURL(input[0])
+        this.files.push(input[0])
+        event.target.value = ''
+      }
+    },
+    // 사진 선택 취소
+    cancelPhoto (idx) {
+      this.inputImg.splice(idx, 1)
+      this.files.splice(idx, 1)
     },
     checkRegisterParamsValid () {
       if (this.cmn_emptyCheck(this.postingRegisterParams.title)) {
@@ -508,15 +569,47 @@ export default {
         background: #FAFAFA;
         border: 1px solid #E7E7E7;
         border-radius: 8px;
-        div:first-child {
-          padding: 5px 16px 0 0;
+        .camera-img {
+          padding: 0 5px 0 0;
           img {
             width: 26px; height: 22px;
           }
         }
-        div:nth-child(2) {
+        .reg-btn {
+          // z-index: 10;
+          width: max-height; height: 40px;
+          margin-top: 15px;
+          color: #A3A3A3;
+          border: none;
+          background: none;
           text-decoration: underline;
           cursor: pointer;
+        }
+        .reg-btn:focus {
+          outline: none;
+        }
+        .img-grp {
+          #postingImages {
+            display: flex;
+            div {
+              margin-left: 10px;
+              width: 50px; height: 50px;
+              .obj {
+                width: 50px; height: 50px;
+              }
+              .img-btn-grp {
+                height: 30px;
+                display: flex;
+                // padding: 5px 10px 0px 60px;
+                .del {
+                  margin-top: -70px;
+                  margin-left: 25px;
+                  width: 20px; height: 20px;
+                  z-index: 1;
+                }
+              }
+            }
+          }
         }
       }
     }

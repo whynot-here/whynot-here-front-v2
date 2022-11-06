@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
+    "bootstrap-vue": "^2.23.1",
     "cookie": "^0.5.0",
     "core-js": "^3.19.3",
     "js-cookie": "^3.0.1",

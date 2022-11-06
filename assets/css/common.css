@@ -14,3 +14,11 @@ body {
   margin: 0px;
   color: #181818;
 }
+
+#fileInput.dragdrop{
+  width: 150px; height: 30px;
+  margin-left: -155px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  opacity: 0;
+}
