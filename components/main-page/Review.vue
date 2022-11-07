@@ -84,7 +84,7 @@ export default {
       (this.$axios.post(
         ('https://whynot-here.o-r.kr/v2/admin/feedback'),
         {
-          star: this.star1 + this.star2 + this.star3 + this.star4 + this.star5,
+          rating: this.star1 + this.star2 + this.star3 + this.star4 + this.star5,
           description: this.currentReview
         },
         {
@@ -202,7 +202,7 @@ export default {
           position: relative;
           margin: 10px 24px 0 24px;
           .comment-input {
-            width: 522px; height: 107px;
+            width: 552px; height: 107px;
             padding: 15px; margin-top: 14px;
             background: #FAFAFA;
             border-radius: 8px;
