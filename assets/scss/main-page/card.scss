@@ -70,8 +70,8 @@
     margin: 0 auto;
     width: 1070px;
     .card-wrp {
-      width: 480px; height: 114px;
-      padding: 20px;
+      width: 520px; height: 179px;
+      padding: 24px;
       background: #FFFFFF;
       box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
       border: 2px solid #FFFFFF;
@@ -79,7 +79,7 @@
       cursor: pointer;
       .card-top {
         display: flex;
-        height: 49px;
+        height: max-content;
         .writer-title-wrp {
           flex-grow: 1;
           .writer {
@@ -88,7 +88,9 @@
             color: #A3A3A3;
           }
           .card-title {
-            width: 300px; line-height: 2rem;
+            width: 300px;
+            margin-top: 3px;
+            margin-bottom: 10px;
             font-size: 1.13rem; font-weight: 700;
           }
         }
@@ -130,8 +132,8 @@
       .card-middle {
         color: #4D4D4D;
         .content {
-          height: 22px;
-          margin-top: 10px;
+          height: 40px;
+          // padding-top: 16px;
           font-size: .88rem;
         }
       }
@@ -139,9 +141,8 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0px 12px;
-        margin-top: 8px;
         .item {
-          height: 14px; line-height: 14px;
+          line-height: 14px;
           padding: 6px 10px;
           background: #F3F3F3;
           border-radius: 16px;
@@ -199,13 +200,13 @@
 
     .comp-card {
       z-index: 10;
-      width: 484px; height: 116px;
+      width: 520px; height: 179px;
       background-color: rgba(24, 24, 24, 0.7);
       color: #FFFFFF;
-      padding: 20px;
+      padding: 24px;
       border-radius: 16px;
-      margin-left: -22px;
-      margin-top: -137px;
+      margin-left: -26px;
+      margin-top: -155px;
       .close {
         z-index: 10;
         margin: 0 24px 0 455px;
@@ -236,37 +237,37 @@
     }
     @include mobile {
       width: 500px;
-      grid-template-columns: repeat(1,530px);
+      grid-template-columns: repeat(1,520px);
       .cards-wrp {
         .card-wrp {
-          width: 480px; height: 114px;
+          width: 520px; height: 179px;
         } 
       }
     }
     @include tablet {
       width: 800px; 
-      grid-template-columns: repeat(2,530px);
+      grid-template-columns: repeat(2,520px);
       .cards-wrp {
         .card-wrp {
-          width: 480px; height: 114px;
+          width: 520px; height: 179px;
         } 
       }
     }
     @include desktop {
       // width: 890px; 
-      grid-template-columns: repeat(2,530px);
+      grid-template-columns: repeat(2,520px);
       .cards-wrp {
         .card-wrp {
-          width: 480px; height: 114px;
+          width: 520px; height: 179px;
         } 
       }
     }
     @include screen {
       // width: 890px;
-      grid-template-columns: repeat(2,530px);
+      grid-template-columns: repeat(2,520px);
       .cards-wrp {
         .card-wrp {
-          width: 480px; height: 114px;
+          width: 520px; height: 179px;
         } 
       }
     }
