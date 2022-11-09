@@ -51,7 +51,7 @@
               {{ post.categoryName }}
             </div>
             <div :class="!post.recruiting ? 'item d-day comp' : 'item d-day'">
-              {{ post.dDay }}
+              마감 {{ post.dDay }}
             </div>
             <div :class="!post.recruiting ? 'item com-tool comp' : 'item com-tool'">
               {{ post.communicationToolText }}

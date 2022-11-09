@@ -24,8 +24,9 @@
             {{ postComp.communicationToolText }}
           </div>
           <div class="left">
-            {{ postComp.recruitCurrentCnt }} / {{ postComp.recruitTotalCnt }}
+            <strong>{{ postComp.recruitCurrentCnt }}</strong> / {{ postComp.recruitTotalCnt }}
           </div>
+          <div class="gap"></div>
           <div class="right">
             <img src="@/assets/img/common/views.png" alt="">
             <div>
@@ -227,8 +228,8 @@ export default {
       .top {
         display: flex;
         .d-day {
-          width: 80px; height: 30px; line-height: 30px;
-          padding: 0 6px;
+          width: max-content; height: 30px; line-height: 30px;
+          padding: 0 14px;
           font-size: .88rem; font-weight: 600;
           color: #3E82F1;
           text-align: center;
@@ -256,19 +257,28 @@ export default {
       }
       .info {
         display: flex;
+        flex-wrap: wrap;
+        gap: 0px 12px;
         height: 54px;
         margin-top: 42px;
         .left {
           height: 30px; line-height: 30px;
-          padding: 0 14px; margin-right: 12px;
-          font-size: .88rem;
+          padding: 0 14px;
+          font-size: .88rem; font-weight: 500;
+          color: #484848;
           background: #F5F5F5;
           border-radius: 16px;
+          strong {
+            font-weight: 500;
+            color: #181818;
+          }
+        }
+        .gap {
+          flex-grow: 1;
         }
         .right {
           display: flex;
           line-height: 18px;
-          margin-left: 300px;
           font-size: .75rem; font-weight: 500;
           color: #A1A2A3;
           img {
@@ -285,7 +295,7 @@ export default {
       }
     }
     .comment-panel {
-      width: 362px; min-height: 250px;
+      width: 410px; min-height: 250px;
       padding: 24px;
       margin-left: 30px;
       background: #FFFFFF;
@@ -338,7 +348,7 @@ export default {
         .comment-wrp {
           position: relative;
           .comment-input {
-            width: 332px; height: 106px;
+            width: 362px; height: 106px;
             padding: 15px; margin-top: 14px;
             background: #FAFAFA;
             border-radius: 8px;
@@ -371,7 +381,7 @@ export default {
       }
       .comment-list {
         .comment {
-          width: 330px; min-height: 102px;
+          width: 360px; min-height: 102px;
           padding: 16px;
           .comment-writer {
             display:flex;
