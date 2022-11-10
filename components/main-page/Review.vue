@@ -189,7 +189,7 @@ export default {
         }
       }
       .send-review {
-        height: 190px;
+        height: 210px;
         margin: 24px 32px 0 32px;
         padding-top: 20px;
         background-color: #D7EBFF;

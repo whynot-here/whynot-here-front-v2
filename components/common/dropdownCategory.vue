@@ -137,7 +137,7 @@ export default {
   .select-box {
     position: relative;
     width: 50%;
-    height: 46px;
+    height: 44px;
     border-radius: 8px;
     // border: 1px solid #CFD5CF;
     border-radius: 8px;
@@ -176,7 +176,7 @@ export default {
     outline: 0 none;
     padding-left: 15px;
     background-color: transparent;
-    border-right: 1px solid #E7E7E7;
+    // border-right: 1px solid #E7E7E7;
     // background-color: #ffffff;
     cursor: pointer;
   }
