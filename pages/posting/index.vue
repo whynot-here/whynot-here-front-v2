@@ -226,6 +226,7 @@ export default {
         title: '',
         content: '',
         imageLinks: [],
+        categoryId: 0,
         category: {
           code: '',
           id: 0,
@@ -364,6 +365,7 @@ export default {
       ).then(res => {
         // 상세 페이지로 넘어가기
         alert('공고 수정 성공')
+        this.$router.push(`/gather/posts/${this.id}`)
       }).catch((error) => {
         window.alert(error.response.data.message)
       })
@@ -420,12 +422,11 @@ export default {
       }
       let closedDt = new Date()
       closedDt.setDate(closedDt.getDate() + (this.d_day * 1))
-      console.log(closedDt.getDate())
       closedDt = closedDt.toISOString()
       closedDt = closedDt.split('T')[0] + ' ' + closedDt.split('T')[1].substring(0, 5)
-      // console.log(closedDt)
       this.postingRegisterParams.closedDt = closedDt
       this.postingRegisterParams.recruitTotalCnt = this.recruitTotalCntTxt * 1
+      this.postingRegisterParams.categoryId = this.postingRegisterParams.category.id
       return true
     }
   }
