@@ -100,6 +100,7 @@ export default {
       document.querySelector(`.${this.labelFirst}`).style.color = '#000'
       this.selectedCategoryId = item.id
       this.parentId = item.id
+      this.$emit('get-label', item)
     },
     selectOptionSub (item) {
       // 처음에 메인 카테고리 선택 안하고 서브 카테고리 바로 선택한 경우 때문에
@@ -115,7 +116,7 @@ export default {
       document.querySelector(`.${this.labelFirst}`).parentNode.classList.remove('active')
       document.querySelector(`.${this.labelSecond}`).parentNode.classList.remove('active')
       this.childrenId = item.id
-      // this.$emit('get-label', item)
+      this.$emit('get-label', item)
     }
   }
 }

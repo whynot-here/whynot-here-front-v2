@@ -19,6 +19,7 @@
                   ref="DropdownCategory"
                   :label-first="'카테고리'"
                   :label-second="'상세'"
+                  @get-label="selectCategory"
                 />
               </div>
             </div>
@@ -324,6 +325,9 @@ export default {
     setCommunicationTool (item) {
       this.postingRegisterParams.communicationTool = item.value
     },
+    selectCategory (item) {
+      this.postingRegisterParams.category.id = item.id
+    },
     uploadPosting () {
       if (!this.checkRegisterParamsValid()) {
         return false
@@ -342,7 +346,8 @@ export default {
       ).then(res => {
         // todo: 상세 페이지로 넘어가기
         alert('공고 생성 성공')
-
+        console.log(res)
+        this.$router.push(`/gather/posts/${res.data.id}`)
       }).catch((error) => {
         window.alert(error.response.data.message)
       })
