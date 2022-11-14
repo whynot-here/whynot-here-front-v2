@@ -238,8 +238,8 @@ export default {
           type: '',
           value: ''
         },
-        recruitTotalCnt: '',
-        recruitCurrentCnt: '',
+        recruitTotalCnt: 0,
+        recruitCurrentCnt: 0,
         communicationTool: ''
       },
       inputImg: [],
