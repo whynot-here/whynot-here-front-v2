@@ -34,6 +34,7 @@ export default {
     '~/plugins/mixins/common.js',
     '~/plugins/main.js',
     '~/plugins/vue-cookies.js',
+    '~/plugins/vue-gtag',
     {
       src: '~plugins/persistedState.js',
     }
@@ -51,8 +52,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    'bootstrap-vue/nuxt',
-    '@nuxtjs/google-analytics'
+    'bootstrap-vue/nuxt'
     // '@nuxtjs/auth-next'
   ],
   // nuxt auth 모듈을 사용할 때. 지금은 사용하지 않고 api 서버에서 처리
@@ -87,10 +87,6 @@ export default {
   axios: {
     baseURL: 'https://whynot-here.o-r.kr'
     // baseURL: 'http://localhost:9000'
-  },
-
-  googleAnalytics: {
-    id: 'G-ZW1FKHMQBE'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
