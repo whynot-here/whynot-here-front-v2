@@ -143,10 +143,10 @@
         </div>
       </section>
       <section>
-        <div v-if="postingMode === 'write'" class="upload" @click="uploadPosting">
+        <div v-if="postingMode === 'write'" class="upload" @click="uploadPostingAndPicture">
           글 업로드
         </div>
-        <div v-else class="upload" @click="editPosting">
+        <div v-else class="upload" @click="editPostingAndPicture">
           수정하기
         </div>
       </section>
@@ -173,6 +173,7 @@
 </template>
 
 <script>
+// import FormData from 'form-data'
 import TopBarOnly from '@/components/main-page/TopBarOnly'
 import DropdownCategory from '@/components/common/dropdownCategory'
 import DropDown from '@/components/common/dropdown'
@@ -243,7 +244,8 @@ export default {
         communicationTool: ''
       },
       inputImg: [],
-      files:[]
+      files:[],
+      dir: ''
     }
   },
   computed: {
@@ -317,6 +319,7 @@ export default {
             }
           })
           this.$refs.DropdownCall.selectOption(callItem)
+          // todo: 이미지 세팅
       })
     },
     setOwnerContact (item) {
@@ -328,12 +331,69 @@ export default {
     selectCategory (item) {
       this.postingRegisterParams.category.id = item.id
     },
-    uploadPosting () {
+    uploadPostingAndPicture () {
       if (!this.checkRegisterParamsValid()) {
         return false
       }
+
+      this.files.forEach((file, idx) => {
+        const formData = new FormData()
+        formData.append("images", file)
+
+        const cur = new Date()
+        const year = (cur.getFullYear() + '').substring(2)
+        const month = (cur.getMonth() + 1 + '')
+        this.dir = year + '-' + month
+
+        this.uploadPicture({ formData, idx, callback: this.uploadPosting })
+      })
+    },
+    editPostingAndPicture() {
+      if (!this.checkRegisterParamsValid()) {
+        return false
+      }
+      this.files.forEach((file, idx) => {
+        if (this.inputImg[idx].isNew) {
+          const formData = new FormData()
+          formData.append("images", file)
+  
+          const cur = new Date()
+          const year = (cur.getFullYear() + '').substring(2)
+          const month = (cur.getMonth() + 1 + '')
+          this.dir = year + '-' + month
+  
+          this.uploadPicture({ formData, idx, callback: this.editPosting })
+        }
+      })
+    },   
+    uploadPicture ({ formData, idx, callback }) {
       (this.$axios.post(
-        ('https://whynot-here.o-r.kr/v2/posts'),
+        (`https://whynot-here.o-r.kr/images/${this.dir}`),
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+      )
+      ).then(res => {
+        this.postingRegisterParams.imageLinks.push(res.data.url)
+        if (this.files.length === (idx + 1)) {
+          console.log('hi1')
+          callback()
+        }
+      }).catch((error) => {
+        window.alert(error.response.data.message)
+        return false
+      })
+    },
+    uploadPosting() {
+      console.log('upload')
+      // 포스팅 저장 (사진 제외)
+      (this.$axios.post(
+      ('https://whynot-here.o-r.kr/v2/posts'),
         this.postingRegisterParams,
         {
           withCredentials: true,
@@ -353,9 +413,7 @@ export default {
       })
     },
     editPosting() {
-      if (!this.checkRegisterParamsValid()) {
-        return false
-      }
+      console.log('edit')
       (this.$axios.put(
         (`https://whynot-here.o-r.kr/v2/posts/${this.id}`),
         this.postingRegisterParams,
@@ -374,7 +432,7 @@ export default {
       }).catch((error) => {
         window.alert(error.response.data.message)
       })
-    },    
+    }, 
     // 사진 선택
     onFileChange (event) {
       if (this.inputImg.length >= 4) {
@@ -387,7 +445,8 @@ export default {
         const fileReader = new FileReader()
         fileReader.onload = (e) => {
           this.inputImg.push({
-            prev_url: e.target.result
+            prev_url: e.target.result,
+            isNew: true
           })
         }
         fileReader.readAsDataURL(input[0])
