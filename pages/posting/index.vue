@@ -320,6 +320,13 @@ export default {
           })
           this.$refs.DropdownCall.selectOption(callItem)
           // todo: 이미지 세팅
+          res.data.imageLinks.map((imageLink) => {
+            const img = {
+              prev_url: imageLink.link,
+              isNew: false
+            }
+            return this.inputImg.push(img)
+          })
       })
     },
     setOwnerContact (item) {
@@ -385,7 +392,7 @@ export default {
           callback()
         }
       }).catch((error) => {
-        window.alert(error.response.data.message)
+        window.alert(error)
         return false
       })
     },
