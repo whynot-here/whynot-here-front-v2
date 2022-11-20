@@ -388,7 +388,6 @@ export default {
       ).then(res => {
         this.postingRegisterParams.imageLinks.push(res.data.url)
         if (this.files.length === (idx + 1)) {
-          console.log('hi1')
           callback()
         }
       }).catch((error) => {
@@ -397,7 +396,6 @@ export default {
       })
     },
     uploadPosting() {
-      console.log('upload')
       // 포스팅 저장 (사진 제외)
       (this.$axios.post(
       ('https://whynot-here.o-r.kr/v2/posts'),
@@ -413,14 +411,12 @@ export default {
       ).then(res => {
         // todo: 상세 페이지로 넘어가기
         alert('공고 생성 성공')
-        console.log(res)
         this.$router.push(`/gather/posts/${res.data.id}`)
       }).catch((error) => {
         window.alert(error.response.data.message)
       })
     },
     editPosting() {
-      console.log('edit')
       (this.$axios.put(
         (`https://whynot-here.o-r.kr/v2/posts/${this.id}`),
         this.postingRegisterParams,
