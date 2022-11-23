@@ -135,7 +135,11 @@ const common = {
       ]
     }
   },
-  computed: {},
+  computed: {
+    isMobile() {
+      return this.$ua.isFromSmartphone()
+    }
+  },
   methods: {
     cmn_setCookie(cname, cvalue, exhour) {
       const d = new Date()

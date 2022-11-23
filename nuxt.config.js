@@ -52,7 +52,8 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
+    'nuxt-user-agent'
     // '@nuxtjs/auth-next'
   ],
   // nuxt auth 모듈을 사용할 때. 지금은 사용하지 않고 api 서버에서 처리

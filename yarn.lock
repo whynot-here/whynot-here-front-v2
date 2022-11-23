@@ -6530,6 +6530,13 @@ num2fraction@^1.2.2:
   resolved "https://registry.yarnpkg.com/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
   integrity sha512-Y1wZESM7VUThYY+4W+X4ySH2maqcA+p7UR+w8VWNWVAd6lwuXXWz/w/Cz43J/dI2I+PS6wD5N+bJUF+gjWvIqg==
 
+nuxt-user-agent@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/nuxt-user-agent/-/nuxt-user-agent-1.2.2.tgz#696462fcbdbc32d5be2bc63976afd9eef6e9f6b7"
+  integrity sha512-Z9d+r1/PzJAvrr4rX70IWvRyI3qw3RukAGrRZPZ9WeByuCWmVKiW8G1AhdkUOyrDrVoBUC59iLqIVkop/NjSuQ==
+  dependencies:
+    woothee "^1.8.1"
+
 nuxt@^2.15.8:
   version "2.15.8"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.15.8.tgz#946cba46bdaaf0e3918aa27fd9ea0fed8ed303b0"
@@ -9706,6 +9713,11 @@ widest-line@^3.1.0:
   integrity sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
   dependencies:
     string-width "^4.0.0"
+
+woothee@^1.8.1:
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/woothee/-/woothee-1.11.1.tgz#ac0a831345d1ca068a27b56f0f298b844769531e"
+  integrity sha512-KdArM3MsNa5tlSBSL29w9ouy9MXZoFPeUdPVnL4QZH3iyV8HsqnwbWw2YLiXEx2wAh0bM55dnl0+qDE6KHBlhQ==
 
 word-wrap@^1.2.3:
   version "1.2.3"

@@ -1,7 +1,12 @@
 <template>
   <div id="MyPage">
-    <TopBar />
+    <div v-if="!isMobile">
+      pcpc
+      <TopBarOnly class="top-bar-desktop" />
     <section class="mypage-wrp">
+      <div class="close">
+        <img src="@/assets/img/common/close-page.png" alt="" @click="cmn_goMainPage">
+      </div>
       <div class="title">
         마이페이지
       </div>
@@ -37,16 +42,59 @@
         <input type="text" :value="$store.state.userInfo.detail.email" disabled>
       </div>
     </section>
+    </div>
+    <div v-else>
+      mobile
+      <section class="mypage-wrp">
+        <div class="close">
+          <img src="@/assets/img/common/close-page.png" alt="" @click="cmn_goMainPage">
+        </div>
+        <div class="title">
+          마이페이지
+        </div>
+        <div class="sub-title">
+          안녕하세요 <strong>{{currentNickName}}</strong> 님!
+        </div>
+        <div class="img-nickname-grp">
+          <div class="img"><img :src="$store.state.userInfo.detail.profileImg" alt=""></div>
+          <div v-if="!editNickNameMode" class="nickname">
+            <div class="nickname-left">
+              닉네임
+            </div>
+            <div @click="editNickNameMode = true">
+              {{ currentNickName }}
+            </div>
+            <!-- <div class="edit-pencil">
+              <img src="@/assets/img/common/edit-pencil.png" alt="" @click="editNickNameMode = true">
+            </div> -->
+          </div>
+          <div v-else class="nickname selected">
+            <div class="nickname-left">
+              닉네임
+            </div>
+            <div class="edit-input-wrp">
+              <input v-model="inputNickName" class="edit-input" type="text">
+            </div>
+            <div class="edit-button-wrp">
+              <div @click="editNickName()">저장</div>
+            </div>
+          </div>
+        </div>
+        <div class="email">
+          <input type="text" :value="$store.state.userInfo.detail.email" disabled>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
 <script>
-import TopBar from '@/components/main-page/TopBar'
+import TopBarOnly from '@/components/main-page/TopBarOnly'
 
 export default {
   name: 'MyPage',
   components: {
-    TopBar
+    TopBarOnly
   },
   data () {
     return {
@@ -56,6 +104,7 @@ export default {
     }
   },
   mounted () {
+    // mobile or pc
     this.currentNickName = this.$store.state.userInfo.detail.nickname
     this.inputNickName = this.$store.state.userInfo.detail.nickname
   },
@@ -87,10 +136,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/util.scss';
+
 #MyPage {
+  @include mobile {
+    .top-bar-desktop {
+      display: none;
+    }
+  }
   .mypage-wrp {
     width: 970px; height: 572px;
     margin: 0 auto; padding-top: 123px;
+    .close {
+      img {
+        width: 32px; height: 32px;
+        cursor: pointer;
+      }
+    }
     .title {
       font-size: 1.38rem; font-weight: 500;
       color: #737373;
