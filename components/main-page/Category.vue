@@ -1,64 +1,66 @@
 <template>
-  <div v-show="(!isMobile || isOpenCategoryPanel)" id="Category">
-    <section class="logo">
-      <div class="logo-desc">
-        사람이 모이는 공간
-      </div>
-      <div class="logo-img" @click="mainPage">
-        <img src="@/assets/img/common/whynot-here-logo.png" alt="">
-      </div>
-    </section>
-    <section class="category">
-      <!-- <div @click="checkLogin()">
-        <div class="posting-btn">
-          📝 글쓰기
+  <div class="category-wrp-m">
+    <div v-show="(!isMobile || isOpenCategoryPanel)" id="Category" @click.self="toggleCategoryPanel">
+      <section class="logo">
+        <div class="logo-desc">
+          사람이 모이는 공간
         </div>
-      </div> -->
-      <div class="sub-menu-wrp">
-        <div class="search">
-          <input v-model="searchText" class="total-search" type="text" placeholder="통합검색" />
-          <div class="search-img">
-            <img src="@/assets/img/category/search.png" alt="" @click="search()">
-          </div>
+        <div class="logo-img" @click="mainPage">
+          <img src="@/assets/img/common/whynot-here-logo.png" alt="">
         </div>
-        <div :class="selectedCategory === 'mypostings' ? 'menu selected' : 'menu'" @click="moveMyPostingsPage()">
-          <div>
-            ⭐️ My 모임
+      </section>
+      <section class="category">
+        <!-- <div @click="checkLogin()">
+          <div class="posting-btn">
+            📝 글쓰기
           </div>
-          <div>
-            <img src="@/assets/img/category/right-arrow.png" alt="">
+        </div> -->
+        <div class="sub-menu-wrp">
+          <div class="search">
+            <input v-model="searchText" class="total-search" type="text" placeholder="통합검색" />
+            <div class="search-img">
+              <img src="@/assets/img/category/search.png" alt="" @click="search()">
+            </div>
           </div>
-        </div>
-        <div :class="selectedCategory === 'bookmark' ? 'menu selected' : 'menu'" @click="moveBookMarkPage()">
-          <div>
-            🔖 북마크
+          <div :class="selectedCategory === 'mypostings' ? 'menu selected' : 'menu'" @click="moveMyPostingsPage()">
+            <div>
+              ⭐️ My 모임
+            </div>
+            <div>
+              <img src="@/assets/img/category/right-arrow.png" alt="">
+            </div>
           </div>
-          <div>
-            <img src="@/assets/img/category/right-arrow.png" alt="">
+          <div :class="selectedCategory === 'bookmark' ? 'menu selected' : 'menu'" @click="moveBookMarkPage()">
+            <div>
+              🔖 북마크
+            </div>
+            <div>
+              <img src="@/assets/img/category/right-arrow.png" alt="">
+            </div>
           </div>
-        </div>
-      </div>
-      <div
-        v-for="(cat, idx) in categoryGroup"
-        :key="idx"
-        class="category-wrp"
-      >
-        <div
-          :class="cat.parentCode.toLowerCase() === selectedCategory ? 'title selected' : 'title'"
-          @click="selectCategory({ id: cat.parentId, type: cat.parentCode.toLowerCase() })"
-        >
-          {{ cat.parentName }}
         </div>
         <div
-          v-for="(sub, sIdx) in cat.children"
-          :key="sIdx"
-          :class="sub.code.toLowerCase() === selectedSubCategory ? 'sub-title selected' : 'sub-title'"
-          @click="selectSubCategory({ id: sub.id, type: cat.parentCode.toLowerCase(), subType: sub.code.toLowerCase(), name: sub.name, catName: cat.parentName })"
+          v-for="(cat, idx) in categoryGroup"
+          :key="idx"
+          class="category-wrp"
         >
-          {{ sub.name }}
+          <div
+            :class="cat.parentCode.toLowerCase() === selectedCategory ? 'title selected' : 'title'"
+            @click="selectCategory({ id: cat.parentId, type: cat.parentCode.toLowerCase() })"
+          >
+            {{ cat.parentName }}
+          </div>
+          <div
+            v-for="(sub, sIdx) in cat.children"
+            :key="sIdx"
+            :class="sub.code.toLowerCase() === selectedSubCategory ? 'sub-title selected' : 'sub-title'"
+            @click="selectSubCategory({ id: sub.id, type: cat.parentCode.toLowerCase(), subType: sub.code.toLowerCase(), name: sub.name, catName: cat.parentName })"
+          >
+            {{ sub.name }}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
 </template>
 

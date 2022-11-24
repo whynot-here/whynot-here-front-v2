@@ -66,15 +66,48 @@
     />
   </div>
   <div v-else id="TopBarM">
-    <div class="category-toggle" @click="toggleCategoryPanel">
-      <img src="@/assets/img/common/category-toggle.png" alt="">
-    </div>
-    <div class="logo-wrp">
-      <div class="title">
-        사람이 모이는 공간
+    <div class="top">
+      <div class="category-toggle" @click="toggleCategoryPanel">
+        <img src="@/assets/img/common/category-toggle.png" alt="">
       </div>
-      <div class="logo-img" @click="mainPage">
-        <img src="@/assets/img/common/whynot-here-logo.png" alt="">
+      <div class="logo-wrp">
+        <div class="title">
+          사람이 모이는 공간
+        </div>
+        <div class="logo-img" @click="mainPage">
+          <img src="@/assets/img/common/whynot-here-logo.png" alt="">
+        </div>
+      </div>
+      <div class="profile-wrp">
+        <div 
+          v-if="initLoginDone"
+          class="profile"
+          @click="toggleAccountPopup"
+        >
+          <img :src="profileImg" alt="">
+          <div
+            v-if="openAccount"
+            class="open-account"
+          >
+            <!-- <div class="sub-menu-wrp">
+              <div class="sub-menu" style="cursor:pointer" @click="moveMyPage()">마이페이지</div>
+              <div class="sub-menu" style="cursor:pointer" @click="logout()">로그아웃</div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="category-wrp">
+        <div>
+          {{ categoryTitleProps }}
+        </div>
+        <div v-if="subCategoryTitleProps !== ''">
+          <img src="@/assets/img/category/right-arrow.png" alt="">
+        </div>
+        <div>
+          {{ subCategoryTitleProps }}
+        </div>
       </div>
     </div>
   </div>
