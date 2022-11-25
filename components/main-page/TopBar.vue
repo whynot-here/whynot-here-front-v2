@@ -1,5 +1,5 @@
 <template>
-  <div id="TopBar">
+  <div v-if="!isMobile" id="TopBar">
     <div class="topbar" @click.self="toggleAccountPopup">
       <div class="topbar-wrp">
         <!-- <div class="logo-left">
@@ -65,6 +65,19 @@
       @closePopup="closeLoginPopup"
     />
   </div>
+  <div v-else id="TopBarM">
+    <div class="category-toggle" @click="toggleCategoryPanel">
+      <img src="@/assets/img/common/category-toggle.png" alt="">
+    </div>
+    <div class="logo-wrp">
+      <div class="title">
+        사람이 모이는 공간
+      </div>
+      <div class="logo-img" @click="mainPage">
+        <img src="@/assets/img/common/whynot-here-logo.png" alt="">
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -100,6 +113,9 @@ export default {
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
   },
   methods: {
+    toggleCategoryPanel () {
+      this.$bus.$emit('toggleCategoryPanel', {})
+    },
     mainPage () {
       this.$router.push('/')
     },

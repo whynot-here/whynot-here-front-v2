@@ -1,5 +1,30 @@
 @import '@/assets/scss/util.scss';
 
+#TopBarM {
+  display: flex;
+  width: 100vw; height: 48px;
+  .category-toggle {
+    margin: 10px 19px;
+    img {
+      width: 18px; height: 16px;
+    }
+  }
+  .logo-wrp {
+    flex-grow: 1;
+    text-align: center;
+    .title {
+      font-size: .69rem;
+      font-weight: 500;
+      color: #737373;
+    }
+    .logo-img {
+      img {
+        width: 108px; height: 26px;
+      }
+    }
+  }
+}
+
 #TopBar {
   @include screen {
     .open-account {

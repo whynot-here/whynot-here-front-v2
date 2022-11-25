@@ -1,5 +1,5 @@
 <template>
-  <div id="Category">
+  <div v-show="(!isMobile || isOpenCategoryPanel)" id="Category">
     <section class="logo">
       <div class="logo-desc">
         사람이 모이는 공간
@@ -81,14 +81,24 @@ export default {
     return {
       selectedCategory: '',
       selectedSubCategory: '',
-      searchText: ''
+      searchText: '',
+      isOpenCategoryPanel: false
     }
   },
   async fetch () {
     this.selectedCategory = await this.categoryInLayout
     this.selectedSubCategory = await this.subCategoryInLayout
   },
+  created () {
+    this.$bus.$off('toggleCategoryPanel')
+    this.$bus.$on('toggleCategoryPanel', ()=> {
+      this.toggleCategoryPanel()
+    })
+  },
   methods: {
+    toggleCategoryPanel() {
+      this.isOpenCategoryPanel = !this.isOpenCategoryPanel
+    },
     mainPage () {
       this.$router.push('/')
     },
