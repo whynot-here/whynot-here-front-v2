@@ -343,17 +343,21 @@ export default {
         return false
       }
 
-      this.files.forEach((file, idx) => {
-        const formData = new FormData()
-        formData.append("images", file)
-
-        const cur = new Date()
-        const year = (cur.getFullYear() + '').substring(2)
-        const month = (cur.getMonth() + 1 + '')
-        this.dir = year + '-' + month
-
-        this.uploadPicture({ formData, idx, callback: this.uploadPosting })
-      })
+      if (this.files.length > 0) {
+        this.files.forEach((file, idx) => {
+          const formData = new FormData()
+          formData.append("images", file)
+  
+          const cur = new Date()
+          const year = (cur.getFullYear() + '').substring(2)
+          const month = (cur.getMonth() + 1 + '')
+          this.dir = year + '-' + month
+  
+          this.uploadPicture({ formData, idx, callback: this.uploadPosting })
+        })
+      } else {
+        this.uploadPosting()
+      }
     },
     editPostingAndPicture() {
       if (!this.checkRegisterParamsValid()) {
@@ -361,20 +365,22 @@ export default {
       }
       // 초기화
       this.postingRegisterParams.imageLinks = []
-      
-      this.files.forEach((file, idx) => {
+
+      if (this.files.length > 0) {
         this.files.forEach((file, idx) => {
           const formData = new FormData()
           formData.append("images", file)
-
+  
           const cur = new Date()
           const year = (cur.getFullYear() + '').substring(2)
           const month = (cur.getMonth() + 1 + '')
           this.dir = year + '-' + month
-
+  
           this.uploadPicture({ formData, idx, callback: this.editPosting })
         })
-      })
+      } else {
+        this.editPosting()
+      }
     },   
     uploadPicture ({ formData, idx, callback }) {
       (this.$axios.post(
