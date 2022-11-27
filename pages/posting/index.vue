@@ -276,7 +276,7 @@ export default {
           // 카테고리
           let categoryItem = ''
           this.categoryGroup.forEach((category) => {
-            if (category.id === this.postingRegisterParams.category.id) {
+            if (category.parentId === this.postingRegisterParams.category.id) {
               categoryItem = {
                 id: category.parentId,
                 name: category.parentName

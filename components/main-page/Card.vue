@@ -155,7 +155,21 @@ export default {
           post.content_light = post.content
         }
 
-        post.categoryName = post.category.name
+        let categoryName = ''
+        this.categoryGroup.forEach((category) => {
+          if (category.parentId === post.category.id) {
+            categoryName = category.parentName
+          } else {
+            category.children.forEach((child) => {
+              if (child.id === post.category.id) {
+                categoryName = category.parentName + ' / ' + child.name
+              }
+            })
+          }
+        })
+
+        post.categoryName = categoryName
+        
         post.communicationToolText = {'ONLINE' : '온라인', 'OFFLINE' : '만나서'}[post.communicationTool]
         post.contactText = {'EMAIL' : '이메일', 'KAKAO_OPEN_CHAT' : '카카오톡', 'PHONE' : '휴대전화'}[post.ownerContact.type]
 
