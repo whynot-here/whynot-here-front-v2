@@ -363,19 +363,25 @@ export default {
       if (!this.checkRegisterParamsValid()) {
         return false
       }
+
       // 초기화
       this.postingRegisterParams.imageLinks = []
+      this.inputImg.forEach(img => {
+        if (!img.isNew) {
+          this.postingRegisterParams.imageLinks.push(img.prev_url)
+        }
+      })
 
       if (this.files.length > 0) {
         this.files.forEach((file, idx) => {
           const formData = new FormData()
           formData.append("images", file)
-  
+
           const cur = new Date()
           const year = (cur.getFullYear() + '').substring(2)
           const month = (cur.getMonth() + 1 + '')
           this.dir = year + '-' + month
-  
+
           this.uploadPicture({ formData, idx, callback: this.editPosting })
         })
       } else {
@@ -397,13 +403,6 @@ export default {
       ).then(res => {
         this.postingRegisterParams.imageLinks.push(res.data.url)
         if (this.files.length === (idx + 1)) {
-          if (this.postingMode === 'edit') {
-            this.inputImg.forEach(img => {
-              if (!img.isNew) {
-                this.postingRegisterParams.imageLinks.push(img.prev_url)
-              }
-            })
-          }
           callback()
         }
       }).catch((error) => {

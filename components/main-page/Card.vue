@@ -25,8 +25,8 @@
                 {{ post.title_short }}
               </div>
             </div>
-            <div v-if="categoryProps === 'mypostings'" class="sub-menu-btn">
-              <img v-if="post.recruiting" src="@/assets/img/common/dot-btn.png" alt="" @click.stop="openSubMenuPopup(post.id)">
+            <div v-if="categoryProps === 'mypostings'" class="sub-menu-btn" @click.stop="openSubMenuPopup(post.id)">
+              <img v-if="post.recruiting" src="@/assets/img/common/dot-btn.png" alt="">
               <div v-if="post.isOpenSubMenu" class="sub-menu">
                 <div @click.stop="editPosting(post.id)">수정하기</div>
                 <div @click.stop="compModalToggle(post.id)">모집마감</div>
