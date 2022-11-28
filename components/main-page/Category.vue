@@ -104,7 +104,12 @@ export default {
     mainPage () {
       this.$router.push('/')
     },
+    resetCategory () {
+      this.selectedCategory = ''
+      this.selectedSubCategory = ''
+    },
     search () {
+      this.resetCategory()
       this.selectedCategory = 'search'
       this.$router.push({
         name: 'gather-category',
@@ -122,6 +127,7 @@ export default {
         return false
       }
 
+      this.resetCategory()
       this.selectedCategory = 'mypostings'
       this.$router.push({
         name: 'gather-category',
@@ -136,6 +142,7 @@ export default {
         return false
       }
 
+      this.resetCategory()
       this.selectedCategory = 'bookmark'
       this.$router.push({
         name: 'gather-category',
@@ -145,13 +152,14 @@ export default {
       })
     },
     selectCategory ({ id, type }) {
-      this.$emit('getCategoryIdAndGetPosts', {})
+      this.$bus.$emit('getCategoryIdAndGetPosts', {})
       this.selectedCategory = type
       this.selectedSubCategory = ''
       this.$router.push(`/gather/${type}`)
     },
     selectSubCategory ({ id, type, subType, name, catName }) {
-      this.$emit('setSubCategoryId', { id, name, catName })
+      console.log(subType)
+      this.$bus.$emit('setSubCategoryId', { id, name, catName, subType })
       this.selectedCategory = type
       this.selectedSubCategory = subType
       // this.$router.push({ path: `/${this.selectedCategory}`, params: { sub: `${type}` } })

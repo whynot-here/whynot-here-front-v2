@@ -2,8 +2,6 @@
   <div id="CategoryPage">
       <Card
         ref="Card"
-        :category-id="categoryId"
-        :category-props="category"
         :search-text="searchText"
         @refreshCard="getPosts"
       />
@@ -22,6 +20,7 @@ export default {
   props: {
   },
   asyncData({ params, route, query, redirect }) {
+    console.log(route.query)
     return {
       category: params.category,
       subCategory: route.query.sub,
@@ -53,11 +52,14 @@ export default {
     this.$bus.$off('getCategoryIdAndGetPosts')
     this.$bus.$off('refreshSearch')
 
-    this.$bus.$on('setSubCategoryId', ({ id, name, catName }) => {
-      this.setSubCategoryId({ id, name, catName })
+    this.$bus.$on('setSubCategoryId', ({ id, name, catName, subType }) => {
+      this.subCategory = subType
+      this.$refs.Card.toggleIsSubCategory(true, this.category, subType)
+      // this.setSubCategoryId({ id, name, catName })
     })
     this.$bus.$on('getCategoryIdAndGetPosts', () => {
-      this.getCategoryIdAndGetPosts()
+      this.$refs.Card.toggleIsSubCategory(false, this.category, this.subCategory)
+      // this.getCategoryIdAndGetPosts()
     })
     this.$bus.$on('refreshSearch', () => {
       this.getCategoryIdAndGetPosts()
@@ -67,15 +69,17 @@ export default {
     // 대분류 카테고리 선택했을 때만 불러오도록
     // 소분류 카테고리 선택했을 때는 setSubCategoryId에서 호출
     if (this.subCategory === undefined) {
+      this.$refs.Card.toggleIsSubCategory(false, this.category, this.subCategory)
       this.getCategoryIdAndGetPosts()
     } else {
+      this.$refs.Card.toggleIsSubCategory(true, this.category, this.subCategory)
       this.geySubCategoryIdAndGetPosts()
     }
   },
   methods: {
     getCategoryIdAndGetPosts () {
       if (this.category !== 'mypostings' && this.category !== 'bookmark' && this.category !== 'search') {
-        this.getCategoryId()
+        // this.getCategoryId()
         // this.getPosts()
       } else {
         let categoryTitle = ''
@@ -89,44 +93,44 @@ export default {
         this.$bus.$emit('sendCategoryTitle', { categoryTitle })
       }
     },
-    getCategoryId () {
-      const category = this.categoryGroup.filter((category) => {
-        return category.parentCode.toLowerCase() === this.category
-      })
-      this.categoryId = category[0].parentId
-      this.categoryTitle = category[0].parentName
-      this.subCategoryTitle = ''
+    // getCategoryId () {
+    //   const category = this.categoryGroup.filter((category) => {
+    //     return category.parentCode.toLowerCase() === this.category
+    //   })
+    //   this.categoryId = category[0].parentId
+    //   this.categoryTitle = category[0].parentName
+    //   this.subCategoryTitle = ''
 
-      this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
-    },
+    //   this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
+    // },
     geySubCategoryIdAndGetPosts () {
-      this.getSubCategoryId()
+      // this.getSubCategoryId()
       // this.getPosts()
     },
-    getSubCategoryId () {
-      const category = this.categoryGroup.filter((category) => {
-        return category.parentCode.toLowerCase() === this.category
-      })[0]
+    // getSubCategoryId () {
+    //   const category = this.categoryGroup.filter((category) => {
+    //     return category.parentCode.toLowerCase() === this.category
+    //   })[0]
       
-      const subCategory = category.children
-      const selectedSubCategory = subCategory.filter((category) => {
-        return category.code.toLowerCase() === this.subCategory
-      })[0]
+    //   const subCategory = category.children
+    //   const selectedSubCategory = subCategory.filter((category) => {
+    //     return category.code.toLowerCase() === this.subCategory
+    //   })[0]
 
-      this.categoryTitle = category.parentName
-      this.categoryId = selectedSubCategory.id
-      this.subCategoryTitle = selectedSubCategory.name
+    //   this.categoryTitle = category.parentName
+    //   this.categoryId = selectedSubCategory.id
+    //   this.subCategoryTitle = selectedSubCategory.name
 
-      this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
-    },
+    //   this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
+    // },
     setSubCategoryId ({ id, name, catName }) {
-      this.categoryId = id
-      this.subCategoryTitle = name
-      this.categoryTitle = catName
-      this.getPosts()
+      // this.categoryId = id
+      // this.subCategoryTitle = name
+      // this.categoryTitle = catName
+      // this.getPosts()
     },
     getPosts () {
-      this.$refs.Card.getPosts()
+      // this.$refs.Card.getPosts()
       // if (this.category === 'mypostings') {
       //   this.$axios.get(
       //   ('https://whynot-here.o-r.kr/v2/posts/own'),

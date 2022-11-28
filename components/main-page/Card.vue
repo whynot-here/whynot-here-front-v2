@@ -25,7 +25,7 @@
                 {{ post.title_short }}
               </div>
             </div>
-            <div v-if="categoryProps === 'mypostings'" class="sub-menu-btn" @click.stop="openSubMenuPopup(post.id)">
+            <div v-if="category === 'mypostings'" class="sub-menu-btn" @click.stop="openSubMenuPopup(post.id)">
               <img v-if="post.recruiting" src="@/assets/img/common/dot-btn.png" alt="">
               <div v-if="post.isOpenSubMenu" class="sub-menu">
                 <div @click.stop="editPosting(post.id)">수정하기</div>
@@ -45,7 +45,7 @@
           </div>
           <div class="card-bottom">
             <div
-              v-if="categoryProps === 'mypostings' || categoryProps === 'bookmark'"
+              v-if="category === 'mypostings' || category === 'bookmark'"
               class="category-name"
             >
               {{ post.categoryName }}
@@ -69,10 +69,10 @@
           </div>
         </div>
         <div v-if="!post.recruiting" class="comp-card">
-          <div v-if="categoryProps === 'mypostings'" class="close">
+          <div v-if="category === 'mypostings'" class="close">
             <img src="@/assets/img/common/close-gray.png" alt="" @click="deletePosting(post.id)">
           </div>
-          <div :class="categoryProps === 'mypostings' ? 'notice mypage' : 'notice'">
+          <div :class="category === 'mypostings' ? 'notice mypage' : 'notice'">
             <div class="check">
               <img src="@/assets/img/common/check.png" alt="">
             </div>
@@ -109,14 +109,18 @@ export default {
     //   type: Array,
     //   default: null
     // },
-    categoryId: {
-      type: Number,
-      default: 1
-    },
-    categoryProps: {
-      type: String,
-      default: ''
-    },
+    // categoryId: {
+    //   type: Number,
+    //   default: 1
+    // },
+    // categoryProps: {
+    //   type: String,
+    //   default: ''
+    // },
+    // subCategoryProps: {
+    //   type: String,
+    //   default: ''
+    // },
     searchText: {
       type: String,
       default: ''
@@ -130,10 +134,13 @@ export default {
     return {
       posts: [],
       category: '',
+      subCategory: '',
       bookMarkComp: false,
       compModalOpen: false,
       compRecruitId: '',
-      onlyRecruit: false
+      onlyRecruit: false,
+      isSubCategory: false,
+      categoryId: ''
     }
   },
   computed: {
@@ -199,12 +206,12 @@ export default {
   created () {
     this.$bus.$off('refreshCard')
     this.$bus.$on('refreshCard', () => {
-      this.refreshCard()
+      // this.refreshCard()
     })
   },
   mounted () {
-    this.category = this.categoryProps
-    this.refreshCard()
+    // this.category = this.categoryProps
+    // this.refreshCard()
   },
   methods: {
     refreshCard() {
@@ -212,7 +219,7 @@ export default {
       this.getBookMark()
     },
     getPosts () {
-      if (this.categoryProps === 'mypostings') {
+      if (this.category === 'mypostings') {
         this.$axios.get(
         ('https://whynot-here.o-r.kr/v2/posts/own'),
         {
@@ -230,7 +237,7 @@ export default {
             return this.posts.push(res)
           })
         })
-      } else if (this.categoryProps === 'bookmark') {
+      } else if (this.category === 'bookmark') {
         this.$axios.get(
         ('https://whynot-here.o-r.kr/v2/posts/favorite'),
         {
@@ -248,7 +255,7 @@ export default {
             return this.posts.push(res)
           })
         })
-      } else if (this.categoryProps === 'search') {
+      } else if (this.category === 'search') {
         this.$axios.get(
         (`https://whynot-here.o-r.kr/v2/posts/search?keyword=` + this.searchText),
         {
@@ -266,6 +273,12 @@ export default {
           })
         })
       } else {
+        if (this.isSubCategory) {
+          this.getSubCategoryId()
+        } else {
+          this.getCategoryId()
+        }
+        
         // this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
         this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
         .then(res => {
@@ -277,9 +290,41 @@ export default {
         })
       }
     },
+    toggleIsSubCategory (type, category, subCategory) {
+      this.isSubCategory = type
+      this.category = category
+      this.subCategory = subCategory
+      this.refreshCard()
+    },
+    getCategoryId () {
+      const category = this.categoryGroup.filter((category) => {
+        return category.parentCode.toLowerCase() === this.category
+      })
+      this.categoryId = category[0].parentId
+      this.categoryTitle = category[0].parentName
+      this.subCategoryTitle = ''
+
+      this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
+    },
+    getSubCategoryId () {
+      const category = this.categoryGroup.filter((category) => {
+        return category.parentCode.toLowerCase() === this.category
+      })[0]
+
+      const subCategory = category.children
+      const selectedSubCategory = subCategory.filter((category) => {
+        return category.code.toLowerCase() === this.subCategory
+      })[0]
+
+      this.categoryTitle = category.parentName
+      this.categoryId = selectedSubCategory.id
+      this.subCategoryTitle = selectedSubCategory.name
+
+      this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
+    },
     getBookMark () {
       this.bookMarkComp = false
-      if (this.$store.state.userInfo.initLoginDone && this.categoryProps !== 'bookmark' && this.categoryProps !== 'mypostings') {
+      if (this.$store.state.userInfo.initLoginDone && this.category !== 'bookmark' && this.category !== 'mypostings') {
         this.$axios.get(
           ('https://whynot-here.o-r.kr/v2/posts/favorite'),
           {
