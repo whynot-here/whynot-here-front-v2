@@ -4,18 +4,23 @@
   position: sticky;
   top: 0;
   left: 0;
+  margin-top: 6vmin;
   .top {
+    border-bottom: 2px solid #F3F3F3;
     display: flex;
-    width: 100vw; height: 48px;
+    width: 100vw; 
+    height: 8vh;
+    padding: 0vmin 5vmin;
+    align-items: center;
     .category-toggle {
-      margin: 10px 19px;
       img {
-        width: 18px; height: 16px;
+        width: 4vmin;
       }
     }
     .logo-wrp {
       flex-grow: 1;
       text-align: center;
+      width: 20vw;
       .title {
         font-size: .69rem;
         font-weight: 500;
@@ -23,21 +28,23 @@
       }
       .logo-img {
         img {
-          width: 108px; height: 26px;
+          width: 30vmin;
         }
       }
     }
     .profile-wrp {
       .profile {
-        padding: 8px 16px 8px;
         img {
-          width: 32px;
+          width: 8vmin;
+          border-radius: 6px;
+          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 8px rgba(0, 52, 138, 0.06);
         }
       }
     }
   }
   .bottom {
-    height: 62px;
+    height: 7vh;
+    background-color: #FAFAFA;
     .category-wrp {
       display: flex; line-height: 62px;
       div:first-child {
