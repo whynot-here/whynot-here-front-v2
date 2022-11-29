@@ -1,98 +1,100 @@
 <template>
   <div id="Card">
-    <div class="sts-i-wrp">
-      <div>
-        <input v-model="onlyRecruit" type="checkbox" name="color" value="blue">
+    <div :class="!isMobile ? 'pc-env' : 'mobile-env'">
+      <div class="sts-i-wrp">
+        <div>
+          <input v-model="onlyRecruit" type="checkbox" name="color" value="blue">
+        </div>
+        <div>
+          모집중만 보기
+        </div>
       </div>
-      <div>
-        모집중만 보기
-      </div>
-    </div>
-    <div class="cards-wrp">
-      <div
-        v-for="(post, idx) in postsProc.slice().reverse()"
-        v-show="onlyRecruit ? (post.recruiting ? true : false) : true" 
-        :key="idx"
-        class="card-wrp"
-      >
-        <div @click.stop="moveDetailPage(post.id)">
-          <div class="card-top">
-            <div class="writer-title-wrp">
-              <div class="writer">
-                {{ post.writer.nickname }}
+      <div class="cards-wrp">
+        <div
+          v-for="(post, idx) in postsProc.slice().reverse()"
+          v-show="onlyRecruit ? (post.recruiting ? true : false) : true" 
+          :key="idx"
+          class="card-wrp"
+        >
+          <div @click.stop="moveDetailPage(post.id)">
+            <div class="card-top">
+              <div class="writer-title-wrp">
+                <div class="writer">
+                  {{ post.writer.nickname }}
+                </div>
+                <div class="card-title">
+                  {{ post.title_short }}
+                </div>
               </div>
-              <div class="card-title">
-                {{ post.title_short }}
+              <div v-if="category === 'mypostings'" class="sub-menu-btn" @click.stop="openSubMenuPopup(post.id)">
+                <img v-if="post.recruiting" src="@/assets/img/common/dot-btn.png" alt="">
+                <div v-if="post.isOpenSubMenu" class="sub-menu">
+                  <div @click.stop="editPosting(post.id)">수정하기</div>
+                  <div @click.stop="compModalToggle(post.id)">모집마감</div>
+                  <div @click.stop="deletePosting(post.id)">삭제</div>
+                </div>
+              </div>
+              <div v-else class="book-mark" @click.stop="bookmark(post.id)">
+                <img v-if="post.isBookmarked === undefined || !post.isBookmarked" src="@/assets/img/category/bookmark.png" alt="">
+                <img v-if="post.isBookmarked" src="@/assets/img/category/bookmark-selected.png" alt="">
               </div>
             </div>
-            <div v-if="category === 'mypostings'" class="sub-menu-btn" @click.stop="openSubMenuPopup(post.id)">
-              <img v-if="post.recruiting" src="@/assets/img/common/dot-btn.png" alt="">
-              <div v-if="post.isOpenSubMenu" class="sub-menu">
-                <div @click.stop="editPosting(post.id)">수정하기</div>
-                <div @click.stop="compModalToggle(post.id)">모집마감</div>
-                <div @click.stop="deletePosting(post.id)">삭제</div>
+            <div class="card-middle">
+              <div class="content">
+                {{ post.content_light }}
               </div>
             </div>
-            <div v-else class="book-mark" @click.stop="bookmark(post.id)">
-              <img v-if="post.isBookmarked === undefined || !post.isBookmarked" src="@/assets/img/category/bookmark.png" alt="">
-              <img v-if="post.isBookmarked" src="@/assets/img/category/bookmark-selected.png" alt="">
+            <div class="card-bottom">
+              <div
+                v-if="category === 'mypostings' || category === 'bookmark'"
+                class="category-name"
+              >
+                {{ post.categoryName }}
+              </div>
+              <div :class="!post.recruiting ? 'item d-day comp' : 'item d-day'">
+                마감 {{ post.dDay }}
+              </div>
+              <div :class="!post.recruiting ? 'item com-tool comp' : 'item com-tool'">
+                {{ post.communicationToolText }}
+              </div>
+              <div :class="!post.recruiting ? 'item rec-cnt comp' : 'item rec-cnt'">
+                <strong>{{ post.recruitCurrentCnt }}</strong> / {{ post.recruitTotalCnt }}
+              </div>
+              <div class="gap"></div>
+              <div class="views">
+                <img src="@/assets/img/common/views.png" alt="">
+                <div>
+                  {{ post.views === null ? 0 : post.views }}
+                </div>
+              </div>
             </div>
           </div>
-          <div class="card-middle">
-            <div class="content">
-              {{ post.content_light }}
+          <div v-if="!post.recruiting" class="comp-card">
+            <div v-if="category === 'mypostings'" class="close">
+              <img src="@/assets/img/common/close-gray.png" alt="" @click="deletePosting(post.id)">
             </div>
-          </div>
-          <div class="card-bottom">
-            <div
-              v-if="category === 'mypostings' || category === 'bookmark'"
-              class="category-name"
-            >
-              {{ post.categoryName }}
-            </div>
-            <div :class="!post.recruiting ? 'item d-day comp' : 'item d-day'">
-              마감 {{ post.dDay }}
-            </div>
-            <div :class="!post.recruiting ? 'item com-tool comp' : 'item com-tool'">
-              {{ post.communicationToolText }}
-            </div>
-            <div :class="!post.recruiting ? 'item rec-cnt comp' : 'item rec-cnt'">
-              <strong>{{ post.recruitCurrentCnt }}</strong> / {{ post.recruitTotalCnt }}
-            </div>
-            <div class="gap"></div>
-            <div class="views">
-              <img src="@/assets/img/common/views.png" alt="">
-              <div>
-                {{ post.views === null ? 0 : post.views }}
+            <div :class="category === 'mypostings' ? 'notice mypage' : 'notice'">
+              <div class="check">
+                <img src="@/assets/img/common/check.png" alt="">
+              </div>
+              <div class="comp-text">
+                모집마감
               </div>
             </div>
           </div>
         </div>
-        <div v-if="!post.recruiting" class="comp-card">
-          <div v-if="category === 'mypostings'" class="close">
-            <img src="@/assets/img/common/close-gray.png" alt="" @click="deletePosting(post.id)">
-          </div>
-          <div :class="category === 'mypostings' ? 'notice mypage' : 'notice'">
-            <div class="check">
-              <img src="@/assets/img/common/check.png" alt="">
-            </div>
-            <div class="comp-text">
-              모집마감
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-    <div v-if="compModalOpen" class="comp-modal">
-      <div class="comp-wrp">
-        <div class="notice">
-          모집 마감을 누르시면 해당 글<br>
-          <strong>수정 / 모집이 불가합니다.</strong><br>
-          그래도 진행 하시겠습니까?
-        </div>
-        <div class="select-wrp">
-          <div @click="compModalOpen = false">아니요</div>
-          <div @click="compRecruit()">네</div>
+      <div v-if="compModalOpen" class="comp-modal">
+        <div class="comp-wrp">
+          <div class="notice">
+            모집 마감을 누르시면 해당 글<br>
+            <strong>수정 / 모집이 불가합니다.</strong><br>
+            그래도 진행 하시겠습니까?
+          </div>
+          <div class="select-wrp">
+            <div @click="compModalOpen = false">아니요</div>
+            <div @click="compRecruit()">네</div>
+          </div>
         </div>
       </div>
     </div>

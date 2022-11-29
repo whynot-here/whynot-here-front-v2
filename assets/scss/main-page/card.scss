@@ -1,82 +1,314 @@
 @import '@/assets/scss/util.scss';
 
 #Card {
-  // flex-grow: 1;
-  width: 100%; height: calc(100vh - 80px - 44px);
-  overflow-y: scroll;
-  background-color: #F3F3F3;
-  .comp-modal {
-    position: fixed;
-    z-index: 10;
-    width: 100vw; height: 100vh;
-    top: 0; left: 0;
-    background-color: rgba(24, 24, 24, 0.4);
-    .comp-wrp {
-      margin: calc(100vh / 3) auto;
-      width: 400px; height: 208px;
-      background-color: #FFFFFF;
-      border-radius: 12px;
-      text-align: center;
-      .notice {
-        padding: 28px 90px;
-        line-height: 1.6;
-        font-size: 1.13rem;
-        strong {
-          font-weight: 700;
+  .pc-env {
+    // flex-grow: 1;
+    width: 100%; height: calc(100vh - 80px - 44px);
+    overflow-y: scroll;
+    background-color: #F3F3F3;
+    .comp-modal {
+      position: fixed;
+      z-index: 10;
+      width: 100vw; height: 100vh;
+      top: 0; left: 0;
+      background-color: rgba(24, 24, 24, 0.4);
+      .comp-wrp {
+        margin: calc(100vh / 3) auto;
+        width: 400px; height: 208px;
+        background-color: #FFFFFF;
+        border-radius: 12px;
+        text-align: center;
+        .notice {
+          padding: 28px 90px;
+          line-height: 1.6;
+          font-size: 1.13rem;
+          strong {
+            font-weight: 700;
+          }
+        }
+        .select-wrp {
+          display: flex;
+          margin: 0 24px;
+          border-top: 1px solid #E7E7E7;
+          div {
+            width: 50%; height: 30px; line-height: 30px;
+            margin: 16px 0;
+            cursor: pointer;
+          }
+          div:first-child {
+            color: #E74133;
+            border-right: 1px solid #E7E7E7;
+          }
+          div:nth-child(2) {
+          }
         }
       }
-      .select-wrp {
-        display: flex;
-        margin: 0 24px;
-        border-top: 1px solid #E7E7E7;
-        div {
-          width: 50%; height: 30px; line-height: 30px;
-          margin: 16px 0;
-          cursor: pointer;
+    }
+    .sts-i-wrp {
+      display: flex;
+      width: 1070px;
+      margin: 0 auto;
+      padding-top: 62px;
+      color: #005B9A;
+      input[type="checkbox" i] {
+        width: 16px; height: 16px;
+        background-color: #005B9A;
+      }
+      div:first-child {
+        flex-grow: 1;
+        text-align: right;
+      }
+      div:nth-child(2) {
+        width: max-content; height: 22px; line-height: 22px;
+        font-size: .75rem; font-weight: 500;
+        padding-left: 8px;
+      }
+    }
+    .cards-wrp {
+      display: grid;
+      grid-gap: 32px;
+      padding-top: 40px; padding-bottom: 100px;
+      margin: 0 auto;
+      width: 1070px;
+      .card-wrp {
+        width: 520px; height: 179px;
+        padding: 24px;
+        background: #FFFFFF;
+        box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
+        border: 2px solid #FFFFFF;
+        border-radius: 16px;
+        cursor: pointer;
+        .card-top {
+          display: flex;
+          height: max-content;
+          .writer-title-wrp {
+            flex-grow: 1;
+            .writer {
+              height: 22px; line-height: 22px;
+              font-size: .81rem; font-weight: 500;
+              color: #A3A3A3;
+            }
+            .card-title {
+              width: 300px;
+              margin-top: 3px;
+              margin-bottom: 10px;
+              font-size: 1.13rem; font-weight: 700;
+            }
+          }
+          .book-mark {
+            width: 16px; height: 22px;
+            img {
+              width: 16px; height: 22px;
+            }
+          }
+          .sub-menu-btn {
+            position: relative;
+            width: 20px; height: 24px;
+            text-align: right;
+            img {
+              width: 4px; height: 24px;
+            }
+            .sub-menu {
+              position: absolute;
+              width: 96px; height: 98px;
+              margin: -30px 30px;
+              background-color: #FFFFFF;
+              border: 1px solid #E1E2E3;
+              border-radius: 4px;
+              div {
+                text-align: center;
+                height: 32px; line-height: 32px;
+                font-size: .75rem; font-weight: 400;
+                color: #D05F5F;
+                cursor: pointer;
+              }
+              div:not(div:nth-child(3)) {
+                border-bottom: 1px solid #E1E2E3;
+                color: #414243;
+              }
+              div:hover {
+                background-color: #F5F5F5;
+              }
+            }
+          }
         }
-        div:first-child {
-          color: #E74133;
-          border-right: 1px solid #E7E7E7;
+        .card-middle {
+          color: #4D4D4D;
+          .content {
+            height: 40px;
+            // padding-top: 16px;
+            font-size: .88rem;
+          }
         }
-        div:nth-child(2) {
+        .card-bottom {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0px 12px;
+          .item {
+            line-height: 14px;
+            padding: 6px 10px;
+            background: #F3F3F3;
+            border-radius: 16px;
+            font-size: .88rem; 
+            text-align: center;
+          }
+          .comp {
+            opacity: 0.5;
+          }
+          .category-name {
+            line-height: 16px;
+            padding: 6px 10px;
+            background: rgba(62, 130, 241, 0.26);
+            border-radius: 16px;
+            color: #00348A;
+            font-size: .88rem; 
+            text-align: center;
+          }
+          .d-day {
+            font-weight: 600;
+            color: #3E82F1;
+          }
+          .com-tool {
+            font-weight: 500;
+            color: #484848;
+          }
+          .rec-cnt {
+            font-weight: 500;
+            color: #737373;
+            strong {
+              font-weight: 500;
+              color: #181818;
+            }
+          }
+          .gap {
+            flex-grow: 1;
+          }
+          .views {
+            display: flex;
+            // margin-left: 230px;
+            line-height: 26px;
+            font-size: .75rem; font-weight: 500;
+            color: #A1A2A3;
+            img {
+              width: 16px; height: 16px;
+              margin-top: 5px;
+              margin-right: 8px;
+            }
+          }
+        }
+      }
+      .card-wrp:hover {
+        border: 2px solid #3E82F1;
+      }
+
+      .comp-card {
+        z-index: 10;
+        width: 520px; height: 179px;
+        background-color: rgba(24, 24, 24, 0.7);
+        color: #FFFFFF;
+        padding: 24px;
+        border-radius: 16px;
+        margin-left: -26px;
+        margin-top: -155px;
+        .close {
+          z-index: 10;
+          margin: 0 24px 0 455px;
+          width: 24px; height: 24px;
+          img {
+            width: 24px; height: 24px;
+          }
+        }
+        .notice {
+          display: flex;
+          width: 110px;
+          margin: 50px auto;
+          &.mypage {
+            margin: 25px auto;
+          }
+          .check {
+            img {
+              margin-top: 1.5px;
+              width: 28px; height: 28px;
+            }
+          }
+          .comp-text {
+            margin-left: 8px;
+            font-size: 1.25rem;
+            font-weight: 700;
+          }
+        }
+      }
+      @include mobile {
+        width: 500px;
+        grid-template-columns: repeat(1,520px);
+        .cards-wrp {
+          .card-wrp {
+            width: 520px; height: 179px;
+          } 
+        }
+      }
+      @include tablet {
+        width: 800px; 
+        grid-template-columns: repeat(2,520px);
+        .cards-wrp {
+          .card-wrp {
+            width: 520px; height: 179px;
+          } 
+        }
+      }
+      @include desktop {
+        // width: 890px; 
+        grid-template-columns: repeat(2,520px);
+        .cards-wrp {
+          .card-wrp {
+            width: 520px; height: 179px;
+          } 
+        }
+      }
+      @include screen {
+        // width: 890px;
+        grid-template-columns: repeat(2,520px);
+        .cards-wrp {
+          .card-wrp {
+            width: 520px; height: 179px;
+          } 
         }
       }
     }
   }
-  .sts-i-wrp {
-    display: flex;
-    width: 1070px;
-    margin: 0 auto;
-    padding-top: 62px;
-    color: #005B9A;
-    input[type="checkbox" i] {
-      width: 16px; height: 16px;
-      background-color: #005B9A;
+  .mobile-env {
+    width: 100vw; height: calc(100vh - 115px);
+    padding-bottom: 30px;
+    overflow-y: scroll;
+    background-color: #F3F3F3;
+
+    .sts-i-wrp {
+      display: flex;
+      padding: 23px 16px;
+      color: #005B9A;
+      input[type="checkbox" i] {
+        width: 16px; height: 16px;
+        background-color: #005B9A;
+      }
+      div:first-child {
+        flex-grow: 1;
+        text-align: right;
+      }
+      div:nth-child(2) {
+        width: max-content; height: 22px; line-height: 22px;
+        font-size: .75rem; font-weight: 500;
+        padding-left: 8px;
+      }
     }
-    div:first-child {
-      flex-grow: 1;
-      text-align: right;
-    }
-    div:nth-child(2) {
-      width: max-content; height: 22px; line-height: 22px;
-      font-size: .75rem; font-weight: 500;
-      padding-left: 8px;
-    }
-  }
-  .cards-wrp {
-    display: grid;
-    grid-gap: 32px;
-    padding-top: 40px; padding-bottom: 100px;
-    margin: 0 auto;
-    width: 1070px;
+
     .card-wrp {
-      width: 520px; height: 179px;
-      padding: 24px;
+      width: 343px; height: 138px;
+      margin: 0 auto 12px auto;
+      padding: 16px;
       background: #FFFFFF;
       box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
-      border: 2px solid #FFFFFF;
-      border-radius: 16px;
-      cursor: pointer;
+      // border: 2px solid #FFFFFF;
+      border-radius: 12px;
       .card-top {
         display: flex;
         height: max-content;
@@ -84,14 +316,14 @@
           flex-grow: 1;
           .writer {
             height: 22px; line-height: 22px;
-            font-size: .81rem; font-weight: 500;
+            font-size: .69rem; font-weight: 500;
             color: #A3A3A3;
           }
           .card-title {
-            width: 300px;
+            width: 290px;
             margin-top: 3px;
-            margin-bottom: 10px;
-            font-size: 1.13rem; font-weight: 700;
+            margin-bottom: 6px;
+            font-size: 1rem; font-weight: 700;
           }
         }
         .book-mark {
@@ -134,21 +366,21 @@
       .card-middle {
         color: #4D4D4D;
         .content {
-          height: 40px;
-          // padding-top: 16px;
-          font-size: .88rem;
+          height: 20px;
+          font-size: .75rem;
         }
       }
       .card-bottom {
         display: flex;
         flex-wrap: wrap;
         gap: 0px 12px;
+        margin-top: 6px;
         .item {
           line-height: 14px;
           padding: 6px 10px;
           background: #F3F3F3;
           border-radius: 16px;
-          font-size: .88rem; 
+          font-size: .69rem; 
           text-align: center;
         }
         .comp {
@@ -160,7 +392,7 @@
           background: rgba(62, 130, 241, 0.26);
           border-radius: 16px;
           color: #00348A;
-          font-size: .88rem; 
+          font-size: .69rem; 
           text-align: center;
         }
         .d-day {
@@ -196,19 +428,15 @@
         }
       }
     }
-    .card-wrp:hover {
-      border: 2px solid #3E82F1;
-    }
-
     .comp-card {
       z-index: 10;
-      width: 520px; height: 179px;
+      width: 343px; height: 138px;
       background-color: rgba(24, 24, 24, 0.7);
       color: #FFFFFF;
-      padding: 24px;
-      border-radius: 16px;
-      margin-left: -26px;
-      margin-top: -155px;
+      padding: 16px;
+      border-radius: 12px;
+      margin-left: -16px;
+      margin-top: -123px;
       .close {
         z-index: 10;
         margin: 0 24px 0 455px;
@@ -220,7 +448,7 @@
       .notice {
         display: flex;
         width: 110px;
-        margin: 50px auto;
+        margin: 40px auto;
         &.mypage {
           margin: 25px auto;
         }
@@ -235,42 +463,6 @@
           font-size: 1.25rem;
           font-weight: 700;
         }
-      }
-    }
-    @include mobile {
-      width: 500px;
-      grid-template-columns: repeat(1,520px);
-      .cards-wrp {
-        .card-wrp {
-          width: 520px; height: 179px;
-        } 
-      }
-    }
-    @include tablet {
-      width: 800px; 
-      grid-template-columns: repeat(2,520px);
-      .cards-wrp {
-        .card-wrp {
-          width: 520px; height: 179px;
-        } 
-      }
-    }
-    @include desktop {
-      // width: 890px; 
-      grid-template-columns: repeat(2,520px);
-      .cards-wrp {
-        .card-wrp {
-          width: 520px; height: 179px;
-        } 
-      }
-    }
-    @include screen {
-      // width: 890px;
-      grid-template-columns: repeat(2,520px);
-      .cards-wrp {
-        .card-wrp {
-          width: 520px; height: 179px;
-        } 
       }
     }
   }
