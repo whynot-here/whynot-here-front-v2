@@ -1,5 +1,5 @@
 <template>
-  <div id="PostingPage">
+  <div v-if="!isMobile" id="PostingPage">
     <div class="panel-wrp">
       <section class="detail-panel">
         <div class="top">
@@ -37,6 +37,15 @@
         <div class="content">
           {{ postComp.content }}
         </div>
+        <div class="content-img">
+          <div
+            v-for="(postImg, idx) in postComp.imageLinks"
+            :key="idx"
+          >
+            <img :src=postImg.link class="postImg" />
+          </div>
+        </div>
+        
       </section>
       <section class="comment-panel">
         <div class="top">
@@ -91,6 +100,77 @@
       <img :src="postComp.writer.profileImg" alt="">
       {{ postComp.writer.nickname }}
     </div> -->
+  </div>
+  <div v-else id="m-PostingPage">
+    <main>
+      <!-- <div class="m-detail-header">
+        <div class="m-close">
+          <img class="m-back-btn" src="@/assets/img/common/left-arrow.png" alt="" @click.prevent="$router.go(-1)">
+        </div>
+      </div> -->
+      <div class="m-detail-container">
+        <div class="m-detail-content">
+          <div class="m-detail-content-header">
+            <div class="writer">
+              {{ postComp.writerName }}
+            </div>
+            <div class="title">
+              {{ postComp.title }}
+            </div>
+            <div class="tags">
+              <div class="tag d-day">
+                마감 {{ postComp.dDay }}
+              </div>
+              <div class="tag communication-tool">
+                {{ postComp.communicationToolText }}
+              </div>
+              <div class="tag recruit-people-cnt">
+                <strong>{{ postComp.recruitCurrentCnt }}</strong> / {{ postComp.recruitTotalCnt }}
+              </div>
+            </div>
+          </div>
+          <div class="m-detail-content-body">
+            <div class="m-content-text">
+              {{ postComp.content }}              
+            </div>
+            <div class="m-content-img">
+              <div
+                v-for="(postImg, idx) in postComp.imageLinks"
+                :key="idx"
+              >
+                <img :src=postImg.link class="m-postImg" />
+              </div>
+            </div>
+          </div>
+
+          <div class="m-detail-content-footer">
+            <img class="views-icon" src="@/assets/img/common/views.png" />
+            <div class="views-text">{{ post.views === null ? 0 : post.views }}</div>
+          </div>
+        </div>
+
+        <div class="m-detail-transition">
+          <div class="m-trans-text">댓글</div> 
+          <img class="m-trans-icon" src="@/assets/img/common/bottom-arrow.png" />
+        </div>
+      </div>
+
+      <div class="m-detail-footer">
+        <div></div>
+        <div class="m-img-wrp">
+            <img src="@/assets/img/posting/copy-detail.png" alt="" @click="copyUrl()">
+          </div>
+          <div class="m-img-wrp">
+            <img src="@/assets/img/posting/bookmark-detail.png" alt="">
+          </div>
+          <div class="m-img-wrp">
+            <img src="@/assets/img/posting/chat.png" alt="">
+          </div>
+          <div class="m-contact">
+            <div> {{ postComp.contactText }} 연락</div>
+          </div>
+      </div>
+    </main>    
   </div>
 </template>
 
@@ -148,13 +228,13 @@ export default {
   },
   methods: {
     getPost() {
-      this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/${this.id}`)
+      this.$axios.get(`http://localhost:9000/v2/posts/${this.id}`)
       .then(res => {
         this.post = res.data
       })
     },
     getComment() {
-      this.$axios.get(`https://whynot-here.o-r.kr/v2/comments/${this.id}`)
+      this.$axios.get(`http://localhost:9000/v2/comments/${this.id}`)
       .then(res => {
         this.comments = res.data
       })
@@ -178,7 +258,7 @@ export default {
         return false
       }
       (this.$axios.post(
-        ('https://whynot-here.o-r.kr/v2/comments'),
+        ('http://localhost:9000/v2/comments'),
         {
           postId: this.id,
           comment: this.currentComment
@@ -200,7 +280,7 @@ export default {
     },
     deleteComment (id) {
       (this.$axios.delete(
-        (`https://whynot-here.o-r.kr/v2/comments/${id}`),
+        (`http://localhost:9000/v2/comments/${id}`),
         {
           withCredentials: true,
           headers: {
@@ -305,6 +385,17 @@ export default {
         font-size: .88rem;
         color: #484848;
       }
+
+      .content-img {
+        margin: 1vh 2vmax;
+        width: 70%;
+        display: grid;
+        row-gap: 1vh;
+
+        .postImg {
+          width: 100%;
+        }
+      }
     }
     .comment-panel {
       width: 410px; min-height: 250px;
@@ -406,6 +497,191 @@ export default {
         }
       }
     }
+  }
+}
+
+#m-PostingPage {
+  main {
+    height: 100%;
+    font-size: 5vmin;
+    .m-detail-header {
+      height: 7vmax;
+      display: grid;
+      background-color: #FAFAFA;
+      grid-template:
+        "arrow title" 1fr / 1fr 5fr;
+      .m-close {
+        width: 3vw;
+        padding-left: 5vw;
+        grid-area: arrow;
+        display: flex;
+        align-self: center;
+      }
+    }
+
+    .m-detail-container {
+      height: 70vh;
+      background-color: #F3F3F3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .m-detail-content {
+        margin-top: 5vmin;
+        overflow: scroll;
+        width: 90%;
+        height: 63vh;
+        background-color: #FFFFFF;
+        box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 8px rgba(0, 52, 138, 0.06);
+        border-radius: 12px;
+
+        .m-detail-content-header {
+          display: grid;
+          height: 20vmin;
+          margin: 1vh 2vmax;
+          border-bottom: 1px solid #E7E7E7;
+          grid-template: 
+            "writer" 2fr
+            "title" 2fr
+            "tags" 2fr
+            "." 1fr / 1fr;
+
+          .writer {
+            color: #A3A3A3;
+            font-size: 0.55em;
+            grid-area: writer;
+            align-self: flex-end;
+          }
+
+          .title {
+            color: #252A31;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 0.8em;
+            grid-area: title;
+          }
+
+          .tags {
+            grid-area: tags;
+            display: flex;
+            align-self: flex-end;
+            flex-wrap: wrap;
+            font-size: 0.55em;
+            font-style: normal;
+            display: flex;
+            align-items: center;
+            gap: 0em 1em;
+            .tag {
+              padding: 0.1em 0.6em;
+              background-color: #F3F3F3;
+              border-radius: 16px; 
+              text-align: center;
+
+              &.d-day {
+                color: #3E82F1;
+                font-weight: 600;
+              }
+            }
+          }
+        }
+
+        .m-detail-content-body {
+          overflow: scroll;
+          height: 45vh;
+          .m-content-text {
+            margin: 1vh 2vmax;
+            font-weight: 400;
+            font-size: 0.6em;
+            line-height: 160%;
+            color: #454545;
+          }
+          
+          .m-content-img {
+            margin: 1vh 2vmax;
+            width: 70vmin;
+            display: grid;
+            row-gap: 1vh;
+
+            .m-postImg {
+              width: 70vmin;
+            }
+          }
+        }
+
+        .m-detail-content-footer {
+          margin: 0vh 2vmax;
+          height: 5vmin;
+          display: flex;
+          justify-content: flex-end;
+          align-self: flex-end;
+          line-height: 26px;
+          font-size: .6em;
+          font-weight: 500;
+          color: #A1A2A3;
+          .views-icon {
+            width: 16px; height: 16px;
+            margin-top: 5px;
+            margin-right: 8px;
+          }
+        }
+      }
+
+      .m-detail-transition {
+        display: flex;
+        height: 5vmax;
+        align-items: center;
+
+        .m-trans-text {
+          font-size: 0.75em;
+          letter-spacing: -0.005em;
+          font-weight: 500;
+          padding-right: 0.2em;
+        }
+
+        .m-trans-icon {
+          padding-left: 0.2rem;
+        }
+      }
+    }
+    .m-detail-footer {
+      display: grid;
+      grid-template-columns: 22fr 42fr 42fr 86fr 138fr;
+      justify-items: start;
+      align-content: center;
+      width: 100%;
+      background-color: #FFFFFF;
+      box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 0px 0px #FFFFFF;
+      height: 10vmax;
+      border-radius: 20px 20px 0px 0px;
+
+      .m-img-wrp {
+        margin-left: 16px;
+        img {
+          width: 10vmin; height: 10vmin;
+          cursor: pointer;
+        }
+      }
+
+      .m-contact {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        vertical-align: middle;
+        width: 35vmin; height: 12vmin; line-height: 44px;
+        font-size: .88rem;
+        font-weight: 600;
+        color: #ffffff;
+        text-align: center;
+        background: #FF8A00;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+
+#WhyNotLayout {
+  main {
+    background-color: #F3F3F3;
   }
 }
 </style>
