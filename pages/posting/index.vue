@@ -276,7 +276,7 @@ export default {
           // 카테고리
           let categoryItem = ''
           this.categoryGroup.forEach((category) => {
-            if (category.id === this.postingRegisterParams.category.id) {
+            if (category.parentId === this.postingRegisterParams.category.id) {
               categoryItem = {
                 id: category.parentId,
                 name: category.parentName
@@ -343,26 +343,36 @@ export default {
         return false
       }
 
-      this.files.forEach((file, idx) => {
-        const formData = new FormData()
-        formData.append("images", file)
-
-        const cur = new Date()
-        const year = (cur.getFullYear() + '').substring(2)
-        const month = (cur.getMonth() + 1 + '')
-        this.dir = year + '-' + month
-
-        this.uploadPicture({ formData, idx, callback: this.uploadPosting })
-      })
+      if (this.files.length > 0) {
+        this.files.forEach((file, idx) => {
+          const formData = new FormData()
+          formData.append("images", file)
+  
+          const cur = new Date()
+          const year = (cur.getFullYear() + '').substring(2)
+          const month = (cur.getMonth() + 1 + '')
+          this.dir = year + '-' + month
+  
+          this.uploadPicture({ formData, idx, callback: this.uploadPosting })
+        })
+      } else {
+        this.uploadPosting()
+      }
     },
     editPostingAndPicture() {
       if (!this.checkRegisterParamsValid()) {
         return false
       }
+
       // 초기화
       this.postingRegisterParams.imageLinks = []
-      
-      this.files.forEach((file, idx) => {
+      this.inputImg.forEach(img => {
+        if (!img.isNew) {
+          this.postingRegisterParams.imageLinks.push(img.prev_url)
+        }
+      })
+
+      if (this.files.length > 0) {
         this.files.forEach((file, idx) => {
           const formData = new FormData()
           formData.append("images", file)
@@ -374,7 +384,9 @@ export default {
 
           this.uploadPicture({ formData, idx, callback: this.editPosting })
         })
-      })
+      } else {
+        this.editPosting()
+      }
     },   
     uploadPicture ({ formData, idx, callback }) {
       (this.$axios.post(
@@ -391,13 +403,6 @@ export default {
       ).then(res => {
         this.postingRegisterParams.imageLinks.push(res.data.url)
         if (this.files.length === (idx + 1)) {
-          if (this.postingMode === 'edit') {
-            this.inputImg.forEach(img => {
-              if (!img.isNew) {
-                this.postingRegisterParams.imageLinks.push(img.prev_url)
-              }
-            })
-          }
           callback()
         }
       }).catch((error) => {

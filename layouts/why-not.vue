@@ -2,7 +2,7 @@
 <template>
   <div id="WhyNotLayout">
     <main>
-      <div>
+      <div class="category-wrp">
         <Category
           :category-in-layout="categoryInLayout"
           :sub-category-in-layout="subCategoryInLayout"
@@ -10,7 +10,7 @@
           @getCategoryIdAndGetPosts="getCategoryIdAndGetPosts"
         />
       </div>
-      <div>
+      <div class="top-bar-wrp">
         <TopBar
           ref="TopBar"
           :category-title-props="categoryTitle"
@@ -79,16 +79,38 @@ export default {
 
 
 <style lang="scss" scoped>
+@import '@/assets/scss/util.scss';
+
   #WhyNotLayout {
     height: 100vh;
     overflow: hidden;
     main {
       display: flex;
       width: 100vw; height: calc(100vh - 44px);
-      #TopBar {
-        position: sticky;
-        top: 0;
-        z-index: 100;
+
+      @include desktop {
+        #TopBar {
+          position: sticky;
+          top: 0;
+          z-index: 100;
+        }
+      }
+      
+      @include screen {
+        #TopBar {
+          position: sticky;
+          top: 0;
+          z-index: 100;
+        }
+      }
+
+      @include mobile {
+        .top-bar-wrp {
+          position: fixed;
+        }
+        .category-wrp {
+          z-index: 10;
+        }
       }
     }
   }

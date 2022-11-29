@@ -102,13 +102,15 @@
         }
         .sub-menu-btn {
           position: relative;
+          width: 20px; height: 24px;
+          text-align: right;
           img {
             width: 4px; height: 24px;
           }
           .sub-menu {
             position: absolute;
             width: 96px; height: 98px;
-            margin: -30px 15px;
+            margin: -30px 30px;
             background-color: #FFFFFF;
             border: 1px solid #E1E2E3;
             border-radius: 4px;

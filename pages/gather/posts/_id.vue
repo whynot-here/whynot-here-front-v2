@@ -119,7 +119,19 @@ export default {
       }
       const result = this.post
       result.communicationToolText = {'ONLINE' : '온라인', 'OFFLINE' : '만나서'}[this.post.communicationTool]
-      result.categoryName = this.post.category.name
+      let categoryName = ''
+      this.categoryGroup.forEach((category) => {
+        if (category.parentId === this.post.category.id) {
+          categoryName = category.parentName
+        } else {
+          category.children.forEach((child) => {
+            if (child.id === this.post.category.id) {
+              categoryName = category.parentName + ' / ' + child.name
+            }
+          })
+        }
+      })
+      result.categoryName = categoryName
       result.contactText = {'EMAIL' : '이메일', 'KAKAO_OPEN_CHAT' : '카카오톡', 'PHONE' : '휴대전화'}[this.post.ownerContact.type]
       result.writerName = this.post.writer.nickname
       result.writerProfileImage = this.post.writer.profileImg

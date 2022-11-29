@@ -25,8 +25,8 @@
                 {{ post.title_short }}
               </div>
             </div>
-            <div v-if="categoryProps === 'mypostings'" class="sub-menu-btn">
-              <img v-if="post.recruiting" src="@/assets/img/common/dot-btn.png" alt="" @click.stop="openSubMenuPopup(post.id)">
+            <div v-if="categoryProps === 'mypostings'" class="sub-menu-btn" @click.stop="openSubMenuPopup(post.id)">
+              <img v-if="post.recruiting" src="@/assets/img/common/dot-btn.png" alt="">
               <div v-if="post.isOpenSubMenu" class="sub-menu">
                 <div @click.stop="editPosting(post.id)">수정하기</div>
                 <div @click.stop="compModalToggle(post.id)">모집마감</div>
@@ -155,7 +155,21 @@ export default {
           post.content_light = post.content
         }
 
-        post.categoryName = post.category.name
+        let categoryName = ''
+        this.categoryGroup.forEach((category) => {
+          if (category.parentId === post.category.id) {
+            categoryName = category.parentName
+          } else {
+            category.children.forEach((child) => {
+              if (child.id === post.category.id) {
+                categoryName = category.parentName + ' / ' + child.name
+              }
+            })
+          }
+        })
+
+        post.categoryName = categoryName
+        
         post.communicationToolText = {'ONLINE' : '온라인', 'OFFLINE' : '만나서'}[post.communicationTool]
         post.contactText = {'EMAIL' : '이메일', 'KAKAO_OPEN_CHAT' : '카카오톡', 'PHONE' : '휴대전화'}[post.ownerContact.type]
 

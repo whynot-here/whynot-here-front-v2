@@ -1,25 +1,58 @@
 @import '@/assets/scss/util.scss';
 
 #TopBarM {
-  display: flex;
-  width: 100vw; height: 48px;
-  .category-toggle {
-    margin: 10px 19px;
-    img {
-      width: 18px; height: 16px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  .top {
+    display: flex;
+    width: 100vw; height: 48px;
+    .category-toggle {
+      margin: 10px 19px;
+      img {
+        width: 18px; height: 16px;
+      }
+    }
+    .logo-wrp {
+      flex-grow: 1;
+      text-align: center;
+      .title {
+        font-size: .69rem;
+        font-weight: 500;
+        color: #737373;
+      }
+      .logo-img {
+        img {
+          width: 108px; height: 26px;
+        }
+      }
+    }
+    .profile-wrp {
+      .profile {
+        padding: 8px 16px 8px;
+        img {
+          width: 32px;
+        }
+      }
     }
   }
-  .logo-wrp {
-    flex-grow: 1;
-    text-align: center;
-    .title {
-      font-size: .69rem;
-      font-weight: 500;
-      color: #737373;
-    }
-    .logo-img {
-      img {
-        width: 108px; height: 26px;
+  .bottom {
+    height: 62px;
+    .category-wrp {
+      display: flex; line-height: 62px;
+      div:first-child {
+        margin-left: 24px;
+        font-size: .88rem; font-weight: 500;
+        color: #4D4D4D;
+      }
+      div:nth-child(2) {
+        img {
+          width: 8px; height: 12px;
+          margin: 0 20px;
+        }
+      }
+      div:nth-child(3) {
+        font-size: .88rem; font-weight: 600;
       }
     }
   }
