@@ -35,8 +35,7 @@
             </div>
           </div>
         </div>
-        <div class="content">
-          {{ postComp.content }}
+        <div class="content" style="white-space: pre-line;" v-text="postComp.content">
         </div>
         <div class="content-img">
           <div
@@ -133,8 +132,7 @@
               </div>
             </div>
             <div class="m-detail-content-body">
-              <div class="m-content-text">
-                {{ postComp.content }}              
+              <div class="m-content-text" v-text="postComp.content">
               </div>
               <div class="m-content-img">
                 <div
