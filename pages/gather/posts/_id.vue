@@ -55,7 +55,7 @@
           <div>
             {{ postComp.writerName }}
           </div>
-          <div class="contact">
+          <div class="contact" @click="copyContactInfo()">
             {{ postComp.contactText }} 연락
           </div>
         </div>
@@ -214,7 +214,7 @@
           <div class="m-img-wrp">
             <img src="@/assets/img/posting/chat.png" alt="">
           </div>
-          <div class="m-contact">
+          <div class="m-contact" @click="copyContactInfo()">
             <div> {{ postComp.contactText }} 연락</div>
           </div>
       </div>
@@ -269,7 +269,7 @@ export default {
     },
     commentComp() {
       return this.comments
-    }
+    },
   },
   created () {
     this.getPost()
@@ -348,7 +348,17 @@ export default {
     },
     renderComponent (component) {
 			this.activeComponent = component;
-		}
+		},
+    copyContactInfo () {
+      navigator.clipboard
+      .writeText(this.postComp.ownerContact.value)
+      .then(() => {
+        alert(`'${this.postComp.ownerContact.value}' 가 복사되었습니다`);
+      })
+      .catch((err) => {
+        alert("링크복사 실패", err);
+      });
+    }
   }
 }
 </script>
