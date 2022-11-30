@@ -108,50 +108,98 @@
           <img class="m-back-btn" src="@/assets/img/common/left-arrow.png" alt="" @click.prevent="$router.go(-1)">
         </div>
       </div> -->
-      <div class="m-detail-container">
-        <div class="m-detail-content">
-          <div class="m-detail-content-header">
-            <div class="writer">
-              {{ postComp.writerName }}
-            </div>
-            <div class="title">
-              {{ postComp.title }}
-            </div>
-            <div class="tags">
-              <div class="tag d-day">
-                마감 {{ postComp.dDay }}
+      
+      <div v-if="activeComponent === 'DetailView'">
+        <div class="m-detail-container">
+          <div class="m-detail-content">
+            <div class="m-detail-content-header">
+              <div class="writer">
+                {{ postComp.writerName }}
               </div>
-              <div class="tag communication-tool">
-                {{ postComp.communicationToolText }}
+              <div class="title">
+                {{ postComp.title }}
               </div>
-              <div class="tag recruit-people-cnt">
-                <strong>{{ postComp.recruitCurrentCnt }}</strong> / {{ postComp.recruitTotalCnt }}
+              <div class="tags">
+                <div class="tag d-day">
+                  마감 {{ postComp.dDay }}
+                </div>
+                <div class="tag communication-tool">
+                  {{ postComp.communicationToolText }}
+                </div>
+                <div class="tag recruit-people-cnt">
+                  <strong>{{ postComp.recruitCurrentCnt }}</strong> / {{ postComp.recruitTotalCnt }}
+                </div>
               </div>
             </div>
-          </div>
-          <div class="m-detail-content-body">
-            <div class="m-content-text">
-              {{ postComp.content }}              
-            </div>
-            <div class="m-content-img">
-              <div
-                v-for="(postImg, idx) in postComp.imageLinks"
-                :key="idx"
-              >
-                <img :src=postImg.link class="m-postImg" />
+            <div class="m-detail-content-body">
+              <div class="m-content-text">
+                {{ postComp.content }}              
               </div>
+              <div class="m-content-img">
+                <div
+                  v-for="(postImg, idx) in postComp.imageLinks"
+                  :key="idx"
+                >
+                  <img :src=postImg.link class="m-postImg" />
+                </div>
+              </div>
+            </div>
+
+            <div class="m-detail-content-footer">
+              <img class="views-icon" src="@/assets/img/common/views.png" />
+              <div class="views-text">{{ post.views === null ? 0 : post.views }}</div>
             </div>
           </div>
 
-          <div class="m-detail-content-footer">
-            <img class="views-icon" src="@/assets/img/common/views.png" />
-            <div class="views-text">{{ post.views === null ? 0 : post.views }}</div>
+          <div class="m-detail-transition" @click="renderComponent('CommentView')">
+            <div class="m-trans-text">댓글</div> 
+            <img class="m-trans-icon" src="@/assets/img/common/bottom-arrow.png" />
           </div>
         </div>
+      </div>
 
-        <div class="m-detail-transition">
-          <div class="m-trans-text">댓글</div> 
-          <img class="m-trans-icon" src="@/assets/img/common/bottom-arrow.png" />
+      <div v-else-if="activeComponent === 'CommentView'">
+        <div class="m-comment-container">
+          <div class="m-detail-transition" @click="renderComponent('DetailView')">
+            <div></div>
+            <div class="m-trans-text">본문</div> 
+            <img class="m-trans-icon" src="@/assets/img/common/upper-arrow.png" />
+          </div>
+
+          <div v-if="commentComp.length > 0" class="m-comment-list">
+            <div
+              v-for="(comment, idx) in commentComp"
+              :key="idx"
+              class="m-comment"
+            >
+
+              <div class="m-profile-info">
+                <div>
+                  <img class="m-profile-img" :src="comment.account.profileImg" alt="">
+                </div>
+                <div>
+                  {{ comment.account.nickname }}
+                </div>
+                <div
+                  v-if="comment.account.email === $store.state.userInfo.detail.email"
+                  class="delete-comment"
+                  @click="deleteComment(comment.commentId)"
+                >
+                  <img class="m-close-img" src="@/assets/img/common/close-page.png" alt="">
+                </div>
+              </div>
+
+              <div class="m-comment-content">
+                {{ comment.content }}
+              </div>
+            </div>
+          </div>
+          
+
+          <div class="m-comment-wrp">
+            <textarea v-model="currentComment" class="m-comment-input" rows="10" placeholder="Why Not Here에 가입하고 댓글을 달아보세요!"></textarea>
+            <div class="m-comment-register" @click="registerComment()">댓글달기</div>
+          </div>
         </div>
       </div>
 
@@ -189,7 +237,8 @@ export default {
       },
       comments: [],
       commentCount: 0,
-      currentComment: ''
+      currentComment: '',
+      activeComponent: 'DetailView'
     }
   },
   computed: {
@@ -273,6 +322,7 @@ export default {
       )
       ).then(res => {
         alert('댓글이 등록되었습니다.')
+        this.currentComment = ''
         this.getComment()
       }).catch((error) => {
         window.alert(error.response.data.message)
@@ -295,7 +345,10 @@ export default {
       }).catch((error) => {
         window.alert(error.response.data.message)
       })
-    }
+    },
+    renderComponent (component) {
+			this.activeComponent = component;
+		}
   }
 }
 </script>
@@ -674,6 +727,110 @@ export default {
         text-align: center;
         background: #FF8A00;
         border-radius: 10px;
+      }
+    }
+
+    .m-comment-container {
+      height: 70vh;
+      overflow: scroll;
+      .m-detail-transition {
+        display: grid;
+        grid-template-columns: 107fr 22fr 168fr;
+        height: 5vh;
+        align-items: center;
+
+        .m-trans-text {
+          font-size: 0.75em;
+          letter-spacing: -0.005em;
+          font-weight: 500;
+        }
+
+        .m-trans-icon {
+          padding-left: 5vmin;
+        }
+      }
+      
+
+      .m-comment-list {
+        display: grid;
+        justify-content: center;
+        grid-template-columns: 81vw;
+        grid-auto-flow: row;
+        grid-auto-rows: minmax(12vh, max-content);
+        row-gap: 2vh;
+      }
+
+      .m-comment {
+        width: 100%;
+        background-color: #FFFFFF;
+        border-radius: 8px;
+      }
+
+      .m-profile-info {
+        display: grid;
+        justify-items: start;
+        padding: 1vh 2vh;
+        grid-template-columns: 46fr 265fr 21fr;
+        align-items: center;
+        font-size: 0.8rem;
+        color: #737373;
+
+        .m-profile-img {
+          width: 8vmin;
+          border-radius: 100%;
+        }
+        
+        .m-close-img {
+          width: 6vmin;
+        }
+      }
+
+      .m-comment-content {
+        font-size: 0.9rem;
+        padding-left: 2em;
+        padding-bottom: 1em;
+        width: 90%;
+      }
+
+      .m-comment-wrp {
+          position: relative;
+          font-size: 0.9rem;
+          display: flex;
+          justify-content: center;
+          .m-comment-input {
+            width: 80vw; 
+            height: 15vh;
+            margin-bottom: 3vh;
+            padding: 1em; 
+            margin-top: 2vh;
+            background: #FAFAFA;
+            border-radius: 8px;
+            border: none !important;
+            resize: none;
+          }          
+          .m-comment-input:focus {
+            outline: none;
+          }
+          .m-comment-input::placeholder {
+            color: #C8C8C8;
+          }
+          .m-comment-register {
+            position: absolute;
+            bottom: 4vh;
+            right: 12vw;
+            width: 20vmin; 
+            height: 4vmax; 
+            line-height: 33px;
+            font-size: .88rem;
+            font-weight: 500;
+            color: #737373;
+            text-align: center;
+            background: #FFFFFF;
+            mix-blend-mode: normal;
+            border: 1px solid #E7E7E7;
+            border-radius: 32px;
+            cursor: pointer;
+          }
       }
     }
   }
