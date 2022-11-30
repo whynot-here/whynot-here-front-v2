@@ -86,7 +86,7 @@
                 class="delete-comment"
                 @click="deleteComment(comment.commentId)"
               >
-                <img src="@/assets/img/common/close-page.png" alt="">
+                <img v-if="isMyComment(comment)" src="@/assets/img/common/close-page.png" alt="">
               </div>
             </div>
             <div class="comment-content">
@@ -185,7 +185,7 @@
                   class="delete-comment"
                   @click="deleteComment(comment.commentId)"
                 >
-                  <img class="m-close-img" src="@/assets/img/common/close-page.png" alt="">
+                  <img v-if="isMyComment(comment)" class="m-close-img" src="@/assets/img/common/close-page.png" alt="">
                 </div>
               </div>
 
@@ -358,6 +358,9 @@ export default {
       .catch((err) => {
         alert("링크복사 실패", err);
       });
+    },
+    isMyComment (comment) {
+      return this.$store.state.userInfo.detail.nickname === comment.account.nickname
     }
   }
 }
