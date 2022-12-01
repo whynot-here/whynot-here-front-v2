@@ -39,7 +39,7 @@ export default {
   data () {
     return {
       isMyPostings: false,
-      isBookMark: false,
+      isBookmark: false,
       categoryTitle: '',
       subCategoryTitle: '',
       categoryInLayout: '',

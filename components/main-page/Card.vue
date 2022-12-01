@@ -33,9 +33,9 @@
                 <div @click.stop="deletePosting(post.id)">삭제</div>
               </div>
             </div>
-            <div v-else class="book-mark" @click.stop="bookMark(post.id)">
-              <img v-if="post.isBookMarked === undefined || !post.isBookMarked" src="@/assets/img/category/bookmark.png" alt="">
-              <img v-if="post.isBookMarked" src="@/assets/img/category/bookmark-selected.png" alt="">
+            <div v-else class="book-mark" @click.stop="bookmark(post.id)">
+              <img v-if="post.isBookmarked === undefined || !post.isBookmarked" src="@/assets/img/category/bookmark.png" alt="">
+              <img v-if="post.isBookmarked" src="@/assets/img/category/bookmark-selected.png" alt="">
             </div>
           </div>
           <div class="card-middle">
@@ -135,7 +135,7 @@ export default {
       posts: [],
       category: '',
       subCategory: '',
-      bookMarkComp: false,
+      bookmarkComp: false,
       compModalOpen: false,
       compRecruitId: '',
       onlyRecruit: false,
@@ -146,7 +146,7 @@ export default {
   computed: {
     postsProc () {
       // 북마크 받아오는 시점 이후에 처리 가능하도록
-      if (!this.bookMarkComp) {
+      if (!this.bookmarkComp) {
         return []
       }
       return this.posts.map((post) => {
@@ -182,18 +182,18 @@ export default {
 
         post.dDay = this.cmn_getDday(post.closedDt)
 
-        // post.bookMark = post.selected
+        // post.bookmark = post.selected
         // post.isOpenSubMenu = false
         return post
       })
     }
   },
   watch: {
-    // bookMarkMode: {
+    // bookmarkMode: {
     //   deep: true,
     //   handler () {
-    //     if (this.bookMarkMode) {
-    //       this.bookMarkMode = false
+    //     if (this.bookmarkMode) {
+    //       this.bookmarkMode = false
     //     }
     //   }
     // },
@@ -216,7 +216,7 @@ export default {
   methods: {
     refreshCard() {
       this.getPosts()
-      this.getBookMark()
+      this.getBookmark()
     },
     getPosts () {
       if (this.category === 'mypostings') {
@@ -251,7 +251,7 @@ export default {
         .then(res => {
           this.posts = []
           res.data.map((res) => {
-            res.isBookMarked = true
+            res.isBookmarked = true
             return this.posts.push(res)
           })
         })
@@ -322,8 +322,8 @@ export default {
 
       this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
     },
-    getBookMark () {
-      this.bookMarkComp = false
+    getBookmark () {
+      this.bookmarkComp = false
       if (this.$store.state.userInfo.initLoginDone && this.category !== 'bookmark' && this.category !== 'mypostings') {
         this.$axios.get(
           ('https://whynot-here.o-r.kr/v2/posts/favorite'),
@@ -336,25 +336,25 @@ export default {
           }
           )
           .then(res => {
-            res.data.forEach(bookMark => {
+            res.data.forEach(bookmark => {
               this.posts.map((post) => {
-                if (bookMark.id === post.id) {
-                  post.isBookMarked = true
+                if (bookmark.id === post.id) {
+                  post.isBookmarked = true
                 }
                 return post
               })
             });
-            this.bookMarkComp = true
+            this.bookmarkComp = true
           })
       } else {
-        this.bookMarkComp = true
+        this.bookmarkComp = true
       }
       // setTimeout(() => {
-      //   this.bookMarkComp = false
+      //   this.bookmarkComp = false
       // }, 1000)
 
     },
-    bookMark (id) {
+    bookmark (id) {
       if (!this.$store.state.userInfo.initLoginDone) {
         alert('로그인 후 이용해 주세요')
         return false
@@ -362,7 +362,7 @@ export default {
 
       this.posts.map((post) => {
         if (id === post.id) {
-          if (post.isBookMarked) {
+          if (post.isBookmarked) {
             (this.$axios.delete(
               (`https://whynot-here.o-r.kr/v2/posts/favorite/${id}`),
               {
@@ -374,7 +374,7 @@ export default {
               }
             )
             ).then(res => {
-              post.isBookMarked = false
+              post.isBookmarked = false
             }).catch((error) => {
               window.alert(error.response.data.message)
             })
@@ -391,7 +391,7 @@ export default {
               }
             )
             ).then(res => {
-              post.isBookMarked = true
+              post.isBookmarked = true
             }).catch((error) => {
               window.alert(error.response.data.message)
             })
@@ -402,9 +402,9 @@ export default {
       // this.refreshCard()
       // 사간 간격 안 두면 결과 반영이 안되는 경우가 있어서
       setTimeout(() => {
-        this.getBookMark()
+        this.getBookmark()
       }, 300)
-      // this.bookMarkMode = true
+      // this.bookmarkMode = true
     },
     openSubMenuPopup (id) {
       this.posts.map((post) => {

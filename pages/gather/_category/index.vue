@@ -26,7 +26,7 @@ export default {
       subCategory: route.query.sub,
       searchText: query.t,
       // isMyPostings: params.isMyPostings,
-      // isBookMark: params.isBookMark
+      // isBookmark: params.isBookmark
     }
   },
   data () {
@@ -34,7 +34,7 @@ export default {
       posts:[],
       loginPopupOpen: false,
       // isMyPostings: false,
-      // isBookMark: false,
+      // isBookmark: false,
       categoryId: 1
     }
   },

@@ -30,7 +30,7 @@
               <img src="@/assets/img/category/right-arrow.png" alt="">
             </div>
           </div>
-          <div :class="selectedCategory === 'bookmark' ? 'menu selected' : 'menu'" @click="moveBookMarkPage()">
+          <div :class="selectedCategory === 'bookmark' ? 'menu selected' : 'menu'" @click="moveBookmarkPage()">
             <div>
               🔖 북마크
             </div>
@@ -136,7 +136,7 @@ export default {
         }
       })
     },
-    moveBookMarkPage () {
+    moveBookmarkPage () {
       if (!this.$store.state.userInfo.initLoginDone) {
         alert('로그인 후 이용해 주세요')
         return false

@@ -10,8 +10,8 @@
             <img src="@/assets/img/posting/copy-detail.png" alt="" @click="copyUrl()">
           </div>
           <div class="img-wrp">
-            <img v-if="isBookMarked" src="@/assets/img/posting/bookmark-detail-selected.png" @click.prevent="bookMark()">
-            <img v-else src="@/assets/img/posting/bookmark-detail.png" @click.prevent="bookMark()" />
+            <img v-if="isBookmarked" src="@/assets/img/posting/bookmark-detail-selected.png" @click.prevent="bookmark()">
+            <img v-else src="@/assets/img/posting/bookmark-detail.png" @click.prevent="bookmark()" />
           </div>
         </div>
         <div class="title">
@@ -210,8 +210,8 @@
             <img src="@/assets/img/posting/copy-detail.png" alt="" @click="copyUrl()">
           </div>
           <div class="m-img-wrp">
-            <img v-if="isBookMarked" src="@/assets/img/posting/bookmark-detail-selected.png" @click.prevent="bookMark()">
-            <img v-else src="@/assets/img/posting/bookmark-detail.png" @click.prevent="bookMark()">
+            <img v-if="isBookmarked" src="@/assets/img/posting/bookmark-detail-selected.png" @click.prevent="bookmark()">
+            <img v-else src="@/assets/img/posting/bookmark-detail.png" @click.prevent="bookmark()">
           </div>
           <div class="m-img-wrp">
             <img src="@/assets/img/posting/chat.png" alt="">
@@ -241,7 +241,7 @@ export default {
       commentCount: 0,
       currentComment: '',
       activeComponent: 'DetailView',
-      isBookMarked: false
+      isBookmarked: false
     }
   },
   computed: {
@@ -380,18 +380,18 @@ export default {
         .then(res => {
           res.data.forEach((res) => {
             if (res.id === this.post.id) {
-              this.isBookMarked = true;
+              this.isBookmarked = true;
             }
           })
         });
     },
-    bookMark() {
+    bookmark() {
       if (!this.$store.state.userInfo.initLoginDone) {
         alert('로그인 후 이용해 주세요')
         return false
       }
 
-      if (this.isBookMarked) {
+      if (this.isBookmarked) {
         (this.$axios.delete(
           (`https://whynot-here.o-r.kr/v2/posts/favorite/${this.post.id}`),
           {
@@ -403,7 +403,7 @@ export default {
           }
         )
         ).then(res => {
-          this.isBookMarked = false
+          this.isBookmarked = false
         }).catch((error) => {
           window.alert(error.response.data.message)
         })
@@ -420,7 +420,7 @@ export default {
           }
         )
         ).then(res => {
-          this.isBookMarked = true
+          this.isBookmarked = true
         }).catch((error) => {
           window.alert(error.response.data.message)
         })
