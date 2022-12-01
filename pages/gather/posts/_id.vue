@@ -10,7 +10,8 @@
             <img src="@/assets/img/posting/copy-detail.png" alt="" @click="copyUrl()">
           </div>
           <div class="img-wrp">
-            <img src="@/assets/img/posting/bookmark-detail.png" alt="">
+            <img v-if="isBookmarked" src="@/assets/img/posting/bookmark-detail-selected.png" @click.prevent="bookMark()">
+            <img v-else src="@/assets/img/posting/bookmark-detail.png" @click.prevent="bookMark()" />
           </div>
         </div>
         <div class="title">
@@ -209,7 +210,8 @@
             <img src="@/assets/img/posting/copy-detail.png" alt="" @click="copyUrl()">
           </div>
           <div class="m-img-wrp">
-            <img src="@/assets/img/posting/bookmark-detail.png" alt="">
+            <img v-if="isBookmarked" src="@/assets/img/posting/bookmark-detail-selected.png" @click.prevent="bookMark()">
+            <img v-else src="@/assets/img/posting/bookmark-detail.png" @click.prevent="bookMark()">
           </div>
           <div class="m-img-wrp">
             <img src="@/assets/img/posting/chat.png" alt="">
@@ -238,7 +240,8 @@ export default {
       comments: [],
       commentCount: 0,
       currentComment: '',
-      activeComponent: 'DetailView'
+      activeComponent: 'DetailView',
+      isBookmarked: false
     }
   },
   computed: {
@@ -269,21 +272,22 @@ export default {
     },
     commentComp() {
       return this.comments
-    },
+    }
   },
   created () {
     this.getPost()
     this.getComment()
+    this.checkBookmark()
   },
   methods: {
     getPost() {
-      this.$axios.get(`http://localhost:9000/v2/posts/${this.id}`)
+      this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/${this.id}`)
       .then(res => {
         this.post = res.data
       })
     },
     getComment() {
-      this.$axios.get(`http://localhost:9000/v2/comments/${this.id}`)
+      this.$axios.get(`https://whynot-here.o-r.kr/v2/comments/${this.id}`)
       .then(res => {
         this.comments = res.data
       })
@@ -361,7 +365,76 @@ export default {
     },
     isMyComment (comment) {
       return this.$store.state.userInfo.detail.nickname === comment.account.nickname
-    }
+    },
+    checkBookmark() {
+      this.$axios.get(
+        ('http://localhost:9000/v2/posts/favorite'),
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+        )
+        .then(res => {
+          res.data.map((res) => {
+            if (res.id === this.post.id) {
+              this.isBookmarked = true;
+              return true;
+            }
+            return false
+          })
+        });
+    },
+    bookMark() {
+      if (!this.$store.state.userInfo.initLoginDone) {
+        alert('로그인 후 이용해 주세요')
+        return false
+      }
+
+      console.log("book mark : "+ this.isBookMarked)
+      if (this.isBookMarked) {
+        (this.$axios.delete(
+          (`http://localhost:9000/v2/posts/favorite/${this.post.id}`),
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          }
+        )
+        ).then(res => {
+          this.isBookMarked = false
+        }).catch((error) => {
+          window.alert(error.response.data.message)
+        })
+      } else {
+        (this.$axios.post(
+          (`http://localhost:9000/v2/posts/favorite/${this.post.id}`),
+          {},
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          }
+        )
+        ).then(res => {
+          this.isBookMarked = true
+        }).catch((error) => {
+          window.alert(error.response.data.message)
+        })
+      }
+      // this.refreshCard()
+      // 사간 간격 안 두면 결과 반영이 안되는 경우가 있어서
+      setTimeout(() => {
+        this.checkBookmark()
+      }, 300)
+      // this.bookMarkMode = true
+    },
   }
 }
 </script>
