@@ -311,7 +311,7 @@ export default {
         return false
       }
       (this.$axios.post(
-        ('http://localhost:9000/v2/comments'),
+        ('https://whynot-here.o-r.kr/v2/comments'),
         {
           postId: this.id,
           comment: this.currentComment
@@ -334,7 +334,7 @@ export default {
     },
     deleteComment (id) {
       (this.$axios.delete(
-        (`http://localhost:9000/v2/comments/${id}`),
+        (`https://whynot-here.o-r.kr/v2/comments/${id}`),
         {
           withCredentials: true,
           headers: {
@@ -368,7 +368,7 @@ export default {
     },
     checkBookmark() {
       this.$axios.get(
-        ('http://localhost:9000/v2/posts/favorite'),
+        ('https://whynot-here.o-r.kr/v2/posts/favorite'),
         {
           withCredentials: true,
           headers: {
@@ -378,12 +378,10 @@ export default {
         }
         )
         .then(res => {
-          res.data.map((res) => {
+          res.data.forEach((res) => {
             if (res.id === this.post.id) {
               this.isBookmarked = true;
-              return true;
             }
-            return false
           })
         });
     },
@@ -396,7 +394,7 @@ export default {
       console.log("book mark : "+ this.isBookMarked)
       if (this.isBookMarked) {
         (this.$axios.delete(
-          (`http://localhost:9000/v2/posts/favorite/${this.post.id}`),
+          (`https://whynot-here.o-r.kr/v2/posts/favorite/${this.post.id}`),
           {
             withCredentials: true,
             headers: {
@@ -412,7 +410,7 @@ export default {
         })
       } else {
         (this.$axios.post(
-          (`http://localhost:9000/v2/posts/favorite/${this.post.id}`),
+          (`https://whynot-here.o-r.kr/v2/posts/favorite/${this.post.id}`),
           {},
           {
             withCredentials: true,
