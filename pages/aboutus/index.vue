@@ -65,20 +65,24 @@ export default {
     return {
       openReviewModal: false
     }
-  }
+  },
+  methods: {
+    updateModal() {
+      this.openReviewModal = false
+    }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 #AboutUs {
   display: flex;
-  height: 100%;
+  height: calc(100vh - 80px - 44px);
   justify-content: center;
   overflow: scroll;
   
   .about-us-container {
     width: 1070px;
-    z-index: -1;
     .intro-part {
       display: flex;
       height: 100px;
