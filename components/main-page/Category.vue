@@ -22,6 +22,16 @@
               <img src="@/assets/img/category/search.png" alt="" @click="search()">
             </div>
           </div>
+          <div id="category-about-us">
+            <div :class="selectedCategory === 'aboutus' ? 'menu selected' : 'menu'" @click="moveAboutUsPage()">
+              <div>
+                About us
+              </div>
+              <div>
+                <img src="@/assets/img/category/right-arrow.png" alt="">
+              </div>
+            </div>
+          </div>
           <div :class="selectedCategory === 'mypostings' ? 'menu selected' : 'menu'" @click="moveMyPostingsPage()">
             <div>
               ⭐️ My 모임
@@ -143,6 +153,11 @@ export default {
           category: 'bookmark'
         }
       })
+    },
+    moveAboutUsPage () {
+      this.selectedCategory = 'aboutus'
+      this.$router.push('/aboutus')
+      this.$bus.$emit('sendCategoryTitle', { categoryTitle: 'About us' })
     },
     selectCategory ({ id, type }) {
       this.$emit('getCategoryIdAndGetPosts', {})
