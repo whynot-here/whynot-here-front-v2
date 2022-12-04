@@ -39,6 +39,57 @@
           border-radius: 6px;
           box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 8px rgba(0, 52, 138, 0.06);
         }
+
+        .open-account {
+          position: absolute;
+          right: 50px;
+          width: 146px;
+          // height: 100px;
+          margin-top: 10px;
+          background: #FFFFFF;
+          border: 1px solid #EFEFEF;
+          border-radius: 8px;
+          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 8px rgba(0, 52, 138, 0.06);
+          .sub-menu-wrp {
+            position: relative;
+            color: hsl(230,4%,90%);
+            .sub-menu {
+              margin: 8px; padding: 14px 8px;
+              font-size: .88rem; font-weight: 500;
+              color: #454545;
+            }
+            .sub-menu:hover {
+              background: #F3F7FE;
+              border-radius: 6px;
+              color: #005B9A;
+            }
+            .sub-menu::after {
+              border-color: #ffffff transparent;
+              border-style: solid;
+              border-width: 0 6px 8px 6.5px;
+              content: '';
+              display: block;
+              left: 120px;
+              position: absolute;
+              top: -16px;
+              width: 0;
+              z-index: 1;
+            }
+            
+            .sub-menu::before {
+              border-color: #eef3fd transparent;
+              border-style: solid;
+              border-width: 0 6px 8px 6.5px;
+              content: '';
+              display: block;
+              left: 120px;
+              position: absolute;
+              top: -18px;
+              width: 0;
+              z-index: 0;
+            }
+          }
+        }
       }
     }
   }

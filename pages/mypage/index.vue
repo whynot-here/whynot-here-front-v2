@@ -3,7 +3,7 @@
     <TopBarOnly class="top-bar-desktop" />
     <section class="mypage-wrp">
       <div class="close">
-        <img src="@/assets/img/common/close-page.png" alt="" @click="cmn_goMainPage">
+        <img src="@/assets/img/common/close-page.png" alt="" @click="$router.go(-1)">
       </div>
       <div class="title">
         마이페이지
@@ -42,7 +42,7 @@
     <section class="m-mypage-wrp">
       <div class="m-mypage-header">
         <div class="m-close">
-          <img class="m-back-btn" src="@/assets/img/common/left-arrow.png" alt="" @click="cmn_goMainPage">
+          <img class="m-back-btn" src="@/assets/img/common/left-arrow.png" alt="" @click="$router.go(-1)">
         </div>
         <div class="m-title">
           마이페이지

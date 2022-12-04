@@ -78,6 +78,13 @@
           <img src="@/assets/img/common/whynot-here-logo.png" alt="">
         </div>
       </div>
+      <div
+          v-if="!$store.state.userInfo.initLoginDone"
+          class="login"
+          @click="openLoginPopup"
+        >
+        로그인
+      </div>
       <div class="profile-wrp">
         <div 
           v-if="initLoginDone"
@@ -89,10 +96,10 @@
             v-if="openAccount"
             class="open-account"
           >
-            <!-- <div class="sub-menu-wrp">
+            <div class="sub-menu-wrp">
               <div class="sub-menu" style="cursor:pointer" @click="moveMyPage()">마이페이지</div>
               <div class="sub-menu" style="cursor:pointer" @click="logout()">로그아웃</div>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -110,6 +117,10 @@
         </div>
       </div>
     </div>
+    <LoginPopup
+      v-if="loginPopupOpen"
+      @closePopup="closeLoginPopup"
+    />
   </div>
 </template>
 
