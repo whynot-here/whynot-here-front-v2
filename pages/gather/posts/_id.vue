@@ -721,16 +721,16 @@ export default {
         .m-detail-content-body {
           overflow: scroll;
           height: 45vh;
+          font-size: 14px;
+          margin: 1vh 2vmax;
+          
           .m-content-text {
-            margin: 1vh 2vmax;
             font-weight: 400;
-            font-size: 0.6em;
             line-height: 160%;
             color: #454545;
           }
           
           .m-content-img {
-            margin: 1vh 2vmax;
             width: 70vmin;
             display: grid;
             row-gap: 1vh;
@@ -738,6 +738,9 @@ export default {
             .m-postImg {
               width: 70vmin;
             }
+          }
+          .m-postImg:nth-of-type(1) {
+            margin-top: 1vh;
           }
         }
 
