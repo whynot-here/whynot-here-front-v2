@@ -132,7 +132,7 @@
               </div>
             </div>
             <div class="m-detail-content-body">
-              <div class="m-content-text" v-text="postComp.content">
+              <div class="content" style="white-space: pre-line;" v-text="postComp.content">
               </div>
               <div class="m-content-img">
                 <div
