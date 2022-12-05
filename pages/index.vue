@@ -9,7 +9,7 @@ export default {
     if (this.$route.query.accessToken) {
       this.cmn_getUserInfo(this.$route.query.accessToken)
     }
-    this.$router.push('/gather/study')
+    this.$router.push('/gather/all')
   },
   methods: {
   }

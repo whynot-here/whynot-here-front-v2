@@ -146,12 +146,15 @@ export default {
     }
   },
   computed: {
+    categoryIdProc () {
+      return this.categoryId
+    },
     postsProc () {
       // 북마크 받아오는 시점 이후에 처리 가능하도록
       if (!this.bookmarkComp) {
         return []
       }
-      return this.posts.map((post) => {
+      let result = this.posts.map((post) => {
         if (post.title.length > 16) {
           post.title_short = post.title.substr(0, 20) + '...'
         } else {
@@ -188,6 +191,13 @@ export default {
         // post.isOpenSubMenu = false
         return post
       })
+
+      if (this.categoryIdProc !== 0) {
+        console.log(this.categoryIdProc)
+        result = result.slice().reverse()
+      }
+
+      return result
     }
   },
   watch: {

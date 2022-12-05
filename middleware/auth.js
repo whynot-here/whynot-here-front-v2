@@ -12,7 +12,7 @@ export default function ({ params, query, route, store, redirect }) {
     return redirect({
       name: 'gather-category',
       params: {
-        category: 'study'
+        category: 'all'
       }
     })
   }

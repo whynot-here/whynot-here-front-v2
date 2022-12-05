@@ -35,7 +35,7 @@ export default {
       loginPopupOpen: false,
       // isMyPostings: false,
       // isBookmark: false,
-      categoryId: 1
+      categoryId: 0
     }
   },
   watch:{
