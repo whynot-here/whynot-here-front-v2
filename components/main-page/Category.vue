@@ -146,6 +146,7 @@ export default {
           category: 'mypostings'
         }
       })
+      this.toggleCategoryPanel()
     },
     moveBookmarkPage () {
       if (!this.$store.state.userInfo.initLoginDone) {
@@ -161,17 +162,20 @@ export default {
           category: 'bookmark'
         }
       })
+      this.toggleCategoryPanel()
     },
     moveAboutUsPage () {
       this.selectedCategory = 'aboutus'
       this.$router.push('/aboutus')
       this.$bus.$emit('sendCategoryTitle', { categoryTitle: 'About us' })
+      this.toggleCategoryPanel()
     },
     selectCategory ({ id, type }) {
       this.$bus.$emit('getCategoryIdAndGetPosts', {})
       this.selectedCategory = type
       this.selectedSubCategory = ''
       this.$router.push(`/gather/${type}`)
+      this.toggleCategoryPanel()
     },
     selectSubCategory ({ id, type, subType, name, catName }) {
       console.log(subType)
@@ -180,6 +184,7 @@ export default {
       this.selectedSubCategory = subType
       // this.$router.push({ path: `/${this.selectedCategory}`, params: { sub: `${type}` } })
       this.$router.push(`/gather/${this.selectedCategory}?sub=${this.selectedSubCategory}`)
+      this.toggleCategoryPanel()
     },
     checkLogin() {
       if (!this.$store.state.userInfo.initLoginDone) {
