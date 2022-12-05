@@ -281,8 +281,19 @@ export default {
           this.getCategoryId()
         }
         
-        // this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
-        this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
+        if (this.categoryId > 0) {
+          // this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
+          this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
+          .then(res => {
+            this.posts = []
+            res.data.map((res) => {
+              res.selected = false
+              return this.posts.push(res)
+            })
+          })
+        } else {
+        this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
+        // this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
         .then(res => {
           this.posts = []
           res.data.map((res) => {
@@ -290,6 +301,7 @@ export default {
             return this.posts.push(res)
           })
         })
+        }
       }
     },
     toggleIsSubCategory (type, category, subCategory) {

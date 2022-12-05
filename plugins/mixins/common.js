@@ -10,6 +10,12 @@ const common = {
       // subCategoryTitle: '',
       categoryGroup: [
         {
+          parentId: 0,
+          parentCode: 'ALL',
+          parentName: '전체',
+          children: []
+        },
+        {
           parentId: 1,
           parentCode: 'STUDY',
           parentName: '스터디',

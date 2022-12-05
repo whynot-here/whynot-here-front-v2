@@ -1,5 +1,15 @@
 @import '@/assets/scss/util.scss';
 
+.category-wrp {
+
+}
+
+.category-wrp-m {
+  #Category {
+    width: 270px; height: 100vh;
+  }
+}
+
 #Category {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */

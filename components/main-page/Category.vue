@@ -1,5 +1,5 @@
 <template>
-  <div class="category-wrp-m">
+  <div :class="isMobile ? 'category-wrp-m' : 'category-wrp'">
     <div v-show="(!isMobile || isOpenCategoryPanel)" id="Category" @click.self="toggleCategoryPanel">
       <section class="logo">
         <div class="logo-desc">
