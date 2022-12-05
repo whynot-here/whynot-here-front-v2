@@ -20,7 +20,7 @@
         </div> -->
         <div class="sub-menu-wrp">
           <div class="search">
-            <input v-model="searchText" class="total-search" type="text" placeholder="통합검색" />
+            <input v-model="searchText" class="total-search" type="text" placeholder="통합검색" @keyup.enter="search()" />
             <div class="search-img">
               <img src="@/assets/img/category/search.png" alt="" @click="search()">
             </div>
@@ -131,6 +131,7 @@ export default {
           t: this.searchText
         }
       })
+      this.toggleCategoryPanel()
     },
     moveMyPostingsPage () {
       if (!this.$store.state.userInfo.initLoginDone) {
