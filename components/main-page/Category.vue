@@ -8,7 +8,7 @@
         <div v-if="isMobile" class="category-close">
           <img src="@/assets/img/common/close-review.png" alt="" @click.self="toggleCategoryPanel">
         </div>
-        <div class="logo-img" @click="mainPage">
+        <div class="logo-img" @click="!isMobile ? mainPage() : ''">
           <img src="@/assets/img/common/whynot-here-logo.png" alt="">
         </div>
       </section>
