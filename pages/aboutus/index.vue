@@ -92,7 +92,7 @@
       </div>
     </div>
 
-    <div class="m-feedback-part">
+    <div v-if="isReviewButtonOpen" class="m-feedback-part">
       <div class="m-send-feedback-btn" @click="openReviewModal = true">후기 / 오류 운영진에게 보내기</div>
     </div>
 
@@ -115,10 +115,20 @@ export default {
   layout: 'why-not',
   data() {
     return {
-      openReviewModal: false
+      openReviewModal: false,
+      isReviewButtonOpen: true
     }
   },
+  created() {
+    this.$bus.$off('toggleReviewButton')
+    this.$bus.$on('toggleReviewButton', ()=> {
+      this.toggleReviewButton()
+    })
+  },
   methods: {
+    toggleReviewButton() {
+      this.isReviewButtonOpen = !this.isReviewButtonOpen
+    },
     updateModal() {
       this.openReviewModal = false
     }

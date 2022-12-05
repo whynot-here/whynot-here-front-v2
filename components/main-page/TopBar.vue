@@ -165,9 +165,15 @@ export default {
     },
     openLoginPopup () {
       this.loginPopupOpen = true
+      if (this.isMobile) {
+        this.$bus.$emit('toggleReviewButton', {})
+      }
     },
     closeLoginPopup () {
       this.loginPopupOpen = false
+      if (this.isMobile) {
+        this.$bus.$emit('toggleReviewButton', {})
+      }
     },
     toggleAccountPopup () {
       this.openAccount = !this.openAccount
