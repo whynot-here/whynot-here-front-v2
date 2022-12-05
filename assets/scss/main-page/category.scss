@@ -5,8 +5,55 @@
 }
 
 .category-wrp-m {
+  &.true {
+    width: 100vw;
+    background-color: rgba(24, 24, 24, 0.4);
+  }
   #Category {
-    width: 270px; height: 100vh;
+    width: 228px; height: 100vh;
+    .logo {
+      margin: 16px 16px 24px 16px; padding: 0px;
+      .logo-img {
+        margin-top: 6px;
+        img {
+          width: 125px; height: 30px;
+        }
+      }
+    }
+    .category {
+      .sub-menu-wrp {
+        margin: 0 4px; padding-bottom: 12px;
+        .search {
+          width: 204px; height: 36px; line-height: 32px;
+        }
+
+        .menu {
+          display: flex;
+          height: 40px; line-height: 10px;
+          font-size: .88rem;
+        }
+      }
+      .category-wrp {
+        margin-top: 24px;
+        .title {
+          height: 14px; line-height: 14px;
+          margin: 14px 0px 14px 6px; padding-left: 10px;
+          font-size: .88rem;
+        }
+        .sub-title {
+          height: 32px; line-height: 32px;
+          margin-bottom: 6px;
+          padding-left: 24px;
+          font-size: .88rem;
+          color: #a3a3a3;
+          &.selected {
+            color: #181818;
+            background: #EBEEF1;
+            border-radius: 8px;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -28,6 +75,12 @@
     .logo-desc {
       font-size: .88rem;
       color: #737373;
+    }
+    .category-close {
+      text-align: right;
+      img {
+        width: 24px; height: 24px;
+      }
     }
     .logo-img {
       margin-top: 6px;

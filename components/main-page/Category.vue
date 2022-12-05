@@ -1,9 +1,12 @@
 <template>
-  <div :class="isMobile ? 'category-wrp-m' : 'category-wrp'">
-    <div v-show="(!isMobile || isOpenCategoryPanel)" id="Category" @click.self="toggleCategoryPanel">
+  <div :class="isMobile ? `category-wrp-m ${isOpenCategoryPanel}` : 'category-wrp'">
+    <div v-show="(!isMobile || isOpenCategoryPanel)" id="Category">
       <section class="logo">
-        <div class="logo-desc">
+        <div v-if="(!isMobile)" class="logo-desc">
           사람이 모이는 공간
+        </div>
+        <div v-if="isMobile" class="category-close">
+          <img src="@/assets/img/common/close-review.png" alt="" @click.self="toggleCategoryPanel">
         </div>
         <div class="logo-img" @click="mainPage">
           <img src="@/assets/img/common/whynot-here-logo.png" alt="">
@@ -22,16 +25,6 @@
               <img src="@/assets/img/category/search.png" alt="" @click="search()">
             </div>
           </div>
-          <div id="category-about-us">
-            <div :class="selectedCategory === 'aboutus' ? 'menu selected' : 'menu'" @click="moveAboutUsPage()">
-              <div>
-                About us
-              </div>
-              <div>
-                <img src="@/assets/img/category/right-arrow.png" alt="">
-              </div>
-            </div>
-          </div>
           <div :class="selectedCategory === 'mypostings' ? 'menu selected' : 'menu'" @click="moveMyPostingsPage()">
             <div>
               ⭐️ My 모임
@@ -43,6 +36,14 @@
           <div :class="selectedCategory === 'bookmark' ? 'menu selected' : 'menu'" @click="moveBookmarkPage()">
             <div>
               🔖 북마크
+            </div>
+            <div>
+              <img src="@/assets/img/category/right-arrow.png" alt="">
+            </div>
+          </div>
+          <div :class="selectedCategory === 'aboutus' ? 'menu selected' : 'menu'" @click="moveAboutUsPage()">
+            <div>
+              About us
             </div>
             <div>
               <img src="@/assets/img/category/right-arrow.png" alt="">
