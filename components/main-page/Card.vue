@@ -11,7 +11,7 @@
       </div>
       <div class="cards-wrp">
         <div
-          v-for="(post, idx) in postsProc.slice().reverse()"
+          v-for="(post, idx) in postsProc"
           v-show="onlyRecruit ? (post.recruiting ? true : false) : true" 
           :key="idx"
           class="card-wrp"
