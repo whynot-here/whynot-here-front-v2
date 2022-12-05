@@ -107,6 +107,7 @@ export default {
       @include mobile {
         .top-bar-wrp {
           position: fixed;
+          height: 100%;
         }
         .category-wrp {
           z-index: 10;
