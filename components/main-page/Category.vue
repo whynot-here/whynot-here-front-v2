@@ -180,7 +180,6 @@ export default {
       this.toggleCategoryPanel()
     },
     selectSubCategory ({ id, type, subType, name, catName }) {
-      console.log(subType)
       this.$bus.$emit('setSubCategoryId', { id, name, catName, subType })
       this.selectedCategory = type
       this.selectedSubCategory = subType

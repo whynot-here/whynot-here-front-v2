@@ -20,7 +20,6 @@ export default {
   props: {
   },
   asyncData({ params, route, query, redirect }) {
-    console.log(route.query)
     return {
       category: params.category,
       subCategory: route.query.sub,
