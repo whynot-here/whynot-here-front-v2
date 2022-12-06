@@ -20,21 +20,6 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'Why Not Here'
-      },
-      {
-        hid: 'og:description',
-        name: 'og:description',
-        content: '🙋‍♂️ 사람을 모으기 쉬워지는 곳 _ why not here'
-      },
-      {
-        hid: 'og:image',
-        name: 'og:image',
-        content: '@/assets/img/og/og-image.png'
-      },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
