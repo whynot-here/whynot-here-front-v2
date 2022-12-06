@@ -193,7 +193,6 @@ export default {
       })
 
       if (this.categoryIdProc !== 0) {
-        console.log(this.categoryIdProc)
         result = result.slice().reverse()
       }
 
