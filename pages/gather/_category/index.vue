@@ -41,7 +41,8 @@ export default {
     $route () {
       // 사간 간격 안 두면 keyword 반영이 안되는 경우가 있어서
       setTimeout(() => {
-        this.$bus.$emit('refreshCard', {})
+        // this.$bus.$emit('refreshCard', {})
+        this.$refs.Card.toggleIsSubCategory(false, this.category, this.subCategory)
       }, 300)
     }
   },

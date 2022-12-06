@@ -120,7 +120,6 @@ export default {
       this.selectedSubCategory = ''
     },
     search () {
-      this.$bus.$emit('getCategoryIdAndGetPosts', {})
       this.resetCategory()
       this.selectedCategory = 'search'
       this.$router.push({
@@ -133,6 +132,7 @@ export default {
         }
       })
       this.toggleCategoryPanel()
+      this.$bus.$emit('getCategoryIdAndGetPosts', {})
     },
     moveMyPostingsPage () {
       if (!this.$store.state.userInfo.initLoginDone) {
