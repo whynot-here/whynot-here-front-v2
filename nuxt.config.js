@@ -22,17 +22,17 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
       {
         hid: 'og:title',
-        property: 'og:title',
+        name: 'og:title',
         content: 'Why Not Here'
       },
       {
         hid: 'og:description',
-        property: 'og:description',
+        name: 'og:description',
         content: '🙋‍♂️ 사람을 모으기 쉬워지는 곳 _ why not here'
       },
       {
         hid: 'og:image',
-        property: 'og:image',
+        name: 'og:image',
         content: '@/assets/img/og/og-image.png'
       },
     ],
