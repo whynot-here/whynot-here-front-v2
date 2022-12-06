@@ -154,7 +154,7 @@ export default {
       if (!this.bookmarkComp) {
         return []
       }
-      let result = this.posts.map((post) => {
+      return this.posts.map((post) => {
         if (post.title.length > 16) {
           post.title_short = post.title.substr(0, 20) + '...'
         } else {
@@ -191,12 +191,6 @@ export default {
         // post.isOpenSubMenu = false
         return post
       })
-
-      if (this.categoryIdProc !== 0) {
-        result = result.slice().reverse()
-      }
-
-      return result
     }
   },
   watch: {
