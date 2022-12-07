@@ -33,7 +33,7 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: '/og-image.png'
+        content: '/og-image.jpeg'
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
