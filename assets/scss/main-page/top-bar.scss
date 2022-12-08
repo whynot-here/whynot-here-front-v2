@@ -8,9 +8,9 @@
   .top {
     border-bottom: 2px solid #F3F3F3;
     display: flex;
-    width: 100vw; 
+    width: calc(100vw - 36px); 
     height: 8vh;
-    padding: 0vmin 5vmin;
+    padding: 0 18px 5px 18px;
     align-items: center;
     .category-toggle {
       img {
@@ -156,7 +156,7 @@
       .posting-wrp {
         position: relative;
         .posting-btn {
-          margin-top: 31px; margin-right: 24px;
+          margin-top: 28px; margin-right: 24px;
           font-size: .94rem; font-weight: 700;
           cursor: pointer;
           &.not-login {
