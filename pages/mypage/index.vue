@@ -139,6 +139,7 @@ export default {
     width: 970px; height: 572px;
     margin: 0 auto; padding-top: 123px;
     .close {
+      text-align: right;
       img {
         width: 32px; height: 32px;
         cursor: pointer;

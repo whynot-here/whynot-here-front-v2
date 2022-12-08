@@ -75,7 +75,7 @@
               <input
                 v-model="postingRegisterParams.title"
                 type="text" 
-                style="width: 770px; padding-left: 20px;" 
+                style="width: 750px; padding-left: 20px;" 
                 placeholder="카테고리와 관련된 내용을 입력해 주세요."
                 class="sub-wrp"
               >
@@ -590,7 +590,7 @@ export default {
             }
           }
           .content {
-            width: 770px; height: 400px;
+            width: 706px; height: 400px;
             padding: 32px;
             font-size: 1rem;
             background: #FFFFFF;
@@ -647,7 +647,7 @@ export default {
       }
       .add-img {
         display: flex;
-        width: 770px; height: 70px; line-height: 70px;
+        width: 750px; height: 70px; line-height: 80px;
         margin: 16px 0 42px 0; padding-left: 24px;
         font-size: 1rem; font-weight: 500;
         color: #A3A3A3;
@@ -663,7 +663,7 @@ export default {
         .reg-btn {
           // z-index: 10;
           width: max-height; height: 40px;
-          margin-top: 15px;
+          margin-top: 18px;
           color: #A3A3A3;
           border: none;
           background: none;
