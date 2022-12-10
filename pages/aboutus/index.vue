@@ -248,7 +248,7 @@ export default {
         padding: 14px 24px;
         gap: 10px;
         width: max-content;
-        height: 50px;
+        height: 20px;
         background-color: #FF8A00;
         border-radius: 10px;
         font-weight: 600;
