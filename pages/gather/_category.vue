@@ -1,10 +1,10 @@
 <template>
   <div id="CategoryPage">
-      <Card
-        ref="Card"
-        :search-text="searchText"
-        @refreshCard="getPosts"
-      />
+    <Card
+      ref="Card"
+      :search-text="searchText"
+      @refreshCard="getPosts"
+    />
   </div>
 </template>
 
