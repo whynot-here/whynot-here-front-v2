@@ -230,7 +230,7 @@ export default {
           position: relative;
           margin: 10px 24px 0 24px;
           .comment-input {
-            width: 552px; height: 107px;
+            width: 522px; height: 107px;
             padding: 15px; margin-top: 14px;
             background: #FAFAFA;
             border-radius: 8px;
