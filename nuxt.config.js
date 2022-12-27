@@ -1,8 +1,11 @@
 export default {
-  target: 'static',
-  generate: {
-    fallback: true
+  server: {
+    host: process.env.HOST
   },
+  target: 'server',
+  // generate: {
+  //   fallback: true
+  // },
   env: {
     frontUrl:
       process.env.NODE_ENV === 'production'

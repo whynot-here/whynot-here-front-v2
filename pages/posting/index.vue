@@ -24,13 +24,21 @@
               </div>
             </div>
             <div class="form-wrp d-day">
-              <div class="sub-title">모집 마감일</div>
+              <div class="sub-title">
+                <span><input v-model="useDday" type="checkbox" name="color" value="blue"></span>
+                모집 마감일
+              </div>
               <div class="sub-wrp d-day-input">
-                <div>D&nbsp;-</div>
-                <input v-model="d_day" oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                <!-- <div>D&nbsp;-</div> -->
+                <input
+                  v-model="d_day"
+                  :disabled="!useDday"
+                  placeholder="일"
+                  oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                >
               </div>
             </div>
-            <div class="form-wrp process">
+            <!-- <div class="form-wrp process">
               <div class="sub-title">진행방식</div>
               <div class="sub-wrp">
                 <DropDown
@@ -40,9 +48,9 @@
                   @get-label="setCommunicationTool"
                 />
               </div>
-            </div>
+            </div> -->
           </div>
-          <div class="line">
+          <!-- <div class="line">
             <div class="form-wrp people-count">
               <div class="sub-title">모집 인원 수</div>
               <input
@@ -66,7 +74,7 @@
                 <input v-model="postingRegisterParams.ownerContact.value" class="call-input" type="text" placeholder="입력">
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="group">
           <div class="posting-group">모집 한줄 소개</div>
@@ -102,7 +110,7 @@
                 <img src="@/assets/img/posting/camera.png" alt="">
               </div>
               <b-button class="reg-btn">
-                이미지 추가 (최대 4장)
+                이미지 추가
               </b-button>
               <b-form-group id="fileInput" class="dragdrop">
                 <b-form-file
@@ -176,14 +184,14 @@
 // import FormData from 'form-data'
 import TopBarOnly from '@/components/main-page/TopBarOnly'
 import DropdownCategory from '@/components/common/dropdownCategory'
-import DropDown from '@/components/common/dropdown'
+// import DropDown from '@/components/common/dropdown'
 
 export default {
   name: 'PostingPage',
   components: {
     TopBarOnly,
     DropdownCategory,
-    DropDown
+    // DropDown
   },
   asyncData({ params, query }) {
     return {
@@ -223,7 +231,7 @@ export default {
         },
       ],
       d_day: '',
-      recruitTotalCntTxt: '',
+      // recruitTotalCntTxt: '',
       postingRegisterParams: {        
         title: '',
         content: '',
@@ -235,17 +243,18 @@ export default {
           name: '',
         },
         closedDt: "2022-09-01T06:46:13.688Z",
-        ownerContact: {
-          type: '',
-          value: ''
-        },
+        // ownerContact: {
+        //   type: '',
+        //   value: ''
+        // },
         recruitTotalCnt: 0,
         recruitCurrentCnt: 0,
-        communicationTool: ''
+        // communicationTool: ''
       },
       inputImg: [],
       files:[],
-      dir: ''
+      dir: '',
+      useDday: false
     }
   },
   computed: {
@@ -270,7 +279,7 @@ export default {
             }
             return key
           })
-          this.recruitTotalCntTxt = this.postingRegisterParams.recruitTotalCnt
+          // this.recruitTotalCntTxt = this.postingRegisterParams.recruitTotalCnt
           this.d_day = this.cmn_getDday(this.postingRegisterParams.closedDt).substring(2) * 1
 
           // 카테고리
@@ -301,24 +310,24 @@ export default {
           })
 
           // 진행방식
-          let processItem = ''
-          this.processList.forEach((item) => {
-            if (item.value === this.postingRegisterParams.communicationTool) {
-              processItem = item
-              return ''
-            }
-          })
-          this.$refs.DropdownProcess.selectOption(processItem)
+          // let processItem = ''
+          // this.processList.forEach((item) => {
+          //   if (item.value === this.postingRegisterParams.communicationTool) {
+          //     processItem = item
+          //     return ''
+          //   }
+          // })
+          // this.$refs.DropdownProcess.selectOption(processItem)
 
           // 연락수단
-          let callItem = ''
-          this.callList.forEach((item) => {
-            if (item.value === this.postingRegisterParams.ownerContact.type) {
-              callItem = item
-              return false
-            }
-          })
-          this.$refs.DropdownCall.selectOption(callItem)
+          // let callItem = ''
+          // this.callList.forEach((item) => {
+          //   if (item.value === this.postingRegisterParams.ownerContact.type) {
+          //     callItem = item
+          //     return false
+          //   }
+          // })
+          // this.$refs.DropdownCall.selectOption(callItem)
           // todo: 이미지 세팅
           res.data.imageLinks.map((imageLink) => {
             const img = {
@@ -453,10 +462,10 @@ export default {
     }, 
     // 사진 선택
     onFileChange (event) {
-      if (this.inputImg.length >= 4) {
-        alert('사진은 최대 4장까지 등록 가능합니다.')
-        return false
-      }
+      // if (this.inputImg.length >= 4) {
+      //   alert('사진은 최대 4장까지 등록 가능합니다.')
+      //   return false
+      // }
 
       const input = event.target.files
       if (input.length > 0) {
@@ -490,24 +499,24 @@ export default {
         window.alert('모집 마감일을 입력해주세요.')
         return false
       }
-      if (this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.value) || this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.type)) {
-        window.alert('연락 수단을 정확히 입력해주세요.')
-        return false
-      }
-      if (this.cmn_emptyCheck(this.postingRegisterParams.communicationTool)) {
-        window.alert('진행방식을 선택해주세요.')
-        return false
-      }
-      if (this.cmn_emptyCheck(this.recruitTotalCntTxt)) {
-        window.alert('모집 인원수를 입력해주세요.')
-        return false
-      }
+      // if (this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.value) || this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.type)) {
+      //   window.alert('연락 수단을 정확히 입력해주세요.')
+      //   return false
+      // }
+      // if (this.cmn_emptyCheck(this.postingRegisterParams.communicationTool)) {
+      //   window.alert('진행방식을 선택해주세요.')
+      //   return false
+      // }
+      // if (this.cmn_emptyCheck(this.recruitTotalCntTxt)) {
+      //   window.alert('모집 인원수를 입력해주세요.')
+      //   return false
+      // }
       let closedDt = new Date()
       closedDt.setDate(closedDt.getDate() + (this.d_day * 1))
       closedDt = closedDt.toISOString()
       closedDt = closedDt.split('T')[0] + ' ' + closedDt.split('T')[1].substring(0, 5)
       this.postingRegisterParams.closedDt = closedDt
-      this.postingRegisterParams.recruitTotalCnt = this.recruitTotalCntTxt * 1
+      // this.postingRegisterParams.recruitTotalCnt = this.recruitTotalCntTxt * 1
       this.postingRegisterParams.categoryId = this.postingRegisterParams.category.id
       return true
     }
@@ -582,11 +591,17 @@ export default {
               padding: 0 13px;
             }
             input {
-              width: 100px;
+              width: 100%;
+              padding: 0 16px;
               border: none;
+              border-radius: 8px;
             }
             input:focus {
               outline: none;
+            }
+            input::placeholder {
+              font-size: 1rem;
+              text-align: right;
             }
           }
           .content {
