@@ -188,7 +188,7 @@ const common = {
         if (diff === 0) {
           return 'D-Day'
         } else {
-          return 'D' + (diff > 0 ? '-' + Math.ceil(diff) : '+' + Math.abs(Math.ceil(diff)))
+          return 'D' + (diff > 0 ? '-' + Math.ceil(diff) + '': '+' + Math.abs(Math.ceil(diff)) + '')
         }
     },
 
