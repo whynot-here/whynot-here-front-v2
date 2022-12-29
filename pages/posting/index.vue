@@ -28,15 +28,25 @@
                 <span><input v-model="useDday" type="checkbox" name="color" value="blue"></span>
                 모집 마감일
               </div>
-              <div class="sub-wrp d-day-input">
+              <!-- <div class="sub-wrp d-day-input"> -->
                 <!-- <div>D&nbsp;-</div> -->
-                <input
+                <!-- <input
                   v-model="d_day"
                   :disabled="!useDday"
-                  placeholder="일"
+                  placeholder="날짜 선택"
                   oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                >
-              </div>
+                > -->
+                <vc-date-picker v-model="selectedDate" class="sub-wrp d-day-input">
+                  <template #default="{ inputValue, inputEvents }">
+                    <input
+                      :disabled="!useDday"
+                      class="bg-white border px-2 py-1 rounded"
+                      :value="inputValue"
+                      v-on="inputEvents"
+                    />
+                  </template>
+                </vc-date-picker>
+              <!-- </div> -->
             </div>
             <!-- <div class="form-wrp process">
               <div class="sub-title">진행방식</div>
@@ -254,7 +264,8 @@ export default {
       inputImg: [],
       files:[],
       dir: '',
-      useDday: false
+      useDday: false,
+      selectedDate:''
     }
   },
   computed: {
@@ -600,8 +611,8 @@ export default {
               outline: none;
             }
             input::placeholder {
-              font-size: 1rem;
-              text-align: right;
+              // font-size: 1rem;
+              // text-align: right;
             }
           }
           .content {

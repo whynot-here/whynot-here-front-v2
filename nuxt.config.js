@@ -55,7 +55,8 @@ export default {
     '~/plugins/vue-gtag',
     {
       src: '~plugins/persistedState.js',
-    }
+    },
+    { src: '~/plugins/v-calendar.js', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
