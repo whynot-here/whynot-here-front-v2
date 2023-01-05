@@ -1,191 +1,354 @@
 <template>
-  <div id="PostingPage">
-    <TopBarOnly />
-    <div class="panel">
-      <section class="form">
-        <div class="title-group">
-          <div class="title">📝 글쓰기</div>
-          <div class="close">
-            <img src="@/assets/img/common/close-page.png" alt="" @click="cmn_goMainPage">
+  <div>
+    <div v-if="!isMobile" id="PostingPage">
+      <TopBarOnly />
+      <div class="panel">
+        <section class="form">
+          <div class="title-group">
+            <div class="title">📝 글쓰기</div>
+            <div class="close">
+              <img src="@/assets/img/common/close-page.png" alt="" @click="cmn_goMainPage">
+            </div>
           </div>
-        </div>
-        <div class="group info">
-          <div class="posting-group">모집 정보 <strong>*</strong></div>
-          <div class="line">
-            <div class="form-wrp category">
-              <div class="sub-title">카테고리</div>
-              <div name="" class="sub-wrp">
-                <DropdownCategory
-                  ref="DropdownCategory"
-                  :label-first="'카테고리'"
-                  :label-second="'상세'"
-                  @get-label="selectCategory"
-                />
+          <div class="group info">
+            <div class="posting-group">모집 정보 <strong>*</strong></div>
+            <div class="line">
+              <div class="form-wrp category">
+                <div class="sub-title">카테고리</div>
+                <div name="" class="sub-wrp">
+                  <DropdownCategory
+                    ref="DropdownCategory"
+                    :label-first="'카테고리'"
+                    :label-second="'상세'"
+                    @get-label="selectCategory"
+                  />
+                </div>
               </div>
+              <div class="form-wrp d-day">
+                <div class="sub-title">
+                  <span><input v-model="useDday" type="checkbox" name="color" value="blue"></span>
+                  모집 마감일
+                </div>
+                <!-- <div class="sub-wrp d-day-input"> -->
+                  <!-- <div>D&nbsp;-</div> -->
+                  <!-- <input
+                    v-model="d_day"
+                    :disabled="!useDday"
+                    placeholder="날짜 선택"
+                    oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                  > -->
+                  <vc-date-picker
+                    v-model="postingRegisterParams.closedDt"
+                    :min-date="new Date()"
+                    class="sub-wrp d-day-input"
+                  >
+                    <template #default="{ inputValue, inputEvents }">
+                      <input
+                        :disabled="!useDday"
+                        class="bg-white border px-2 py-1 rounded"
+                        :value="inputValue"
+                        v-on="inputEvents"
+                      />
+                    </template>
+                  </vc-date-picker>
+                <!-- </div> -->
+              </div>
+              <!-- <div class="form-wrp process">
+                <div class="sub-title">진행방식</div>
+                <div class="sub-wrp">
+                  <DropDown
+                    ref="DropdownProcess"
+                    :label="'방식'"
+                    :option-list="processList"
+                    @get-label="setCommunicationTool"
+                  />
+                </div>
+              </div> -->
             </div>
-            <div class="form-wrp d-day">
-              <div class="sub-title">
-                <span><input v-model="useDday" type="checkbox" name="color" value="blue"></span>
-                모집 마감일
-              </div>
-              <!-- <div class="sub-wrp d-day-input"> -->
-                <!-- <div>D&nbsp;-</div> -->
-                <!-- <input
-                  v-model="d_day"
-                  :disabled="!useDday"
-                  placeholder="날짜 선택"
+            <!-- <div class="line">
+              <div class="form-wrp people-count">
+                <div class="sub-title">모집 인원 수</div>
+                <input
+                  v-model="recruitTotalCntTxt"
+                  class="sub-wrp"
+                  placeholder="모집 인원"
                   oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                > -->
-                <vc-date-picker v-model="selectedDate" class="sub-wrp d-day-input">
-                  <template #default="{ inputValue, inputEvents }">
-                    <input
-                      :disabled="!useDday"
-                      class="bg-white border px-2 py-1 rounded"
-                      :value="inputValue"
-                      v-on="inputEvents"
+                >
+              </div>
+              <div class="form-wrp call">
+                <div class="sub-title">연락수단</div>
+                <div class="sub-wrp">
+                  <div class="call-dropdown">
+                    <DropDown
+                      ref="DropdownCall"
+                      :label="'연락수단'"
+                      :option-list="callList"
+                      @get-label="setOwnerContact"
                     />
-                  </template>
-                </vc-date-picker>
-              <!-- </div> -->
-            </div>
-            <!-- <div class="form-wrp process">
-              <div class="sub-title">진행방식</div>
-              <div class="sub-wrp">
-                <DropDown
-                  ref="DropdownProcess"
-                  :label="'방식'"
-                  :option-list="processList"
-                  @get-label="setCommunicationTool"
-                />
+                  </div>
+                  <input v-model="postingRegisterParams.ownerContact.value" class="call-input" type="text" placeholder="입력">
+                </div>
               </div>
             </div> -->
           </div>
-          <!-- <div class="line">
-            <div class="form-wrp people-count">
-              <div class="sub-title">모집 인원 수</div>
-              <input
-                v-model="recruitTotalCntTxt"
-                class="sub-wrp"
-                placeholder="모집 인원"
-                oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-              >
+          <div class="group">
+            <div class="posting-group">모집 한줄 소개</div>
+            <div class="line">
+              <div class="form-wrp">
+                <input
+                  v-model="postingRegisterParams.title"
+                  type="text" 
+                  style="width: 750px; padding-left: 20px;" 
+                  placeholder="카테고리와 관련된 내용을 입력해 주세요."
+                  class="sub-wrp"
+                >
+              </div>
             </div>
-            <div class="form-wrp call">
-              <div class="sub-title">연락수단</div>
-              <div class="sub-wrp">
-                <div class="call-dropdown">
-                  <DropDown
-                    ref="DropdownCall"
-                    :label="'연락수단'"
-                    :option-list="callList"
-                    @get-label="setOwnerContact"
-                  />
+          </div>
+          <div class="group">
+            <div class="posting-group">모집 소개 <strong>*</strong></div>
+            <div class="line">
+              <div class="form-wrp">
+                <textarea
+                  v-model="postingRegisterParams.content" 
+                  class="content"
+                  name="introduce"
+                  cols="30"
+                  rows="10"
+                  placeholder="카테고리와 관련된 내용을 입력해 주세요."
+                ></textarea>
+              </div>
+            </div>
+            <div>
+              <div id="AddPostImg" class="add-img">
+                <div class="camera-img">
+                  <img src="@/assets/img/posting/camera.png" alt="">
                 </div>
-                <input v-model="postingRegisterParams.ownerContact.value" class="call-input" type="text" placeholder="입력">
-              </div>
-            </div>
-          </div> -->
-        </div>
-        <div class="group">
-          <div class="posting-group">모집 한줄 소개</div>
-          <div class="line">
-            <div class="form-wrp">
-              <input
-                v-model="postingRegisterParams.title"
-                type="text" 
-                style="width: 750px; padding-left: 20px;" 
-                placeholder="카테고리와 관련된 내용을 입력해 주세요."
-                class="sub-wrp"
-              >
-            </div>
-          </div>
-        </div>
-        <div class="group">
-          <div class="posting-group">모집 소개 <strong>*</strong></div>
-          <div class="line">
-            <div class="form-wrp">
-              <textarea
-                v-model="postingRegisterParams.content" 
-                class="content"
-                name="introduce"
-                cols="30"
-                rows="10"
-                placeholder="카테고리와 관련된 내용을 입력해 주세요."
-              ></textarea>
-            </div>
-          </div>
-          <div>
-            <div id="AddPostImg" class="add-img">
-              <div class="camera-img">
-                <img src="@/assets/img/posting/camera.png" alt="">
-              </div>
-              <b-button class="reg-btn">
-                이미지 추가
-              </b-button>
-              <b-form-group id="fileInput" class="dragdrop">
-                <b-form-file
-                  multiple
-                  accept="image/jpeg, image/png, image/gif"
-                  @change="onFileChange"
-                ></b-form-file>
-              </b-form-group>
-              <div
-                v-if="inputImg && inputImg.length > 0"
-                class="img-grp"
-              >
+                <b-button class="reg-btn">
+                  이미지 추가
+                </b-button>
+                <b-form-group id="fileInput" class="dragdrop">
+                  <b-form-file
+                    multiple
+                    accept="image/jpeg, image/png, image/gif"
+                    @change="onFileChange"
+                  ></b-form-file>
+                </b-form-group>
                 <div
-                  id="postingImages"
+                  v-if="inputImg && inputImg.length > 0"
+                  class="img-grp"
                 >
                   <div
-                    v-for="(image, idx) in inputImg"
-                    :key="idx"
+                    id="postingImages"
                   >
-                    <b-img
-                      thumbnail
-                      :src="image.prev_url"
-                      class="obj"
-                    />
-                    <div class="img-btn-grp">
-                      <img
-                        class="del"
-                        src="@/assets/img/common/close-review.png"
-                        alt=""
-                        @click="cancelPhoto(idx)"
-                      >
+                    <div
+                      v-for="(image, idx) in inputImg"
+                      :key="idx"
+                    >
+                      <b-img
+                        thumbnail
+                        :src="image.prev_url"
+                        class="obj"
+                      />
+                      <div class="img-btn-grp">
+                        <img
+                          class="del"
+                          src="@/assets/img/common/close-review.png"
+                          alt=""
+                          @click="cancelPhoto(idx)"
+                        >
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section>
-        <div v-if="postingMode === 'write'" class="upload" @click="uploadPostingAndPicture">
-          글 업로드
-        </div>
-        <div v-else class="upload" @click="editPostingAndPicture">
-          수정하기
-        </div>
-      </section>
-      <!-- <section class="content">
-        <div class="title">프로젝트 소개</div>
-        <div>
-          <div class="sub-title">한줄소개</div>
-          <div>
-            <input type="text">
+        </section>
+        <section>
+          <div v-if="postingMode === 'write'" class="upload" @click="uploadPostingAndPicture">
+            글 업로드
           </div>
-        </div>
-        <div>
-          <div class="sub-title">내용</div>
-          <div>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
+          <div v-else class="upload" @click="editPostingAndPicture">
+            수정하기
           </div>
-        </div>
-      </section> -->
-      <!-- <section>
-        <div>업로드</div>
-      </section> -->
+        </section>
+        <!-- <section class="content">
+          <div class="title">프로젝트 소개</div>
+          <div>
+            <div class="sub-title">한줄소개</div>
+            <div>
+              <input type="text">
+            </div>
+          </div>
+          <div>
+            <div class="sub-title">내용</div>
+            <div>
+              <textarea name="" id="" cols="30" rows="10"></textarea>
+            </div>
+          </div>
+        </section> -->
+        <!-- <section>
+          <div>업로드</div>
+        </section> -->
+      </div>
+    </div>
+    <div v-else id="PostingPageMobile">
+      <div class="panel">
+        <section class="form">
+          <div class="title-group">
+            <div class="title">글쓰기</div>
+            <div class="close">
+              <img src="@/assets/img/common/close-btn.png" alt="" @click="cmn_goMainPage">
+            </div>
+          </div>
+          <div class="group info">
+            <div class="posting-group">모집 정보 <strong>*</strong></div>
+            <div class="line">
+              <div class="form-wrp category">
+                <div class="sub-title">카테고리</div>
+                <div name="" class="sub-wrp">
+                  <DropdownCategory
+                    ref="DropdownCategory"
+                    :label-first="'카테고리'"
+                    :label-second="'상세'"
+                    @get-label="selectCategory"
+                  />
+                </div>
+              </div>
+              <div class="form-wrp d-day">
+                <div class="sub-title">
+                  모집 마감일
+                </div>
+                <!-- <div class="sub-wrp d-day-input"> -->
+                  <!-- <div>D&nbsp;-</div> -->
+                  <!-- <input
+                    v-model="d_day"
+                    :disabled="!useDday"
+                    placeholder="날짜 선택"
+                    oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                  > -->
+                  <div class="d-day-wrp">
+                    <div><input v-model="useDday" type="checkbox" name="color" value="blue"></div>
+                    <vc-date-picker
+                      v-model="postingRegisterParams.closedDt"
+                      :min-date="new Date()"
+                      class="sub-wrp d-day-input"
+                    >
+                      <template #default="{ inputValue, inputEvents }">
+                        <input
+                          :disabled="!useDday"
+                          class="bg-white border px-2 py-1 rounded"
+                          :value="inputValue"
+                          v-on="inputEvents"
+                        />
+                      </template>
+                    </vc-date-picker>
+                  </div>
+                <!-- </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="group">
+            <div class="posting-group">모집 한줄 소개</div>
+            <div class="line">
+              <div class="form-wrp">
+                <input
+                  v-model="postingRegisterParams.title"
+                  type="text"
+                  placeholder="카테고리와 관련된 내용을 입력해 주세요."
+                  class="sub-wrp summary"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="group">
+            <div class="posting-group">모집 소개 <strong>*</strong></div>
+            <div class="line">
+              <div class="form-wrp">
+                <textarea
+                  v-model="postingRegisterParams.content" 
+                  class="content"
+                  name="introduce"
+                  cols="30"
+                  rows="10"
+                  placeholder="카테고리와 관련된 내용을 입력해 주세요."
+                ></textarea>
+              </div>
+            </div>
+            <div>
+              <div id="AddPostImg" class="add-img">
+                <div class="camera-img">
+                  <img src="@/assets/img/posting/camera.png" alt="">
+                </div>
+                <b-button class="reg-btn">
+                  이미지 추가
+                </b-button>
+                <b-form-group id="fileInput" class="dragdrop">
+                  <b-form-file
+                    multiple
+                    accept="image/jpeg, image/png, image/gif"
+                    @change="onFileChange"
+                  ></b-form-file>
+                </b-form-group>
+                <div
+                  v-if="inputImg && inputImg.length > 0"
+                  class="img-grp"
+                >
+                  <div
+                    id="postingImages"
+                  >
+                    <div
+                      v-for="(image, idx) in inputImg"
+                      :key="idx"
+                    >
+                      <b-img
+                        thumbnail
+                        :src="image.prev_url"
+                        class="obj"
+                      />
+                      <div class="img-btn-grp">
+                        <img
+                          class="del"
+                          src="@/assets/img/common/close-review.png"
+                          alt=""
+                          @click="cancelPhoto(idx)"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div v-if="postingMode === 'write'" class="upload" @click="uploadPostingAndPicture">
+            글 업로드
+          </div>
+          <div v-else class="upload" @click="editPostingAndPicture">
+            수정하기
+          </div>
+        </section>
+        <!-- <section class="content">
+          <div class="title">프로젝트 소개</div>
+          <div>
+            <div class="sub-title">한줄소개</div>
+            <div>
+              <input type="text">
+            </div>
+          </div>
+          <div>
+            <div class="sub-title">내용</div>
+            <div>
+              <textarea name="" id="" cols="30" rows="10"></textarea>
+            </div>
+          </div>
+        </section> -->
+        <!-- <section>
+          <div>업로드</div>
+        </section> -->
+      </div>
     </div>
   </div>
 </template>
@@ -252,13 +415,13 @@ export default {
           id: 0,
           name: '',
         },
-        closedDt: "2022-09-01T06:46:13.688Z",
+        closedDt: '',
         // ownerContact: {
         //   type: '',
         //   value: ''
         // },
         recruitTotalCnt: 0,
-        recruitCurrentCnt: 0,
+        recruitCurrentCnt: 0
         // communicationTool: ''
       },
       inputImg: [],
@@ -506,7 +669,7 @@ export default {
         window.alert('내용을 입력해주세요.')
         return false
       }
-      if (this.cmn_emptyCheck(this.d_day)) {
+      if (this.cmn_emptyCheck(this.postingRegisterParams.closedDt)) {
         window.alert('모집 마감일을 입력해주세요.')
         return false
       }
@@ -522,13 +685,17 @@ export default {
       //   window.alert('모집 인원수를 입력해주세요.')
       //   return false
       // }
-      let closedDt = new Date()
-      closedDt.setDate(closedDt.getDate() + (this.d_day * 1))
-      closedDt = closedDt.toISOString()
-      closedDt = closedDt.split('T')[0] + ' ' + closedDt.split('T')[1].substring(0, 5)
-      this.postingRegisterParams.closedDt = closedDt
+      // let closedDt = new Date()
+      // closedDt.setDate(closedDt.getDate() + (this.d_day * 1))
+      // closedDt = closedDt.toISOString()
+      // closedDt = closedDt.split('T')[0] + ' ' + closedDt.split('T')[1].substring(0, 5)
+      // this.postingRegisterParams.closedDt = closedDt
       // this.postingRegisterParams.recruitTotalCnt = this.recruitTotalCntTxt * 1
       this.postingRegisterParams.categoryId = this.postingRegisterParams.category.id
+      if (this.postingRegisterParams.closedDt) {
+        console.log(this.postingRegisterParams.closedDt.toISOString())
+        this.postingRegisterParams.closedDt = this.postingRegisterParams.closedDt.toISOString().split('T')[0] + ' ' + this.postingRegisterParams.closedDt.toISOString().split('T')[1].substring(0, 5)
+      }
       return true
     }
   }
@@ -727,6 +894,194 @@ export default {
     .upload {
       width: 146px; height: 47px; line-height: 47px;
       margin: 0 auto;
+      font-size: 1rem; font-weight: 500;
+      background: #FFFFFF;
+      // opacity: 0.4;
+      border: 1px solid #E1E2E3;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+}
+
+#PostingPageMobile {
+  width: 100vw; height: 100vh;
+  overflow: scroll;
+  background-color: #F3F3F3;
+  .panel {
+    // width: 355px;
+    // margin: 0px auto;
+    .form {
+      .title-group {
+        display: flex;
+        height: 56px; line-height: 56px;
+        padding-top: 40px;
+        background-color: #fff;
+        .title {
+          padding-left: 48px;
+          font-size: 1.13rem; font-weight: 600;
+          flex-grow: 1;
+          text-align: center;
+        }
+        .close {
+          img {
+            width: 24px; height: 24px;
+            margin: 12px 12px;
+            cursor: pointer;
+          }
+        }
+      }
+      .group {
+        margin: 0 20px;
+        &.info {
+          padding-bottom: 52px;
+          border-bottom: 1px solid #D9D9D9;
+        }
+      }
+      .posting-group {
+        margin-top: 24px;
+        font-size: 1rem; font-weight: 600;
+        strong {
+          color: #E74133;
+        }
+      }
+      .line {
+        // display: flex;
+        .form-wrp {
+          .sub-title {
+            font-size: .75rem; font-weight: 500;
+            color: #454545;
+          }
+          .sub-wrp {
+            width: 100%; height: 46px; line-height: 46px;
+            margin-top: 12px;
+            // padding-left: 12px;
+            background-color: #ffffff;
+            border: 1px solid #E7E7E7;
+            border-radius: 8px;
+            &.summary {
+              width: calc(100% - 32px);
+              padding: 0 16px;
+            }
+          }
+
+          .sub-wrp::placeholder {
+            color: #C8C8C8;
+          }
+          .d-day-wrp {
+            display: flex;
+            input[type="checkbox" i] {
+                // -webkit-appearance: none;
+                // -moz-appearance: none;
+                background-color: #fff;
+                width: 20px; height: 20px;
+                margin: 25px 12px 0px 0px;
+                border: 1px solid #C8C8C8;
+                // border-radius: 100%;
+            }
+          }
+          .d-day-input {
+            display: flex;
+            flex-grow: 1;
+            div {
+              font-size: .88rem;
+              padding: 0 13px;
+            }
+            input {
+              width: 100%;
+              padding: 0 16px;
+              border: none;
+              border-radius: 8px;
+            }
+            input:focus {
+              outline: none;
+            }
+            input::placeholder {
+              // font-size: 1rem;
+              // text-align: right;
+            }
+          }
+          .content {
+            width: calc(100% - 32px); height: 400px;
+            margin-top: 12px;
+            padding: 16px;
+            font-size: .88rem;
+            background: #FFFFFF;
+            border: 1px solid #E7E7E7;
+            border-radius: 8px;
+          }
+          .content::placeholder {
+            color: #C8C8C8;
+          }
+        }
+        .category {
+          margin-top: 24px;
+          .sub-wrp {
+            width: 100%;
+          }
+        }
+        .d-day {
+          margin-top: 20px;
+        }
+      }
+      .add-img {
+        display: flex;
+        height: 70px; line-height: 80px;
+        margin: 16px 0 42px 0; padding-left: 24px;
+        font-size: 1rem; font-weight: 500;
+        color: #A3A3A3;
+        background: #FAFAFA;
+        border: 1px solid #E7E7E7;
+        border-radius: 8px;
+        .camera-img {
+          padding: 0 5px 0 0;
+          img {
+            width: 26px; height: 22px;
+          }
+        }
+        .reg-btn {
+          // z-index: 10;
+          width: max-height; height: 40px;
+          margin-top: 18px;
+          color: #A3A3A3;
+          border: none;
+          background: none;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+        .reg-btn:focus {
+          outline: none;
+        }
+        .img-grp {
+          #postingImages {
+            display: flex;
+            div {
+              margin-left: 10px;
+              width: 50px; height: 50px;
+              .obj {
+                width: 50px; height: 50px;
+              }
+              .img-btn-grp {
+                height: 30px;
+                display: flex;
+                // padding: 5px 10px 0px 60px;
+                .del {
+                  margin-top: -70px;
+                  margin-left: 25px;
+                  width: 20px; height: 20px;
+                  z-index: 1;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .upload {
+      width: 146px; height: 47px; line-height: 47px;
+      margin: 0 auto;
+      margin-bottom: 40px;
       font-size: 1rem; font-weight: 500;
       background: #FFFFFF;
       // opacity: 0.4;
