@@ -9,7 +9,7 @@ export default {
   env: {
     frontUrl:
       process.env.NODE_ENV === 'production'
-        ? 'https://why-not-here.netlify.app'
+        ? 'https://why-not-here.o-r.kr'
         : 'http://localhost:3000'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
