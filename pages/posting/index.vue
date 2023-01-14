@@ -153,7 +153,7 @@
                       <div class="img-btn-grp">
                         <img
                           class="del"
-                          src="@/assets/img/common/close-review.png"
+                          src="@/assets/img/common/img-del.png"
                           alt=""
                           @click="cancelPhoto(idx)"
                         >
@@ -310,7 +310,7 @@
                       <div class="img-btn-grp">
                         <img
                           class="del"
-                          src="@/assets/img/common/close-review.png"
+                          src="@/assets/img/common/img-del.png"
                           alt=""
                           @click="cancelPhoto(idx)"
                         >
@@ -867,20 +867,23 @@ export default {
           outline: none;
         }
         .img-grp {
+          width: 600px; overflow-x: scroll;
           #postingImages {
             display: flex;
             div {
               margin-left: 10px;
+              margin-top: 10px;
               width: 50px; height: 50px;
               .obj {
                 width: 50px; height: 50px;
+                border-radius: 12px;
               }
               .img-btn-grp {
                 height: 30px;
-                display: flex;
+                // display: flex;
                 // padding: 5px 10px 0px 60px;
+                margin-top: -120px;
                 .del {
-                  margin-top: -70px;
                   margin-left: 25px;
                   width: 20px; height: 20px;
                   z-index: 1;
@@ -916,7 +919,7 @@ export default {
       .title-group {
         display: flex;
         height: 56px; line-height: 56px;
-        padding-top: 40px;
+        padding-top: 10px;
         background-color: #fff;
         .title {
           padding-left: 48px;
@@ -1054,20 +1057,23 @@ export default {
           outline: none;
         }
         .img-grp {
+          width: 150px; overflow-x: scroll;
           #postingImages {
             display: flex;
             div {
               margin-left: 10px;
+              margin-top: 10px;
               width: 50px; height: 50px;
               .obj {
                 width: 50px; height: 50px;
+                border-radius: 12px;
               }
               .img-btn-grp {
                 height: 30px;
-                display: flex;
+                // display: flex;
                 // padding: 5px 10px 0px 60px;
+                margin-top: -120px;
                 .del {
-                  margin-top: -70px;
                   margin-left: 25px;
                   width: 20px; height: 20px;
                   z-index: 1;
