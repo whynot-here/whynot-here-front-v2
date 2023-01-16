@@ -365,6 +365,9 @@ export default {
       return this.$store.state.userInfo.detail.nickname === comment.account.nickname
     },
     checkBookmark() {
+      if (!this.$store.state.userInfo.token) {
+        return false
+      }
       this.$axios.get(
         ('https://whynot-here.o-r.kr/v2/posts/favorite'),
         {
