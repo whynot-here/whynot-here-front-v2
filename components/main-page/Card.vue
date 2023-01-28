@@ -3,16 +3,19 @@
     <div :class="!isMobile ? 'pc-env' : 'mobile-env'">
       <div class="sts-i-wrp">
         <div>
-          <input v-model="onlyRecruit" type="checkbox" name="color" value="blue">
+          <input
+            v-model="onlyRecruit"
+            type="checkbox"
+            name="color"
+            value="blue"
+          />
         </div>
-        <div>
-          모집중만 보기
-        </div>
+        <div>모집중만 보기</div>
       </div>
       <div class="cards-wrp">
         <div
           v-for="(post, idx) in postsProc"
-          v-show="onlyRecruit ? (post.recruiting ? true : false) : true" 
+          v-show="onlyRecruit ? (post.recruiting ? true : false) : true"
           :key="idx"
           class="card-wrp"
         >
@@ -26,8 +29,16 @@
                   {{ post.title_short }}
                 </div>
               </div>
-              <div v-if="category === 'mypostings'" class="sub-menu-btn" @click.stop="openSubMenuPopup(post.id)">
-                <img v-if="post.recruiting" src="@/assets/img/common/dot-btn.png" alt="">
+              <div
+                v-if="category === 'mypostings'"
+                class="sub-menu-btn"
+                @click.stop="openSubMenuPopup(post.id)"
+              >
+                <img
+                  v-if="post.recruiting"
+                  src="@/assets/img/common/dot-btn.png"
+                  alt=""
+                />
                 <div v-if="post.isOpenSubMenu" class="sub-menu">
                   <div @click.stop="editPosting(post.id)">수정하기</div>
                   <div @click.stop="compModalToggle(post.id)">모집마감</div>
@@ -35,8 +46,16 @@
                 </div>
               </div>
               <div v-else class="book-mark" @click.stop="bookmark(post.id)">
-                <img v-if="post.isBookmarked === undefined || !post.isBookmarked" src="@/assets/img/category/bookmark.png" alt="">
-                <img v-if="post.isBookmarked" src="@/assets/img/category/bookmark-selected.png" alt="">
+                <img
+                  v-if="post.isBookmarked === undefined || !post.isBookmarked"
+                  src="@/assets/img/category/bookmark.png"
+                  alt=""
+                />
+                <img
+                  v-if="post.isBookmarked"
+                  src="@/assets/img/category/bookmark-selected.png"
+                  alt=""
+                />
               </div>
             </div>
             <div class="card-middle">
@@ -54,15 +73,22 @@
               <div :class="!post.recruiting ? 'item d-day comp' : 'item d-day'">
                 마감 {{ post.dDay }}
               </div>
-              <div :class="!post.recruiting ? 'item com-tool comp' : 'item com-tool'">
+              <div
+                :class="
+                  !post.recruiting ? 'item com-tool comp' : 'item com-tool'
+                "
+              >
                 {{ post.communicationToolText }}
               </div>
-              <div :class="!post.recruiting ? 'item rec-cnt comp' : 'item rec-cnt'">
-                <strong>{{ post.recruitCurrentCnt }}</strong> / {{ post.recruitTotalCnt }}
+              <div
+                :class="!post.recruiting ? 'item rec-cnt comp' : 'item rec-cnt'"
+              >
+                <strong>{{ post.recruitCurrentCnt }}</strong> /
+                {{ post.recruitTotalCnt }}
               </div>
               <div class="gap"></div>
               <div class="views">
-                <img src="@/assets/img/common/views.png" alt="">
+                <img src="@/assets/img/common/views.png" alt="" />
                 <div>
                   {{ post.views === null ? 0 : post.views }}
                 </div>
@@ -71,15 +97,19 @@
           </div>
           <div v-if="!post.recruiting" class="comp-card">
             <div v-if="category === 'mypostings'" class="close">
-              <img src="@/assets/img/common/close-gray.png" alt="" @click="deletePosting(post.id)">
+              <img
+                src="@/assets/img/common/close-gray.png"
+                alt=""
+                @click="deletePosting(post.id)"
+              />
             </div>
-            <div :class="category === 'mypostings' ? 'notice mypage' : 'notice'">
+            <div
+              :class="category === 'mypostings' ? 'notice mypage' : 'notice'"
+            >
               <div class="check">
-                <img src="@/assets/img/common/check.png" alt="">
+                <img src="@/assets/img/common/check.png" alt="" />
               </div>
-              <div class="comp-text">
-                모집마감
-              </div>
+              <div class="comp-text">모집마감</div>
             </div>
           </div>
         </div>
@@ -87,8 +117,8 @@
       <div v-if="compModalOpen" class="comp-modal">
         <div class="comp-wrp">
           <div class="notice">
-            모집 마감을 누르시면 해당 글<br>
-            <strong>수정 / 모집이 불가합니다.</strong><br>
+            모집 마감을 누르시면 해당 글<br />
+            <strong>수정 / 모집이 불가합니다.</strong><br />
             그래도 진행 하시겠습니까?
           </div>
           <div class="select-wrp">
@@ -104,8 +134,7 @@
 <script>
 export default {
   name: 'WhynotCard',
-  components: {
-  },
+  components: {},
   props: {
     // postsProps: {
     //   type: Array,
@@ -132,7 +161,7 @@ export default {
     //   default: ''
     // }
   },
-  data () {
+  data() {
     return {
       posts: [],
       category: '',
@@ -146,10 +175,10 @@ export default {
     }
   },
   computed: {
-    categoryIdProc () {
+    categoryIdProc() {
       return this.categoryId
     },
-    postsProc () {
+    postsProc() {
       // 북마크 받아오는 시점 이후에 처리 가능하도록
       if (!this.bookmarkComp) {
         return []
@@ -181,9 +210,15 @@ export default {
         })
 
         post.categoryName = categoryName
-        
-        post.communicationToolText = {'ONLINE' : '온라인', 'OFFLINE' : '만나서'}[post.communicationTool]
-        post.contactText = {'EMAIL' : '이메일', 'KAKAO_OPEN_CHAT' : '카카오톡', 'PHONE' : '휴대전화'}[post.ownerContact.type]
+
+        post.communicationToolText = { ONLINE: '온라인', OFFLINE: '만나서' }[
+          post.communicationTool
+        ]
+        post.contactText = {
+          EMAIL: '이메일',
+          KAKAO_OPEN_CHAT: '카카오톡',
+          PHONE: '휴대전화'
+        }[post.ownerContact.type]
 
         post.dDay = this.cmn_getDday(post.closedDt)
 
@@ -208,13 +243,13 @@ export default {
     //   }
     // }
   },
-  created () {
+  created() {
     this.$bus.$off('refreshCard')
     this.$bus.$on('refreshCard', () => {
       // this.refreshCard()
     })
   },
-  mounted () {
+  mounted() {
     // this.category = this.categoryProps
     // this.refreshCard()
   },
@@ -223,97 +258,102 @@ export default {
       this.getPosts()
       this.getBookmark()
     },
-    getPosts () {
+    getPosts() {
       if (this.category === 'mypostings') {
-        this.$axios.get(
-        ('https://whynot-here.o-r.kr/v2/posts/own'),
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        }
-        )
-        .then(res => {
-          this.posts = []
-          res.data.map((res) => {
-            res.isOpenSubMenu = false
-            return this.posts.push(res)
+        this.$axios
+          .get('https://whynot-here.o-r.kr/v2/posts/own', {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
           })
-        })
+          .then((res) => {
+            this.posts = []
+            res.data.map((res) => {
+              res.isOpenSubMenu = false
+              return this.posts.push(res)
+            })
+          })
       } else if (this.category === 'bookmark') {
-        this.$axios.get(
-        ('https://whynot-here.o-r.kr/v2/posts/favorite'),
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
+        if (!this.$store.state.userInfo.token) {
+          return false
         }
-        )
-        .then(res => {
-          this.posts = []
-          res.data.map((res) => {
-            res.isBookmarked = true
-            return this.posts.push(res)
+        this.$axios
+          .get('https://whynot-here.o-r.kr/v2/posts/favorite', {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
           })
-        })
+          .then((res) => {
+            this.posts = []
+            res.data.map((res) => {
+              res.isBookmarked = true
+              return this.posts.push(res)
+            })
+          })
       } else if (this.category === 'search') {
-        this.$axios.get(
-        (`https://whynot-here.o-r.kr/v2/posts/search?keyword=` + this.searchText),
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        }
-        )
-        .then(res => {
-          this.posts = []
-          res.data.map((res) => {
-            return this.posts.push(res)
+        this.$axios
+          .get(
+            `https://whynot-here.o-r.kr/v2/posts/search?keyword=` +
+              this.searchText,
+            {
+              withCredentials: true,
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: this.$store.state.userInfo.token
+              }
+            }
+          )
+          .then((res) => {
+            this.posts = []
+            res.data.map((res) => {
+              return this.posts.push(res)
+            })
           })
-        })
       } else {
         if (this.isSubCategory) {
           this.getSubCategoryId()
         } else {
           this.getCategoryId()
         }
-        
+
         if (this.categoryId > 0) {
           // this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
-          this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
-          .then(res => {
-            this.posts = []
-            res.data.map((res) => {
-              res.selected = false
-              return this.posts.push(res)
+          this.$axios
+            .get(
+              `https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`
+            )
+            .then((res) => {
+              this.posts = []
+              res.data.map((res) => {
+                res.selected = false
+                return this.posts.push(res)
+              })
             })
-          })
         } else {
-        this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
-        // this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
-        .then(res => {
-          this.posts = []
-          res.data.map((res) => {
-            res.selected = false
-            return this.posts.push(res)
-          })
-        })
+          this.$axios
+            .get('https://whynot-here.o-r.kr/v2/posts')
+            // this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
+            .then((res) => {
+              this.posts = []
+              res.data.map((res) => {
+                res.selected = false
+                return this.posts.push(res)
+              })
+            })
         }
       }
     },
-    toggleIsSubCategory (type, category, subCategory) {
+    toggleIsSubCategory(type, category, subCategory) {
       this.isSubCategory = type
       this.category = category
       this.subCategory = subCategory
       this.refreshCard()
     },
-    getCategoryId () {
+    getCategoryId() {
       const category = this.categoryGroup.filter((category) => {
         return category.parentCode.toLowerCase() === this.category
       })
@@ -321,9 +361,12 @@ export default {
       this.categoryTitle = category[0].parentName
       this.subCategoryTitle = ''
 
-      this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
+      this.$bus.$emit('sendCategoryTitle', {
+        categoryTitle: this.categoryTitle,
+        subCategoryTitle: this.subCategoryTitle
+      })
     },
-    getSubCategoryId () {
+    getSubCategoryId() {
       const category = this.categoryGroup.filter((category) => {
         return category.parentCode.toLowerCase() === this.category
       })[0]
@@ -337,31 +380,39 @@ export default {
       this.categoryId = selectedSubCategory.id
       this.subCategoryTitle = selectedSubCategory.name
 
-      this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
+      this.$bus.$emit('sendCategoryTitle', {
+        categoryTitle: this.categoryTitle,
+        subCategoryTitle: this.subCategoryTitle
+      })
     },
-    getBookmark () {
+    getBookmark() {
       this.bookmarkComp = false
-      if (this.$store.state.userInfo.initLoginDone && this.category !== 'bookmark' && this.category !== 'mypostings') {
-        this.$axios.get(
-          ('https://whynot-here.o-r.kr/v2/posts/favorite'),
-          {
+      if (
+        this.$store.state.userInfo.initLoginDone &&
+        this.category !== 'bookmark' &&
+        this.category !== 'mypostings'
+      ) {
+        this.$axios
+          .get('https://whynot-here.o-r.kr/v2/posts/favorite', {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
               Authorization: this.$store.state.userInfo.token
             }
-          }
-          )
-          .then(res => {
-            res.data.forEach(bookmark => {
+          })
+          .then((res) => {
+            res.data.forEach((bookmark) => {
               this.posts.map((post) => {
                 if (bookmark.id === post.id) {
                   post.isBookmarked = true
                 }
                 return post
               })
-            });
+            })
             this.bookmarkComp = true
+          })
+          .catch(function (res) {
+            alert('다시 로그인 해주세요.')
           })
       } else {
         this.bookmarkComp = true
@@ -369,9 +420,8 @@ export default {
       // setTimeout(() => {
       //   this.bookmarkComp = false
       // }, 1000)
-
     },
-    bookmark (id) {
+    bookmark(id) {
       if (!this.$store.state.userInfo.initLoginDone) {
         alert('로그인 후 이용해 주세요')
         return false
@@ -380,38 +430,39 @@ export default {
       this.posts.map((post) => {
         if (id === post.id) {
           if (post.isBookmarked) {
-            (this.$axios.delete(
-              (`https://whynot-here.o-r.kr/v2/posts/favorite/${id}`),
-              {
+            this.$axios
+              .delete(`https://whynot-here.o-r.kr/v2/posts/favorite/${id}`, {
                 withCredentials: true,
                 headers: {
                   'Content-Type': 'application/json',
                   Authorization: this.$store.state.userInfo.token
                 }
-              }
-            )
-            ).then(res => {
-              post.isBookmarked = false
-            }).catch((error) => {
-              window.alert(error.response.data.message)
-            })
+              })
+              .then((res) => {
+                post.isBookmarked = false
+              })
+              .catch((error) => {
+                window.alert(error.response.data.message)
+              })
           } else {
-            (this.$axios.post(
-              (`https://whynot-here.o-r.kr/v2/posts/favorite/${id}`),
-              {},
-              {
-                withCredentials: true,
-                headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: this.$store.state.userInfo.token
+            this.$axios
+              .post(
+                `https://whynot-here.o-r.kr/v2/posts/favorite/${id}`,
+                {},
+                {
+                  withCredentials: true,
+                  headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: this.$store.state.userInfo.token
+                  }
                 }
-              }
-            )
-            ).then(res => {
-              post.isBookmarked = true
-            }).catch((error) => {
-              window.alert(error.response.data.message)
-            })
+              )
+              .then((res) => {
+                post.isBookmarked = true
+              })
+              .catch((error) => {
+                window.alert(error.response.data.message)
+              })
           }
         }
         return post
@@ -423,7 +474,7 @@ export default {
       }, 300)
       // this.bookmarkMode = true
     },
-    openSubMenuPopup (id) {
+    openSubMenuPopup(id) {
       this.posts.map((post) => {
         if (post.id === id) {
           if (post.isOpenSubMenu) {
@@ -435,32 +486,30 @@ export default {
         return post
       })
     },
-    moveDetailPage (id) {
+    moveDetailPage(id) {
       this.$router.push(`/gather/posts/${id}`)
     },
-    editPosting (id) {
+    editPosting(id) {
       this.$router.push(`/posting?m=edit&id=${id}`)
     },
-    deletePosting (id) {
-      if(confirm("삭제하시겠습니까?")) {
-        this.$axios.delete(
-        (`https://whynot-here.o-r.kr/v2/posts/${id}`),
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        }
-        )
-        .then(res => {
-          // 카드 새로고침
-          alert('삭제했습니다')
-          this.$emit('refreshCard', {})
-        })
+    deletePosting(id) {
+      if (confirm('삭제하시겠습니까?')) {
+        this.$axios
+          .delete(`https://whynot-here.o-r.kr/v2/posts/${id}`, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          })
+          .then((res) => {
+            // 카드 새로고침
+            alert('삭제했습니다')
+            this.$emit('refreshCard', {})
+          })
       }
     },
-    compModalToggle (id) {
+    compModalToggle(id) {
       if (this.compModalOpen) {
         this.compModalOpen = false
       } else {
@@ -469,28 +518,30 @@ export default {
 
       this.compRecruitId = id
     },
-    compRecruit () {
-      (this.$axios.post(
-        (`https://whynot-here.o-r.kr/v2/posts/own/${this.compRecruitId}`),
-        {
-          isRecruit: false
-        },
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
+    compRecruit() {
+      this.$axios
+        .post(
+          `https://whynot-here.o-r.kr/v2/posts/own/${this.compRecruitId}`,
+          {
+            isRecruit: false
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
           }
-        }
-      )
-      ).then(res => {
-        this.compModalOpen = false
-        this.compRecruitId = ''
-        this.refreshCard()
-        alert('모집이 마감되었습니다.')
-      }).catch((error) => {
-        window.alert(error.response.data.message)
-      })
+        )
+        .then((res) => {
+          this.compModalOpen = false
+          this.compRecruitId = ''
+          this.refreshCard()
+          alert('모집이 마감되었습니다.')
+        })
+        .catch((error) => {
+          window.alert(error.response.data.message)
+        })
     }
   }
 }

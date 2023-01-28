@@ -159,7 +159,7 @@ const common = {
         // document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/;domain=;'
       }
     },
-    
+
     cmn_getUserInfo(accessToken) {
       this.$axios
         .get('https://whynot-here.o-r.kr/v2/account/info', {
@@ -179,20 +179,23 @@ const common = {
     },
 
     cmn_getDday(endDate) {
-        // 디데이 계산
-        const today = new Date()
-        const end = new Date(endDate.replaceAll('-', '/'))
+      // 디데이 계산
+      const today = new Date()
+      const end = new Date(endDate.replaceAll('-', '/'))
 
-        const diff = (end.getTime() - today.getTime()) / (1000 * 3600 * 24)
-        
-        if (diff === 0) {
-          return 'D-Day'
-        } else {
-          return 'D' + (diff > 0 ? '-' + Math.ceil(diff) : '+' + Math.abs(Math.ceil(diff)))
-        }
+      const diff = (end.getTime() - today.getTime()) / (1000 * 3600 * 24)
+
+      if (diff === 0) {
+        return 'D-Day'
+      } else {
+        return (
+          'D' +
+          (diff > 0 ? '-' + Math.ceil(diff) : '+' + Math.abs(Math.ceil(diff)))
+        )
+      }
     },
 
-    cmn_emptyCheck (t) {
+    cmn_emptyCheck(t) {
       if (t) {
         return String(t).trim().length === 0
       } else {
@@ -200,11 +203,11 @@ const common = {
       }
     },
 
-    cmn_goMainPage () {
+    cmn_goMainPage() {
       this.$router.push('/')
     },
 
-    cmn_logout () {
+    cmn_logout() {
       if (window.confirm('로그아웃 하시겠어요?')) {
         this.$cookies.remove('token')
 
@@ -216,6 +219,18 @@ const common = {
         this.$bus.$emit('refreshCard', {})
         this.cmn_goMainPage()
       }
+    },
+
+    cmn_auto_logout() {
+      this.$cookies.remove('token')
+
+      this.$store.commit('userInfo/setToken', { token: '' })
+      this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
+      this.$store.commit('userInfo/setDetail', { info: null })
+
+      Cookies.remove('vuex')
+      this.$bus.$emit('refreshCard', {})
+      this.cmn_goMainPage()
     }
   }
 }
