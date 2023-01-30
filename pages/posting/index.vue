@@ -7,7 +7,11 @@
           <div class="title-group">
             <div class="title">📝 글쓰기</div>
             <div class="close">
-              <img src="@/assets/img/common/close-page.png" alt="" @click="cmn_goMainPage">
+              <img
+                src="@/assets/img/common/close-page.png"
+                alt=""
+                @click="cmn_goMainPage"
+              />
             </div>
           </div>
           <div class="group info">
@@ -26,31 +30,37 @@
               </div>
               <div class="form-wrp d-day">
                 <div class="sub-title">
-                  <span><input v-model="useDday" type="checkbox" name="color" value="blue"></span>
+                  <span
+                    ><input
+                      v-model="useDday"
+                      type="checkbox"
+                      name="color"
+                      value="blue"
+                  /></span>
                   모집 마감일
                 </div>
                 <!-- <div class="sub-wrp d-day-input"> -->
-                  <!-- <div>D&nbsp;-</div> -->
-                  <!-- <input
+                <!-- <div>D&nbsp;-</div> -->
+                <!-- <input
                     v-model="d_day"
                     :disabled="!useDday"
                     placeholder="날짜 선택"
                     oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                   > -->
-                  <vc-date-picker
-                    v-model="postingRegisterParams.closedDt"
-                    :min-date="new Date()"
-                    class="sub-wrp d-day-input"
-                  >
-                    <template #default="{ inputValue, inputEvents }">
-                      <input
-                        :disabled="!useDday"
-                        class="bg-white border px-2 py-1 rounded"
-                        :value="inputValue"
-                        v-on="inputEvents"
-                      />
-                    </template>
-                  </vc-date-picker>
+                <vc-date-picker
+                  v-model="postingRegisterParams.closedDt"
+                  :min-date="new Date()"
+                  class="sub-wrp d-day-input"
+                >
+                  <template #default="{ inputValue, inputEvents }">
+                    <input
+                      :disabled="!useDday"
+                      class="bg-white border px-2 py-1 rounded"
+                      :value="inputValue"
+                      v-on="inputEvents"
+                    />
+                  </template>
+                </vc-date-picker>
                 <!-- </div> -->
               </div>
               <!-- <div class="form-wrp process">
@@ -97,11 +107,11 @@
               <div class="form-wrp">
                 <input
                   v-model="postingRegisterParams.title"
-                  type="text" 
-                  style="width: 750px; padding-left: 20px;" 
+                  type="text"
+                  style="width: 750px; padding-left: 20px"
                   placeholder="카테고리와 관련된 내용을 입력해 주세요."
                   class="sub-wrp"
-                >
+                />
               </div>
             </div>
           </div>
@@ -110,7 +120,7 @@
             <div class="line">
               <div class="form-wrp">
                 <textarea
-                  v-model="postingRegisterParams.content" 
+                  v-model="postingRegisterParams.content"
                   class="content"
                   name="introduce"
                   cols="30"
@@ -122,11 +132,9 @@
             <div>
               <div id="AddPostImg" class="add-img">
                 <div class="camera-img">
-                  <img src="@/assets/img/posting/camera.png" alt="">
+                  <img src="@/assets/img/posting/camera.png" alt="" />
                 </div>
-                <b-button class="reg-btn">
-                  이미지 추가
-                </b-button>
+                <b-button class="reg-btn"> 이미지 추가 </b-button>
                 <b-form-group id="fileInput" class="dragdrop">
                   <b-form-file
                     multiple
@@ -134,29 +142,17 @@
                     @change="onFileChange"
                   ></b-form-file>
                 </b-form-group>
-                <div
-                  v-if="inputImg && inputImg.length > 0"
-                  class="img-grp"
-                >
-                  <div
-                    id="postingImages"
-                  >
-                    <div
-                      v-for="(image, idx) in inputImg"
-                      :key="idx"
-                    >
-                      <b-img
-                        thumbnail
-                        :src="image.prev_url"
-                        class="obj"
-                      />
+                <div v-if="inputImg && inputImg.length > 0" class="img-grp">
+                  <div id="postingImages">
+                    <div v-for="(image, idx) in inputImg" :key="idx">
+                      <b-img thumbnail :src="image.prev_url" class="obj" />
                       <div class="img-btn-grp">
                         <img
                           class="del"
                           src="@/assets/img/common/img-del.png"
                           alt=""
                           @click="cancelPhoto(idx)"
-                        >
+                        />
                       </div>
                     </div>
                   </div>
@@ -166,7 +162,11 @@
           </div>
         </section>
         <section>
-          <div v-if="postingMode === 'write'" class="upload" @click="uploadPostingAndPicture">
+          <div
+            v-if="postingMode === 'write'"
+            class="upload"
+            @click="uploadPostingAndPicture"
+          >
             글 업로드
           </div>
           <div v-else class="upload" @click="editPostingAndPicture">
@@ -199,7 +199,11 @@
           <div class="title-group">
             <div class="title">글쓰기</div>
             <div class="close">
-              <img src="@/assets/img/common/close-btn.png" alt="" @click="cmn_goMainPage">
+              <img
+                src="@/assets/img/common/close-btn.png"
+                alt=""
+                @click="cmn_goMainPage"
+              />
             </div>
           </div>
           <div class="group info">
@@ -217,34 +221,39 @@
                 </div>
               </div>
               <div class="form-wrp d-day">
-                <div class="sub-title">
-                  모집 마감일
-                </div>
+                <div class="sub-title">모집 마감일</div>
                 <!-- <div class="sub-wrp d-day-input"> -->
-                  <!-- <div>D&nbsp;-</div> -->
-                  <!-- <input
+                <!-- <div>D&nbsp;-</div> -->
+                <!-- <input
                     v-model="d_day"
                     :disabled="!useDday"
                     placeholder="날짜 선택"
                     oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                   > -->
-                  <div class="d-day-wrp">
-                    <div><input v-model="useDday" type="checkbox" name="color" value="blue"></div>
-                    <vc-date-picker
-                      v-model="postingRegisterParams.closedDt"
-                      :min-date="new Date()"
-                      class="sub-wrp d-day-input"
-                    >
-                      <template #default="{ inputValue, inputEvents }">
-                        <input
-                          :disabled="!useDday"
-                          class="bg-white border px-2 py-1 rounded"
-                          :value="inputValue"
-                          v-on="inputEvents"
-                        />
-                      </template>
-                    </vc-date-picker>
+                <div class="d-day-wrp">
+                  <div>
+                    <input
+                      v-model="useDday"
+                      type="checkbox"
+                      name="color"
+                      value="blue"
+                    />
                   </div>
+                  <vc-date-picker
+                    v-model="postingRegisterParams.closedDt"
+                    :min-date="new Date()"
+                    class="sub-wrp d-day-input"
+                  >
+                    <template #default="{ inputValue, inputEvents }">
+                      <input
+                        :disabled="!useDday"
+                        class="bg-white border px-2 py-1 rounded"
+                        :value="inputValue"
+                        v-on="inputEvents"
+                      />
+                    </template>
+                  </vc-date-picker>
+                </div>
                 <!-- </div> -->
               </div>
             </div>
@@ -258,7 +267,7 @@
                   type="text"
                   placeholder="카테고리와 관련된 내용을 입력해 주세요."
                   class="sub-wrp summary"
-                >
+                />
               </div>
             </div>
           </div>
@@ -267,7 +276,7 @@
             <div class="line">
               <div class="form-wrp">
                 <textarea
-                  v-model="postingRegisterParams.content" 
+                  v-model="postingRegisterParams.content"
                   class="content"
                   name="introduce"
                   cols="30"
@@ -279,11 +288,9 @@
             <div>
               <div id="AddPostImg" class="add-img">
                 <div class="camera-img">
-                  <img src="@/assets/img/posting/camera.png" alt="">
+                  <img src="@/assets/img/posting/camera.png" alt="" />
                 </div>
-                <b-button class="reg-btn">
-                  이미지 추가
-                </b-button>
+                <b-button class="reg-btn"> 이미지 추가 </b-button>
                 <b-form-group id="fileInput" class="dragdrop">
                   <b-form-file
                     multiple
@@ -291,29 +298,17 @@
                     @change="onFileChange"
                   ></b-form-file>
                 </b-form-group>
-                <div
-                  v-if="inputImg && inputImg.length > 0"
-                  class="img-grp"
-                >
-                  <div
-                    id="postingImages"
-                  >
-                    <div
-                      v-for="(image, idx) in inputImg"
-                      :key="idx"
-                    >
-                      <b-img
-                        thumbnail
-                        :src="image.prev_url"
-                        class="obj"
-                      />
+                <div v-if="inputImg && inputImg.length > 0" class="img-grp">
+                  <div id="postingImages">
+                    <div v-for="(image, idx) in inputImg" :key="idx">
+                      <b-img thumbnail :src="image.prev_url" class="obj" />
                       <div class="img-btn-grp">
                         <img
                           class="del"
                           src="@/assets/img/common/img-del.png"
                           alt=""
                           @click="cancelPhoto(idx)"
-                        >
+                        />
                       </div>
                     </div>
                   </div>
@@ -323,7 +318,11 @@
           </div>
         </section>
         <section>
-          <div v-if="postingMode === 'write'" class="upload" @click="uploadPostingAndPicture">
+          <div
+            v-if="postingMode === 'write'"
+            class="upload"
+            @click="uploadPostingAndPicture"
+          >
             글 업로드
           </div>
           <div v-else class="upload" @click="editPostingAndPicture">
@@ -363,7 +362,7 @@ export default {
   name: 'PostingPage',
   components: {
     TopBarOnly,
-    DropdownCategory,
+    DropdownCategory
     // DropDown
   },
   asyncData({ params, query }) {
@@ -373,7 +372,7 @@ export default {
       id: query.id
     }
   },
-  data () {
+  data() {
     return {
       callList: [
         {
@@ -401,11 +400,11 @@ export default {
         {
           text: '줌으로',
           value: 'ONLINE'
-        },
+        }
       ],
       d_day: '',
       // recruitTotalCntTxt: '',
-      postingRegisterParams: {        
+      postingRegisterParams: {
         title: '',
         content: '',
         imageLinks: [],
@@ -413,7 +412,7 @@ export default {
         category: {
           code: '',
           id: 0,
-          name: '',
+          name: ''
         },
         closedDt: '',
         // ownerContact: {
@@ -425,18 +424,18 @@ export default {
         // communicationTool: ''
       },
       inputImg: [],
-      files:[],
+      files: [],
       dir: '',
       useDday: false,
-      selectedDate:''
+      selectedDate: ''
     }
   },
   computed: {
-    postingMode () {
+    postingMode() {
       return this.mode
     }
   },
-  mounted () {
+  mounted() {
     if (this.id !== undefined) {
       this.getPost()
     }
@@ -444,17 +443,19 @@ export default {
   methods: {
     getPost() {
       // 수정하기 데이터 세팅
-      this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/${this.id}`)
-      .then(res => {
-        Object.keys(this.postingRegisterParams)
-          .map((key) => {
+      this.$axios
+        .get(`https://whynot-here.o-r.kr/v2/posts/${this.id}`)
+        .then((res) => {
+          Object.keys(this.postingRegisterParams).map((key) => {
             if (res.data[key] !== null) {
               this.postingRegisterParams[key] = res.data[key]
             }
             return key
           })
           // this.recruitTotalCntTxt = this.postingRegisterParams.recruitTotalCnt
-          this.d_day = this.cmn_getDday(this.postingRegisterParams.closedDt).substring(2) * 1
+          this.d_day =
+            this.cmn_getDday(this.postingRegisterParams.closedDt).substring(2) *
+            1
 
           // 카테고리
           let categoryItem = ''
@@ -510,18 +511,18 @@ export default {
             }
             return this.inputImg.push(img)
           })
-      })
+        })
     },
-    setOwnerContact (item) {
+    setOwnerContact(item) {
       this.postingRegisterParams.ownerContact.type = item.value
     },
-    setCommunicationTool (item) {
+    setCommunicationTool(item) {
       this.postingRegisterParams.communicationTool = item.value
     },
-    selectCategory (item) {
+    selectCategory(item) {
       this.postingRegisterParams.category.id = item.id
     },
-    uploadPostingAndPicture () {
+    uploadPostingAndPicture() {
       if (!this.checkRegisterParamsValid()) {
         return false
       }
@@ -529,13 +530,13 @@ export default {
       if (this.files.length > 0) {
         this.files.forEach((file, idx) => {
           const formData = new FormData()
-          formData.append("images", file)
-  
+          formData.append('images', file)
+
           const cur = new Date()
           const year = (cur.getFullYear() + '').substring(2)
-          const month = (cur.getMonth() + 1 + '')
+          const month = cur.getMonth() + 1 + ''
           this.dir = year + '-' + month
-  
+
           this.uploadPicture({ formData, idx, callback: this.uploadPosting })
         })
       } else {
@@ -549,7 +550,7 @@ export default {
 
       // 초기화
       this.postingRegisterParams.imageLinks = []
-      this.inputImg.forEach(img => {
+      this.inputImg.forEach((img) => {
         if (!img.isNew) {
           this.postingRegisterParams.imageLinks.push(img.prev_url)
         }
@@ -558,11 +559,11 @@ export default {
       if (this.files.length > 0) {
         this.files.forEach((file, idx) => {
           const formData = new FormData()
-          formData.append("images", file)
+          formData.append('images', file)
 
           const cur = new Date()
           const year = (cur.getFullYear() + '').substring(2)
-          const month = (cur.getMonth() + 1 + '')
+          const month = cur.getMonth() + 1 + ''
           this.dir = year + '-' + month
 
           this.uploadPicture({ formData, idx, callback: this.editPosting })
@@ -570,72 +571,74 @@ export default {
       } else {
         this.editPosting()
       }
-    },   
-    uploadPicture ({ formData, idx, callback }) {
-      (this.$axios.post(
-        (`https://whynot-here.o-r.kr/images/${this.dir}`),
-        formData,
-        {
+    },
+    uploadPicture({ formData, idx, callback }) {
+      this.$axios
+        .post(`https://whynot-here.o-r.kr/images/${this.dir}`, formData, {
           withCredentials: true,
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: this.$store.state.userInfo.token
           }
-        }
-      )
-      ).then(res => {
-        this.postingRegisterParams.imageLinks.push(res.data.url)
-        if (this.files.length === (idx + 1)) {
-          callback()
-        }
-      }).catch((error) => {
-        window.alert(error)
-        return false
-      })
+        })
+        .then((res) => {
+          this.postingRegisterParams.imageLinks.push(res.data.url)
+          if (this.files.length === idx + 1) {
+            callback()
+          }
+        })
+        .catch((error) => {
+          window.alert(error)
+          return false
+        })
     },
     uploadPosting() {
       // 포스팅 저장 (사진 제외)
-      (this.$axios.post(
-      ('https://whynot-here.o-r.kr/v2/posts'),
-        this.postingRegisterParams,
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
+      this.$axios
+        .post(
+          'https://whynot-here.o-r.kr/v2/posts',
+          this.postingRegisterParams,
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
           }
-        }
-      )
-      ).then(res => {
-        // todo: 상세 페이지로 넘어가기
-        alert('공고 생성 성공')
-        this.$router.push(`/gather/posts/${res.data.id}`)
-      }).catch((error) => {
-        window.alert(error.response.data.message)
-      })
+        )
+        .then((res) => {
+          // todo: 상세 페이지로 넘어가기
+          alert('공고 생성 성공')
+          this.$router.push(`/gather/posts/${res.data.id}`)
+        })
+        .catch((error) => {
+          window.alert(error.response.data.message)
+        })
     },
     editPosting() {
-      (this.$axios.put(
-        (`https://whynot-here.o-r.kr/v2/posts/${this.id}`),
-        this.postingRegisterParams,
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
+      this.$axios
+        .put(
+          `https://whynot-here.o-r.kr/v2/posts/${this.id}`,
+          this.postingRegisterParams,
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
           }
-        }
-      )
-      ).then(res => {
-        // 상세 페이지로 넘어가기
-        alert('공고 수정 성공')
-        this.$router.push(`/gather/posts/${this.id}`)
-      }).catch((error) => {
-        window.alert(error.response.data.message)
-      })
-    }, 
+        )
+        .then((res) => {
+          // 상세 페이지로 넘어가기
+          alert('공고 수정 성공')
+          this.$router.push(`/gather/posts/${this.id}`)
+        })
+        .catch((error) => {
+          window.alert(error.response.data.message)
+        })
+    },
     // 사진 선택
-    onFileChange (event) {
+    onFileChange(event) {
       // if (this.inputImg.length >= 4) {
       //   alert('사진은 최대 4장까지 등록 가능합니다.')
       //   return false
@@ -656,11 +659,11 @@ export default {
       }
     },
     // 사진 선택 취소
-    cancelPhoto (idx) {
+    cancelPhoto(idx) {
       this.inputImg.splice(idx, 1)
       this.files.splice(idx, 1)
     },
-    checkRegisterParamsValid () {
+    checkRegisterParamsValid() {
       if (this.cmn_emptyCheck(this.postingRegisterParams.title)) {
         window.alert('제목을 입력해주세요.')
         return false
@@ -691,10 +694,17 @@ export default {
       // closedDt = closedDt.split('T')[0] + ' ' + closedDt.split('T')[1].substring(0, 5)
       // this.postingRegisterParams.closedDt = closedDt
       // this.postingRegisterParams.recruitTotalCnt = this.recruitTotalCntTxt * 1
-      this.postingRegisterParams.categoryId = this.postingRegisterParams.category.id
+      this.postingRegisterParams.categoryId =
+        this.postingRegisterParams.category.id
       if (this.postingRegisterParams.closedDt) {
         console.log(this.postingRegisterParams.closedDt.toISOString())
-        this.postingRegisterParams.closedDt = this.postingRegisterParams.closedDt.toISOString().split('T')[0] + ' ' + this.postingRegisterParams.closedDt.toISOString().split('T')[1].substring(0, 5)
+        this.postingRegisterParams.closedDt =
+          this.postingRegisterParams.closedDt.toISOString().split('T')[0] +
+          ' ' +
+          this.postingRegisterParams.closedDt
+            .toISOString()
+            .split('T')[1]
+            .substring(0, 5)
       }
       return true
     }
@@ -704,9 +714,10 @@ export default {
 
 <style lang="scss" scoped>
 #PostingPage {
-  width: 100vw; height: 100vh;
+  width: 100vw;
+  height: 100vh;
   overflow: scroll;
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
   #TopBar {
     position: sticky;
     top: 0;
@@ -719,27 +730,30 @@ export default {
       .group {
         &.info {
           padding-bottom: 52px;
-          border-bottom: 1px solid #E7E7E7;
+          border-bottom: 1px solid #e7e7e7;
         }
       }
       .title-group {
         display: flex;
         .title {
-          font-size: 1.38rem; font-weight: 700;
+          font-size: 1.38rem;
+          font-weight: 700;
           flex-grow: 1;
         }
         .close {
           img {
-            width: 32px; height: 32px;
+            width: 32px;
+            height: 32px;
             cursor: pointer;
           }
         }
       }
       .posting-group {
         margin-top: 52px;
-        font-size: 1.25rem; font-weight: 500;
+        font-size: 1.25rem;
+        font-weight: 500;
         strong {
-          color: #E74133;
+          color: #e74133;
         }
       }
       .line {
@@ -747,25 +761,27 @@ export default {
         margin-top: 30px;
         .form-wrp {
           .sub-title {
-            font-size: .88rem; font-weight: 500;
-            color: #7A7A7A;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: #7a7a7a;
           }
           .sub-wrp {
-            height: 46px; line-height: 46px;
+            height: 46px;
+            line-height: 46px;
             margin-top: 12px;
             // padding-left: 12px;
             background-color: #ffffff;
-            border: 1px solid #E7E7E7;
+            border: 1px solid #e7e7e7;
             border-radius: 8px;
           }
 
           .sub-wrp::placeholder {
-            color: #C8C8C8;
+            color: #c8c8c8;
           }
           .d-day-input {
             display: flex;
             div {
-              font-size: .88rem;
+              font-size: 0.88rem;
               padding: 0 13px;
             }
             input {
@@ -783,15 +799,16 @@ export default {
             }
           }
           .content {
-            width: 706px; height: 400px;
+            width: 706px;
+            height: 400px;
             padding: 32px;
             font-size: 1rem;
-            background: #FFFFFF;
-            border: 1px solid #E7E7E7;
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
             border-radius: 8px;
           }
           .content::placeholder {
-            color: #C8C8C8;
+            color: #c8c8c8;
           }
         }
         .category {
@@ -800,7 +817,8 @@ export default {
             width: 100%;
           }
         }
-        .process, .d-day {
+        .process,
+        .d-day {
           flex-grow: 1;
           margin-left: 30px;
           .sub-wrp {
@@ -824,40 +842,48 @@ export default {
               width: 146px;
             }
             .call-input {
-              width: 200px; height: 16px;
-              padding: 0 20px; margin: 16px 0px;
+              width: 200px;
+              height: 16px;
+              padding: 0 20px;
+              margin: 16px 0px;
               border: none;
-              border-left: 1px solid #E7E7E7;
+              border-left: 1px solid #e7e7e7;
             }
             .call-input:focus {
               outline: none;
             }
             .call-input::placeholder {
-              color: #C8C8C8;
+              color: #c8c8c8;
             }
           }
         }
       }
       .add-img {
         display: flex;
-        width: 750px; height: 70px; line-height: 80px;
-        margin: 16px 0 42px 0; padding-left: 24px;
-        font-size: 1rem; font-weight: 500;
-        color: #A3A3A3;
-        background: #FAFAFA;
-        border: 1px solid #E7E7E7;
+        width: 750px;
+        height: 70px;
+        line-height: 80px;
+        margin: 16px 0 42px 0;
+        padding-left: 24px;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #a3a3a3;
+        background: #fafafa;
+        border: 1px solid #e7e7e7;
         border-radius: 8px;
         .camera-img {
           padding: 0 5px 0 0;
           img {
-            width: 26px; height: 22px;
+            width: 26px;
+            height: 22px;
           }
         }
         .reg-btn {
           // z-index: 10;
-          width: max-height; height: 40px;
+          width: max-height;
+          height: 40px;
           margin-top: 18px;
-          color: #A3A3A3;
+          color: #a3a3a3;
           border: none;
           background: none;
           text-decoration: underline;
@@ -867,15 +893,18 @@ export default {
           outline: none;
         }
         .img-grp {
-          width: 600px; overflow-x: scroll;
+          width: 600px;
+          overflow-x: scroll;
           #postingImages {
             display: flex;
             div {
               margin-left: 10px;
               margin-top: 10px;
-              width: 50px; height: 50px;
+              width: 50px;
+              height: 50px;
               .obj {
-                width: 50px; height: 50px;
+                width: 50px;
+                height: 50px;
                 border-radius: 12px;
               }
               .img-btn-grp {
@@ -885,7 +914,8 @@ export default {
                 margin-top: -120px;
                 .del {
                   margin-left: 25px;
-                  width: 20px; height: 20px;
+                  width: 20px;
+                  height: 20px;
                   z-index: 1;
                 }
               }
@@ -895,12 +925,15 @@ export default {
       }
     }
     .upload {
-      width: 146px; height: 47px; line-height: 47px;
+      width: 146px;
+      height: 47px;
+      line-height: 47px;
       margin: 0 auto;
-      font-size: 1rem; font-weight: 500;
-      background: #FFFFFF;
+      font-size: 1rem;
+      font-weight: 500;
+      background: #ffffff;
       // opacity: 0.4;
-      border: 1px solid #E1E2E3;
+      border: 1px solid #e1e2e3;
       border-radius: 8px;
       text-align: center;
       cursor: pointer;
@@ -909,27 +942,31 @@ export default {
 }
 
 #PostingPageMobile {
-  width: 100vw; height: 100vh;
+  width: 100vw;
+  height: 100vh;
   overflow: scroll;
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
   .panel {
     // width: 355px;
     // margin: 0px auto;
     .form {
       .title-group {
         display: flex;
-        height: 56px; line-height: 56px;
+        height: 56px;
+        line-height: 56px;
         padding-top: 10px;
         background-color: #fff;
         .title {
           padding-left: 48px;
-          font-size: 1.13rem; font-weight: 600;
+          font-size: 1.13rem;
+          font-weight: 600;
           flex-grow: 1;
           text-align: center;
         }
         .close {
           img {
-            width: 24px; height: 24px;
+            width: 24px;
+            height: 24px;
             margin: 12px 12px;
             cursor: pointer;
           }
@@ -939,29 +976,33 @@ export default {
         margin: 0 20px;
         &.info {
           padding-bottom: 52px;
-          border-bottom: 1px solid #D9D9D9;
+          border-bottom: 1px solid #d9d9d9;
         }
       }
       .posting-group {
         margin-top: 24px;
-        font-size: 1rem; font-weight: 600;
+        font-size: 1rem;
+        font-weight: 600;
         strong {
-          color: #E74133;
+          color: #e74133;
         }
       }
       .line {
         // display: flex;
         .form-wrp {
           .sub-title {
-            font-size: .75rem; font-weight: 500;
+            font-size: 0.75rem;
+            font-weight: 500;
             color: #454545;
           }
           .sub-wrp {
-            width: 100%; height: 46px; line-height: 46px;
+            width: 100%;
+            height: 46px;
+            line-height: 46px;
             margin-top: 12px;
             // padding-left: 12px;
             background-color: #ffffff;
-            border: 1px solid #E7E7E7;
+            border: 1px solid #e7e7e7;
             border-radius: 8px;
             &.summary {
               width: calc(100% - 32px);
@@ -970,25 +1011,26 @@ export default {
           }
 
           .sub-wrp::placeholder {
-            color: #C8C8C8;
+            color: #c8c8c8;
           }
           .d-day-wrp {
             display: flex;
-            input[type="checkbox" i] {
-                // -webkit-appearance: none;
-                // -moz-appearance: none;
-                background-color: #fff;
-                width: 20px; height: 20px;
-                margin: 25px 12px 0px 0px;
-                border: 1px solid #C8C8C8;
-                // border-radius: 100%;
+            input[type='checkbox' i] {
+              // -webkit-appearance: none;
+              // -moz-appearance: none;
+              background-color: #fff;
+              width: 20px;
+              height: 20px;
+              margin: 25px 12px 0px 0px;
+              border: 1px solid #c8c8c8;
+              // border-radius: 100%;
             }
           }
           .d-day-input {
             display: flex;
             flex-grow: 1;
             div {
-              font-size: .88rem;
+              font-size: 0.88rem;
               padding: 0 13px;
             }
             input {
@@ -1006,16 +1048,17 @@ export default {
             }
           }
           .content {
-            width: calc(100% - 32px); height: 400px;
+            width: calc(100% - 32px);
+            height: 400px;
             margin-top: 12px;
             padding: 16px;
-            font-size: .88rem;
-            background: #FFFFFF;
-            border: 1px solid #E7E7E7;
+            font-size: 1rem;
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
             border-radius: 8px;
           }
           .content::placeholder {
-            color: #C8C8C8;
+            color: #c8c8c8;
           }
         }
         .category {
@@ -1030,24 +1073,29 @@ export default {
       }
       .add-img {
         display: flex;
-        height: 70px; line-height: 80px;
-        margin: 16px 0 42px 0; padding-left: 24px;
-        font-size: 1rem; font-weight: 500;
-        color: #A3A3A3;
-        background: #FAFAFA;
-        border: 1px solid #E7E7E7;
+        height: 70px;
+        line-height: 80px;
+        margin: 16px 0 42px 0;
+        padding-left: 24px;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #a3a3a3;
+        background: #fafafa;
+        border: 1px solid #e7e7e7;
         border-radius: 8px;
         .camera-img {
           padding: 0 5px 0 0;
           img {
-            width: 26px; height: 22px;
+            width: 26px;
+            height: 22px;
           }
         }
         .reg-btn {
           // z-index: 10;
-          width: max-height; height: 40px;
+          width: max-height;
+          height: 40px;
           margin-top: 18px;
-          color: #A3A3A3;
+          color: #a3a3a3;
           border: none;
           background: none;
           text-decoration: underline;
@@ -1057,15 +1105,18 @@ export default {
           outline: none;
         }
         .img-grp {
-          width: 150px; overflow-x: scroll;
+          width: 150px;
+          overflow-x: scroll;
           #postingImages {
             display: flex;
             div {
               margin-left: 10px;
               margin-top: 10px;
-              width: 50px; height: 50px;
+              width: 50px;
+              height: 50px;
               .obj {
-                width: 50px; height: 50px;
+                width: 50px;
+                height: 50px;
                 border-radius: 12px;
               }
               .img-btn-grp {
@@ -1075,7 +1126,8 @@ export default {
                 margin-top: -120px;
                 .del {
                   margin-left: 25px;
-                  width: 20px; height: 20px;
+                  width: 20px;
+                  height: 20px;
                   z-index: 1;
                 }
               }
@@ -1085,13 +1137,16 @@ export default {
       }
     }
     .upload {
-      width: 146px; height: 47px; line-height: 47px;
+      width: 146px;
+      height: 47px;
+      line-height: 47px;
       margin: 0 auto;
       margin-bottom: 40px;
-      font-size: 1rem; font-weight: 500;
-      background: #FFFFFF;
+      font-size: 1rem;
+      font-weight: 500;
+      background: #ffffff;
       // opacity: 0.4;
-      border: 1px solid #E1E2E3;
+      border: 1px solid #e1e2e3;
       border-radius: 8px;
       text-align: center;
       cursor: pointer;
