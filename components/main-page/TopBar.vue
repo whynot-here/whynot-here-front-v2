@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="search"></div>
-        <div class="posting-wrp" @click="checkLogin()">
+        <div class="posting-wrp" @click="checkLogin('')">
           <div
             :class="
               $store.state.userInfo.initLoginDone
@@ -155,7 +155,7 @@ export default {
   created() {
     this.$bus.$off('checkLogin')
     this.$bus.$on('checkLogin', () => {
-      this.checkLogin()
+      this.checkLogin('card')
     })
   },
   mounted() {
@@ -187,11 +187,13 @@ export default {
     moveMyPage() {
       this.$router.push('/mypage')
     },
-    checkLogin() {
+    checkLogin(type) {
       if (!this.$store.state.userInfo.initLoginDone) {
         // this.$emit('setLoginPopupOpen', {})
         this.openLoginPopup()
-      } else {
+      }
+
+      if (this.$store.state.userInfo.initLoginDone && type !== 'card') {
         this.$router.push('/posting?m=write')
       }
     },
