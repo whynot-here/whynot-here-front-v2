@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" id="AboutUs">
+  <div v-if="isFromPc" id="AboutUs">
     <div class="about-us-container">
       <div class="intro-part">
         <div class="title-text">About Project</div>

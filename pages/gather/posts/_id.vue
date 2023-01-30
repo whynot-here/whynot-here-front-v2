@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" id="PostingPage">
+  <div v-if="isFromPc" id="PostingPage">
     <div class="panel-wrp">
       <section class="detail-panel">
         <div class="top">

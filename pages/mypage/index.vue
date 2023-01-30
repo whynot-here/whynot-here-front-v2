@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" id="MyPage">
+  <div v-if="isFromPc" id="MyPage">
     <TopBarOnly class="top-bar-desktop" />
     <section class="mypage-wrp">
       <div class="close">

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" id="TopBar">
+  <div v-if="isFromPc" id="TopBar">
     <div class="topbar" @click.self="toggleAccountPopup">
       <div class="topbar-wrp">
         <!-- <div class="logo-left">

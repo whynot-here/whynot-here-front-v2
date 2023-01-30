@@ -1,6 +1,6 @@
 <template>
   <div id="Card">
-    <div :class="!isMobile ? 'pc-env' : 'mobile-env'">
+    <div :class="isFromPc ? 'pc-env' : 'mobile-env'">
       <div class="sts-i-wrp">
         <div>
           <input v-model="onlyRecruit" type="checkbox" name="color" value="blue">
