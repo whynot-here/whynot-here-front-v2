@@ -208,17 +208,26 @@ const common = {
     },
 
     cmn_logout() {
-      if (window.confirm('로그아웃 하시겠어요?')) {
-        this.$cookies.remove('token')
+      // if (window.confirm('로그아웃 하시겠어요?')) {
+      //   this.$cookies.remove('token')
 
-        this.$store.commit('userInfo/setToken', { token: '' })
-        this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
-        this.$store.commit('userInfo/setDetail', { info: null })
+      //   this.$store.commit('userInfo/setToken', { token: '' })
+      //   this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
+      //   this.$store.commit('userInfo/setDetail', { info: null })
 
-        Cookies.remove('vuex')
-        this.$bus.$emit('refreshCard', {})
-        this.cmn_goMainPage()
-      }
+      //   Cookies.remove('vuex')
+      //   this.$bus.$emit('refreshCard', {})
+      //   this.cmn_goMainPage()
+      // }
+      this.$cookies.remove('token')
+
+      this.$store.commit('userInfo/setToken', { token: '' })
+      this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
+      this.$store.commit('userInfo/setDetail', { info: null })
+
+      Cookies.remove('vuex')
+      this.$bus.$emit('refreshCard', {})
+      this.cmn_goMainPage()
     },
 
     cmn_auto_logout() {
