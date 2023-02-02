@@ -6,9 +6,9 @@
   left: 0;
   margin-top: 6vmin;
   .top {
-    border-bottom: 2px solid #F3F3F3;
+    border-bottom: 2px solid #f3f3f3;
     display: flex;
-    width: calc(100vw - 36px); 
+    width: calc(100vw - 36px);
     height: 8vh;
     padding: 0 18px 5px 18px;
     align-items: center;
@@ -20,24 +20,25 @@
     .logo-wrp {
       flex-grow: 1;
       text-align: center;
-      width: 20vw;
       .title {
-        font-size: .69rem;
+        font-size: 0.69rem;
         font-weight: 500;
         color: #737373;
       }
       .logo-img {
         img {
-          width: 30vmin;
+          width: 100px;
         }
       }
     }
     .profile-wrp {
+      width: 8vmin;
       .profile {
         img {
           width: 8vmin;
           border-radius: 6px;
-          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 8px rgba(0, 52, 138, 0.06);
+          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
+            0px 4px 8px rgba(0, 52, 138, 0.06);
         }
 
         .open-account {
@@ -46,22 +47,25 @@
           width: 146px;
           // height: 100px;
           margin-top: 10px;
-          background: #FFFFFF;
-          border: 1px solid #EFEFEF;
+          background: #ffffff;
+          border: 1px solid #efefef;
           border-radius: 8px;
-          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 8px rgba(0, 52, 138, 0.06);
+          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
+            0px 4px 8px rgba(0, 52, 138, 0.06);
           .sub-menu-wrp {
             position: relative;
-            color: hsl(230,4%,90%);
+            color: hsl(230, 4%, 90%);
             .sub-menu {
-              margin: 8px; padding: 14px 8px;
-              font-size: .88rem; font-weight: 500;
+              margin: 8px;
+              padding: 14px 8px;
+              font-size: 0.88rem;
+              font-weight: 500;
               color: #454545;
             }
             .sub-menu:hover {
-              background: #F3F7FE;
+              background: #f3f7fe;
               border-radius: 6px;
-              color: #005B9A;
+              color: #005b9a;
             }
             .sub-menu::after {
               border-color: #ffffff transparent;
@@ -75,7 +79,7 @@
               width: 0;
               z-index: 1;
             }
-            
+
             .sub-menu::before {
               border-color: #eef3fd transparent;
               border-style: solid;
@@ -95,22 +99,26 @@
   }
   .bottom {
     height: 7vh;
-    background-color: #FAFAFA;
+    background-color: #fafafa;
     .category-wrp {
-      display: flex; line-height: 62px;
+      display: flex;
+      line-height: 62px;
       div:first-child {
         margin-left: 24px;
-        font-size: .88rem; font-weight: 500;
-        color: #4D4D4D;
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: #4d4d4d;
       }
       div:nth-child(2) {
         img {
-          width: 8px; height: 12px;
+          width: 8px;
+          height: 12px;
           margin: 0 20px;
         }
       }
       div:nth-child(3) {
-        font-size: .88rem; font-weight: 600;
+        font-size: 0.88rem;
+        font-weight: 600;
       }
     }
   }
@@ -122,32 +130,37 @@
       right: 15vw !important;
     }
   }
-  
-  width: calc(100vw - 270px); height: 80px;
-  background: #FAFAFA;
+
+  width: calc(100vw - 270px);
+  height: 80px;
+  background: #fafafa;
   // box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 22px rgba(0, 0, 0, 0.06);
   // margin: 0 auto;
   .topbar {
-    background-color: #FAFAFA;
+    background-color: #fafafa;
     .topbar-wrp {
       display: flex;
       width: 1064px;
       margin: 0 auto;
       .category-wrp {
         display: flex;
-        height: 80px; line-height: 80px;
+        height: 80px;
+        line-height: 80px;
         div:first-child {
-          font-size: 1.38rem; font-weight: 500;
-          color: #4D4D4D;
+          font-size: 1.38rem;
+          font-weight: 500;
+          color: #4d4d4d;
         }
         div:nth-child(2) {
           img {
-            width: 8px; height: 12px;
+            width: 8px;
+            height: 12px;
             margin: 0 20px;
           }
         }
         div:nth-child(3) {
-          font-size: 1.5rem; font-weight: 600;
+          font-size: 1.5rem;
+          font-weight: 600;
         }
       }
       .search {
@@ -156,41 +169,50 @@
       .posting-wrp {
         position: relative;
         .posting-btn {
-          margin-top: 31px; margin-right: 24px;
-          font-size: .94rem; font-weight: 700;
+          margin-top: 31px;
+          margin-right: 24px;
+          font-size: 0.94rem;
+          font-weight: 700;
           cursor: pointer;
           &.not-login {
-            color: #484848; opacity: 0.3;
+            color: #484848;
+            opacity: 0.3;
           }
         }
         .login-notice {
           position: absolute;
           img {
-            width: 199px; height: 46px;
-            margin-top: 10px; margin-left: -70px;
+            width: 199px;
+            height: 46px;
+            margin-top: 10px;
+            margin-left: -70px;
           }
         }
       }
       .login {
         height: 18px;
         padding-left: 24px;
-        margin-top: 31px; margin-right: 32px;
-        font-size: .94rem; font-weight: 700;
-        color: #391B1B;
-        border-left: 1px solid #D9D9D9;
+        margin-top: 31px;
+        margin-right: 32px;
+        font-size: 0.94rem;
+        font-weight: 700;
+        color: #391b1b;
+        border-left: 1px solid #d9d9d9;
         cursor: pointer;
       }
       .logined {
-        padding-top: 31px; margin-right: 32px;
-        font-size: .94rem; font-weight: 700;
-        color: #391B1B;
+        padding-top: 31px;
+        margin-right: 32px;
+        font-size: 0.94rem;
+        font-weight: 700;
+        color: #391b1b;
       }
       .profile {
         padding-top: 24px;
         img {
           width: 32px;
           height: 32px;
-          border: 1px solid #D9D9D9;
+          border: 1px solid #d9d9d9;
           border-radius: 8px;
           cursor: pointer;
         }
@@ -200,22 +222,25 @@
           width: 146px;
           // height: 100px;
           margin-top: 10px;
-          background: #FFFFFF;
-          border: 1px solid #EFEFEF;
+          background: #ffffff;
+          border: 1px solid #efefef;
           border-radius: 8px;
-          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 8px rgba(0, 52, 138, 0.06);
+          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
+            0px 4px 8px rgba(0, 52, 138, 0.06);
           .sub-menu-wrp {
             position: relative;
-            color: hsl(230,4%,90%);
+            color: hsl(230, 4%, 90%);
             .sub-menu {
-              margin: 8px; padding: 14px 8px;
-              font-size: .88rem; font-weight: 500;
+              margin: 8px;
+              padding: 14px 8px;
+              font-size: 0.88rem;
+              font-weight: 500;
               color: #454545;
             }
             .sub-menu:hover {
-              background: #F3F7FE;
+              background: #f3f7fe;
               border-radius: 6px;
-              color: #005B9A;
+              color: #005b9a;
             }
             .sub-menu::after {
               border-color: #ffffff transparent;
@@ -229,7 +254,7 @@
               width: 0;
               z-index: 1;
             }
-            
+
             .sub-menu::before {
               border-color: #eef3fd transparent;
               border-style: solid;
