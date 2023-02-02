@@ -34,3 +34,15 @@ $screen: 1781px;
     @content;
   }
 }
+
+@mixin lands-phone {
+  @media screen and (min-width: 667px) and (max-height: $mobile) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin lands-pad {
+  @media screen and (min-width: $tablet) and (min-height: $mobile) and (orientation: landscape) {
+    @content;
+  }
+}
