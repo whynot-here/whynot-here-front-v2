@@ -6,27 +6,58 @@
           class="close-btn"
           @click="$emit('closePopup')"
         >
-          <img src="@/assets/img/login/close-btn.png" alt="">
+          <img src="@/assets/img/common/close-btn.png" alt="">
         </div>
       </section>
       <section class="popup-middle">
         <div class="top">
-          <div>사람이 모이는 공간</div>
           <div>
             <img src="@/assets/img/common/whynot-here-logo.png" alt="">
           </div>
+          <div>
+            한동대학교 모임의 시작!
+          </div>
+          <div>
+            원활한 서비스 이용을 위해 로그인을 해주세요.
+          </div>
         </div>
         <div class="middle">
-          시작하기
+          <div class="form-title">
+            이메일 주소
+          </div>
+          <div>
+            <input class="form-content" type="text" placeholder="ex) whynot@gmail.com">
+          </div>
+          <div class="form-title">
+            비밀번호
+          </div>
+          <div>
+            <input class="form-content" type="password" placeholder="비밀번호를 입력해주세요.">
+          </div>
+          <div class="login-btn-wrp">
+            <div class="login-btn">
+              <div>
+                <img src="@/assets/img/login/login-icon.png" alt="">
+              </div>
+              <div>
+                일반 로그인
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="social-login-btn">
-          <img src="@/assets/img/login/google-login-btn.png" alt="" @click="googleLogin()">
-        </div>
-        <div class="social-login-btn">
-          <img src="@/assets/img/login/kakao-login-btn.png" alt="" @click="kakaoLogin()">
-        </div>
-        <div class="social-login-btn">
-          <img src="@/assets/img/login/naver-login-btn.png" alt="" @click="naverLogin()">
+        <div class="social-login">
+          <div class="social-login-btn">
+            <img src="@/assets/img/login/apple-login-btn.png" alt="" @click="googleLogin()">
+          </div>
+          <div class="social-login-btn">
+            <img src="@/assets/img/login/google-login-btn.png" alt="" @click="googleLogin()">
+          </div>
+          <div class="social-login-btn">
+            <img src="@/assets/img/login/kakao-login-btn.png" alt="" @click="kakaoLogin()">
+          </div>
+          <div class="social-login-btn">
+            <img src="@/assets/img/login/naver-login-btn.png" alt="" @click="naverLogin()">
+          </div>
         </div>
       </section>
       <section class="popup-bottom">
