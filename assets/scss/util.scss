@@ -18,7 +18,7 @@ $screen: 1781px;
 }
 
 @mixin tablet {
-  @media (min-width: $min-tablet) and (max-width: $tablet) {
+  @media (min-width: $min-tablet) and (max-width: $tablet) and (min-height: 600px) {
     @content;
   }
 }
@@ -41,7 +41,7 @@ $screen: 1781px;
   }
 }
 
-@mixin lands-pad {
+@mixin lands-tablet {
   @media screen and (min-width: $tablet) and (min-height: $mobile) and (orientation: landscape) {
     @content;
   }
