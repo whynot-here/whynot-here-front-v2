@@ -22,25 +22,28 @@
           </div>
         </div>
         <div class="middle">
-          <div class="form-title">
-            이메일 주소
+          <div v-if="isIdPwLoginMode">
+            <div class="form-title">
+              이메일 주소
+            </div>
+            <div>
+              <input class="form-content" type="text" placeholder="ex) whynot@gmail.com">
+            </div>
+            <div class="form-title">
+              비밀번호
+            </div>
+            <div>
+              <input class="form-content" type="password" placeholder="비밀번호를 입력해주세요.">
+            </div>
           </div>
-          <div>
-            <input class="form-content" type="text" placeholder="ex) whynot@gmail.com">
-          </div>
-          <div class="form-title">
-            비밀번호
-          </div>
-          <div>
-            <input class="form-content" type="password" placeholder="비밀번호를 입력해주세요.">
-          </div>
-          <div class="login-btn-wrp">
+          <div v-else style="height: 160px;"></div>
+          <div class="login-btn-wrp" @click="idPwLogin()">
             <div class="login-btn">
-              <div>
+              <div v-if="!isIdPwLoginMode" class="login-icon">
                 <img src="@/assets/img/login/login-icon.png" alt="">
               </div>
               <div>
-                일반 로그인
+                {{ isIdPwLoginMode ? '로그인' : '일반 로그인' }}
               </div>
             </div>
           </div>
@@ -73,6 +76,7 @@ export default {
   name: 'LoginPopup',
   data () {
     return {
+      isIdPwLoginMode: false
     }
   },
   methods: {
@@ -84,6 +88,14 @@ export default {
     },
     naverLogin () {
       location.href = `https://whynot-here.o-r.kr/auth/login/naver?redirect_uri=${process.env.frontUrl}`
+    },
+    idPwLogin () {
+      if (this.isIdPwLoginMode) {
+        // 일반 로그인
+        console.log('일반 로그인')
+      } else {
+        this.isIdPwLoginMode = true
+      }
     }
   }
 }
