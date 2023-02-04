@@ -138,16 +138,24 @@
               <div class="title">
                 {{ postComp.title }}
               </div>
-              <div class="tags">
-                <div class="tag d-day">마감 {{ postComp.dDay }}</div>
-                <div class="tag communication-tool">
-                  {{ postComp.communicationToolText }}
-                </div>
-                <div class="tag recruit-people-cnt">
-                  <strong>{{ postComp.recruitCurrentCnt }}</strong> /
-                  {{ postComp.recruitTotalCnt }}
+              <div class="tags-wrp">
+                <div class="tags">
+                  <div class="tag d-day">마감 {{ postComp.dDay }}</div>
+                  <div class="tag communication-tool">
+                    {{ postComp.communicationToolText }}
+                  </div>
+                  <div class="tag recruit-people-cnt">
+                    <strong>{{ postComp.recruitCurrentCnt }}</strong> /
+                    {{ postComp.recruitTotalCnt }}
+                  </div>
                 </div>
                 
+                <div class="m-detail-content-footer">
+                  <img class="views-icon" src="@/assets/img/common/views.png" />
+                  <div class="views-text">
+                    {{ post.views === null ? 0 : post.views }}
+                  </div>
+                </div>
               </div>
             </div>
             <div class="m-detail-content-body">
@@ -160,13 +168,6 @@
                 <div v-for="(postImg, idx) in postComp.imageLinks" :key="idx">
                   <img :src="postImg.link" class="m-postImg" />
                 </div>
-              </div>
-            </div>
-
-            <div class="m-detail-content-footer">
-              <img class="views-icon" src="@/assets/img/common/views.png" />
-              <div class="views-text">
-                {{ post.views === null ? 0 : post.views }}
               </div>
             </div>
           </div>

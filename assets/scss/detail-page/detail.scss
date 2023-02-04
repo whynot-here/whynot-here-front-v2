@@ -276,6 +276,10 @@
             font-size: 0.79rem;
             grid-area: writer;
             align-self: flex-end;
+
+            @include tablet {
+              font-size: 18px;
+            }
           }
 
           .title {
@@ -285,31 +289,52 @@
             font-size: 1.14rem;
             grid-area: title;
             padding: 10px 0px;
-          }
 
-          .tags {
-            grid-area: tags;
-            display: flex;
-            align-self: flex-end;
-            flex-wrap: wrap;
-            font-size: 0.79rem;
-            font-style: normal;
-            display: flex;
-            align-items: center;
-            gap: 0em 1em;
-            .tag {
-              padding: 0.1em 0.6em;
-              background-color: #f3f3f3;
-              border-radius: 16px;
-              text-align: center;
-
-              &.d-day {
-                color: #3e82f1;
-                font-weight: 600;
-              }
+            @include tablet {
+              font-size: 24px;
+              padding: 18px 0px;
             }
-            
           }
+
+          .tags-wrp {
+            display: flex;
+            justify-content: space-between;
+
+            .tags {
+              grid-area: tags;
+              display: flex;
+              align-self: flex-end;
+              flex-wrap: wrap;
+              font-size: 0.79rem;
+              font-style: normal;
+              display: flex;
+              align-items: center;
+              gap: 0em 1em;
+  
+              @include tablet {
+                font-size: 17px;
+                gap: 0px 16px;
+              }
+  
+              .tag {
+                padding: 0.1em 0.6em;
+                background-color: #f3f3f3;
+                border-radius: 16px;
+                text-align: center;
+  
+                @include tablet {
+                  padding: 8px 14px;
+                }
+  
+                &.d-day {
+                  color: #3e82f1;
+                  font-weight: 600;
+                }
+              }
+              
+            }
+          }
+          
         }
 
         .m-detail-content-body {
@@ -319,6 +344,10 @@
           font-size: 1rem;
           color: #454545;
           // margin: 1vh 2vmax;
+
+          @include tablet {
+            font-size: 20px;
+          }
 
           .m-content-text {
             font-weight: 400;
@@ -350,11 +379,25 @@
           font-size: 0.6em;
           font-weight: 500;
           color: #a1a2a3;
+
+          @include tablet {
+            font-size: 22px;
+            height: 33px;
+            line-height: 33px;
+          }
+
           .views-icon {
             width: 16px;
             height: 16px;
             margin-top: 5px;
             margin-right: 8px;
+
+            @include tablet {
+              width: 24px;
+              height: 24px;
+              margin-top: 6px;
+              margin-right: 12px;
+            }
           }
         }
       }
@@ -414,7 +457,7 @@
         cursor: pointer;
 
         @include tablet {
-          font-size: 25px;
+          font-size: 23px;
         }
 
         .m-img-wrp {
