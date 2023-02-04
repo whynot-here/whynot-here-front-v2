@@ -37,10 +37,23 @@
         font-size: .69rem;
         font-weight: 500;
         color: #737373;
+
+        @include tablet {
+          font-size: 17px;
+        }
+        @include lands-tablet {
+          font-size: 17px;
+        }
       }
       .logo-img {
         img {
           width: 30vmin;
+        }
+
+        @include lands-tablet {
+          img {
+            width: 25vmin;
+          }
         }
       }
     }
