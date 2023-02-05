@@ -49,10 +49,10 @@
           </div>
         </div>
         <div class="social-login">
-          <div class="social-login-btn">
-            <img src="@/assets/img/login/apple-login-btn.png" alt="" @click="googleLogin()">
+          <div v-if="isMobile" class="social-login-btn">
+            <img src="@/assets/img/login/apple-login-btn.png" alt="" @click="appleLogin()">
           </div>
-          <div class="social-login-btn">
+          <div v-if="isFromPc" class="social-login-btn">
             <img src="@/assets/img/login/google-login-btn.png" alt="" @click="googleLogin()">
           </div>
           <div class="social-login-btn">
@@ -80,6 +80,9 @@ export default {
     }
   },
   methods: {
+    appleLogin () {
+      location.href = `https://whynot-here.o-r.kr/auth/login/apple?redirect_uri=${process.env.frontUrl}`
+    },
     googleLogin () {
       location.href = `https://whynot-here.o-r.kr/auth/login/google?redirect_uri=${process.env.frontUrl}`
     },
