@@ -289,6 +289,10 @@
       input[type="checkbox" i] {
         width: 16px; height: 16px;
         background-color: #005B9A;
+
+        @include tablet {
+          width: 24px; height: 24px;
+        }
       }
       div:first-child {
         flex-grow: 1;
@@ -298,6 +302,11 @@
         width: max-content; height: 22px; line-height: 22px;
         font-size: .75rem; font-weight: 500;
         padding-left: 8px;
+
+        @include tablet {
+          height: 33px; line-height: 33px;
+          font-size: 16px;
+        }
       }
     }
 
@@ -305,6 +314,12 @@
       width: 319px; height: 110px;
       margin: 0 auto 12px auto;
       padding: 16px;
+
+      @include tablet {
+        width: 600px; height: 160px;
+        margin: 0 auto 20px auto;
+      }
+
       background: #FFFFFF;
       box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
       // border: 2px solid #FFFFFF;
@@ -318,18 +333,37 @@
             height: 22px; line-height: 22px;
             font-size: .69rem; font-weight: 500;
             color: #A3A3A3;
+
+            @include tablet {
+              height: 33px; line-height: 33px;
+              font-size: 15px;
+            }
           }
           .card-title {
             width: 290px;
             margin-top: 3px;
             margin-bottom: 6px;
             font-size: 1rem; font-weight: 700;
+
+            @include tablet {
+              width: 435px;
+              margin-top: 4.5px;
+              margin-bottom: 9px;
+              font-size: 22px;
+            }
           }
         }
         .book-mark {
           width: 16px; height: 22px;
           img {
             width: 16px; height: 22px;
+          }
+
+          @include tablet {
+            width: 22px; height: 30px;
+            img {
+              width: 22px; height: 30px;
+            }
           }
         }
         .sub-menu-btn {
@@ -368,6 +402,11 @@
         .content {
           height: 20px;
           font-size: .75rem;
+
+          @include tablet {
+            height: 30px;
+            font-size: 17px;
+          }
         }
       }
       .card-bottom {
@@ -375,6 +414,10 @@
         flex-wrap: wrap;
         gap: 0px 12px;
         margin-top: 6px;
+        @include tablet {
+          gap: 0px 18px;
+          margin-top: 9px;
+        }
         .item {
           line-height: 14px;
           padding: 6px 10px;
@@ -382,6 +425,12 @@
           border-radius: 16px;
           font-size: .69rem; 
           text-align: center;
+
+          @include tablet {
+            line-height: 21px;
+            padding: 8px 14px;
+            font-size: 15px;
+          }
         }
         .comp {
           opacity: 0.5;
@@ -425,12 +474,28 @@
             margin-top: 5px;
             margin-right: 8px;
           }
+
+          @include tablet {
+            line-height: 39px;
+            font-size: 16px;
+
+            img {
+              width: 20px; height: 20px;
+              margin-top: 9px;
+              margin-right: 12px;
+            }
+          }
         }
       }
     }
     .comp-card {
       z-index: 10;
       width: 319px; height: 110px;
+
+      @include tablet {
+        width: 600px; height: 165px;
+      }
+
       background-color: rgba(24, 24, 24, 0.7);
       color: #FFFFFF;
       padding: 16px;

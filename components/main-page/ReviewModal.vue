@@ -1,5 +1,5 @@
 <template>
-  <section v-if="!isMobile" class="review-modal">
+  <section v-if="isFromPc" class="review-modal">
       <div class="review-wrp">
         <div class="close-review">
           <div></div>

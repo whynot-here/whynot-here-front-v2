@@ -144,6 +144,12 @@ const common = {
   computed: {
     isMobile() {
       return this.$ua.isFromSmartphone()
+    },
+    isTablet() {
+      return this.$ua.isFromTablet()
+    },
+    isFromPc() {
+      return !(this.isMobile || this.isTablet)
     }
   },
   methods: {

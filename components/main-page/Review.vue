@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" id="ReviewComponent">
+  <div v-if="isFromPc" id="ReviewComponent">
     <section class="notice">
       why not here는 어떠셨나요?<strong @click="openReviewModal = true">후기작성</strong>
     </section>

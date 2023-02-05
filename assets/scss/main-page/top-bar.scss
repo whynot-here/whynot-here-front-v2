@@ -13,22 +13,56 @@
     padding: 0 18px 5px 18px;
     align-items: center;
     .category-toggle {
+      width: 8%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       img {
         width: 4vmin;
+      }
+
+      @include tablet {
+        img {
+          width: 25px;
+        }
+      }
+
+      @include lands-tablet {
+        img {
+          width: 25px;
+        }
       }
     }
     .logo-wrp {
       flex-grow: 1;
       text-align: center;
-      width: 20vw;
+      width: 15vw;
+
       .title {
         font-size: .69rem;
         font-weight: 500;
         color: #737373;
+
+        @include tablet {
+          font-size: 17px;
+        }
+        @include lands-tablet {
+          font-size: 17px;
+        }
       }
       .logo-img {
         img {
-          width: 30vmin;
+          width: 35vmin;
+
+          @include tablet {
+            width: 30vmin;
+          }
+  
+          @include lands-tablet {
+            width: 25vmin;
+          }
         }
       }
     }
@@ -38,6 +72,18 @@
           width: 8vmin;
           border-radius: 6px;
           box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 8px rgba(0, 52, 138, 0.06);
+        }
+
+        @include tablet {
+          img {
+            width: 42px;
+          }
+        }
+
+        @include lands-tablet {
+          img {
+            width: 42px;
+          }
         }
 
         .open-account {
@@ -94,10 +140,18 @@
     }
   }
   .bottom {
-    height: 7vh;
+    height: 6vh;
     background-color: #FAFAFA;
+    display: flex;
+    align-items: center;
+
     .category-wrp {
       display: flex; line-height: 62px;
+
+      @include lands-mobile {
+        line-height: 32px;
+      }
+
       div:first-child {
         margin-left: 24px;
         font-size: .88rem; font-weight: 500;
@@ -111,6 +165,22 @@
       }
       div:nth-child(3) {
         font-size: .88rem; font-weight: 600;
+      }
+
+      @include tablet {
+        div:first-child {
+          font-size: 18px; font-weight: 500;
+          color: #4D4D4D;
+        }
+        div:nth-child(2) {
+          img {
+            width: 10px; height: 12px;
+            margin: 0 20px;
+          }
+        }
+        div:nth-child(3) {
+          font-size: 18px; font-weight: 600;
+        }
       }
     }
   }

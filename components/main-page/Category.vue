@@ -1,14 +1,14 @@
 <template>
-  <div :class="isMobile ? `category-wrp-m ${isOpenCategoryPanel}` : 'category-wrp'">
-    <div v-show="(!isMobile || isOpenCategoryPanel)" id="Category">
+  <div :class="!isFromPc ? `category-wrp-m ${isOpenCategoryPanel}` : 'category-wrp'">
+    <div v-show="(isFromPc || isOpenCategoryPanel)" id="Category">
       <section class="logo">
-        <div v-if="(!isMobile)" class="logo-desc">
+        <div v-if="(isFromPc)" class="logo-desc">
           사람이 모이는 공간
         </div>
-        <div v-if="isMobile" class="category-close">
+        <div v-if="!isFromPc" class="category-close">
           <img src="@/assets/img/common/close-review.png" alt="" @click.self="toggleCategoryPanel">
         </div>
-        <div class="logo-img" @click="!isMobile ? mainPage() : ''">
+        <div class="logo-img" @click="isFromPc ? mainPage() : ''">
           <img src="@/assets/img/common/whynot-here-logo.png" alt="">
         </div>
       </section>

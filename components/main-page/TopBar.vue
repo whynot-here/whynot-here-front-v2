@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" id="TopBar">
+  <div v-if="isFromPc" id="TopBar">
     <div class="topbar" @click.self="toggleAccountPopup">
       <div class="topbar-wrp">
         <!-- <div class="logo-left">
@@ -71,7 +71,7 @@
   </div>
   <div v-else id="TopBarM">
     <div class="top">
-      <div class="category-toggle" @click="toggleCategoryPanel">
+      <div class="category-toggle" @click.prevent="toggleCategoryPanel">
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
       <div class="logo-wrp">
