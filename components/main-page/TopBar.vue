@@ -71,7 +71,7 @@
   </div>
   <div v-else id="TopBarM">
     <div class="top">
-      <div class="category-toggle" @click="toggleCategoryPanel">
+      <div class="category-toggle" @click.prevent="toggleCategoryPanel">
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
       <div class="logo-wrp">

@@ -35,7 +35,7 @@ $screen: 1781px;
   }
 }
 
-@mixin lands-phone {
+@mixin lands-mobile {
   @media screen and (min-width: 667px) and (max-height: $mobile) and (orientation: landscape) {
     @content;
   }

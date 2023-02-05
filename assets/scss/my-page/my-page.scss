@@ -161,6 +161,10 @@
         @include lands-tablet {
           width: 120px;
         }
+
+        @include lands-mobile {
+          width: 80px;
+        }
       }
 
       .m-sub-title {
@@ -190,6 +194,10 @@
           "left content right" 1fr / 1fr 4fr 1fr;
         align-items: center;
         padding-left: 20px;
+
+        @include lands-mobile {
+          height: 10vh;
+        }
 
         .m-nickname-left {
           grid-area: left;
@@ -227,6 +235,10 @@
         height: 5vh;
         display: flex;
         align-items: center;
+
+        @include lands-mobile {
+          height: 10vh;
+        }
 
         input {
           width: 100%;

@@ -386,6 +386,10 @@
             line-height: 33px;
           }
 
+          @include lands-tablet {
+            font-size: 18px;
+          }
+
           .views-icon {
             width: 16px;
             height: 16px;
@@ -432,7 +436,7 @@
       border-radius: 20px 20px 0px 0px;
       padding: 0 16px;
 
-      @include lands-phone {
+      @include lands-mobile {
         display: none;
       }
 

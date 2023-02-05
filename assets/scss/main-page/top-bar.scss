@@ -13,6 +13,12 @@
     padding: 0 18px 5px 18px;
     align-items: center;
     .category-toggle {
+      width: 8%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       img {
         width: 4vmin;
       }
@@ -32,7 +38,8 @@
     .logo-wrp {
       flex-grow: 1;
       text-align: center;
-      width: 20vw;
+      width: 15vw;
+
       .title {
         font-size: .69rem;
         font-weight: 500;
@@ -47,11 +54,13 @@
       }
       .logo-img {
         img {
-          width: 30vmin;
-        }
+          width: 35vmin;
 
-        @include lands-tablet {
-          img {
+          @include tablet {
+            width: 30vmin;
+          }
+  
+          @include lands-tablet {
             width: 25vmin;
           }
         }
@@ -133,11 +142,13 @@
   .bottom {
     height: 6vh;
     background-color: #FAFAFA;
+    display: flex;
+    align-items: center;
+
     .category-wrp {
       display: flex; line-height: 62px;
-      
 
-      @include lands-phone {
+      @include lands-mobile {
         line-height: 32px;
       }
 
