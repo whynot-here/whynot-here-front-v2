@@ -16,7 +16,7 @@ export default {
   head: {
     title: 'whynot-here',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
@@ -37,15 +37,13 @@ export default {
         hid: 'og:image',
         property: 'og:image',
         content: '/og-img.jpeg'
-      },
+      }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    '@/assets/css/common.css'
-  ],
+  css: ['@/assets/css/common.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -54,7 +52,7 @@ export default {
     '~/plugins/vue-cookies.js',
     '~/plugins/vue-gtag',
     {
-      src: '~plugins/persistedState.js',
+      src: '~plugins/persistedState.js'
     },
     { src: '~/plugins/v-calendar.js', mode: 'client' }
   ],
@@ -69,17 +67,13 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    '@nuxtjs/axios',
-    'bootstrap-vue/nuxt',
-    'nuxt-user-agent'
-  ],
+  modules: ['@nuxtjs/axios', 'bootstrap-vue/nuxt', 'nuxt-user-agent'],
 
   bootstrapVue: {
     bootstrapCss: false,
     bootstrapVueCSS: false
   },
-  
+
   router: {
     middleware: 'auth'
   },
@@ -89,5 +83,9 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    babel: {
+      compact: true
+    }
+  }
 }

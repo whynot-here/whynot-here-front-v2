@@ -16,7 +16,7 @@ RUN yarn cache clean
 
 # ssr로 배포하는 경우 => yarn build 
 # static으로 배포하는 경우 => yarn generate 
-RUN yarn install
+RUN yarn --network-timeout 1000000
 
 RUN yarn build
 
