@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" id="PostingPage">
+  <div v-if="isFromPc" id="PostingPage">
     <div class="panel-wrp">
       <section class="detail-panel">
         <div class="top">
@@ -138,34 +138,23 @@
               <div class="title">
                 {{ postComp.title }}
               </div>
-              <div class="tags">
-                <div class="tag d-day">마감 {{ postComp.dDay }}</div>
-                <div class="tag communication-tool">
-                  {{ postComp.communicationToolText }}
+              <div class="tags-wrp">
+                <div class="tags">
+                  <div class="tag d-day">마감 {{ postComp.dDay }}</div>
+                  <div class="tag communication-tool">
+                    {{ postComp.communicationToolText }}
+                  </div>
+                  <div class="tag recruit-people-cnt">
+                    <strong>{{ postComp.recruitCurrentCnt }}</strong> /
+                    {{ postComp.recruitTotalCnt }}
+                  </div>
                 </div>
-                <div class="tag recruit-people-cnt">
-                  <strong>{{ postComp.recruitCurrentCnt }}</strong> /
-                  {{ postComp.recruitTotalCnt }}
-                </div>
-                <div class="sub-menu">
-                  <img
-                    v-if="isBookmarked"
-                    src="@/assets/img/posting/bookmark-detail-selected.png"
-                    @click.prevent="bookmark()"
-                  />
-                  <img
-                    v-else
-                    src="@/assets/img/posting/bookmark-detail.png"
-                    @click.prevent="bookmark()"
-                  />
-                </div>
-
-                <div>
-                  <img
-                    src="@/assets/img/posting/copy-detail.png"
-                    alt=""
-                    @click="copyUrl()"
-                  />
+                
+                <div class="m-detail-content-footer">
+                  <img class="views-icon" src="@/assets/img/common/views.png" />
+                  <div class="views-text">
+                    {{ post.views === null ? 0 : post.views }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -179,13 +168,6 @@
                 <div v-for="(postImg, idx) in postComp.imageLinks" :key="idx">
                   <img :src="postImg.link" class="m-postImg" />
                 </div>
-              </div>
-            </div>
-
-            <div class="m-detail-content-footer">
-              <img class="views-icon" src="@/assets/img/common/views.png" />
-              <div class="views-text">
-                {{ post.views === null ? 0 : post.views }}
               </div>
             </div>
           </div>
@@ -284,23 +266,45 @@
           >
             <img
               class="comment-img"
-              src="@/assets/img/posting/comment.png"
+              src="@/assets/img/posting/comment-black.png"
               alt=""
             />
-            댓글창
+            <span>댓글</span>
+            <strong>{{ comments.length }}</strong>
           </div>
           <div v-else class="m-img-wrp" @click="renderComponent('DetailView')">
             <img
               class="detail-img"
-              src="@/assets/img/posting/posting.png"
+              src="@/assets/img/posting/posting-black.png"
               alt=""
             />
-            본문
+            <span>본문</span>
           </div>
+          
         </div>
-        <div class="m-contact" @click="copyContactInfo()">
+        <div class="sub-menu">
+          <img
+            v-if="isBookmarked"
+            src="@/assets/img/posting/bookmark-detail-selected.png"
+            @click.prevent="bookmark()"
+          />
+          <img
+            v-else
+            src="@/assets/img/posting/bookmark-detail.png"
+            @click.prevent="bookmark()"
+          />
+        </div>
+
+        <div>
+          <img
+            src="@/assets/img/posting/copy-detail.png"
+            alt=""
+            @click="copyUrl()"
+          />
+        </div>
+        <!-- <div class="m-contact" @click="copyContactInfo()">
           <div>{{ postComp.contactText }} 연락</div>
-        </div>
+        </div> -->
       </div>
     </main>
   </div>
@@ -534,560 +538,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#PostingPage {
-  background-color: #f3f3f3;
-  height: calc(100vh - 80px - 44px);
-  overflow: scroll;
-  .panel-wrp {
-    display: flex;
-    width: 1070px;
-    margin: 40px auto;
-    .detail-panel {
-      width: 582px;
-      height: max-content;
-      padding: 24px;
-      background: #ffffff;
-      border: 1px solid #e7e7e7;
-      box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
-        0px 8px 16px rgba(0, 52, 138, 0.08);
-      border-radius: 12px;
-      .top {
-        display: flex;
-        .d-day {
-          width: max-content;
-          height: 30px;
-          line-height: 30px;
-          padding: 0 14px;
-          font-size: 0.88rem;
-          font-weight: 600;
-          color: #3e82f1;
-          text-align: center;
-          background: #ffffff;
-          border: 1px solid #3e82f1;
-          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
-            0px 4px 8px rgba(0, 52, 138, 0.06);
-          border-radius: 24px;
-        }
-        .img-wrp {
-          margin-left: 16px;
-          img {
-            width: 36px;
-            height: 36px;
-            cursor: pointer;
-          }
-        }
-        div:nth-child(2) {
-          flex-grow: 1;
-          text-align: right;
-        }
-      }
-      .title {
-        margin-top: 16px;
-        font-size: 1.38rem;
-        font-weight: 600;
-      }
-      .info {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0px 12px;
-        height: 54px;
-        margin-top: 42px;
-        .left {
-          height: 30px;
-          line-height: 30px;
-          padding: 0 14px;
-          font-size: 0.88rem;
-          font-weight: 500;
-          color: #484848;
-          background: #f5f5f5;
-          border-radius: 16px;
-          strong {
-            font-weight: 500;
-            color: #181818;
-          }
-        }
-        .gap {
-          flex-grow: 1;
-        }
-        .right {
-          display: flex;
-          line-height: 18px;
-          font-size: 0.75rem;
-          font-weight: 500;
-          color: #a1a2a3;
-          img {
-            width: 16px;
-            height: 16px;
-            margin-right: 8px;
-          }
-        }
-      }
-      .content {
-        border-top: 1px solid #e7e7e7;
-        padding: 24px 8px;
-        font-size: 0.88rem;
-        color: #484848;
-      }
-
-      .content-img {
-        margin: 1vh 2vmax;
-        width: 70%;
-        display: grid;
-        row-gap: 1vh;
-
-        .postImg {
-          width: 100%;
-        }
-      }
-    }
-    .comment-panel {
-      width: 410px;
-      min-height: 250px;
-      padding: 24px;
-      margin-left: 30px;
-      background: #ffffff;
-      border: 1px solid #e7e7e7;
-      box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
-        0px 8px 16px rgba(0, 52, 138, 0.08);
-      border-radius: 12px;
-      .top {
-        display: flex;
-        div:first-child {
-          margin-right: 12px;
-          img {
-            width: 32px;
-            height: 32px;
-            margin-top: 7px;
-            border-radius: 30px;
-          }
-        }
-        div:nth-child(2) {
-          flex-grow: 1;
-          line-height: 44px;
-          font-size: 0.88rem;
-          font-weight: 500;
-          color: #737373;
-        }
-        .contact {
-          width: 121px;
-          height: 44px;
-          line-height: 44px;
-          font-size: 0.88rem;
-          font-weight: 600;
-          color: #ffffff;
-          text-align: center;
-          background: #ff8a00;
-          border-radius: 10px;
-        }
-        .delete-comment {
-          line-height: 44px;
-          img {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-          }
-        }
-      }
-      .bottom {
-        margin-top: 32px;
-        .comment-count {
-          font-size: 0.88rem;
-          font-weight: 500;
-          strong {
-            color: #3e82f1;
-          }
-        }
-        .comment-wrp {
-          position: relative;
-          .comment-input {
-            width: 362px;
-            height: 106px;
-            padding: 15px;
-            margin-top: 14px;
-            background: #fafafa;
-            border-radius: 8px;
-            border: none !important;
-            resize: none;
-          }
-          .comment-input:focus {
-            outline: none;
-          }
-          .comment-input::placeholder {
-            color: #c8c8c8;
-          }
-          .comment-register {
-            position: absolute;
-            margin-top: -50px;
-            margin-left: 260px;
-            width: 77px;
-            height: 33px;
-            line-height: 33px;
-            padding: 0 4px;
-            font-size: 0.88rem;
-            font-weight: 500;
-            color: #737373;
-            text-align: center;
-            background: #ffffff;
-            mix-blend-mode: normal;
-            border: 1px solid #e7e7e7;
-            border-radius: 32px;
-            cursor: pointer;
-          }
-        }
-      }
-      .comment-list {
-        .comment {
-          width: 360px;
-          min-height: 102px;
-          padding: 16px;
-          .comment-writer {
-            display: flex;
-          }
-          .comment-content {
-            margin-top: 24px;
-            margin-left: 13px;
-            color: #454545;
-            font-size: 0.88rem;
-            font-weight: 500;
-          }
-        }
-      }
-    }
-  }
-}
-
-#m-PostingPage {
-  main {
-    height: 100%;
-    font-size: 5vmin;
-    .m-detail-header {
-      height: 7vmax;
-      display: grid;
-      background-color: #fafafa;
-      grid-template: 'arrow title' 1fr / 1fr 5fr;
-      .m-close {
-        width: 3vw;
-        padding-left: 5vw;
-        grid-area: arrow;
-        display: flex;
-        align-self: center;
-      }
-    }
-
-    .m-detail-container::-webkit-scrollbar {
-      display: none;
-    }
-
-    .m-detail-container {
-      height: 70vh;
-      overflow: scroll;
-      background-color: #f3f3f3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      .m-detail-content {
-        height: max-content;
-        background-color: #ffffff;
-        box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
-          0px 4px 8px rgba(0, 52, 138, 0.06);
-        border-radius: 12px;
-        margin: 20px 16px;
-        padding: 16px;
-
-        .m-detail-content-header {
-          padding-bottom: 20px;
-          margin-bottom: 20px;
-          border-bottom: 1px solid #e7e7e7;
-          grid-template:
-            'writer' 2fr
-            'title' 2fr
-            'tags' 2fr
-            '.' 1fr / 1fr;
-
-          .writer {
-            color: #a3a3a3;
-            font-size: 0.79rem;
-            grid-area: writer;
-            align-self: flex-end;
-          }
-
-          .title {
-            color: #252a31;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 1.14rem;
-            grid-area: title;
-            padding: 10px 0px;
-          }
-
-          .tags {
-            grid-area: tags;
-            display: flex;
-            align-self: flex-end;
-            flex-wrap: wrap;
-            font-size: 0.79rem;
-            font-style: normal;
-            display: flex;
-            align-items: center;
-            gap: 0em 1em;
-            .tag {
-              padding: 0.1em 0.6em;
-              background-color: #f3f3f3;
-              border-radius: 16px;
-              text-align: center;
-
-              &.d-day {
-                color: #3e82f1;
-                font-weight: 600;
-              }
-            }
-            .sub-menu {
-              flex-grow: 1;
-              text-align: right;
-            }
-
-            img {
-              width: 30px;
-              height: 30px;
-            }
-          }
-        }
-
-        .m-detail-content-body {
-          // overflow: scroll;
-          // height: 45vh;
-          line-height: 1.6;
-          font-size: 1rem;
-          color: #454545;
-          // margin: 1vh 2vmax;
-
-          .m-content-text {
-            font-weight: 400;
-            line-height: 160%;
-            color: #454545;
-          }
-
-          .m-content-img {
-            width: 70vmin;
-            display: grid;
-            row-gap: 1vh;
-
-            .m-postImg {
-              width: 70vmin;
-            }
-          }
-          .m-postImg:nth-of-type(1) {
-            margin-top: 1vh;
-          }
-        }
-
-        .m-detail-content-footer {
-          margin: 0vh 2vmax;
-          height: 5vmin;
-          display: flex;
-          justify-content: flex-end;
-          align-self: flex-end;
-          line-height: 26px;
-          font-size: 0.6em;
-          font-weight: 500;
-          color: #a1a2a3;
-          .views-icon {
-            width: 16px;
-            height: 16px;
-            margin-top: 5px;
-            margin-right: 8px;
-          }
-        }
-      }
-
-      .m-detail-transition {
-        display: flex;
-        height: 5vmax;
-        align-items: center;
-
-        .m-trans-text {
-          font-size: 0.75em;
-          letter-spacing: -0.005em;
-          font-weight: 500;
-          padding-right: 0.2em;
-        }
-
-        .m-trans-icon {
-          padding-left: 0.2rem;
-        }
-      }
-    }
-    .m-detail-footer {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      grid-gap: 20px;
-      justify-items: start;
-      align-content: center;
-      // width: 100%;
-      background-color: #ffffff;
-      box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 0px 0px #ffffff;
-      height: 10vmax;
-      border-radius: 20px 20px 0px 0px;
-      padding: 0 16px;
-
-      .m-comment-posting-toggle {
-        // margin-left: 16px;
-        width: 131px;
-        height: 44px;
-        line-height: 44px;
-        border: 1px solid #efefef;
-        border-radius: 8px;
-        text-align: center;
-        font-size: 0.88rem;
-        color: #a3a3a3;
-        cursor: pointer;
-        .m-img-wrp {
-          text-align: center;
-          .comment-img {
-            width: 20px;
-            height: 20px;
-            margin-right: 5px;
-            vertical-align: middle;
-          }
-          .detail-img {
-            width: 16px;
-            height: 20px;
-            margin-right: 5px;
-            vertical-align: middle;
-          }
-        }
-      }
-
-      .m-contact {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        vertical-align: middle;
-        width: 100%;
-        height: 12vmin;
-        line-height: 44px;
-        font-size: 0.88rem;
-        font-weight: 600;
-        color: #ffffff;
-        text-align: center;
-        background: #ff8a00;
-        border-radius: 10px;
-      }
-    }
-
-    .m-comment-container {
-      height: 70vh;
-      overflow: scroll;
-      .m-detail-transition {
-        display: grid;
-        grid-template-columns: 107fr 22fr 168fr;
-        height: 5vh;
-        align-items: center;
-
-        .m-trans-text {
-          font-size: 0.75em;
-          letter-spacing: -0.005em;
-          font-weight: 500;
-        }
-
-        .m-trans-icon {
-          padding-left: 5vmin;
-        }
-      }
-
-      .m-comment-list::-webkit-scrollbar {
-        display: none;
-      }
-
-      .m-comment-list {
-        // display: grid;
-        height: calc(100% - 196px);
-        padding: 20px 16px;
-        overflow: scroll;
-        // justify-content: center;
-        // grid-template-columns: 81vw;
-        // grid-auto-flow: row;
-        // grid-auto-rows: minmax(12vh, max-content);
-        // row-gap: 2vh;
-      }
-
-      .m-comment {
-        min-height: 92px;
-        padding: 12px 16px;
-        background-color: #ffffff;
-        border-radius: 10px;
-      }
-
-      .m-profile-info {
-        display: flex;
-        line-height: 30px;
-        font-size: 1rem;
-        color: #737373;
-
-        .m-profile-img {
-          width: 30px;
-          height: 30px;
-          margin-right: 8px;
-          border-radius: 100%;
-        }
-
-        .m-close-img {
-          width: 6vmin;
-        }
-      }
-
-      .m-comment-content {
-        padding-top: 4px;
-        color: #454545;
-        font-size: 1rem;
-        line-height: 1.4;
-      }
-
-      .m-comment-wrp {
-        margin: 0px 16px 16px 16px;
-        height: 124px;
-        font-size: 0.9rem;
-        .m-comment-input {
-          width: calc(100% - 32px);
-          height: calc(100% - 32px);
-          padding: 16px;
-          background: #fafafa;
-          border-radius: 8px;
-          border: none !important;
-          // resize: none;
-        }
-        .m-comment-input:focus {
-          outline: none;
-        }
-        .m-comment-input::placeholder {
-          color: #c8c8c8;
-        }
-        .m-comment-register {
-          position: absolute;
-          width: 77px;
-          height: 38px;
-          line-height: 38px;
-          right: 30px;
-          margin-top: -56px;
-          padding: 0 10px;
-          font-size: 1rem;
-          font-weight: 500;
-          color: #737373;
-          text-align: center;
-          background-color: #ffffff;
-          border: 1px solid #e7e7e7;
-          border-radius: 32px;
-          cursor: pointer;
-        }
-      }
-    }
-  }
-}
-
-#WhyNotLayout {
-  main {
-    background-color: #f3f3f3;
-  }
-}
+@import '@/assets/scss/detail-page/detail.scss';
 </style>

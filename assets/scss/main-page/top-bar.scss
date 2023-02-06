@@ -13,8 +13,26 @@
     padding: 0 18px 5px 18px;
     align-items: center;
     .category-toggle {
+      width: 8%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       img {
         width: 4vmin;
+      }
+
+      @include tablet {
+        img {
+          width: 25px;
+        }
+      }
+
+      @include lands-tablet {
+        img {
+          width: 25px;
+        }
       }
     }
     .logo-wrp {
@@ -24,6 +42,13 @@
         font-size: 0.69rem;
         font-weight: 500;
         color: #737373;
+
+        @include tablet {
+          font-size: 17px;
+        }
+        @include lands-tablet {
+          font-size: 17px;
+        }
       }
       .logo-img {
         img {
@@ -39,6 +64,18 @@
           border-radius: 6px;
           box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
             0px 4px 8px rgba(0, 52, 138, 0.06);
+        }
+
+        @include tablet {
+          img {
+            width: 42px;
+          }
+        }
+
+        @include lands-tablet {
+          img {
+            width: 42px;
+          }
         }
 
         .open-account {
@@ -119,6 +156,22 @@
       div:nth-child(3) {
         font-size: 0.88rem;
         font-weight: 600;
+      }
+
+      @include tablet {
+        div:first-child {
+          font-size: 18px; font-weight: 500;
+          color: #4D4D4D;
+        }
+        div:nth-child(2) {
+          img {
+            width: 10px; height: 12px;
+            margin: 0 20px;
+          }
+        }
+        div:nth-child(3) {
+          font-size: 18px; font-weight: 600;
+        }
       }
     }
   }

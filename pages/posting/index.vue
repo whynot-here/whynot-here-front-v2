@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!isMobile" id="PostingPage">
+    <div v-if="isFromPc" id="PostingPage">
       <TopBarOnly />
       <div class="panel">
         <section class="form">

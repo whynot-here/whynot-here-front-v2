@@ -1,6 +1,12 @@
 @import '@/assets/scss/util.scss';
 
+
+#LoginPopup::-webkit-scrollbar {
+  display: none;
+}
 #LoginPopup {
+  overflow-y: scroll;
+
   @include mobile {
     z-index: 100;
     position: fixed;
@@ -13,51 +19,93 @@
         text-align: right;
         cursor: pointer;
         img {
-          width: 32px; height: 32px;
+          width: 24px; height: 24px;
         }
       }
     }
     .popup-middle {
-      width: 300px;
-      margin: 90px auto 0 auto;
       .top {
-        display: flex;
-        width: max-content; height: 28px;
-        margin: 0 auto;
+        width: 327px; 
+        margin: 0px auto 32px auto;
         div:first-child {
-          line-height: 29px;
-          font-size: .75rem; font-weight: 500;
-          color: #737373;
+          margin-top: 20px;
+          // margin-left: 30px;
+          img {
+            width: 112px; height: 26px;
+          }
         }
         div:nth-child(2) {
-          margin-left: 6px;
-          img {
-            width: 120px; height: 28px;
-          }
+          margin-top: 32px;
+          // margin-left: 32px;
+          font-size: 1.5rem; font-weight: 600;
+          color: #14428D;
+        }
+        div:nth-child(3) {
+          margin-top: 10px;
+          // margin-left: 32px;
+          font-size: .88rem;
+          color: #0C2958;
         }
       }
       .middle {
-        margin-top: 20px; padding-bottom: 50px;
-        text-align: center;
-        font-size: 1.38rem; font-weight: 700;
-        color: #181818;
-      }
-      .social-login-btn {
-        // height: 65px;
-        margin-bottom: 15px;
-        cursor: pointer;
-        img {
-          width: 300px; height: 50px;
+        width: 327px; 
+        margin: 54px auto 32px auto;
+        border-bottom: 1px solid rgba(235, 238, 241, 0.919);
+        .form-title {
+          font-size: .88rem; font-weight: 500;
         }
-        img:hover {
-          box-shadow: 0px 0px 4px rgba(30, 30, 30, 0.04), 0px 4px 8px rgba(30, 30, 30, 0.04);
-          border-radius: 12px;
+        .form-content {
+          width: 327px; height: 48px;
+          font-size: 1rem;
+          border: none;
+          border-bottom: 1px solid #E7E7E7;
+          margin-bottom: 12px;
+        }
+        .form-content:focus {
+          outline: none;
+          border-bottom: 1px solid #296CDB;
+        }
+        .login-btn-wrp {
+          width: 327px; height: 50px; line-height: 50px;
+          margin: 16px auto 32px auto;
+          border-radius: 8px;
+          background: #296CDB;
+          .login-btn {
+            display: flex;
+            width: max-content; margin: 0 auto;
+            font-size: 1rem; font-weight: 600;
+            color: #fff;
+            text-align: center;
+            .login-icon {
+              margin-right: 10px;
+              padding-top: 3px;
+              img {
+                width: 18px; height: 20px;
+              }
+            }
+          }
+        }
+      }
+      .social-login {
+        display: flex;
+        gap: 30px;
+        width: max-content; margin: 0 auto;
+        .social-login-btn {
+          margin-bottom: 15px;
+          cursor: pointer;
+          img {
+            width: 48px; height: 48px;
+          }
+          img:hover {
+            box-shadow: 0px 0px 4px rgba(30, 30, 30, 0.04), 0px 4px 8px rgba(30, 30, 30, 0.04);
+            border-radius: 12px;
+          }
         }
       }
     }
     .popup-bottom {
       width: 274px; line-height: 1.2rem;
-      margin: 0 auto; padding-top: 80px;
+      margin: 0 auto; padding-top: 32px; padding-bottom: 29px;
       font-size: .75rem; font-weight: 400;
       color: #7A7A7A;
       text-align: center;
@@ -74,55 +122,89 @@
     position: fixed;
     width: 100vw; height: 100vh;
     top: 0; left: 0;
-    background: #D9D9D9;
-    transition: opacity .2s;
-    .popup-wrp {
-      width: 422px; height: 496px;
-      margin: calc((100vh - 496px) / 2) auto;
-      background: #FFFFFF;
-      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04), 0px 8px 16px rgba(0, 0, 0, 0.08);
-      border-radius: 12px;
-      .popup-top {
-        .close-btn {
-          padding-top: 24px; padding-right: 24px;
-          text-align: right;
-          cursor: pointer;
-          img {
-            width: 32px; height: 32px;
-          }
+    background-color: #FFFFFF;
+    .popup-top {
+      .close-btn {
+        margin-top: 40px; margin-right: 20px;
+        text-align: right;
+        cursor: pointer;
+        img {
+          width: 24px; height: 24px;
         }
       }
-      .popup-middle {
-        width: 300px;
-        margin: 0 auto;
-        .top {
-          display: flex;
-          width: max-content; height: 28px;
-          margin: 0 auto;
-          div:first-child {
-            line-height: 29px;
-            font-size: .75rem; font-weight: 500;
-            color: #737373;
+    }
+    .popup-middle {
+      .top {
+        width: 327px; 
+        margin: 0px auto 32px auto;
+        div:first-child {
+          margin-top: 150px;
+          // margin-left: 30px;
+          img {
+            width: 112px; height: 26px;
           }
-          div:nth-child(2) {
-            margin-left: 6px;
-            img {
-              width: 120px; height: 28px;
+        }
+        div:nth-child(2) {
+          margin-top: 32px;
+          // margin-left: 32px;
+          font-size: 1.5rem; font-weight: 600;
+          color: #14428D;
+        }
+        div:nth-child(3) {
+          margin-top: 10px;
+          // margin-left: 32px;
+          font-size: .88rem;
+          color: #0C2958;
+        }
+      }
+      .middle {
+        width: 327px; 
+        margin: 54px auto 32px auto;
+        border-bottom: 1px solid rgba(235, 238, 241, 0.919);
+        .form-title {
+          font-size: .88rem; font-weight: 500;
+        }
+        .form-content {
+          width: 327px; height: 48px;
+          font-size: 1rem;
+          border: none;
+          border-bottom: 1px solid #E7E7E7;
+          margin-bottom: 12px;
+        }
+        .form-content:focus {
+          outline: none;
+          border-bottom: 1px solid #296CDB;
+        }
+        .login-btn-wrp {
+          width: 327px; height: 50px; line-height: 50px;
+          margin: 16px auto 32px auto;
+          border-radius: 8px;
+          background: #296CDB;
+          .login-btn {
+            display: flex;
+            width: max-content; margin: 0 auto;
+            font-size: 1rem; font-weight: 600;
+            color: #fff;
+            text-align: center;
+            .login-icon {
+              margin-right: 10px;
+              padding-top: 3px;
+              img {
+                width: 18px; height: 20px;
+              }
             }
           }
         }
-        .middle {
-          margin-top: 20px; padding-bottom: 50px;
-          text-align: center;
-          font-size: 1.38rem; font-weight: 700;
-          color: #181818;
-        }
+      }
+      .social-login {
+        display: flex;
+        gap: 30px;
+        width: max-content; margin: 0 auto;
         .social-login-btn {
-          // height: 65px;
           margin-bottom: 15px;
           cursor: pointer;
           img {
-            width: 300px; height: 50px;
+            width: 48px; height: 48px;
           }
           img:hover {
             box-shadow: 0px 0px 4px rgba(30, 30, 30, 0.04), 0px 4px 8px rgba(30, 30, 30, 0.04);
@@ -130,18 +212,18 @@
           }
         }
       }
-      .popup-bottom {
-        width: 348px; line-height: 1.2rem;
-        margin: 0 auto; padding-top: 17px;
-        font-size: .75rem; font-weight: 400;
-        color: #7A7A7A;
-        text-align: center;
-        word-break: keep-all;
-        strong {
-          text-decoration: underline;
-          font-weight: 400;
-          cursor: pointer;
-        }
+    }
+    .popup-bottom {
+      width: 274px; line-height: 1.2rem;
+      margin: 0 auto; padding-top: 32px; padding-bottom: 29px;
+      font-size: .75rem; font-weight: 400;
+      color: #7A7A7A;
+      text-align: center;
+      word-break: keep-all;
+      strong {
+        text-decoration: underline;
+        font-weight: 400;
+        cursor: pointer;
       }
     }
   }
