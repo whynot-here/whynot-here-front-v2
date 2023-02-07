@@ -70,21 +70,8 @@
               >
                 {{ post.categoryName }}
               </div>
-              <div :class="!post.recruiting ? 'item d-day comp' : 'item d-day'">
-                마감 {{ post.dDay }}
-              </div>
-              <div
-                :class="
-                  !post.recruiting ? 'item com-tool comp' : 'item com-tool'
-                "
-              >
-                {{ post.communicationToolText }}
-              </div>
-              <div
-                :class="!post.recruiting ? 'item rec-cnt comp' : 'item rec-cnt'"
-              >
-                <strong>{{ post.recruitCurrentCnt }}</strong> /
-                {{ post.recruitTotalCnt }}
+              <div :class="'item created-day'">
+                {{ post.passedDay }}
               </div>
               <div class="gap"></div>
               <div class="views">
@@ -220,7 +207,7 @@ export default {
           PHONE: '휴대전화'
         }[post.ownerContact.type]
 
-        post.dDay = this.cmn_getDday(post.closedDt)
+        post.passedDay = this.cmn_getPassedDay(post.createdDt)
 
         // post.bookmark = post.selected
         // post.isOpenSubMenu = false

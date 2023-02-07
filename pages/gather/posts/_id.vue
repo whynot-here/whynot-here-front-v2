@@ -32,11 +32,7 @@
             {{ postComp.categoryName }}
           </div>
           <div class="left">
-            {{ postComp.communicationToolText }}
-          </div>
-          <div class="left">
-            <strong>{{ postComp.recruitCurrentCnt }}</strong> /
-            {{ postComp.recruitTotalCnt }}
+            {{ postComp.passedDay }}
           </div>
           <div class="gap"></div>
           <div class="right">
@@ -360,6 +356,7 @@ export default {
       result.writerName = this.post.writer.nickname
       result.writerProfileImage = this.post.writer.profileImg
       result.dDay = this.cmn_getDday(result.closedDt)
+      result.passedDay = this.cmn_getPassedDay(result.createdDt)
       return result
     },
     commentComp() {
