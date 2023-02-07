@@ -1000,7 +1000,7 @@ export default {
             height: 46px;
             line-height: 46px;
             margin-top: 12px;
-            // padding-left: 12px;
+            font-size: 1rem;
             background-color: #ffffff;
             border: 1px solid #e7e7e7;
             border-radius: 8px;
