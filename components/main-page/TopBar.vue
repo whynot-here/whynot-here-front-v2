@@ -62,7 +62,7 @@
                 style="cursor: pointer"
                 @click="moveMyPage()"
               >
-                마이페이지
+                내정보
               </div>
               <div class="sub-menu" style="cursor: pointer" @click="logout()">
                 로그아웃
@@ -107,7 +107,7 @@
                 style="cursor: pointer"
                 @click="moveMyPage()"
               >
-                마이페이지
+                내정보
               </div>
               <div class="sub-menu" style="cursor: pointer" @click="logout()">
                 로그아웃

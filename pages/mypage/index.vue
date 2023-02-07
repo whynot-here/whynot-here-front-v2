@@ -6,7 +6,7 @@
         <img src="@/assets/img/common/close-page.png" alt="" @click="$router.go(-1)">
       </div>
       <div class="title">
-        마이페이지
+        내정보
       </div>
       <div class="sub-title">
         안녕하세요 <strong>{{currentNickName}}</strong> 님!
@@ -45,7 +45,7 @@
           <img class="m-back-btn" src="@/assets/img/common/left-arrow.png" alt="" @click="$router.go(-1)">
         </div>
         <div class="m-title">
-          마이페이지
+          내정보
         </div>
       </div>
 
