@@ -46,7 +46,12 @@
           class="profile"
           @click="toggleAccountPopup"
         >
-          <img :src="profileImg" alt="">
+          <div v-if="profileImg !== ''">
+            <img :src="profileImg" alt="" />
+          </div>
+          <div v-else>
+            <img src="@/assets/img/common/default-profile.png" alt="" />
+          </div>
           <div
             v-if="openAccount"
             class="open-account"

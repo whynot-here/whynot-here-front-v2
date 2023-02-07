@@ -185,6 +185,10 @@ const common = {
     },
 
     cmn_getDday(endDate) {
+      if (endDate === null || endDate === '') {
+        return '';
+      }
+
       // 디데이 계산
       const today = new Date()
       const end = new Date(endDate.replaceAll('-', '/'))
