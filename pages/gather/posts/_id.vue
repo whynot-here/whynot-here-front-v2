@@ -2,26 +2,28 @@
   <div v-if="isFromPc" id="PostingPage">
     <div class="panel-wrp">
       <section class="detail-panel">
-        <div class="top">
-          <div class="d-day">마감 {{ postComp.dDay }}</div>
-          <div class="img-wrp">
-            <img
-              src="@/assets/img/posting/copy-detail.png"
-              alt=""
-              @click="copyUrl()"
-            />
-          </div>
-          <div class="img-wrp">
-            <img
-              v-if="isBookmarked"
-              src="@/assets/img/posting/bookmark-detail-selected.png"
-              @click.prevent="bookmark()"
-            />
-            <img
-              v-else
-              src="@/assets/img/posting/bookmark-detail.png"
-              @click.prevent="bookmark()"
-            />
+        <div v-if="postComp.dDay!== ''">
+          <div class="top">
+            <div class="d-day">마감 {{ postComp.dDay }}</div>
+            <div class="img-wrp">
+              <img
+                src="@/assets/img/posting/copy-detail.png"
+                alt=""
+                @click="copyUrl()"
+              />
+            </div>
+            <div class="img-wrp">
+              <img
+                v-if="isBookmarked"
+                src="@/assets/img/posting/bookmark-detail-selected.png"
+                @click.prevent="bookmark()"
+              />
+              <img
+                v-else
+                src="@/assets/img/posting/bookmark-detail.png"
+                @click.prevent="bookmark()"
+              />
+            </div>
           </div>
         </div>
         <div class="title">
@@ -32,11 +34,7 @@
             {{ postComp.categoryName }}
           </div>
           <div class="left">
-            {{ postComp.communicationToolText }}
-          </div>
-          <div class="left">
-            <strong>{{ postComp.recruitCurrentCnt }}</strong> /
-            {{ postComp.recruitTotalCnt }}
+            {{ postComp.passedDay }}
           </div>
           <div class="gap"></div>
           <div class="right">
@@ -60,14 +58,19 @@
       <section class="comment-panel">
         <div class="top">
           <div>
-            <img :src="postComp.writerProfileImage" alt="" />
+            <div v-if="postComp.writerProfileImage !== ''">
+              <img :src="postComp.writerProfileImage" alt="" />
+            </div>
+            <div v-else>
+              <img src="@/assets/img/common/default-profile.png" alt="" />
+            </div>
           </div>
           <div>
             {{ postComp.writerName }}
           </div>
-          <div class="contact" @click="copyContactInfo()">
+          <!-- <div class="contact" @click="copyContactInfo()">
             {{ postComp.contactText }} 연락
-          </div>
+          </div> -->
         </div>
         <div class="bottom">
           <div class="comment-count">
@@ -89,7 +92,12 @@
           <div v-for="(comment, idx) in commentComp" :key="idx" class="comment">
             <div class="top">
               <div>
-                <img :src="comment.account.profileImg" alt="" />
+                <div v-if="comment.account.profileImg !== ''">
+                  <img :src="comment.account.profileImg" alt="" />
+                </div>
+                <div v-else>
+                  <img src="@/assets/img/common/default-profile.png" alt="" />
+                </div>
               </div>
               <div>
                 {{ comment.account.nickname }}
@@ -140,13 +148,8 @@
               </div>
               <div class="tags-wrp">
                 <div class="tags">
-                  <div class="tag d-day">마감 {{ postComp.dDay }}</div>
-                  <div class="tag communication-tool">
-                    {{ postComp.communicationToolText }}
-                  </div>
-                  <div class="tag recruit-people-cnt">
-                    <strong>{{ postComp.recruitCurrentCnt }}</strong> /
-                    {{ postComp.recruitTotalCnt }}
+                  <div class="tag">
+                    {{ postComp.passedDay }}
                   </div>
                 </div>
                 
@@ -360,6 +363,7 @@ export default {
       result.writerName = this.post.writer.nickname
       result.writerProfileImage = this.post.writer.profileImg
       result.dDay = this.cmn_getDday(result.closedDt)
+      result.passedDay = this.cmn_getPassedDay(result.createdDt)
       return result
     },
     commentComp() {

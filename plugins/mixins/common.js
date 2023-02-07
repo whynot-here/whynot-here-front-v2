@@ -185,6 +185,10 @@ const common = {
     },
 
     cmn_getDday(endDate) {
+      if (endDate === null || endDate === '') {
+        return '';
+      }
+
       // 디데이 계산
       const today = new Date()
       const end = new Date(endDate.replaceAll('-', '/'))
@@ -198,6 +202,25 @@ const common = {
           'D' +
           (diff > 0 ? '-' + Math.ceil(diff) : '+' + Math.abs(Math.ceil(diff)))
         )
+      }
+    },
+
+    cmn_getPassedDay(createdDt) {
+      const today = new Date()
+      const end = new Date(createdDt.replaceAll('-', '/'))
+
+      const diff = Math.floor(((end.getTime() - today.getTime()) / (1000 * 3600 * 24))*-1)
+
+      if (diff === 0) {
+        return '오늘'
+      } else if (diff === 1) {
+        return '어제'
+      } else if (diff === 2) {
+        return '2일전'
+      } else if (diff === 3) {
+        return '3일전'
+      } else {
+        return createdDt.substring(0, 10);
       }
     },
 
