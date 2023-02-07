@@ -266,6 +266,7 @@ export default {
 
 .m-review-modal {
   position: fixed;
+  overflow: scroll;
   z-index: 120;
   width: 100vw; height: 100vh;
   top: 0; left: 0;
@@ -336,7 +337,7 @@ export default {
         margin: 10px 24px 0 24px;
         .m-comment-input {
           font-size: 14px;
-          width: 252px; height: 180px;
+          width: 222px; height: 180px;
           padding: 15px; margin-top: 14px;
           background: #FAFAFA;
           border-radius: 8px;
