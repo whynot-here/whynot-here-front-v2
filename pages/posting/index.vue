@@ -593,6 +593,7 @@ export default {
         })
     },
     uploadPosting() {
+      this.paramsSetting()
       // 포스팅 저장 (사진 제외)
       this.$axios
         .post(
@@ -616,6 +617,7 @@ export default {
         })
     },
     editPosting() {
+      this.paramsSetting()
       this.$axios
         .put(
           `https://whynot-here.o-r.kr/v2/posts/${this.id}`,
@@ -636,6 +638,20 @@ export default {
         .catch((error) => {
           window.alert(error.response.data.message)
         })
+    },
+    paramsSetting() {
+      this.postingRegisterParams.categoryId =
+        this.postingRegisterParams.category.id
+      if (this.postingRegisterParams.closedDt) {
+        this.postingRegisterParams.closedDt =
+          this.postingRegisterParams.closedDt.toISOString().split('T')[0] +
+          ' ' +
+          this.postingRegisterParams.closedDt
+            .toISOString()
+            .split('T')[1]
+            .substring(0, 5)
+        console.log(this.postingRegisterParams.closedDt)
+      }
     },
     // 사진 선택
     onFileChange(event) {
@@ -672,10 +688,10 @@ export default {
         window.alert('내용을 입력해주세요.')
         return false
       }
-      if (this.cmn_emptyCheck(this.postingRegisterParams.closedDt)) {
-        window.alert('모집 마감일을 입력해주세요.')
-        return false
-      }
+      // if (this.cmn_emptyCheck(this.postingRegisterParams.closedDt)) {
+      //   window.alert('모집 마감일을 입력해주세요.')
+      //   return false
+      // }
       // if (this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.value) || this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.type)) {
       //   window.alert('연락 수단을 정확히 입력해주세요.')
       //   return false
@@ -694,18 +710,6 @@ export default {
       // closedDt = closedDt.split('T')[0] + ' ' + closedDt.split('T')[1].substring(0, 5)
       // this.postingRegisterParams.closedDt = closedDt
       // this.postingRegisterParams.recruitTotalCnt = this.recruitTotalCntTxt * 1
-      this.postingRegisterParams.categoryId =
-        this.postingRegisterParams.category.id
-      if (this.postingRegisterParams.closedDt) {
-        console.log(this.postingRegisterParams.closedDt.toISOString())
-        this.postingRegisterParams.closedDt =
-          this.postingRegisterParams.closedDt.toISOString().split('T')[0] +
-          ' ' +
-          this.postingRegisterParams.closedDt
-            .toISOString()
-            .split('T')[1]
-            .substring(0, 5)
-      }
       return true
     }
   }
