@@ -87,9 +87,14 @@
       >
         로그인
       </div>
-      <div class="profile-wrp">
+      <div v-else class="profile-wrp">
         <div v-if="initLoginDone" class="profile" @click="toggleAccountPopup">
-          <img :src="profileImg" alt="" />
+          <div v-if="profileImg !== ''">
+            <img :src="profileImg" alt="" />
+          </div>
+          <div v-else>
+            <img src="@/assets/img/common/default-profile.png" alt="" />
+          </div>
           <div v-if="openAccount" class="open-account">
             <div class="sub-menu-wrp">
               <div
@@ -159,7 +164,7 @@ export default {
     })
   },
   mounted() {
-    this.profileImg = this.$store.state.userInfo.detail.profileImg
+    this.profileImg = this.$store.state.userInfo.detail.profileImg;
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
   },
   methods: {

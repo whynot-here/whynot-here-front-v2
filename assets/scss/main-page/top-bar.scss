@@ -8,6 +8,7 @@
   .top {
     border-bottom: 2px solid #f3f3f3;
     display: flex;
+    justify-content: space-between;
     width: calc(100vw - 36px);
     height: 8vh;
     padding: 0 18px 5px 18px;
