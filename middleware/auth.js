@@ -5,7 +5,8 @@ export default function ({ params, query, route, store, redirect }) {
     '/gather',
     `/gather/${params.category}`,
     `/gather/posts/${params.id}`,
-    '/aboutus'
+    '/aboutus',
+    '/login'
   ]
 
   if (!route.query.accessToken && !exceptPath.includes(route.path) && !store.state.userInfo.initLoginDone) {
