@@ -401,11 +401,29 @@ export default {
       document.execCommand('copy')
       document.body.removeChild(textarea)
 
-      alert('URL이 복사되었습니다.')
+      // alert('URL이 복사되었습니다.')
+      this.cmn_openAlertPopup({
+        option: {
+          title: '⚠️알림',
+          content: 'URL이 복사되었습니다.',
+          type: 'alert',
+          confirmText: '확인',
+          cancelText: ''
+        }
+      })
     },
     registerComment() {
       if (!this.currentComment.length > 0) {
-        alert('댓글을 입력해주세요')
+        // alert('댓글을 입력해주세요')
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '댓글을 입력해주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
         return false
       }
       this.$axios
@@ -424,12 +442,29 @@ export default {
           }
         )
         .then((res) => {
-          alert('댓글이 등록되었습니다.')
+          // alert('댓글이 등록되었습니다.')
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: '댓글이 등록되었습니다.',
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
           this.currentComment = ''
           this.getComment()
         })
         .catch((error) => {
-          window.alert(error.response.data.message)
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error.response.data.message,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
         })
     },
     deleteComment(id) {
@@ -442,11 +477,29 @@ export default {
           }
         })
         .then((res) => {
-          alert('댓글이 삭제되었습니다.')
+          // alert('댓글이 삭제되었습니다.')
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: '댓글이 삭제되었습니다.',
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
           this.getComment()
         })
         .catch((error) => {
-          window.alert(error.response.data.message)
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error.response.data.message,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+          // window.alert(error.response.data.message)
         })
     },
     renderComponent(component) {
@@ -456,10 +509,27 @@ export default {
       navigator.clipboard
         .writeText(this.postComp.ownerContact.value)
         .then(() => {
-          alert(`'${this.postComp.ownerContact.value}' 가 복사되었습니다`)
+          // alert(`'${this.postComp.ownerContact.value}' 가 복사되었습니다`)
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: `'${this.postComp.ownerContact.value}' 가 복사되었습니다`,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
         })
-        .catch((err) => {
-          alert('링크복사 실패', err)
+        .catch((error) => {
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error.response.data.message,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
         })
     },
     isMyComment(comment) {
@@ -489,7 +559,16 @@ export default {
     },
     bookmark() {
       if (!this.$store.state.userInfo.initLoginDone) {
-        alert('로그인 후 이용해 주세요')
+        // alert('로그인 후 이용해 주세요')
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '로그인 후 이용해 주세요',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
         return false
       }
 
@@ -509,7 +588,16 @@ export default {
             this.isBookmarked = false
           })
           .catch((error) => {
-            window.alert(error.response.data.message)
+            // window.alert(error.response.data.message)
+            this.cmn_openAlertPopup({
+              option: {
+                title: '⚠️알림',
+                content: error.response.data.message,
+                type: 'alert',
+                confirmText: '확인',
+                cancelText: ''
+              }
+            })
           })
       } else {
         this.$axios
@@ -528,7 +616,16 @@ export default {
             this.isBookmarked = true
           })
           .catch((error) => {
-            window.alert(error.response.data.message)
+            // window.alert(error.response.data.message)
+            this.cmn_openAlertPopup({
+              option: {
+                title: '⚠️알림',
+                content: error.response.data.message,
+                type: 'alert',
+                confirmText: '확인',
+                cancelText: ''
+              }
+            })
           })
       }
 

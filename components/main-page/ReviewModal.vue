@@ -119,7 +119,16 @@ export default {
   methods: {
     registerReview() {
       if (this.currentReview === '') {
-        alert('후기를 작성해주세요.')
+        // alert('후기를 작성해주세요.')
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '후기를 작성해주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
         return
       }
 
@@ -140,7 +149,16 @@ export default {
       ).then(res => {
         this.isSendReview = true
       }).catch((error) => {
-        window.alert(error.response.data.message)
+        // window.alert(error.response.data.message)
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: error.response.data.message,
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
       })
     },
     fillStar(idx, fill) {

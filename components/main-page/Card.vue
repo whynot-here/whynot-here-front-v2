@@ -399,7 +399,15 @@ export default {
             this.bookmarkComp = true
           })
           .catch(function (res) {
-            alert('다시 로그인 해주세요.')
+            // alert('다시 로그인 해주세요.')
+            this.cmn_openAlertPopup({
+              option: {
+                content: '다시 로그인 해주세요.',
+                type: 'alert',
+                confirmText: '확인',
+                cancelText: ''
+              }
+            })
           })
       } else {
         this.bookmarkComp = true
@@ -410,7 +418,15 @@ export default {
     },
     bookmark(id) {
       if (!this.$store.state.userInfo.initLoginDone) {
-        alert('로그인 후 이용해 주세요')
+        // alert('로그인 후 이용해 주세요')
+       this.cmn_openAlertPopup({
+          option: {
+            content: '로그인 후 이용해 주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        }) 
         return false
       }
 
@@ -491,8 +507,18 @@ export default {
           })
           .then((res) => {
             // 카드 새로고침
-            alert('삭제했습니다')
-            this.$emit('refreshCard', {})
+            // alert('삭제했습니다')
+            this.cmn_openAlertPopup({
+              option: {
+                title: '⚠️알림',
+                content: '삭제했습니다.',
+                type: 'alert',
+                confirmText: '확인',
+                cancelText: ''
+              }
+            })
+            // this.$emit('refreshCard', {})
+            this.refreshCard()
           })
       }
     },
@@ -524,10 +550,28 @@ export default {
           this.compModalOpen = false
           this.compRecruitId = ''
           this.refreshCard()
-          alert('모집이 마감되었습니다.')
+          // alert('모집이 마감되었습니다.')
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: '모집이 마감되었습니다.',
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
         })
         .catch((error) => {
-          window.alert(error.response.data.message)
+          // window.alert(error.response.data.message)
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error.response.data.message,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
         })
     }
   }

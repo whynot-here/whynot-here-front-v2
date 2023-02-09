@@ -588,7 +588,16 @@ export default {
           }
         })
         .catch((error) => {
-          window.alert(error)
+          // window.alert(error)
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
           return false
         })
     },
@@ -609,11 +618,29 @@ export default {
         )
         .then((res) => {
           // todo: 상세 페이지로 넘어가기
-          alert('공고 생성 성공')
+          // alert('공고 생성 성공')
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: '공고 생성 성공',
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
           this.$router.push(`/gather/posts/${res.data.id}`)
         })
         .catch((error) => {
-          window.alert(error.response.data.message)
+          // window.alert(error.response.data.message)
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error.response.data.message,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
         })
     },
     editPosting() {
@@ -632,11 +659,29 @@ export default {
         )
         .then((res) => {
           // 상세 페이지로 넘어가기
-          alert('공고 수정 성공')
+          // alert('공고 수정 성공')
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: '공고 수정 성공',
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
           this.$router.push(`/gather/posts/${this.id}`)
         })
         .catch((error) => {
-          window.alert(error.response.data.message)
+          // window.alert(error.response.data.message)
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error.response.data.message,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
         })
     },
     paramsSetting() {
@@ -681,11 +726,29 @@ export default {
     },
     checkRegisterParamsValid() {
       if (this.cmn_emptyCheck(this.postingRegisterParams.title)) {
-        window.alert('제목을 입력해주세요.')
+        // window.alert('제목을 입력해주세요.')
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '제목을 입력해주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
         return false
       }
       if (this.cmn_emptyCheck(this.postingRegisterParams.content)) {
-        window.alert('내용을 입력해주세요.')
+        // window.alert('내용을 입력해주세요.')
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '내용을 입력해주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
         return false
       }
       // if (this.cmn_emptyCheck(this.postingRegisterParams.closedDt)) {
