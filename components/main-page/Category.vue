@@ -209,7 +209,7 @@ export default {
     },
     checkLogin() {
       if (!this.$store.state.userInfo.initLoginDone) {
-        this.$emit('setLoginPopupOpen', {})
+        this.$router.push('/login')
       } else {
         this.$router.push('/posting?m=write')
       }

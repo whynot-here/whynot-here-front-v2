@@ -83,7 +83,6 @@ export default {
   },
   data () {
     return {
-      loginPopupOpen: false,
       profileImg: '',
       initLoginDone: false,
       openAccount: false,
@@ -118,7 +117,6 @@ export default {
     logout() {
       this.cmn_logout()
       this.initLoginDone = false
-      this.loginPopupOpen = false
     }
   }
 }
