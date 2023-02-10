@@ -138,7 +138,16 @@ export default {
     },
     moveMyPostingsPage () {
       if (!this.$store.state.userInfo.initLoginDone) {
-        alert('로그인 후 이용해 주세요')
+        // alert('로그인 후 이용해 주세요')
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '로그인 후 이용해 주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
         return false
       }
 
@@ -154,7 +163,16 @@ export default {
     },
     moveBookmarkPage () {
       if (!this.$store.state.userInfo.initLoginDone) {
-        alert('로그인 후 이용해 주세요')
+        // alert('로그인 후 이용해 주세요')
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '로그인 후 이용해 주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
         return false
       }
 

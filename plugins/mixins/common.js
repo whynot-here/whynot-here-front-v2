@@ -236,6 +236,23 @@ const common = {
       this.$router.push('/')
     },
 
+    cmn_openAlertPopup({ option }) {
+      this.$AlertPopup.popupOption.isShow = true
+      this.$AlertPopup.popupOption.title = option.title
+      this.$AlertPopup.popupOption.content = option.content
+      this.$AlertPopup.popupOption.type = option.type
+      this.$AlertPopup.popupOption.confirmText = option.confirmText
+      this.$AlertPopup.popupOption.cancelText = option.cancelText
+      this.$AlertPopup.popupOption.confirmCallback = option.confirmCallback
+
+      const instance = this.$AlertPopup
+      const mount = document.createElement('div')
+      mount.id = 'alert-' + Date.now()
+      document.body.appendChild(mount)
+
+      instance.$mount(mount)
+    },
+
     cmn_logout() {
       // if (window.confirm('로그아웃 하시겠어요?')) {
       //   this.$cookies.remove('token')
@@ -248,15 +265,26 @@ const common = {
       //   this.$bus.$emit('refreshCard', {})
       //   this.cmn_goMainPage()
       // }
-      this.$cookies.remove('token')
+      this.cmn_openAlertPopup({
+        option: {
+          title: '로그아웃',
+          content: '로그아웃 하시겠어요?',
+          type: 'confirm',
+          confirmText: '네',
+          cancelText: '아니오',
+          confirmCallback: () => {
+            this.$cookies.remove('token')
 
-      this.$store.commit('userInfo/setToken', { token: '' })
-      this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
-      this.$store.commit('userInfo/setDetail', { info: null })
-
-      Cookies.remove('vuex')
-      this.$bus.$emit('refreshCard', {})
-      this.cmn_goMainPage()
+            this.$store.commit('userInfo/setToken', { token: '' })
+            this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
+            this.$store.commit('userInfo/setDetail', { info: null })
+      
+            Cookies.remove('vuex')
+            this.$bus.$emit('refreshCard', {})
+            this.cmn_goMainPage()
+          }
+        }
+      })
     },
 
     cmn_auto_logout() {

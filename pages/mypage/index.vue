@@ -124,7 +124,16 @@ export default {
         this.editNickNameMode = false
         this.currentNickName = this.inputNickName
       }).catch((error) => {
-        window.alert(error.response.data.message)
+        // window.alert(error.response.data.message)
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: error.response.data.message,
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
       })
     }
   }
