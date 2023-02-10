@@ -9,6 +9,19 @@ export default function ({ params, query, route, store, redirect }) {
     '/login'
   ]
 
+  const isAuthenticatedPath = [
+    '/gather/myposting',
+    '/gather/bookmark',
+    '/posting',
+    '/mypage'
+  ]
+
+  if (!route.query.accessToken && isAuthenticatedPath.includes(route.path) && !store.state.userInfo.initLoginDone) {
+    return redirect({
+      name: 'login',
+    })
+  }
+
   if (!route.query.accessToken && !exceptPath.includes(route.path) && !store.state.userInfo.initLoginDone) {
     return redirect({
       name: 'gather-category',
