@@ -54,7 +54,7 @@ export default {
     this.$bus.$on('setSubCategoryId', ({ id, name, catName, subType }) => {
       this.subCategory = subType
       this.$refs.Card.toggleIsSubCategory(true, this.category, subType)
-      // this.setSubCategoryId({ id, name, catName })
+      this.$bus.$emit('setSubCategoryId', { id, name, catName })
     })
     this.$bus.$on('getCategoryIdAndGetPosts', () => {
       this.$refs.Card.toggleIsSubCategory(
