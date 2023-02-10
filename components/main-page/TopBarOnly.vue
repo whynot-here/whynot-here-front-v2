@@ -31,7 +31,7 @@
         <div
           v-if="!$store.state.userInfo.initLoginDone"
           class="login"
-          @click="openLoginPopup"
+          @click="moveToLoginPage"
         >
           로그인
         </div>
@@ -65,21 +65,12 @@
         </div>
       </div>
     </div>
-    <LoginPopup
-      v-if="loginPopupOpen"
-      @closePopup="closeLoginPopup"
-    />
   </div>
 </template>
 
 <script>
-import LoginPopup from '@/components/login/LoginPopup'
-
 export default {
   name: 'TopBar',
-  components: {
-    LoginPopup
-  },
   props: {
     categoryTitleProps: {
       type: String,
@@ -108,11 +99,8 @@ export default {
     mainPage () {
       this.$router.push('/')
     },
-    openLoginPopup () {
-      this.loginPopupOpen = true
-    },
-    closeLoginPopup () {
-      this.loginPopupOpen = false
+    moveToLoginPage() {
+      this.$router.push('/login')
     },
     toggleAccountPopup () {
       this.openAccount = !this.openAccount
@@ -122,8 +110,7 @@ export default {
     },
     checkLogin() {
       if (!this.$store.state.userInfo.initLoginDone) {
-        // this.$emit('setLoginPopupOpen', {})
-        this.openLoginPopup()
+        this.$router.push('/login')
       } else {
         this.$router.push('/posting?m=write')
       }
