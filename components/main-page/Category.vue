@@ -200,7 +200,7 @@ export default {
       this.toggleCategoryPanel()
     },
     selectSubCategory ({ id, type, subType, name, catName }) {
-      this.$bus.$emit('setSubCategoryId', { id, name, catName, subType })
+      this.$bus.$emit('setSubCategoryId', { id, name, catName })
       this.selectedCategory = type
       this.selectedSubCategory = subType
       // this.$router.push({ path: `/${this.selectedCategory}`, params: { sub: `${type}` } })
