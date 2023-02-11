@@ -101,7 +101,7 @@
           </div>
         </div>
       </div>
-      <div v-if="compModalOpen" class="comp-modal">
+      <!-- <div v-if="compModalOpen" class="comp-modal">
         <div class="comp-wrp">
           <div class="notice">
             모집 마감을 누르시면 해당 글<br />
@@ -113,7 +113,7 @@
             <div @click="compRecruit()">네</div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -525,12 +525,24 @@ export default {
       }
     },
     compModalToggle(id) {
-      if (this.compModalOpen) {
-        this.compModalOpen = false
-      } else {
-        this.compModalOpen = true
-      }
-
+      // if (this.compModalOpen) {
+      //   this.compModalOpen = false
+      // } else {
+      //   this.compModalOpen = true
+      // }
+      this.cmn_openAlertPopup({
+        option: {
+          title: '⚠️알림',
+          content:
+            '모집 마감을 누르시면 해당 글 수정 / 모집이 불가합니다. 그래도 진행 하시겠습니까?',
+          type: 'confirm',
+          confirmText: '네',
+          cancelText: '아니요',
+          confirmCallback: () => {
+            this.compRecruit()
+          }
+        }
+      })
       this.compRecruitId = id
     },
     compRecruit() {
