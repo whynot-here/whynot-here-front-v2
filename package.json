@@ -28,6 +28,7 @@
     "sass-loader": "10",
     "v-calendar": "^2.4.1",
     "vue": "^2.6.14",
+    "vue-clipboard2": "0.3.3",
     "vue-cookies": "^1.8.1",
     "vue-gtag": "^1.16.1",
     "vue-server-renderer": "^2.6.14",

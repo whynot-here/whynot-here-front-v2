@@ -297,7 +297,15 @@ const common = {
       Cookies.remove('vuex')
       this.$bus.$emit('refreshCard', {})
       this.cmn_goMainPage()
-    }
+    },
+    
+    async copySomething(text) {
+      try {
+          await this.$copyText(text);
+      } catch (e) {
+          console.error(e);
+      }
+  },
   }
 }
 

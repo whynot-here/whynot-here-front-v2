@@ -390,16 +390,8 @@ export default {
           this.comments = res.data
         })
     },
-    copyUrl() {
-      let url = ''
-      const textarea = document.createElement('textarea')
-
-      document.body.appendChild(textarea)
-      url = window.document.location.href
-      textarea.value = url
-      textarea.select()
-      document.execCommand('copy')
-      document.body.removeChild(textarea)
+    copyUrl() { 
+      this.copySomething(window.document.location.href)
 
       // alert('URL이 복사되었습니다.')
       this.cmn_openAlertPopup({
