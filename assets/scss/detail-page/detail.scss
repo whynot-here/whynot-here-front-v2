@@ -538,6 +538,7 @@
         padding: 12px 16px;
         background-color: #ffffff;
         border-radius: 10px;
+        margin-bottom: 15px;
       }
 
       .m-profile-info {
@@ -545,12 +546,17 @@
         line-height: 30px;
         font-size: 1rem;
         color: #737373;
+        justify-content: space-between;
 
-        .m-profile-img {
-          width: 30px;
-          height: 30px;
-          margin-right: 8px;
-          border-radius: 100%;
+        .m-profile-info-main {
+          display: flex;
+
+          .m-profile-img {
+            width: 30px;
+            height: 30px;
+            margin-right: 8px;
+            border-radius: 100%;
+          }
         }
 
         .m-close-img {
@@ -566,9 +572,9 @@
       }
 
       .m-comment-wrp {
-        margin: 0px 16px 16px 16px;
+        margin: 16px 16px 16px 16px;
         height: 124px;
-        font-size: 0.9rem;
+        font-size: 1rem;
         .m-comment-input {
           width: calc(100% - 32px);
           height: calc(100% - 32px);
