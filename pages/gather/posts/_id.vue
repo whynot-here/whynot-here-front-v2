@@ -2,7 +2,7 @@
   <div v-if="isFromPc" id="PostingPage">
     <div class="panel-wrp">
       <section class="detail-panel">
-        <div v-if="postComp.dDay!== ''">
+        <div v-if="postComp.dDay !== ''">
           <div class="top">
             <div class="d-day">마감 {{ postComp.dDay }}</div>
             <div class="img-wrp">
@@ -152,7 +152,7 @@
                     {{ postComp.passedDay }}
                   </div>
                 </div>
-                
+
                 <div class="m-detail-content-footer">
                   <img class="views-icon" src="@/assets/img/common/views.png" />
                   <div class="views-text">
@@ -283,7 +283,6 @@
             />
             <span>본문</span>
           </div>
-          
         </div>
         <div class="sub-menu">
           <img
