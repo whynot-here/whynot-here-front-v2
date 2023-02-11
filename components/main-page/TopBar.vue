@@ -37,7 +37,7 @@
         <div
           v-if="!$store.state.userInfo.initLoginDone"
           class="login"
-          @click="openLoginPopup"
+          @click="moveToLoginPage"
         >
           로그인
         </div>
@@ -72,7 +72,6 @@
         </div>
       </div>
     </div>
-    <LoginPopup v-if="loginPopupOpen" @closePopup="closeLoginPopup" />
   </div>
   <div v-else id="TopBarM">
     <div class="top">
@@ -88,7 +87,7 @@
       <div
         v-if="!$store.state.userInfo.initLoginDone"
         class="login"
-        @click="openLoginPopup"
+        @click="moveToLoginPage"
       >
         로그인
       </div>
@@ -130,18 +129,12 @@
         </div>
       </div>
     </div>
-    <LoginPopup v-if="loginPopupOpen" @closePopup="closeLoginPopup" />
   </div>
 </template>
 
 <script>
-import LoginPopup from '@/components/login/LoginPopup'
-
 export default {
   name: 'TopBar',
-  components: {
-    LoginPopup
-  },
   props: {
     categoryTitleProps: {
       type: String,
@@ -154,7 +147,6 @@ export default {
   },
   data() {
     return {
-      loginPopupOpen: false,
       profileImg: '',
       initLoginDone: false,
       openAccount: false,
@@ -179,17 +171,11 @@ export default {
     mainPage() {
       this.$router.push('/')
     },
-    openLoginPopup() {
-      this.loginPopupOpen = true
-      if (this.isMobile) {
-        this.$bus.$emit('toggleReviewButton', {})
-      }
-    },
-    closeLoginPopup() {
-      this.loginPopupOpen = false
-      if (this.isMobile) {
-        this.$bus.$emit('toggleReviewButton', {})
-      }
+    moveToLoginPage() {
+      // if (this.isMobile) {
+      //   this.$bus.$emit('toggleReviewButton', {})
+      // }
+      this.$router.push('/login')
     },
     toggleAccountPopup() {
       this.openAccount = !this.openAccount
@@ -199,8 +185,7 @@ export default {
     },
     checkLogin(type) {
       if (!this.$store.state.userInfo.initLoginDone) {
-        // this.$emit('setLoginPopupOpen', {})
-        this.openLoginPopup()
+        this.$router.push('/login')
       }
 
       if (this.$store.state.userInfo.initLoginDone && type !== 'card') {
@@ -210,7 +195,6 @@ export default {
     logout() {
       this.cmn_logout()
       this.initLoginDone = false
-      this.loginPopupOpen = false
     }
   }
 }

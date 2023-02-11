@@ -26,7 +26,6 @@ export default {
   data() {
     return {
       posts: [],
-      loginPopupOpen: false,
       // isMyPostings: false,
       // isBookmark: false,
       categoryId: 0
@@ -174,9 +173,6 @@ export default {
       //   })
       // }
     },
-    setLoginPopupOpen() {
-      this.$refs.TopBar.openLoginPopup()
-    }
   }
 }
 </script>
