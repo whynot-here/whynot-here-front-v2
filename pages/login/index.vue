@@ -27,13 +27,13 @@
               이메일 주소
             </div>
             <div>
-              <input class="form-content" type="text" placeholder="ex) whynot@gmail.com">
+              <input v-model="email" class="form-content" type="text" placeholder="ex) whynot@gmail.com">
             </div>
             <div class="form-title">
               비밀번호
             </div>
             <div>
-              <input class="form-content" type="password" placeholder="비밀번호를 입력해주세요.">
+              <input v-model="password" class="form-content" type="password" placeholder="비밀번호를 입력해주세요.">
             </div>
           </div>
           <div v-else style="height: 160px;"></div>
@@ -76,7 +76,9 @@ export default {
   name: 'LoginPopup',
   data () {
     return {
-      isIdPwLoginMode: false
+      isIdPwLoginMode: false,
+      email: "",
+      password: ""
     }
   },
   methods: {
@@ -95,13 +97,45 @@ export default {
     idPwLogin () {
       if (this.isIdPwLoginMode) {
         // 일반 로그인
-        console.log('일반 로그인')
+        this.doFormLogin(this.email, this.password);
       } else {
         this.isIdPwLoginMode = true
       }
     },
     goHome () {
       this.$router.push('/gather/all')
+    },
+    doFormLogin (email, password) {
+      (this.$axios.post(
+        ('https://whynot-here.o-r.kr/v2/sign-in'),
+        {
+          email, password
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      )
+      ).then(res => {
+        this.$store.commit('userInfo/setToken', { token: res.data.accessToken })
+        this.$store.commit('userInfo/setInitLoginDone', { loginDone: true })
+        this.$store.commit('userInfo/setDetail', { info: res.data.accountResponseDTO })
+        this.cmn_setCookie('token', res.data.accessToken, 8760)
+        this.$bus.$emit('refreshCard', {})
+        this.$router.push(`/gather/all`)
+      }).catch((error) => {
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: error.response.data.message,
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
+      })
     }
   }
 }
