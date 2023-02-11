@@ -243,7 +243,9 @@ export default {
   methods: {
     refreshCard() {
       this.getPosts()
-      this.getBookmark()
+      setTimeout(() => {
+        this.getBookmark()
+      }, 300)
     },
     getPosts() {
       if (this.category === 'mypostings') {
@@ -419,14 +421,14 @@ export default {
     bookmark(id) {
       if (!this.$store.state.userInfo.initLoginDone) {
         // alert('로그인 후 이용해 주세요')
-       this.cmn_openAlertPopup({
+        this.cmn_openAlertPopup({
           option: {
             content: '로그인 후 이용해 주세요.',
             type: 'alert',
             confirmText: '확인',
             cancelText: ''
           }
-        }) 
+        })
         return false
       }
 
