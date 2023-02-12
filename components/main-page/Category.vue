@@ -63,14 +63,14 @@
           >
             {{ cat.parentName }}
           </div>
-          <div
+          <!-- <div
             v-for="(sub, sIdx) in cat.children"
             :key="sIdx"
             :class="sub.code.toLowerCase() === selectedSubCategory ? 'sub-title selected' : 'sub-title'"
             @click="selectSubCategory({ id: sub.id, type: cat.parentCode.toLowerCase(), subType: sub.code.toLowerCase(), name: sub.name, catName: cat.parentName })"
           >
             {{ sub.name }}
-          </div>
+          </div> -->
         </div>
       </section>
     </div>
