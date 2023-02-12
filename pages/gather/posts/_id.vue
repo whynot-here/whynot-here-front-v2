@@ -58,7 +58,7 @@
       <section class="comment-panel">
         <div class="top">
           <div>
-            <div v-if="postComp.writerProfileImage !== ''">
+            <div v-if="postComp.writerProfileImage !== '' && postComp.writerProfileImage !== null">
               <img :src="postComp.writerProfileImage" alt="" />
             </div>
             <div v-else>
@@ -92,7 +92,7 @@
           <div v-for="(comment, idx) in commentComp" :key="idx" class="comment">
             <div class="top">
               <div>
-                <div v-if="comment.account.profileImg !== ''">
+                <div v-if="comment.account.profileImg !== '' && comment.account.profileImg !== null">
                   <img :src="comment.account.profileImg" alt="" />
                 </div>
                 <div v-else>
@@ -203,16 +203,22 @@
               class="m-comment"
             >
               <div class="m-profile-info">
-                <div>
-                  <img
-                    class="m-profile-img"
-                    :src="comment.account.profileImg"
-                    alt=""
-                  />
+                <div class="m-profile-info-main">
+                  <div v-if="comment.account.profileImg !== '' && comment.account.profileImg !== null">
+                    <img
+                      class="m-profile-img"
+                      :src="comment.account.profileImg"
+                      alt=""
+                    />
+                  </div>
+                  <div v-else>
+                    <img class="m-profile-img" src="@/assets/img/common/default-profile.png" alt="" />
+                  </div>
+                  <div>
+                    {{ comment.account.nickname }}
+                  </div>
                 </div>
-                <div>
-                  {{ comment.account.nickname }}
-                </div>
+                
                 <div
                   v-if="
                     comment.account.email === $store.state.userInfo.detail.email
