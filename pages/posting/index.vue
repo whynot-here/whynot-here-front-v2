@@ -286,7 +286,7 @@
               </div>
             </div>
             <div>
-              <div id="AddPostImg" class="add-img">
+              <!-- <div id="AddPostImg" class="add-img">
                 <div class="camera-img">
                   <img src="@/assets/img/posting/camera.png" alt="" />
                 </div>
@@ -313,7 +313,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </section>
