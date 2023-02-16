@@ -64,24 +64,35 @@
         </div>
       </section>
       <section class="popup-bottom">
-        로그인은 <strong>개인 정보 보호 정책</strong> 및 <strong>서비스 약관에 동의</strong>하는 것을
+        로그인은 <strong @click="openPopup({type: 1})">개인 정보 보호 정책</strong> 및 <strong @click="openPopup({type: 2})">서비스 약관에 동의</strong>하는 것을
         의미하며, 서비스 이용을 위해서 이메일과, 이름, 프로필 이미지를 수집합니다.
       </section>
     </div>
+    <PolicyPopup ref="policyPopup" :type="openPopupType"/>
   </div>
 </template>
 
 <script>
+import PolicyPopup from '@/components/common/PolicyPopup'
+
 export default {
   name: 'LoginPopup',
+  components: {
+    PolicyPopup
+  },
   data () {
     return {
       isIdPwLoginMode: false,
       email: "",
-      password: ""
+      password: "",
+      openPopupType: 1
     }
   },
   methods: {
+    openPopup({ type }) {
+      this.$refs.policyPopup.show()
+      this.openPopupType = type;
+    },
     appleLogin () {
       location.href = `https://whynot-here.o-r.kr/auth/login/apple?redirect_uri=${process.env.frontUrl}`
     },
