@@ -2,7 +2,8 @@
   <div v-if="isShow" class="popup-wrap">
     <div v-if="type == 1" class="popup">
       <div class="close-btn" @click="hide()">
-        <div>{{ type == 1 ? '개인정보 보호 정책' : '서비스 이용약관' }}</div>
+        <!-- <div>{{ type == 1 ? '개인정보 보호 정책' : '서비스 이용약관' }}</div> -->
+        <div>개인정보 보호 정책 / 서비스 이용 약관</div>
         <div>
           <img src="@/assets/img/common/close-btn.png" alt="" />
         </div>
@@ -366,47 +367,99 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.popup-wrap {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .popup::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera*/
-  }
-  .popup {
-    width: 500px;
-    height: 500px;
-    padding: 0 30px 30px 30px;
-    background-color: #fff;
-    border-radius: 5px;
-    overflow-y: scroll;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+@import '@/assets/scss/util.scss';
 
-    .close-btn {
-      display: flex;
-      position: sticky;
-      top: 0;
+@include mobile {
+  .popup-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .popup::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
+    .popup {
+      width: 300px;
+      height: 400px;
+      padding: 0 16px 30px 16px;
       background-color: #fff;
-      padding: 20px 0 10px 0;
-      cursor: pointer;
-      div:first-child {
-        flex-grow: 1;
-        font-size: 1.2rem;
-        font-weight: 500;
-      }
-      div:nth-child(2) {
-        width: 24px;
-        img {
+      border-radius: 5px;
+      overflow-y: scroll;
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+      font-size: .88rem;
+      .close-btn {
+        display: flex;
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        padding: 20px 0 10px 0;
+        cursor: pointer;
+        div:first-child {
+          flex-grow: 1;
+          font-size: 1rem;
+          font-weight: 500;
+        }
+        div:nth-child(2) {
           width: 24px;
-          height: 24px;
+          img {
+            width: 18px;
+            height: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include min-desktop {
+  .popup-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .popup::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
+    .popup {
+      width: 500px;
+      height: 500px;
+      padding: 0 30px 30px 30px;
+      background-color: #fff;
+      border-radius: 5px;
+      overflow-y: scroll;
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+      .close-btn {
+        display: flex;
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        padding: 20px 0 10px 0;
+        cursor: pointer;
+        div:first-child {
+          flex-grow: 1;
+          font-size: 1.2rem;
+          font-weight: 500;
+        }
+        div:nth-child(2) {
+          width: 24px;
+          img {
+            width: 24px;
+            height: 24px;
+          }
         }
       }
     }
