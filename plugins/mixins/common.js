@@ -305,7 +305,16 @@ const common = {
       } catch (e) {
           console.error(e);
       }
-  },
+    },
+
+    toastPopup(text) {
+      this.$toasted.show(text, {
+        position: 'bottom-right',
+        duration: 1500,
+        // type: 'success',
+        // theme: 'bubble'
+      })
+    }
   }
 }
 
