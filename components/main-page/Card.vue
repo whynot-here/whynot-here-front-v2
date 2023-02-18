@@ -445,6 +445,7 @@ export default {
               })
               .then((res) => {
                 post.isBookmarked = false
+                this.toastPopup('북마크가 해제되었습니다.')
               })
               .catch((error) => {
                 window.alert(error.response.data.message)
@@ -464,6 +465,7 @@ export default {
               )
               .then((res) => {
                 post.isBookmarked = true
+                this.toastPopup('북마크가 추가되었습니다.')
               })
               .catch((error) => {
                 window.alert(error.response.data.message)

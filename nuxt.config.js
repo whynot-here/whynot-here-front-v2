@@ -54,7 +54,9 @@ export default {
     {
       src: '~plugins/persistedState.js'
     },
-    { src: '~/plugins/v-calendar.js', mode: 'client' }
+    { src: '~/plugins/v-calendar.js', mode: 'client' },
+    { src: '~/plugins/vue-toasted.js', mode: 'client' },
+    { src: '~/plugins/vue-persian-datetime-picker.js', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
