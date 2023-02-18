@@ -49,7 +49,7 @@
           </div>
         </div>
         <div class="social-login">
-          <div v-if="isMobile" class="social-login-btn">
+          <div v-if="!isFromPc" class="social-login-btn">
             <img src="@/assets/img/login/apple-login-btn.png" alt="" @click="appleLogin()">
           </div>
           <div v-if="isFromPc" class="social-login-btn">
