@@ -149,7 +149,11 @@ const common = {
       return this.$ua.isFromTablet()
     },
     isFromPc() {
-      return !(this.isMobile || this.isTablet)
+      if (process.browser) {
+        const width = window.innerWidth
+        return width > 2048
+      }
+      return false;
     }
   },
   methods: {
