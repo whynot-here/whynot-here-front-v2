@@ -2,24 +2,30 @@
 
 #MyPage {
   .mypage-wrp {
-    width: 970px; min-height: 582px;
-    margin: 0 auto; padding-top: 123px; padding-bottom: 30px;
+    width: 970px;
+    min-height: 582px;
+    margin: 0 auto;
+    padding-top: 123px;
+    padding-bottom: 30px;
     .close {
       text-align: right;
       img {
-        width: 32px; height: 32px;
+        width: 32px;
+        height: 32px;
         cursor: pointer;
       }
     }
     .title {
-      font-size: 1.38rem; font-weight: 500;
+      font-size: 1.38rem;
+      font-weight: 500;
       color: #737373;
     }
     .sub-title {
       margin-top: 24px;
-      font-size: 2rem; font-weight: 600;
+      font-size: 2rem;
+      font-weight: 600;
       strong {
-        color: #3E82F1;
+        color: #3e82f1;
       }
     }
     .img-nickname-grp {
@@ -28,27 +34,31 @@
       .img {
         img {
           border-radius: 24px;
-          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 8px rgba(0, 52, 138, 0.06);
+          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
+            0px 4px 8px rgba(0, 52, 138, 0.06);
         }
       }
       .nickname {
         &.selected {
-          border: 1px solid #3E82F1;
+          border: 1px solid #3e82f1;
         }
         display: flex;
-        width: 370px; height: 56px;
+        width: 370px;
+        height: 56px;
         margin: 32px auto 0 auto;
-        font-size: 1rem; font-weight: 500;
+        font-size: 1rem;
+        font-weight: 500;
         color: #454545;
-        background: #FFFFFF;
-        border: 1px solid #EFEFEF;
+        background: #ffffff;
+        border: 1px solid #efefef;
         border-radius: 12px;
         .nickname-left {
-          width: 65px; height: 18px;
+          width: 65px;
+          height: 18px;
           margin-top: 20px;
-          border-right: 1px solid #EFEFEF;
-          font-size: .88rem;
-          color: #C8C8C8
+          border-right: 1px solid #efefef;
+          font-size: 0.88rem;
+          color: #c8c8c8;
         }
         div:nth-child(2) {
           line-height: 56px;
@@ -59,14 +69,16 @@
         }
         .edit-pencil {
           img {
-            width: 15px; height: 23px;
+            width: 15px;
+            height: 23px;
             padding: 6px 10px;
             cursor: pointer;
           }
         }
         .edit-input-wrp {
           .edit-input {
-            font-size: 1rem; font-weight: 500;
+            font-size: 1rem;
+            font-weight: 500;
             padding: 12px;
             border: none;
             border-radius: 10px;
@@ -76,25 +88,31 @@
           }
         }
         .edit-button-wrp {
-          width: 50px; height: 28px; line-height: 28px;
+          width: 50px;
+          height: 28px;
+          line-height: 28px;
           margin: 14px 16px;
-          background: #F3F3F3;
+          background: #f3f3f3;
           border-radius: 16px;
-          font-size: 1rem; font-weight: 500;
-          color: #3E82F1;
+          font-size: 1rem;
+          font-weight: 500;
+          color: #3e82f1;
           cursor: pointer;
         }
       }
     }
     .email {
-      width: 370px; height: 56px; line-height: 56px;
+      width: 370px;
+      height: 56px;
+      line-height: 56px;
       margin: 24px auto;
       input {
-        width: 100%; height: 100%;
+        width: 100%;
+        height: 100%;
         padding-left: 12px;
         font-size: 1rem;
-        color: #A3A3A3;
-        background: #EFEFEF;
+        color: #a3a3a3;
+        background: #efefef;
         border-radius: 12px;
         border: none;
         text-align: center;
@@ -106,7 +124,7 @@
       padding-top: 20px;
       text-align: center;
       font-size: 1.1rem;
-      color: #A3A3A3;
+      color: #a3a3a3;
       cursor: pointer;
     }
   }
@@ -119,8 +137,7 @@
     .m-mypage-header {
       height: 6vh;
       display: grid;
-      grid-template:
-        "arrow title ." 1fr / 1fr 5fr 1fr;
+      grid-template: 'arrow title .' 1fr / 1fr 5fr 1fr;
 
       .m-close {
         width: 3vw;
@@ -157,10 +174,11 @@
       align-items: center;
 
       .m-profile-img {
-        background-color: #FFFFFF;
+        background-color: #ffffff;
         width: 25vw;
         margin-bottom: 3vh;
-        box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 4px 8px rgba(0, 52, 138, 0.06);
+        box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
+          0px 4px 8px rgba(0, 52, 138, 0.06);
         border-radius: 18px;
 
         @include tablet {
@@ -179,7 +197,7 @@
       .m-sub-title {
         margin-bottom: 3vh;
         .m-sub-title-highlight {
-          color: #3E82F1;
+          color: #3e82f1;
         }
 
         @include tablet {
@@ -189,18 +207,19 @@
 
       .m-nickname {
         &.m-selected {
-          border: 1px solid #3E82F1;
+          border: 1px solid #3e82f1;
         }
 
         display: grid;
-        width: 90%;
-        height: 5vh;
+        margin: 0 16px;
+        width: calc(100% - 52px);
+        height: 48px;
         margin-bottom: 3vh;
-        background-color: #FFFFFF;
+        background-color: #ffffff;
         border-radius: 9999px;
-        box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
-        grid-template:
-          "left content right" 1fr / 1fr 4fr 1fr;
+        box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
+          0px 8px 16px rgba(0, 52, 138, 0.08);
+        grid-template: 'left content right' 1fr / 1fr 4fr 1fr;
         align-items: center;
         padding-left: 20px;
 
@@ -210,8 +229,8 @@
 
         .m-nickname-left {
           grid-area: left;
-          color: #C8C8C8;
-          border-right: 1px solid #C8C8C8;
+          color: #c8c8c8;
+          border-right: 1px solid #c8c8c8;
 
           @include tablet {
             font-size: 20px;
@@ -219,8 +238,23 @@
         }
 
         .m-nickname-content {
-          grid-area: content;
-          padding-left: 3vw;
+          text-align: center;
+          input {
+            width: 100%;
+            height: 100%;
+            padding-left: 12px;
+            font-size: 1rem;
+            // color: #a3a3a3;
+            // background: #efefef;
+            border-radius: 12px;
+            border: none;
+            text-align: center;
+          }
+          input:focus {
+            outline: none;
+          }
+          // grid-area: content;
+          // padding-left: 3vw;
 
           @include tablet {
             font-size: 20px;
@@ -230,15 +264,15 @@
         .m-edit-button-wrp {
           grid-area: right;
           width: 12vw;
-          color: #3E82F1;
-          background: #F3F3F3;
+          color: #3e82f1;
+          background: #f3f3f3;
           border-radius: 16px;
           text-align: center;
         }
       }
 
       .m-email {
-        background-color: #EFEFEF;
+        background-color: #efefef;
         border-radius: 9999px;
         width: 90%;
         height: 5vh;
@@ -251,9 +285,9 @@
 
         input {
           width: 100%;
-          color: #A3A3A3;
+          color: #a3a3a3;
           text-align: center;
-          background-color: #EFEFEF;;
+          background-color: #efefef;
           border: none;
 
           @include tablet {
