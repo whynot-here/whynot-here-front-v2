@@ -678,6 +678,9 @@ export default {
     paramsSetting() {
       this.postingRegisterParams.categoryId =
         this.postingRegisterParams.category.id
+      if (! this.useDday || this.postingRegisterParams.closedDt === "") {
+        delete this.postingRegisterParams.closedDt
+      }
     },
     // 사진 선택
     onFileChange(event) {
