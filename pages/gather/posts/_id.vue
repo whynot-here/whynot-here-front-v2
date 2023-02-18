@@ -140,6 +140,9 @@
         <div class="m-detail-container">
           <div class="m-detail-content">
             <div class="m-detail-content-header">
+              <div v-if="postComp.dDay !== ''">
+                <div class="d-day">마감 {{ postComp.dDay }}</div>
+              </div>
               <div class="writer">
                 {{ postComp.writerName }}
               </div>

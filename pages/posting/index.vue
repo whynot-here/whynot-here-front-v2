@@ -47,20 +47,15 @@
                     placeholder="날짜 선택"
                     oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                   > -->
-                <vc-date-picker
-                  v-model="postingRegisterParams.closedDt"
-                  :min-date="new Date()"
-                  class="sub-wrp d-day-input"
-                >
-                  <template #default="{ inputValue, inputEvents }">
-                    <input
-                      :disabled="!useDday"
-                      class="bg-white border px-2 py-1 rounded"
-                      :value="inputValue"
-                      v-on="inputEvents"
-                    />
-                  </template>
-                </vc-date-picker>
+
+
+                <div v-if="useDday">
+                  <custom-date-picker v-model="postingRegisterParams.closedDt" class="sub-wrp d-day-input bg-white border px-2 py-1 rounded" />
+                </div>
+                <div v-else>
+                  <input disabled class="sub-wrp d-day-input px-2 py-1" />
+                </div>
+                
                 <!-- </div> -->
               </div>
               <!-- <div class="form-wrp process">
@@ -239,20 +234,12 @@
                       value="blue"
                     />
                   </div>
-                  <vc-date-picker
-                    v-model="postingRegisterParams.closedDt"
-                    :min-date="new Date()"
-                    class="sub-wrp d-day-input"
-                  >
-                    <template #default="{ inputValue, inputEvents }">
-                      <input
-                        :disabled="!useDday"
-                        class="bg-white border px-2 py-1 rounded"
-                        :value="inputValue"
-                        v-on="inputEvents"
-                      />
-                    </template>
-                  </vc-date-picker>
+                  <div v-if="useDday">
+                    <custom-date-picker v-model="postingRegisterParams.closedDt" class="sub-wrp d-day-input bg-white border px-2 py-1 rounded" />
+                  </div>
+                  <div v-else>
+                    <input disabled class="sub-wrp d-day-input px-2 py-1" />
+                  </div>
                 </div>
                 <!-- </div> -->
               </div>
@@ -511,6 +498,10 @@ export default {
             }
             return this.inputImg.push(img)
           })
+
+          if (this.postingRegisterParams.closedDt !== "") {
+            this.useDday = true
+          }
         })
     },
     setOwnerContact(item) {
@@ -687,16 +678,6 @@ export default {
     paramsSetting() {
       this.postingRegisterParams.categoryId =
         this.postingRegisterParams.category.id
-      if (this.postingRegisterParams.closedDt) {
-        this.postingRegisterParams.closedDt =
-          this.postingRegisterParams.closedDt.toISOString().split('T')[0] +
-          ' ' +
-          this.postingRegisterParams.closedDt
-            .toISOString()
-            .split('T')[1]
-            .substring(0, 5)
-        console.log(this.postingRegisterParams.closedDt)
-      }
     },
     // 사진 선택
     onFileChange(event) {

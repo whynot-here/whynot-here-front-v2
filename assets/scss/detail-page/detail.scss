@@ -271,11 +271,28 @@
             'tags' 2fr
             '.' 1fr / 1fr;
 
+          .d-day {
+            width: max-content;
+            height: 30px;
+            line-height: 30px;
+            padding: 0 14px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #3e82f1;
+            text-align: center;
+            background: #ffffff;
+            border: 1px solid #3e82f1;
+            box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
+              0px 4px 8px rgba(0, 52, 138, 0.06);
+            border-radius: 24px;
+          }
+
           .writer {
             color: #a3a3a3;
             font-size: 0.79rem;
             grid-area: writer;
             align-self: flex-end;
+            padding-top: 15px;
 
             @include tablet {
               font-size: 18px;
