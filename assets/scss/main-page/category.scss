@@ -8,6 +8,7 @@
   &.true {
     width: 100vw;
     background-color: rgba(24, 24, 24, 0.4);
+    height: 100vh;
   }
   #Category {
     width: 228px; height: 100vh;
@@ -58,7 +59,8 @@
 
   @include tablet {
     #Category {
-      width: 270px; height: calc(100vh - 44px); 
+      width: 270px;
+      height: 100vh;
       background: #FAFAFA;
       border-right: 1px solid #E7E7E7;
       overflow-y: scroll;
