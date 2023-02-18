@@ -318,6 +318,7 @@
       width: 319px; height: 110px;
       margin: 0 auto 12px auto;
       padding: 16px;
+      position: relative;
 
       @include tablet {
         width: 600px; height: 160px;
@@ -494,6 +495,7 @@
     }
     .comp-card {
       z-index: 10;
+      position: absolute;
       width: 319px; height: 110px;
 
       @include tablet {
@@ -505,7 +507,7 @@
       padding: 16px;
       border-radius: 12px;
       margin-left: -16px;
-      margin-top: -125px;
+      margin-top: -119px;
       .close {
         z-index: 10;
         margin: 0 24px 0 455px;

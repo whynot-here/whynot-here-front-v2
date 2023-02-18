@@ -81,6 +81,7 @@
 
         .open-account {
           position: absolute;
+          z-index: 100;
           right: 50px;
           width: 146px;
           // height: 100px;
@@ -181,6 +182,7 @@
 #TopBar {
   @include screen {
     .open-account {
+      z-index: 100;
       right: 15vw !important;
     }
   }
@@ -271,6 +273,7 @@
           cursor: pointer;
         }
         .open-account {
+          z-index: 100;
           position: absolute;
           right: 50px;
           width: 146px;
