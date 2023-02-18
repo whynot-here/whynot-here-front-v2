@@ -111,7 +111,7 @@
         height: 100%;
         padding-left: 12px;
         font-size: 1rem;
-        color: #a3a3a3;
+        color: #7a7a7a;
         background: #efefef;
         border-radius: 12px;
         border: none;
@@ -212,7 +212,7 @@
 
         display: grid;
         margin: 0 16px;
-        width: calc(100% - 52px);
+        width: calc(90% - 20px);
         height: 48px;
         margin-bottom: 3vh;
         background-color: #ffffff;
@@ -240,6 +240,7 @@
         .m-nickname-content {
           text-align: center;
           input {
+            text-align: center;
             width: 100%;
             height: 100%;
             padding-left: 12px;
@@ -248,7 +249,6 @@
             // background: #efefef;
             border-radius: 12px;
             border: none;
-            text-align: center;
           }
           input:focus {
             outline: none;
@@ -275,17 +275,19 @@
         background-color: #efefef;
         border-radius: 9999px;
         width: 90%;
-        height: 5vh;
+        height: 48px;
         display: flex;
         align-items: center;
+        text-align: center;
+        justify-content: center;
 
         @include lands-mobile {
           height: 10vh;
         }
 
         input {
-          width: 100%;
-          color: #a3a3a3;
+          width: 90%;
+          color: #7a7a7a;
           text-align: center;
           background-color: #efefef;
           border: none;
