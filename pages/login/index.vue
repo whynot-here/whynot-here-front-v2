@@ -64,7 +64,7 @@
         </div>
       </section>
       <section class="popup-bottom">
-        로그인은 <strong @click="openPopup({type: 1})">개인 정보 보호 정책</strong> 및 <strong @click="openPopup({type: 1})">서비스 약관에 동의</strong>하는 것을
+        로그인은 <strong @click="openPopup({type: 1})">개인 정보 보호 정책 및 서비스 약관에 동의</strong>하는 것을
         의미하며, 서비스 이용을 위해서 이메일과, 이름, 프로필 이미지를 수집합니다.
       </section>
     </div>
