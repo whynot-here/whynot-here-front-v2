@@ -507,10 +507,20 @@
       padding: 16px;
       border-radius: 12px;
       margin-left: -16px;
-      margin-top: -119px;
+      margin-top: -118px;
+
+      @include tablet {
+        margin-top: -168px;
+      }
+
       .close {
         z-index: 10;
         margin: 0 24px 0 455px;
+
+        @include tablet {
+          margin: 0 24px 0 550px;
+        }
+
         width: 24px; height: 24px;
         img {
           width: 24px; height: 24px;
