@@ -2,18 +2,15 @@
   <div id="Card">
     <div :class="isFromPc ? 'pc-env' : 'mobile-env'">
       <div class="sts-i-wrp">
-        <div v-if="onlyRecruit">모집중</div>
-        <div v-else style="color: #A3A3A3;">모집중</div>
         <div>
-          <!-- <input
+          <input
             v-model="onlyRecruit"
             type="checkbox"
             name="color"
             value="blue"
-          /> -->
-          <toggle-button v-model="onlyRecruit" class="toggle-btn" color="#3E82F1"/>
+          />
         </div>
-        
+        <div>모집중만 보기</div>
       </div>
       <div class="cards-wrp">
         <div

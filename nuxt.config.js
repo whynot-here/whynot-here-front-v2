@@ -56,8 +56,7 @@ export default {
     },
     { src: '~/plugins/v-calendar.js', mode: 'client' },
     { src: '~/plugins/vue-toasted.js', mode: 'client' },
-    { src: '~/plugins/vue-persian-datetime-picker.js', mode: 'client' },
-    { src: '~/plugins/vue-js-toggle-button.js', mode: 'client' }
+    { src: '~/plugins/vue-persian-datetime-picker.js', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
