@@ -1,6 +1,5 @@
 @import '@/assets/scss/util.scss';
 
-
 #LoginPopup::-webkit-scrollbar {
   display: none;
 }
@@ -10,77 +9,90 @@
   @include mobile {
     z-index: 100;
     position: fixed;
-    width: 100vw; height: 100vh;
-    top: 0; left: 0;
-    background-color: #FFFFFF;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
     .popup-top {
       .close-btn {
-        margin-top: 40px; margin-right: 20px;
+        margin-top: 40px;
+        margin-right: 20px;
         text-align: right;
         cursor: pointer;
         img {
-          width: 24px; height: 24px;
+          width: 24px;
+          height: 24px;
         }
       }
     }
     .popup-middle {
       .top {
-        width: 327px; 
+        width: 327px;
         margin: 0px auto 32px auto;
         div:first-child {
           margin-top: 20px;
           // margin-left: 30px;
           img {
-            width: 112px; height: 26px;
+            width: 112px;
+            height: 26px;
           }
         }
         div:nth-child(2) {
           margin-top: 32px;
           // margin-left: 32px;
-          font-size: 1.5rem; font-weight: 600;
-          color: #14428D;
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #14428d;
         }
         div:nth-child(3) {
           margin-top: 10px;
           // margin-left: 32px;
-          font-size: .88rem;
-          color: #0C2958;
+          font-size: 0.88rem;
+          color: #0c2958;
         }
       }
       .middle {
-        width: 327px; 
+        width: 327px;
         margin: 54px auto 32px auto;
         border-bottom: 1px solid rgba(235, 238, 241, 0.919);
         .form-title {
-          font-size: .88rem; font-weight: 500;
+          font-size: 0.88rem;
+          font-weight: 500;
         }
         .form-content {
-          width: 327px; height: 48px;
+          width: 327px;
+          height: 48px;
           font-size: 1rem;
           border: none;
-          border-bottom: 1px solid #E7E7E7;
+          border-bottom: 1px solid #e7e7e7;
           margin-bottom: 12px;
         }
         .form-content:focus {
           outline: none;
-          border-bottom: 1px solid #296CDB;
+          border-bottom: 1px solid #296cdb;
         }
         .login-btn-wrp {
-          width: 327px; height: 50px; line-height: 50px;
+          width: 327px;
+          height: 50px;
+          line-height: 50px;
           margin: 16px auto 32px auto;
           border-radius: 8px;
-          background: #296CDB;
+          background: #296cdb;
           .login-btn {
             display: flex;
-            width: max-content; margin: 0 auto;
-            font-size: 1rem; font-weight: 600;
+            width: max-content;
+            margin: 0 auto;
+            font-size: 1rem;
+            font-weight: 600;
             color: #fff;
             text-align: center;
             .login-icon {
               margin-right: 10px;
               padding-top: 3px;
               img {
-                width: 18px; height: 20px;
+                width: 18px;
+                height: 20px;
               }
             }
           }
@@ -89,25 +101,32 @@
       .social-login {
         display: flex;
         gap: 30px;
-        width: max-content; margin: 0 auto;
+        width: max-content;
+        margin: 0 auto;
         .social-login-btn {
           margin-bottom: 15px;
           cursor: pointer;
           img {
-            width: 48px; height: 48px;
+            width: 48px;
+            height: 48px;
           }
           img:hover {
-            box-shadow: 0px 0px 4px rgba(30, 30, 30, 0.04), 0px 4px 8px rgba(30, 30, 30, 0.04);
+            box-shadow: 0px 0px 4px rgba(30, 30, 30, 0.04),
+              0px 4px 8px rgba(30, 30, 30, 0.04);
             border-radius: 12px;
           }
         }
       }
     }
     .popup-bottom {
-      width: 274px; line-height: 1.2rem;
-      margin: 0 auto; padding-top: 32px; padding-bottom: 29px;
-      font-size: .75rem; font-weight: 400;
-      color: #7A7A7A;
+      width: 274px;
+      line-height: 1.2rem;
+      margin: 0 auto;
+      padding-top: 32px;
+      padding-bottom: 29px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: #7a7a7a;
       text-align: center;
       word-break: keep-all;
       strong {
@@ -120,77 +139,90 @@
   @include min-desktop {
     z-index: 100;
     position: fixed;
-    width: 100vw; height: 100vh;
-    top: 0; left: 0;
-    background-color: #FFFFFF;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
     .popup-top {
       .close-btn {
-        margin-top: 40px; margin-right: 20px;
+        margin-top: 40px;
+        margin-right: 20px;
         text-align: right;
         cursor: pointer;
         img {
-          width: 24px; height: 24px;
+          width: 24px;
+          height: 24px;
         }
       }
     }
     .popup-middle {
       .top {
-        width: 327px; 
+        width: 327px;
         margin: 0px auto 32px auto;
         div:first-child {
           margin-top: 150px;
           // margin-left: 30px;
           img {
-            width: 112px; height: 26px;
+            width: 112px;
+            height: 26px;
           }
         }
         div:nth-child(2) {
           margin-top: 32px;
           // margin-left: 32px;
-          font-size: 1.5rem; font-weight: 600;
-          color: #14428D;
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #14428d;
         }
         div:nth-child(3) {
           margin-top: 10px;
           // margin-left: 32px;
-          font-size: .88rem;
-          color: #0C2958;
+          font-size: 0.88rem;
+          color: #0c2958;
         }
       }
       .middle {
-        width: 327px; 
+        width: 327px;
         margin: 54px auto 32px auto;
         border-bottom: 1px solid rgba(235, 238, 241, 0.919);
         .form-title {
-          font-size: .88rem; font-weight: 500;
+          font-size: 0.88rem;
+          font-weight: 500;
         }
         .form-content {
-          width: 327px; height: 48px;
+          width: 327px;
+          height: 48px;
           font-size: 1rem;
           border: none;
-          border-bottom: 1px solid #E7E7E7;
+          border-bottom: 1px solid #e7e7e7;
           margin-bottom: 12px;
         }
         .form-content:focus {
           outline: none;
-          border-bottom: 1px solid #296CDB;
+          border-bottom: 1px solid #296cdb;
         }
         .login-btn-wrp {
-          width: 327px; height: 50px; line-height: 50px;
+          width: 327px;
+          height: 50px;
+          line-height: 50px;
           margin: 16px auto 32px auto;
           border-radius: 8px;
-          background: #296CDB;
+          background: #296cdb;
           .login-btn {
             display: flex;
-            width: max-content; margin: 0 auto;
-            font-size: 1rem; font-weight: 600;
+            width: max-content;
+            margin: 0 auto;
+            font-size: 1rem;
+            font-weight: 600;
             color: #fff;
             text-align: center;
             .login-icon {
               margin-right: 10px;
               padding-top: 3px;
               img {
-                width: 18px; height: 20px;
+                width: 18px;
+                height: 20px;
               }
             }
           }
@@ -199,25 +231,32 @@
       .social-login {
         display: flex;
         gap: 30px;
-        width: max-content; margin: 0 auto;
+        width: max-content;
+        margin: 0 auto;
         .social-login-btn {
           margin-bottom: 15px;
           cursor: pointer;
           img {
-            width: 48px; height: 48px;
+            width: 48px;
+            height: 48px;
           }
           img:hover {
-            box-shadow: 0px 0px 4px rgba(30, 30, 30, 0.04), 0px 4px 8px rgba(30, 30, 30, 0.04);
+            box-shadow: 0px 0px 4px rgba(30, 30, 30, 0.04),
+              0px 4px 8px rgba(30, 30, 30, 0.04);
             border-radius: 12px;
           }
         }
       }
     }
     .popup-bottom {
-      width: 274px; line-height: 1.2rem;
-      margin: 0 auto; padding-top: 32px; padding-bottom: 29px;
-      font-size: .75rem; font-weight: 400;
-      color: #7A7A7A;
+      width: 274px;
+      line-height: 1.2rem;
+      margin: 0 auto;
+      padding-top: 32px;
+      padding-bottom: 29px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: #7a7a7a;
       text-align: center;
       word-break: keep-all;
       strong {

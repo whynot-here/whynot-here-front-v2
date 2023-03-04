@@ -6,7 +6,14 @@
           {{ labelFirst }}
         </button>
         <ul class="option-list main">
-          <li v-for="(item, idx) in categoryList" :key="idx" :class="item.id === parentId ? 'option-item selected' : 'option-item'" @click="selectOptionMain(item)">
+          <li
+            v-for="(item, idx) in categoryList"
+            :key="idx"
+            :class="
+              item.id === parentId ? 'option-item selected' : 'option-item'
+            "
+            @click="selectOptionMain(item)"
+          >
             {{ item.name }}
           </li>
         </ul>
@@ -16,7 +23,16 @@
           {{ labelSecond }}
         </button>
         <ul class="option-list sub">
-          <li v-for="(item, idx) in subCategoryList" :key="idx" :class="item.id === childrenId ? 'option-item-sub selected-sub' : 'option-item-sub'" @click="selectOptionSub(item)">
+          <li
+            v-for="(item, idx) in subCategoryList"
+            :key="idx"
+            :class="
+              item.id === childrenId
+                ? 'option-item-sub selected-sub'
+                : 'option-item-sub'
+            "
+            @click="selectOptionSub(item)"
+          >
             {{ item.name }}
           </li>
         </ul>
@@ -46,7 +62,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       selectedCategoryId: 1,
       parentId: 1,
@@ -54,7 +70,7 @@ export default {
     }
   },
   computed: {
-    categoryList () {
+    categoryList() {
       const result = []
 
       this.categoryGroup.forEach((category) => {
@@ -66,7 +82,7 @@ export default {
       })
       return result
     },
-    subCategoryList () {
+    subCategoryList() {
       const result = []
 
       const category = this.categoryGroup.filter((category) => {
@@ -83,23 +99,35 @@ export default {
     }
   },
   methods: {
-    openOptions () {
-      if (document.querySelector(`.${this.labelFirst}`).parentNode.classList.contains('active')) {
-        document.querySelector(`.${this.labelFirst}`).parentNode.classList.remove('active')
-        document.querySelector(`.${this.labelSecond}`).parentNode.classList.remove('active')
+    openOptions() {
+      if (
+        document
+          .querySelector(`.${this.labelFirst}`)
+          .parentNode.classList.contains('active')
+      ) {
+        document
+          .querySelector(`.${this.labelFirst}`)
+          .parentNode.classList.remove('active')
+        document
+          .querySelector(`.${this.labelSecond}`)
+          .parentNode.classList.remove('active')
       } else {
-        document.querySelector(`.${this.labelFirst}`).parentNode.classList.add('active')
-        document.querySelector(`.${this.labelSecond}`).parentNode.classList.add('active')
+        document
+          .querySelector(`.${this.labelFirst}`)
+          .parentNode.classList.add('active')
+        document
+          .querySelector(`.${this.labelSecond}`)
+          .parentNode.classList.add('active')
       }
     },
-    selectOptionMain (item) {
+    selectOptionMain(item) {
       document.querySelector(`.${this.labelFirst}`).innerHTML = item.name + ''
       document.querySelector(`.${this.labelFirst}`).style.color = '#000'
       this.selectedCategoryId = item.id
       this.parentId = item.id
       this.$emit('get-label', item)
     },
-    selectOptionSub (item) {
+    selectOptionSub(item) {
       // 처음에 메인 카테고리 선택 안하고 서브 카테고리 바로 선택한 경우 때문에
       if (this.selectedCategoryId === 1) {
         const firstItem = {
@@ -110,8 +138,12 @@ export default {
       }
       document.querySelector(`.${this.labelSecond}`).innerHTML = item.name + ''
       document.querySelector(`.${this.labelSecond}`).style.color = '#000'
-      document.querySelector(`.${this.labelFirst}`).parentNode.classList.remove('active')
-      document.querySelector(`.${this.labelSecond}`).parentNode.classList.remove('active')
+      document
+        .querySelector(`.${this.labelFirst}`)
+        .parentNode.classList.remove('active')
+      document
+        .querySelector(`.${this.labelSecond}`)
+        .parentNode.classList.remove('active')
       this.childrenId = item.id
       this.$emit('get-label', item)
     }

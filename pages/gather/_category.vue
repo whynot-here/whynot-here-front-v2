@@ -86,7 +86,7 @@ export default {
         this.category === 'bookmark' ||
         this.category === 'search'
       ) {
-         let categoryTitle = ''
+        let categoryTitle = ''
         if (this.category === 'mypostings') {
           categoryTitle = 'My 모임'
         } else if (this.category === 'bookmark') {
@@ -96,7 +96,7 @@ export default {
         }
         this.$bus.$emit('sendCategoryTitle', { categoryTitle })
       }
-    },
+    }
   }
 }
 </script>

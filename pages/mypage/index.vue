@@ -186,8 +186,7 @@ export default {
               confirmText: '확인',
               cancelText: '',
               confirmCallback: () => {
-                this.cmn_auto_logout
-()
+                this.cmn_auto_logout()
               }
             }
           })

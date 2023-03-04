@@ -1,17 +1,17 @@
 export const state = () => ({
   initLoginDone: false,
   token: '',
-  detail: { }
+  detail: {}
 })
 
 export const mutations = {
-  setInitLoginDone (state, { loginDone }) {
+  setInitLoginDone(state, { loginDone }) {
     state.initLoginDone = loginDone
   },
-  setToken (state, { token }) {
+  setToken(state, { token }) {
     state.token = token
   },
-  setDetail (state, { info }) {
+  setDetail(state, { info }) {
     Object.keys(state.detail).forEach((key) => {
       delete state.detail[key]
     })
@@ -20,7 +20,7 @@ export const mutations = {
       email: '',
       id: '',
       nickname: '',
-      profileImg: '',
+      profileImg: ''
     }
     if (info !== null) {
       Object.keys(info).forEach((key) => {

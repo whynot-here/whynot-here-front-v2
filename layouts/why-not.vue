@@ -36,7 +36,7 @@ export default {
     Category,
     Review
   },
-  data () {
+  data() {
     return {
       isMyPostings: false,
       isBookmark: false,
@@ -50,24 +50,26 @@ export default {
     this.categoryInLayout = await this.$route.params.category
     this.subCategoryInLayout = await this.$route.query.sub
   },
-  created () {
+  created() {
     this.$bus.$off('sendCategoryTitle')
 
-    this.$bus.$on('sendCategoryTitle', ({ categoryTitle, subCategoryTitle }) => {
-      this.sendCategoryTitle({ categoryTitle, subCategoryTitle })
-    })
+    this.$bus.$on(
+      'sendCategoryTitle',
+      ({ categoryTitle, subCategoryTitle }) => {
+        this.sendCategoryTitle({ categoryTitle, subCategoryTitle })
+      }
+    )
   },
-  mounted () {
-  },
+  mounted() {},
   methods: {
-    sendCategoryTitle ({ categoryTitle, subCategoryTitle }) {
+    sendCategoryTitle({ categoryTitle, subCategoryTitle }) {
       this.categoryTitle = categoryTitle
       this.subCategoryTitle = subCategoryTitle
     },
-    getCategoryIdAndGetPosts () {
+    getCategoryIdAndGetPosts() {
       this.$bus.$emit('getCategoryIdAndGetPosts', {})
     },
-    setSubCategoryId ({ id, name, catName }) {
+    setSubCategoryId({ id, name, catName }) {
       this.categoryId = id
       this.subCategoryTitle = name
       this.categoryTitle = catName
@@ -76,7 +78,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '@/assets/scss/layouts/why-not.scss';

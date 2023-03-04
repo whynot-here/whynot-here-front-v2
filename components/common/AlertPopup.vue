@@ -9,7 +9,9 @@
           <p>{{ popupOption.content }}</p>
         </div>
         <div class="popup-footer">
-          <button v-if="popupOption.type === 'confirm'" @click="cancel">{{ popupOption.cancelText }}</button>
+          <button v-if="popupOption.type === 'confirm'" @click="cancel">
+            {{ popupOption.cancelText }}
+          </button>
           <button @click="confirm">{{ popupOption.confirmText }}</button>
         </div>
       </div>
@@ -42,19 +44,19 @@ export default {
   },
   methods: {
     show(option) {
-      this.popupOption.isShow = true;
-      this.popupOption = Object.assign(this.popupOption, option);
+      this.popupOption.isShow = true
+      this.popupOption = Object.assign(this.popupOption, option)
     },
     hide() {
-      this.popupOption.isShow = false;
+      this.popupOption.isShow = false
     },
     confirm() {
-      this.hide();
-      this.popupOption.confirmCallback && this.popupOption.confirmCallback();
+      this.hide()
+      this.popupOption.confirmCallback && this.popupOption.confirmCallback()
     },
     cancel() {
-      this.hide();
-      this.popupOption.cancelCallback && this.popupOption.cancelCallback();
+      this.hide()
+      this.popupOption.cancelCallback && this.popupOption.cancelCallback()
     }
   }
 }

@@ -181,11 +181,9 @@ export default {
   },
   created() {
     this.$bus.$off('refreshCard')
-    this.$bus.$on('refreshCard', () => {
-    })
+    this.$bus.$on('refreshCard', () => {})
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     refreshCard() {
       this.getPosts()
@@ -232,8 +230,7 @@ export default {
       } else if (this.category === 'search') {
         this.$axios
           .get(
-            `${process.env.apiUrl}/v2/posts/search?keyword=` +
-              this.searchText,
+            `${process.env.apiUrl}/v2/posts/search?keyword=` + this.searchText,
             {
               withCredentials: true,
               headers: {
@@ -257,9 +254,7 @@ export default {
 
         if (this.categoryId > 0) {
           this.$axios
-            .get(
-              `${process.env.apiUrl}/v2/posts/category/${this.categoryId}`
-            )
+            .get(`${process.env.apiUrl}/v2/posts/category/${this.categoryId}`)
             .then((res) => {
               this.posts = []
               res.data.map((res) => {
@@ -268,15 +263,13 @@ export default {
               })
             })
         } else {
-          this.$axios
-            .get(`${process.env.apiUrl}/v2/posts`)
-            .then((res) => {
-              this.posts = []
-              res.data.map((res) => {
-                res.selected = false
-                return this.posts.push(res)
-              })
+          this.$axios.get(`${process.env.apiUrl}/v2/posts`).then((res) => {
+            this.posts = []
+            res.data.map((res) => {
+              res.selected = false
+              return this.posts.push(res)
             })
+          })
         }
       }
     },

@@ -58,7 +58,12 @@
       <section class="comment-panel">
         <div class="top">
           <div>
-            <div v-if="postComp.writerProfileImage !== '' && postComp.writerProfileImage !== null">
+            <div
+              v-if="
+                postComp.writerProfileImage !== '' &&
+                postComp.writerProfileImage !== null
+              "
+            >
               <img :src="postComp.writerProfileImage" alt="" />
             </div>
             <div v-else>
@@ -89,7 +94,12 @@
           <div v-for="(comment, idx) in commentComp" :key="idx" class="comment">
             <div class="top">
               <div>
-                <div v-if="comment.account.profileImg !== '' && comment.account.profileImg !== null">
+                <div
+                  v-if="
+                    comment.account.profileImg !== '' &&
+                    comment.account.profileImg !== null
+                  "
+                >
                   <img :src="comment.account.profileImg" alt="" />
                 </div>
                 <div v-else>
@@ -169,7 +179,6 @@
 
       <div v-else-if="activeComponent === 'CommentView'">
         <div class="m-comment-container">
-
           <div v-if="commentComp.length > 0" class="m-comment-list">
             <div
               v-for="(comment, idx) in commentComp"
@@ -178,7 +187,12 @@
             >
               <div class="m-profile-info">
                 <div class="m-profile-info-main">
-                  <div v-if="comment.account.profileImg !== '' && comment.account.profileImg !== null">
+                  <div
+                    v-if="
+                      comment.account.profileImg !== '' &&
+                      comment.account.profileImg !== null
+                    "
+                  >
                     <img
                       class="m-profile-img"
                       :src="comment.account.profileImg"
@@ -186,13 +200,17 @@
                     />
                   </div>
                   <div v-else>
-                    <img class="m-profile-img" src="@/assets/img/common/default-profile.png" alt="" />
+                    <img
+                      class="m-profile-img"
+                      src="@/assets/img/common/default-profile.png"
+                      alt=""
+                    />
                   </div>
                   <div>
                     {{ comment.account.nickname }}
                   </div>
                 </div>
-                
+
                 <div
                   v-if="
                     comment.account.email === $store.state.userInfo.detail.email
@@ -355,7 +373,7 @@ export default {
           this.comments = res.data
         })
     },
-    copyUrl() { 
+    copyUrl() {
       this.copySomething(window.document.location.href)
 
       this.cmn_openAlertPopup({
@@ -525,16 +543,13 @@ export default {
 
       if (this.isBookmarked) {
         this.$axios
-          .delete(
-            `${process.env.apiUrl}/v2/posts/favorite/${this.post.id}`,
-            {
-              withCredentials: true,
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: this.$store.state.userInfo.token
-              }
+          .delete(`${process.env.apiUrl}/v2/posts/favorite/${this.post.id}`, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
             }
-          )
+          })
           .then((res) => {
             this.isBookmarked = false
           })

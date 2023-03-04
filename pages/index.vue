@@ -5,13 +5,12 @@
 <script>
 export default {
   name: 'IndexPage',
-  mounted () {
+  mounted() {
     if (this.$route.query.accessToken) {
       this.cmn_getUserInfo(this.$route.query.accessToken)
     }
     this.$router.push('/gather/all')
   },
-  methods: {
-  }
+  methods: {}
 }
 </script>

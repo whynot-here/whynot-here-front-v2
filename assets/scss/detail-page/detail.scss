@@ -327,31 +327,29 @@
               display: flex;
               align-items: center;
               gap: 0em 1em;
-  
+
               @include tablet {
                 font-size: 17px;
                 gap: 0px 16px;
               }
-  
+
               .tag {
                 padding: 0.1em 0.6em;
                 background-color: #f3f3f3;
                 border-radius: 16px;
                 text-align: center;
-  
+
                 @include tablet {
                   padding: 8px 14px;
                 }
-  
+
                 &.d-day {
                   color: #3e82f1;
                   font-weight: 600;
                 }
               }
-              
             }
           }
-          
         }
 
         .m-detail-content-body {
@@ -474,7 +472,7 @@
         text-align: center;
         font-size: 16px;
         color: #a3a3a3;
-        background-color: #FAFAFA;
+        background-color: #fafafa;
         cursor: pointer;
 
         @include tablet {
@@ -500,7 +498,7 @@
             color: #181818;
           }
           strong {
-            color: #005B9A;
+            color: #005b9a;
           }
         }
       }

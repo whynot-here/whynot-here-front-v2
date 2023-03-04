@@ -149,7 +149,7 @@ const common = {
         const width = window.innerWidth
         return width > 2048
       }
-      return false;
+      return false
     }
   },
   methods: {
@@ -184,7 +184,7 @@ const common = {
 
     cmn_getDday(endDate) {
       if (endDate === null || endDate === '') {
-        return '';
+        return ''
       }
 
       // 디데이 계산
@@ -207,7 +207,9 @@ const common = {
       const today = new Date()
       const end = new Date(createdDt.replaceAll('-', '/'))
 
-      const diff = Math.floor(((end.getTime() - today.getTime()) / (1000 * 3600 * 24))*-1)
+      const diff = Math.floor(
+        ((end.getTime() - today.getTime()) / (1000 * 3600 * 24)) * -1
+      )
 
       if (diff === 0) {
         return '오늘'
@@ -218,7 +220,7 @@ const common = {
       } else if (diff === 3) {
         return '3일전'
       } else {
-        return createdDt.substring(0, 10);
+        return createdDt.substring(0, 10)
       }
     },
 
@@ -263,9 +265,11 @@ const common = {
             this.$cookies.remove('token')
 
             this.$store.commit('userInfo/setToken', { token: '' })
-            this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
+            this.$store.commit('userInfo/setInitLoginDone', {
+              loginDone: false
+            })
             this.$store.commit('userInfo/setDetail', { info: null })
-      
+
             Cookies.remove('vuex')
             this.$bus.$emit('refreshCard', {})
             this.cmn_goMainPage()
@@ -285,12 +289,11 @@ const common = {
       this.$bus.$emit('refreshCard', {})
       this.cmn_goMainPage()
     },
-    
+
     async copySomething(text) {
       try {
-          await this.$copyText(text);
-      } catch (e) {
-      }
+        await this.$copyText(text)
+      } catch (e) {}
     },
 
     toastPopup(text) {

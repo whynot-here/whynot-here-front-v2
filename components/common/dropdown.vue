@@ -5,7 +5,12 @@
         {{ label }}
       </button>
       <ul class="option-list">
-        <li v-for="(item, idx) in optionList" :key="idx" class="option-item" @click="selectOption(item)">
+        <li
+          v-for="(item, idx) in optionList"
+          :key="idx"
+          class="option-item"
+          @click="selectOption(item)"
+        >
           {{ item.text }}
         </li>
       </ul>
@@ -32,20 +37,30 @@ export default {
     }
   },
   methods: {
-    openOptions () {
+    openOptions() {
       if (this.optionList === null) {
         return false
       }
-      if (document.querySelector(`.${this.label}`).parentNode.classList.contains('active')) {
-        document.querySelector(`.${this.label}`).parentNode.classList.remove('active')
+      if (
+        document
+          .querySelector(`.${this.label}`)
+          .parentNode.classList.contains('active')
+      ) {
+        document
+          .querySelector(`.${this.label}`)
+          .parentNode.classList.remove('active')
       } else {
-        document.querySelector(`.${this.label}`).parentNode.classList.add('active')
+        document
+          .querySelector(`.${this.label}`)
+          .parentNode.classList.add('active')
       }
     },
-    selectOption (item) {
+    selectOption(item) {
       document.querySelector(`.${this.label}`).innerHTML = item.text + ''
       document.querySelector(`.${this.label}`).style.color = '#000'
-      document.querySelector(`.${this.label}`).parentNode.classList.remove('active')
+      document
+        .querySelector(`.${this.label}`)
+        .parentNode.classList.remove('active')
       this.$emit('get-label', item)
     }
   }

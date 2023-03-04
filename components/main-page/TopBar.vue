@@ -148,7 +148,7 @@ export default {
     })
   },
   mounted() {
-    this.profileImg = this.$store.state.userInfo.detail.profileImg;
+    this.profileImg = this.$store.state.userInfo.detail.profileImg
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
   },
   methods: {
