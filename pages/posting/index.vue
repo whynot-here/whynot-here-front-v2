@@ -623,5 +623,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@assets/scss/detail-page/posting.scss';
+@import '@/assets/scss/detail-page/posting.scss';
 </style>

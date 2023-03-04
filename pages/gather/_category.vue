@@ -1,6 +1,6 @@
 <template>
   <div id="CategoryPage">
-    <Card ref="Card" :search-text="searchText" @refreshCard="getPosts" />
+    <Card ref="Card" :search-text="searchText" />
   </div>
 </template>
 
@@ -102,5 +102,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/main-page/_category.scss';
+@import '@/assets/scss/main-page/category-main.scss';
 </style>
