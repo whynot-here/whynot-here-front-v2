@@ -1,7 +1,6 @@
 import Vue from 'vue'
 
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
-// import { BootstrapVueIcons } from 'bootstrap-vue'
 import VueClipboard from 'vue-clipboard2'
 import AlertPopup from '@/components/common/AlertPopup.vue'
 

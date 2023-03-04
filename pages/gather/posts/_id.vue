@@ -58,7 +58,12 @@
       <section class="comment-panel">
         <div class="top">
           <div>
-            <div v-if="postComp.writerProfileImage !== '' && postComp.writerProfileImage !== null">
+            <div
+              v-if="
+                postComp.writerProfileImage !== '' &&
+                postComp.writerProfileImage !== null
+              "
+            >
               <img :src="postComp.writerProfileImage" alt="" />
             </div>
             <div v-else>
@@ -68,9 +73,6 @@
           <div>
             {{ postComp.writerName }}
           </div>
-          <!-- <div class="contact" @click="copyContactInfo()">
-            {{ postComp.contactText }} 연락
-          </div> -->
         </div>
         <div class="bottom">
           <div class="comment-count">
@@ -92,7 +94,12 @@
           <div v-for="(comment, idx) in commentComp" :key="idx" class="comment">
             <div class="top">
               <div>
-                <div v-if="comment.account.profileImg !== '' && comment.account.profileImg !== null">
+                <div
+                  v-if="
+                    comment.account.profileImg !== '' &&
+                    comment.account.profileImg !== null
+                  "
+                >
                   <img :src="comment.account.profileImg" alt="" />
                 </div>
                 <div v-else>
@@ -123,19 +130,9 @@
         </div>
       </section>
     </div>
-    <!-- <div>
-      <img :src="postComp.writer.profileImg" alt="">
-      {{ postComp.writer.nickname }}
-    </div> -->
   </div>
   <div v-else id="m-PostingPage">
     <main>
-      <!-- <div class="m-detail-header">
-        <div class="m-close">
-          <img class="m-back-btn" src="@/assets/img/common/left-arrow.png" alt="" @click.prevent="$router.go(-1)">
-        </div>
-      </div> -->
-
       <div v-if="activeComponent === 'DetailView'">
         <div class="m-detail-container">
           <div class="m-detail-content">
@@ -177,28 +174,11 @@
               </div>
             </div>
           </div>
-
-          <!-- <div class="m-detail-transition" @click="renderComponent('CommentView')">
-            <div class="m-trans-text">댓글</div> 
-            <img class="m-trans-icon" src="@/assets/img/common/bottom-arrow.png" />
-          </div> -->
         </div>
       </div>
 
       <div v-else-if="activeComponent === 'CommentView'">
         <div class="m-comment-container">
-          <!-- <div
-            class="m-detail-transition"
-            @click="renderComponent('DetailView')"
-          >
-            <div></div>
-            <div class="m-trans-text">본문</div>
-            <img
-              class="m-trans-icon"
-              src="@/assets/img/common/upper-arrow.png"
-            />
-          </div> -->
-
           <div v-if="commentComp.length > 0" class="m-comment-list">
             <div
               v-for="(comment, idx) in commentComp"
@@ -207,7 +187,12 @@
             >
               <div class="m-profile-info">
                 <div class="m-profile-info-main">
-                  <div v-if="comment.account.profileImg !== '' && comment.account.profileImg !== null">
+                  <div
+                    v-if="
+                      comment.account.profileImg !== '' &&
+                      comment.account.profileImg !== null
+                    "
+                  >
                     <img
                       class="m-profile-img"
                       :src="comment.account.profileImg"
@@ -215,13 +200,17 @@
                     />
                   </div>
                   <div v-else>
-                    <img class="m-profile-img" src="@/assets/img/common/default-profile.png" alt="" />
+                    <img
+                      class="m-profile-img"
+                      src="@/assets/img/common/default-profile.png"
+                      alt=""
+                    />
                   </div>
                   <div>
                     {{ comment.account.nickname }}
                   </div>
                 </div>
-                
+
                 <div
                   v-if="
                     comment.account.email === $store.state.userInfo.detail.email
@@ -259,17 +248,6 @@
       </div>
 
       <div class="m-detail-footer">
-        <!-- <div></div> -->
-        <!-- <div class="m-img-wrp">
-            <img src="@/assets/img/posting/copy-detail.png" alt="" @click="copyUrl()">
-          </div>
-          <div class="m-img-wrp">
-            <img v-if="isBookmarked" src="@/assets/img/posting/bookmark-detail-selected.png" @click.prevent="bookmark()">
-            <img v-else src="@/assets/img/posting/bookmark-detail.png" @click.prevent="bookmark()">
-          </div>
-          <div class="m-img-wrp">
-            <img src="@/assets/img/posting/chat.png" alt="">
-          </div> -->
         <div class="m-comment-posting-toggle">
           <div
             v-if="activeComponent === 'DetailView'"
@@ -313,9 +291,6 @@
             @click="copyUrl()"
           />
         </div>
-        <!-- <div class="m-contact" @click="copyContactInfo()">
-          <div>{{ postComp.contactText }} 연락</div>
-        </div> -->
       </div>
     </main>
   </div>
@@ -386,22 +361,21 @@ export default {
   methods: {
     getPost() {
       this.$axios
-        .get(`https://whynot-here.o-r.kr/v2/posts/${this.id}`)
+        .get(`${process.env.apiUrl}/v2/posts/${this.id}`)
         .then((res) => {
           this.post = res.data
         })
     },
     getComment() {
       this.$axios
-        .get(`https://whynot-here.o-r.kr/v2/comments/${this.id}`)
+        .get(`${process.env.apiUrl}/v2/comments/${this.id}`)
         .then((res) => {
           this.comments = res.data
         })
     },
-    copyUrl() { 
+    copyUrl() {
       this.copySomething(window.document.location.href)
 
-      // alert('URL이 복사되었습니다.')
       this.cmn_openAlertPopup({
         option: {
           title: '⚠️알림',
@@ -414,7 +388,6 @@ export default {
     },
     registerComment() {
       if (!this.currentComment.length > 0) {
-        // alert('댓글을 입력해주세요')
         this.cmn_openAlertPopup({
           option: {
             title: '⚠️알림',
@@ -428,7 +401,7 @@ export default {
       }
       this.$axios
         .post(
-          'https://whynot-here.o-r.kr/v2/comments',
+          `${process.env.apiUrl}/v2/comments`,
           {
             postId: this.id,
             comment: this.currentComment
@@ -442,7 +415,6 @@ export default {
           }
         )
         .then((res) => {
-          // alert('댓글이 등록되었습니다.')
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',
@@ -469,7 +441,7 @@ export default {
     },
     deleteComment(id) {
       this.$axios
-        .delete(`https://whynot-here.o-r.kr/v2/comments/${id}`, {
+        .delete(`${process.env.apiUrl}/v2/comments/${id}`, {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
@@ -477,7 +449,6 @@ export default {
           }
         })
         .then((res) => {
-          // alert('댓글이 삭제되었습니다.')
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',
@@ -499,7 +470,6 @@ export default {
               cancelText: ''
             }
           })
-          // window.alert(error.response.data.message)
         })
     },
     renderComponent(component) {
@@ -509,7 +479,6 @@ export default {
       navigator.clipboard
         .writeText(this.postComp.ownerContact.value)
         .then(() => {
-          // alert(`'${this.postComp.ownerContact.value}' 가 복사되었습니다`)
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',
@@ -542,7 +511,7 @@ export default {
         return false
       }
       this.$axios
-        .get('https://whynot-here.o-r.kr/v2/posts/favorite', {
+        .get(`${process.env.apiUrl}/v2/posts/favorite`, {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
@@ -574,21 +543,17 @@ export default {
 
       if (this.isBookmarked) {
         this.$axios
-          .delete(
-            `https://whynot-here.o-r.kr/v2/posts/favorite/${this.post.id}`,
-            {
-              withCredentials: true,
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: this.$store.state.userInfo.token
-              }
+          .delete(`${process.env.apiUrl}/v2/posts/favorite/${this.post.id}`, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
             }
-          )
+          })
           .then((res) => {
             this.isBookmarked = false
           })
           .catch((error) => {
-            // window.alert(error.response.data.message)
             this.cmn_openAlertPopup({
               option: {
                 title: '⚠️알림',
@@ -602,7 +567,7 @@ export default {
       } else {
         this.$axios
           .post(
-            `https://whynot-here.o-r.kr/v2/posts/favorite/${this.post.id}`,
+            `${process.env.apiUrl}/v2/posts/favorite/${this.post.id}`,
             {},
             {
               withCredentials: true,
@@ -616,7 +581,6 @@ export default {
             this.isBookmarked = true
           })
           .catch((error) => {
-            // window.alert(error.response.data.message)
             this.cmn_openAlertPopup({
               option: {
                 title: '⚠️알림',

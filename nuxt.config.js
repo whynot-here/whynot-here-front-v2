@@ -4,14 +4,12 @@ export default {
     port: 3001
   },
   target: 'server',
-  // generate: {
-  //   fallback: true
-  // },
   env: {
     frontUrl:
       process.env.NODE_ENV === 'production'
         ? 'https://why-not-here.o-r.kr'
-        : 'http://localhost:3000'
+        : 'http://localhost:3000',
+    apiUrl: 'https://whynot-here.o-r.kr'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {

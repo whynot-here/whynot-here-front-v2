@@ -1,12 +1,15 @@
 <template>
   <div v-if="isFromPc" id="ReviewComponent">
     <section class="notice">
-      why not here는 어떠셨나요?<strong @click="openReviewModal = true">후기작성</strong>
+      why not here는 어떠셨나요?<strong @click="openReviewModal = true"
+        >후기작성</strong
+      >
     </section>
-    <div v-if="openReviewModal" >
+    <div v-if="openReviewModal">
       <ReviewModal
-:open-review-modal="openReviewModal" 
-      @update-modal="updateModal()"/>
+        :open-review-modal="openReviewModal"
+        @update-modal="updateModal()"
+      />
     </div>
   </div>
 </template>
@@ -19,7 +22,7 @@ export default {
   components: {
     ReviewModal
   },
-  data () {
+  data() {
     return {
       openReviewModal: false
     }
@@ -28,24 +31,10 @@ export default {
     updateModal() {
       this.openReviewModal = false
     }
-  },
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-#ReviewComponent {
-  .notice {
-    background-color: #181818;
-    height: 44px; line-height: 44px;
-    color: #ffffff;
-    font-size: .88rem; font-weight: 400;
-    text-align: center;
-    strong {
-      margin-left: 16px;
-      font-size: .75rem; font-weight: 700;
-      color: #A0C4FF;
-      cursor: pointer;
-    }
-  }
-}
+@import '@/assets/scss/components/main-page/review.scss';
 </style>

@@ -6,7 +6,7 @@ const localeConfig = () => ({
   en: {
     dow: 0,
     dir: 'ltr',
-    displayFormat: vm => {
+    displayFormat: (vm) => {
       switch (vm.type) {
         case 'date':
           return 'YYYY/MM/DD'
@@ -21,7 +21,7 @@ const localeConfig = () => ({
         case 'time':
           return 'HH:mm'
       }
-    },
+    }
   }
 })
 
@@ -38,6 +38,6 @@ Vue.use(VuePersianDatetimePicker, {
     altFormat: 'YYYY-MM-DD HH:mm',
     color: '#00acc1',
     autoSubmit: false,
-    simple: true,
+    simple: true
   }
-});
+})
