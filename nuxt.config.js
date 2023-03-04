@@ -1,6 +1,7 @@
 export default {
   server: {
-    host: process.env.HOST
+    host: process.env.HOST,
+    port: 3001
   },
   target: 'server',
   env: {
