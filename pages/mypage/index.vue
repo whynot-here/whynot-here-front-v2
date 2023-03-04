@@ -127,7 +127,7 @@ export default {
     editNickName() {
       this.$axios
         .post(
-          'https://whynot-here.o-r.kr/v2/account/nickname',
+          `${process.env.apiUrl}/v2/account/nickname`,
           {
             nickname: this.inputNickName
           },
@@ -171,7 +171,7 @@ export default {
     },
     deleteAccount() {
       this.$axios
-        .delete(`https://whynot-here.o-r.kr/v2/account`, {
+        .delete(`${process.env.apiUrl}/v2/account`, {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',

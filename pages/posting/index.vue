@@ -347,7 +347,7 @@ export default {
     getPost() {
       // 수정하기 데이터 세팅
       this.$axios
-        .get(`https://whynot-here.o-r.kr/v2/posts/${this.id}`)
+        .get(`${process.env.apiUrl}/v2/posts/${this.id}`)
         .then((res) => {
           Object.keys(this.postingRegisterParams).map((key) => {
             if (res.data[key] !== null) {
@@ -460,7 +460,7 @@ export default {
     },
     uploadPicture({ formData, idx, callback }) {
       this.$axios
-        .post(`https://whynot-here.o-r.kr/images/${this.dir}`, formData, {
+        .post(`${process.env.apiUrl}/images/${this.dir}`, formData, {
           withCredentials: true,
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -491,7 +491,7 @@ export default {
       // 포스팅 저장 (사진 제외)
       this.$axios
         .post(
-          'https://whynot-here.o-r.kr/v2/posts',
+          `${process.env.apiUrl}/v2/posts`,
           this.postingRegisterParams,
           {
             withCredentials: true,
@@ -529,7 +529,7 @@ export default {
       this.paramsSetting()
       this.$axios
         .put(
-          `https://whynot-here.o-r.kr/v2/posts/${this.id}`,
+          `${process.env.apiUrl}/v2/posts/${this.id}`,
           this.postingRegisterParams,
           {
             withCredentials: true,

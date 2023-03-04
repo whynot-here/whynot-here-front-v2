@@ -343,14 +343,14 @@ export default {
   methods: {
     getPost() {
       this.$axios
-        .get(`https://whynot-here.o-r.kr/v2/posts/${this.id}`)
+        .get(`${process.env.apiUrl}/v2/posts/${this.id}`)
         .then((res) => {
           this.post = res.data
         })
     },
     getComment() {
       this.$axios
-        .get(`https://whynot-here.o-r.kr/v2/comments/${this.id}`)
+        .get(`${process.env.apiUrl}/v2/comments/${this.id}`)
         .then((res) => {
           this.comments = res.data
         })
@@ -383,7 +383,7 @@ export default {
       }
       this.$axios
         .post(
-          'https://whynot-here.o-r.kr/v2/comments',
+          `${process.env.apiUrl}/v2/comments`,
           {
             postId: this.id,
             comment: this.currentComment
@@ -423,7 +423,7 @@ export default {
     },
     deleteComment(id) {
       this.$axios
-        .delete(`https://whynot-here.o-r.kr/v2/comments/${id}`, {
+        .delete(`${process.env.apiUrl}/v2/comments/${id}`, {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
@@ -493,7 +493,7 @@ export default {
         return false
       }
       this.$axios
-        .get('https://whynot-here.o-r.kr/v2/posts/favorite', {
+        .get(`${process.env.apiUrl}/v2/posts/favorite`, {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
@@ -526,7 +526,7 @@ export default {
       if (this.isBookmarked) {
         this.$axios
           .delete(
-            `https://whynot-here.o-r.kr/v2/posts/favorite/${this.post.id}`,
+            `${process.env.apiUrl}/v2/posts/favorite/${this.post.id}`,
             {
               withCredentials: true,
               headers: {
@@ -552,7 +552,7 @@ export default {
       } else {
         this.$axios
           .post(
-            `https://whynot-here.o-r.kr/v2/posts/favorite/${this.post.id}`,
+            `${process.env.apiUrl}/v2/posts/favorite/${this.post.id}`,
             {},
             {
               withCredentials: true,

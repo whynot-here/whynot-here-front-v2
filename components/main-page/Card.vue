@@ -196,7 +196,7 @@ export default {
     getPosts() {
       if (this.category === 'mypostings') {
         this.$axios
-          .get('https://whynot-here.o-r.kr/v2/posts/own', {
+          .get(`${process.env.apiUrl}/v2/posts/own`, {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
@@ -215,7 +215,7 @@ export default {
           return false
         }
         this.$axios
-          .get('https://whynot-here.o-r.kr/v2/posts/favorite', {
+          .get(`${process.env.apiUrl}/v2/posts/favorite`, {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
@@ -232,7 +232,7 @@ export default {
       } else if (this.category === 'search') {
         this.$axios
           .get(
-            `https://whynot-here.o-r.kr/v2/posts/search?keyword=` +
+            `${process.env.apiUrl}/v2/posts/search?keyword=` +
               this.searchText,
             {
               withCredentials: true,
@@ -258,7 +258,7 @@ export default {
         if (this.categoryId > 0) {
           this.$axios
             .get(
-              `https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`
+              `${process.env.apiUrl}/v2/posts/category/${this.categoryId}`
             )
             .then((res) => {
               this.posts = []
@@ -269,7 +269,7 @@ export default {
             })
         } else {
           this.$axios
-            .get('https://whynot-here.o-r.kr/v2/posts')
+            .get(`${process.env.apiUrl}/v2/posts`)
             .then((res) => {
               this.posts = []
               res.data.map((res) => {
@@ -326,7 +326,7 @@ export default {
         this.category !== 'mypostings'
       ) {
         this.$axios
-          .get('https://whynot-here.o-r.kr/v2/posts/favorite', {
+          .get(`${process.env.apiUrl}/v2/posts/favorite`, {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
@@ -375,7 +375,7 @@ export default {
         if (id === post.id) {
           if (post.isBookmarked) {
             this.$axios
-              .delete(`https://whynot-here.o-r.kr/v2/posts/favorite/${id}`, {
+              .delete(`${process.env.apiUrl}/v2/posts/favorite/${id}`, {
                 withCredentials: true,
                 headers: {
                   'Content-Type': 'application/json',
@@ -392,7 +392,7 @@ export default {
           } else {
             this.$axios
               .post(
-                `https://whynot-here.o-r.kr/v2/posts/favorite/${id}`,
+                `${process.env.apiUrl}/v2/posts/favorite/${id}`,
                 {},
                 {
                   withCredentials: true,
@@ -439,7 +439,7 @@ export default {
     deletePosting(id) {
       if (confirm('삭제하시겠습니까?')) {
         this.$axios
-          .delete(`https://whynot-here.o-r.kr/v2/posts/${id}`, {
+          .delete(`${process.env.apiUrl}/v2/posts/${id}`, {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
@@ -480,7 +480,7 @@ export default {
     compRecruit() {
       this.$axios
         .post(
-          `https://whynot-here.o-r.kr/v2/posts/own/${this.compRecruitId}`,
+          `${process.env.apiUrl}/v2/posts/own/${this.compRecruitId}`,
           {
             isRecruit: false
           },

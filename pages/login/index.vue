@@ -94,16 +94,16 @@ export default {
       this.openPopupType = type;
     },
     appleLogin () {
-      location.href = `https://whynot-here.o-r.kr/auth/login/apple?redirect_uri=${process.env.frontUrl}`
+      location.href = `${process.env.apiUrl}/auth/login/apple?redirect_uri=${process.env.frontUrl}`
     },
     googleLogin () {
-      location.href = `https://whynot-here.o-r.kr/auth/login/google?redirect_uri=${process.env.frontUrl}`
+      location.href = `${process.env.apiUrl}/auth/login/google?redirect_uri=${process.env.frontUrl}`
     },
     kakaoLogin () {
-      location.href = `https://whynot-here.o-r.kr/auth/login/kakao?redirect_uri=${process.env.frontUrl}`
+      location.href = `${process.env.apiUrl}/auth/login/kakao?redirect_uri=${process.env.frontUrl}`
     },
     naverLogin () {
-      location.href = `https://whynot-here.o-r.kr/auth/login/naver?redirect_uri=${process.env.frontUrl}`
+      location.href = `${process.env.apiUrl}/auth/login/naver?redirect_uri=${process.env.frontUrl}`
     },
     idPwLogin () {
       if (this.isIdPwLoginMode) {
@@ -118,7 +118,7 @@ export default {
     },
     doFormLogin (email, password) {
       (this.$axios.post(
-        ('https://whynot-here.o-r.kr/v2/sign-in'),
+        (`${process.env.apiUrl}/v2/sign-in`),
         {
           email, password
         },

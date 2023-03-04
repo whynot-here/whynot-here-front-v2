@@ -133,7 +133,7 @@ export default {
       }
 
       (this.$axios.post(
-        ('https://whynot-here.o-r.kr/v2/admin/feedback'),
+        (`${process.env.apiUrl}/v2/admin/feedback`),
         {
           rating: this.star1 + this.star2 + this.star3 + this.star4 + this.star5,
           description: this.currentReview

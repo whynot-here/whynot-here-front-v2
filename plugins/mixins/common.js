@@ -166,7 +166,7 @@ const common = {
 
     cmn_getUserInfo(accessToken) {
       this.$axios
-        .get('https://whynot-here.o-r.kr/v2/account/info', {
+        .get(`${process.env.apiUrl}/v2/account/info`, {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
@@ -290,7 +290,6 @@ const common = {
       try {
           await this.$copyText(text);
       } catch (e) {
-          console.error(e);
       }
     },
 
