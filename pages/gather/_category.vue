@@ -1,10 +1,6 @@
 <template>
   <div id="CategoryPage">
-    <Card
-      ref="Card"
-      :search-text="searchText"
-      @refreshCard="getPosts"
-    />
+    <Card ref="Card" :search-text="searchText" @refreshCard="getPosts" />
   </div>
 </template>
 
@@ -17,37 +13,39 @@ export default {
     Card
   },
   layout: 'why-not',
-  props: {
-  },
+  props: {},
   asyncData({ params, route, query, redirect }) {
     return {
       category: params.category,
       subCategory: route.query.sub,
-      searchText: query.t,
+      searchText: query.t
       // isMyPostings: params.isMyPostings,
       // isBookmark: params.isBookmark
     }
   },
-  data () {
+  data() {
     return {
-      posts:[],
-      loginPopupOpen: false,
+      posts: [],
       // isMyPostings: false,
       // isBookmark: false,
       categoryId: 0
     }
   },
-  watch:{
-    $route () {
+  watch: {
+    $route() {
       // 사간 간격 안 두면 keyword 반영이 안되는 경우가 있어서
       setTimeout(() => {
         // this.$bus.$emit('refreshCard', {})
-        this.$refs.Card.toggleIsSubCategory(false, this.category, this.subCategory)
+        this.$refs.Card.toggleIsSubCategory(
+          false,
+          this.category,
+          this.subCategory
+        )
       }, 300)
     }
   },
   watchQuery: ['t'],
-  created () {
+  created() {
     this.$bus.$off('setSubCategoryId')
     this.$bus.$off('getCategoryIdAndGetPosts')
     this.$bus.$off('refreshSearch')
@@ -58,18 +56,30 @@ export default {
       // this.setSubCategoryId({ id, name, catName })
     })
     this.$bus.$on('getCategoryIdAndGetPosts', () => {
-      this.$refs.Card.toggleIsSubCategory(false, this.category, this.subCategory)
+      this.$refs.Card.toggleIsSubCategory(
+        false,
+        this.category,
+        this.subCategory
+      )
       // this.getCategoryIdAndGetPosts()
     })
     this.$bus.$on('refreshSearch', () => {
       this.getCategoryIdAndGetPosts()
     })
   },
-  mounted () {
+  mounted() {
+    // 로그인 안되어 있으면 로그인 팝업 뜨도록
+    if (this.category === 'mypostings' || this.category === 'bookmark') {
+      this.$bus.$emit('checkLogin', {})
+    }
     // 대분류 카테고리 선택했을 때만 불러오도록
     // 소분류 카테고리 선택했을 때는 setSubCategoryId에서 호출
     if (this.subCategory === undefined) {
-      this.$refs.Card.toggleIsSubCategory(false, this.category, this.subCategory)
+      this.$refs.Card.toggleIsSubCategory(
+        false,
+        this.category,
+        this.subCategory
+      )
       this.getCategoryIdAndGetPosts()
     } else {
       this.$refs.Card.toggleIsSubCategory(true, this.category, this.subCategory)
@@ -77,8 +87,12 @@ export default {
     }
   },
   methods: {
-    getCategoryIdAndGetPosts () {
-      if (this.category !== 'mypostings' && this.category !== 'bookmark' && this.category !== 'search') {
+    getCategoryIdAndGetPosts() {
+      if (
+        this.category !== 'mypostings' &&
+        this.category !== 'bookmark' &&
+        this.category !== 'search'
+      ) {
         // this.getCategoryId()
         // this.getPosts()
       } else {
@@ -103,7 +117,7 @@ export default {
 
     //   this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
     // },
-    geySubCategoryIdAndGetPosts () {
+    geySubCategoryIdAndGetPosts() {
       // this.getSubCategoryId()
       // this.getPosts()
     },
@@ -111,7 +125,7 @@ export default {
     //   const category = this.categoryGroup.filter((category) => {
     //     return category.parentCode.toLowerCase() === this.category
     //   })[0]
-      
+
     //   const subCategory = category.children
     //   const selectedSubCategory = subCategory.filter((category) => {
     //     return category.code.toLowerCase() === this.subCategory
@@ -123,13 +137,13 @@ export default {
 
     //   this.$bus.$emit('sendCategoryTitle', { categoryTitle: this.categoryTitle, subCategoryTitle: this.subCategoryTitle })
     // },
-    setSubCategoryId ({ id, name, catName }) {
+    setSubCategoryId({ id, name, catName }) {
       // this.categoryId = id
       // this.subCategoryTitle = name
       // this.categoryTitle = catName
       // this.getPosts()
     },
-    getPosts () {
+    getPosts() {
       // this.$refs.Card.getPosts()
       // if (this.category === 'mypostings') {
       //   this.$axios.get(
@@ -159,9 +173,6 @@ export default {
       //   })
       // }
     },
-    setLoginPopupOpen () {
-      this.$refs.TopBar.openLoginPopup()
-    }
   }
 }
 </script>

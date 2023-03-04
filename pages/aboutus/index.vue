@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" id="AboutUs">
+  <div v-if="isFromPc" id="AboutUs">
     <div class="about-us-container">
       <div class="intro-part">
         <div class="title-text">About Project</div>
@@ -264,12 +264,15 @@ export default {
   width: 100%;
   height: 100%;
   background-color: #FFFFFF;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 
   .m-about-us-container {
     width: 100%;
     height: 73vh;
     .m-intro-part {
+      
+      padding-left: 20px;
 
       .m-title-text {
         font-weight: 600;
@@ -346,6 +349,7 @@ export default {
       height: 900px;
 
       .m-team-info {
+        padding-left: 20px;
         .m-subtitle {
           font-weight: 400;
           font-size: 14px;
@@ -383,7 +387,7 @@ export default {
 
   .m-feedback-part {
     width: 100%;
-    height: 80px;
+    height: 40px;
     position: absolute;
     bottom: 0px;
     display: flex;

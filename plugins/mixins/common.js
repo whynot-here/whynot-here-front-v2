@@ -144,6 +144,16 @@ const common = {
   computed: {
     isMobile() {
       return this.$ua.isFromSmartphone()
+    },
+    isTablet() {
+      return this.$ua.isFromTablet()
+    },
+    isFromPc() {
+      if (process.browser) {
+        const width = window.innerWidth
+        return width > 2048
+      }
+      return false;
     }
   },
   methods: {
@@ -159,7 +169,7 @@ const common = {
         // document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/;domain=;'
       }
     },
-    
+
     cmn_getUserInfo(accessToken) {
       this.$axios
         .get('https://whynot-here.o-r.kr/v2/account/info', {
@@ -179,20 +189,46 @@ const common = {
     },
 
     cmn_getDday(endDate) {
-        // 디데이 계산
-        const today = new Date()
-        const end = new Date(endDate.replaceAll('-', '/'))
+      if (endDate === null || endDate === '') {
+        return '';
+      }
 
-        const diff = (end.getTime() - today.getTime()) / (1000 * 3600 * 24)
-        
-        if (diff === 0) {
-          return 'D-Day'
-        } else {
-          return 'D' + (diff > 0 ? '-' + Math.ceil(diff) : '+' + Math.abs(Math.ceil(diff)))
-        }
+      // 디데이 계산
+      const today = new Date()
+      const end = new Date(endDate.replaceAll('-', '/'))
+
+      const diff = (end.getTime() - today.getTime()) / (1000 * 3600 * 24)
+
+      if (diff === 0) {
+        return 'D-Day'
+      } else {
+        return (
+          'D' +
+          (diff > 0 ? '-' + Math.ceil(diff) : '+' + Math.abs(Math.ceil(diff)))
+        )
+      }
     },
 
-    cmn_emptyCheck (t) {
+    cmn_getPassedDay(createdDt) {
+      const today = new Date()
+      const end = new Date(createdDt.replaceAll('-', '/'))
+
+      const diff = Math.floor(((end.getTime() - today.getTime()) / (1000 * 3600 * 24))*-1)
+
+      if (diff === 0) {
+        return '오늘'
+      } else if (diff === 1) {
+        return '어제'
+      } else if (diff === 2) {
+        return '2일전'
+      } else if (diff === 3) {
+        return '3일전'
+      } else {
+        return createdDt.substring(0, 10);
+      }
+    },
+
+    cmn_emptyCheck(t) {
       if (t) {
         return String(t).trim().length === 0
       } else {
@@ -200,22 +236,88 @@ const common = {
       }
     },
 
-    cmn_goMainPage () {
+    cmn_goMainPage() {
       this.$router.push('/')
     },
 
-    cmn_logout () {
-      if (window.confirm('로그아웃 하시겠어요?')) {
-        this.$cookies.remove('token')
+    cmn_openAlertPopup({ option }) {
+      this.$AlertPopup.popupOption.isShow = true
+      this.$AlertPopup.popupOption.title = option.title
+      this.$AlertPopup.popupOption.content = option.content
+      this.$AlertPopup.popupOption.type = option.type
+      this.$AlertPopup.popupOption.confirmText = option.confirmText
+      this.$AlertPopup.popupOption.cancelText = option.cancelText
+      this.$AlertPopup.popupOption.confirmCallback = option.confirmCallback
 
-        this.$store.commit('userInfo/setToken', { token: '' })
-        this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
-        this.$store.commit('userInfo/setDetail', { info: null })
+      const instance = this.$AlertPopup
+      const mount = document.createElement('div')
+      mount.id = 'alert-' + Date.now()
+      document.body.appendChild(mount)
 
-        Cookies.remove('vuex')
-        this.$bus.$emit('refreshCard', {})
-        this.cmn_goMainPage()
+      instance.$mount(mount)
+    },
+
+    cmn_logout() {
+      // if (window.confirm('로그아웃 하시겠어요?')) {
+      //   this.$cookies.remove('token')
+
+      //   this.$store.commit('userInfo/setToken', { token: '' })
+      //   this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
+      //   this.$store.commit('userInfo/setDetail', { info: null })
+
+      //   Cookies.remove('vuex')
+      //   this.$bus.$emit('refreshCard', {})
+      //   this.cmn_goMainPage()
+      // }
+      this.cmn_openAlertPopup({
+        option: {
+          title: '로그아웃',
+          content: '로그아웃 하시겠어요?',
+          type: 'confirm',
+          confirmText: '네',
+          cancelText: '아니오',
+          confirmCallback: () => {
+            this.$cookies.remove('token')
+
+            this.$store.commit('userInfo/setToken', { token: '' })
+            this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
+            this.$store.commit('userInfo/setDetail', { info: null })
+      
+            Cookies.remove('vuex')
+            this.$bus.$emit('refreshCard', {})
+            this.cmn_goMainPage()
+          }
+        }
+      })
+    },
+
+    cmn_auto_logout() {
+      this.$cookies.remove('token')
+
+      this.$store.commit('userInfo/setToken', { token: '' })
+      this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
+      this.$store.commit('userInfo/setDetail', { info: null })
+
+      Cookies.remove('vuex')
+      this.$bus.$emit('refreshCard', {})
+      this.cmn_goMainPage()
+    },
+    
+    async copySomething(text) {
+      try {
+          await this.$copyText(text);
+      } catch (e) {
+          console.error(e);
       }
+    },
+
+    toastPopup(text) {
+      this.$toasted.show(text, {
+        position: 'bottom-right',
+        duration: 1500,
+        // type: 'success',
+        // theme: 'bubble'
+      })
     }
   }
 }

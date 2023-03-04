@@ -1,5 +1,5 @@
 <template>
-  <section v-if="!isMobile" class="review-modal">
+  <section v-if="isFromPc" class="review-modal">
       <div class="review-wrp">
         <div class="close-review">
           <div></div>
@@ -119,7 +119,16 @@ export default {
   methods: {
     registerReview() {
       if (this.currentReview === '') {
-        alert('후기를 작성해주세요.')
+        // alert('후기를 작성해주세요.')
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '후기를 작성해주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
         return
       }
 
@@ -140,7 +149,16 @@ export default {
       ).then(res => {
         this.isSendReview = true
       }).catch((error) => {
-        window.alert(error.response.data.message)
+        // window.alert(error.response.data.message)
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: error.response.data.message,
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
       })
     },
     fillStar(idx, fill) {
@@ -266,6 +284,7 @@ export default {
 
 .m-review-modal {
   position: fixed;
+  overflow: scroll;
   z-index: 120;
   width: 100vw; height: 100vh;
   top: 0; left: 0;
@@ -336,7 +355,7 @@ export default {
         margin: 10px 24px 0 24px;
         .m-comment-input {
           font-size: 14px;
-          width: 252px; height: 180px;
+          width: 222px; height: 180px;
           padding: 15px; margin-top: 14px;
           background: #FAFAFA;
           border-radius: 8px;

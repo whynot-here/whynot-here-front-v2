@@ -1,14 +1,14 @@
 <template>
-  <div :class="isMobile ? `category-wrp-m ${isOpenCategoryPanel}` : 'category-wrp'">
-    <div v-show="(!isMobile || isOpenCategoryPanel)" id="Category">
+  <div :class="!isFromPc ? `category-wrp-m ${isOpenCategoryPanel}` : 'category-wrp'">
+    <div v-show="(isFromPc || isOpenCategoryPanel)" id="Category">
       <section class="logo">
-        <div v-if="(!isMobile)" class="logo-desc">
+        <div v-if="(isFromPc)" class="logo-desc">
           사람이 모이는 공간
         </div>
-        <div v-if="isMobile" class="category-close">
+        <div v-if="!isFromPc" class="category-close">
           <img src="@/assets/img/common/close-review.png" alt="" @click.self="toggleCategoryPanel">
         </div>
-        <div class="logo-img" @click="!isMobile ? mainPage() : ''">
+        <div class="logo-img" @click="isFromPc ? mainPage() : ''">
           <img src="@/assets/img/common/whynot-here-logo.png" alt="">
         </div>
       </section>
@@ -20,7 +20,9 @@
         </div> -->
         <div class="sub-menu-wrp">
           <div class="search">
-            <input v-model="searchText" class="total-search" type="text" placeholder="통합검색" @keyup.enter="search()" />
+            <div class="search-box">
+              <input v-model="searchText" class="total-search" type="text" placeholder="통합검색" @keyup.enter="search()" />
+            </div>
             <div class="search-img">
               <img src="@/assets/img/category/search.png" alt="" @click="search()">
             </div>
@@ -61,14 +63,14 @@
           >
             {{ cat.parentName }}
           </div>
-          <div
+          <!-- <div
             v-for="(sub, sIdx) in cat.children"
             :key="sIdx"
             :class="sub.code.toLowerCase() === selectedSubCategory ? 'sub-title selected' : 'sub-title'"
             @click="selectSubCategory({ id: sub.id, type: cat.parentCode.toLowerCase(), subType: sub.code.toLowerCase(), name: sub.name, catName: cat.parentName })"
           >
             {{ sub.name }}
-          </div>
+          </div> -->
         </div>
       </section>
     </div>
@@ -136,7 +138,16 @@ export default {
     },
     moveMyPostingsPage () {
       if (!this.$store.state.userInfo.initLoginDone) {
-        alert('로그인 후 이용해 주세요')
+        // alert('로그인 후 이용해 주세요')
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '로그인 후 이용해 주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
         return false
       }
 
@@ -152,7 +163,16 @@ export default {
     },
     moveBookmarkPage () {
       if (!this.$store.state.userInfo.initLoginDone) {
-        alert('로그인 후 이용해 주세요')
+        // alert('로그인 후 이용해 주세요')
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '로그인 후 이용해 주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
         return false
       }
 
@@ -180,7 +200,7 @@ export default {
       this.toggleCategoryPanel()
     },
     selectSubCategory ({ id, type, subType, name, catName }) {
-      this.$bus.$emit('setSubCategoryId', { id, name, catName, subType })
+      this.$bus.$emit('setSubCategoryId', { id, name, catName })
       this.selectedCategory = type
       this.selectedSubCategory = subType
       // this.$router.push({ path: `/${this.selectedCategory}`, params: { sub: `${type}` } })
@@ -189,7 +209,7 @@ export default {
     },
     checkLogin() {
       if (!this.$store.state.userInfo.initLoginDone) {
-        this.$emit('setLoginPopupOpen', {})
+        this.$router.push('/login')
       } else {
         this.$router.push('/posting?m=write')
       }
