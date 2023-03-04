@@ -33,19 +33,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#ReviewComponent {
-  .notice {
-    background-color: #181818;
-    height: 44px; line-height: 44px;
-    color: #ffffff;
-    font-size: .88rem; font-weight: 400;
-    text-align: center;
-    strong {
-      margin-left: 16px;
-      font-size: .75rem; font-weight: 700;
-      color: #A0C4FF;
-      cursor: pointer;
-    }
-  }
-}
+@import '@/assets/scss/components/main-page/review.scss';
 </style>

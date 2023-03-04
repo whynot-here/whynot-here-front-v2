@@ -55,46 +55,8 @@
                 <div v-else>
                   <input disabled class="sub-wrp d-day-input px-2 py-1" />
                 </div>
-                
-                <!-- </div> -->
               </div>
-              <!-- <div class="form-wrp process">
-                <div class="sub-title">진행방식</div>
-                <div class="sub-wrp">
-                  <DropDown
-                    ref="DropdownProcess"
-                    :label="'방식'"
-                    :option-list="processList"
-                    @get-label="setCommunicationTool"
-                  />
-                </div>
-              </div> -->
             </div>
-            <!-- <div class="line">
-              <div class="form-wrp people-count">
-                <div class="sub-title">모집 인원 수</div>
-                <input
-                  v-model="recruitTotalCntTxt"
-                  class="sub-wrp"
-                  placeholder="모집 인원"
-                  oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                >
-              </div>
-              <div class="form-wrp call">
-                <div class="sub-title">연락수단</div>
-                <div class="sub-wrp">
-                  <div class="call-dropdown">
-                    <DropDown
-                      ref="DropdownCall"
-                      :label="'연락수단'"
-                      :option-list="callList"
-                      @get-label="setOwnerContact"
-                    />
-                  </div>
-                  <input v-model="postingRegisterParams.ownerContact.value" class="call-input" type="text" placeholder="입력">
-                </div>
-              </div>
-            </div> -->
           </div>
           <div class="group">
             <div class="posting-group">모집 한줄 소개</div>
@@ -168,24 +130,6 @@
             수정하기
           </div>
         </section>
-        <!-- <section class="content">
-          <div class="title">프로젝트 소개</div>
-          <div>
-            <div class="sub-title">한줄소개</div>
-            <div>
-              <input type="text">
-            </div>
-          </div>
-          <div>
-            <div class="sub-title">내용</div>
-            <div>
-              <textarea name="" id="" cols="30" rows="10"></textarea>
-            </div>
-          </div>
-        </section> -->
-        <!-- <section>
-          <div>업로드</div>
-        </section> -->
       </div>
     </div>
     <div v-else id="PostingPageMobile">
@@ -241,7 +185,6 @@
                     <input disabled class="sub-wrp d-day-input px-2 py-1" />
                   </div>
                 </div>
-                <!-- </div> -->
               </div>
             </div>
           </div>
@@ -316,41 +259,20 @@
             수정하기
           </div>
         </section>
-        <!-- <section class="content">
-          <div class="title">프로젝트 소개</div>
-          <div>
-            <div class="sub-title">한줄소개</div>
-            <div>
-              <input type="text">
-            </div>
-          </div>
-          <div>
-            <div class="sub-title">내용</div>
-            <div>
-              <textarea name="" id="" cols="30" rows="10"></textarea>
-            </div>
-          </div>
-        </section> -->
-        <!-- <section>
-          <div>업로드</div>
-        </section> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import FormData from 'form-data'
 import TopBarOnly from '@/components/main-page/TopBarOnly'
 import DropdownCategory from '@/components/common/dropdownCategory'
-// import DropDown from '@/components/common/dropdown'
 
 export default {
   name: 'PostingPage',
   components: {
     TopBarOnly,
     DropdownCategory
-    // DropDown
   },
   asyncData({ params, query }) {
     return {
@@ -390,7 +312,6 @@ export default {
         }
       ],
       d_day: '',
-      // recruitTotalCntTxt: '',
       postingRegisterParams: {
         title: '',
         content: '',
@@ -402,13 +323,8 @@ export default {
           name: ''
         },
         closedDt: '',
-        // ownerContact: {
-        //   type: '',
-        //   value: ''
-        // },
         recruitTotalCnt: 0,
         recruitCurrentCnt: 0
-        // communicationTool: ''
       },
       inputImg: [],
       files: [],
@@ -439,7 +355,6 @@ export default {
             }
             return key
           })
-          // this.recruitTotalCntTxt = this.postingRegisterParams.recruitTotalCnt
           this.d_day =
             this.cmn_getDday(this.postingRegisterParams.closedDt).substring(2) *
             1
@@ -471,26 +386,6 @@ export default {
             }
           })
 
-          // 진행방식
-          // let processItem = ''
-          // this.processList.forEach((item) => {
-          //   if (item.value === this.postingRegisterParams.communicationTool) {
-          //     processItem = item
-          //     return ''
-          //   }
-          // })
-          // this.$refs.DropdownProcess.selectOption(processItem)
-
-          // 연락수단
-          // let callItem = ''
-          // this.callList.forEach((item) => {
-          //   if (item.value === this.postingRegisterParams.ownerContact.type) {
-          //     callItem = item
-          //     return false
-          //   }
-          // })
-          // this.$refs.DropdownCall.selectOption(callItem)
-          // todo: 이미지 세팅
           res.data.imageLinks.map((imageLink) => {
             const img = {
               prev_url: imageLink.link,
@@ -579,7 +474,6 @@ export default {
           }
         })
         .catch((error) => {
-          // window.alert(error)
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',
@@ -608,8 +502,6 @@ export default {
           }
         )
         .then((res) => {
-          // todo: 상세 페이지로 넘어가기
-          // alert('공고 생성 성공')
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',
@@ -622,7 +514,6 @@ export default {
           this.$router.push(`/gather/posts/${res.data.id}`)
         })
         .catch((error) => {
-          // window.alert(error.response.data.message)
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',
@@ -649,8 +540,6 @@ export default {
           }
         )
         .then((res) => {
-          // 상세 페이지로 넘어가기
-          // alert('공고 수정 성공')
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',
@@ -663,7 +552,6 @@ export default {
           this.$router.push(`/gather/posts/${this.id}`)
         })
         .catch((error) => {
-          // window.alert(error.response.data.message)
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',
@@ -684,11 +572,6 @@ export default {
     },
     // 사진 선택
     onFileChange(event) {
-      // if (this.inputImg.length >= 4) {
-      //   alert('사진은 최대 4장까지 등록 가능합니다.')
-      //   return false
-      // }
-
       const input = event.target.files
       if (input.length > 0) {
         const fileReader = new FileReader()
@@ -710,7 +593,6 @@ export default {
     },
     checkRegisterParamsValid() {
       if (this.cmn_emptyCheck(this.postingRegisterParams.title)) {
-        // window.alert('제목을 입력해주세요.')
         this.cmn_openAlertPopup({
           option: {
             title: '⚠️알림',
@@ -723,7 +605,6 @@ export default {
         return false
       }
       if (this.cmn_emptyCheck(this.postingRegisterParams.content)) {
-        // window.alert('내용을 입력해주세요.')
         this.cmn_openAlertPopup({
           option: {
             title: '⚠️알림',
@@ -735,28 +616,6 @@ export default {
         })
         return false
       }
-      // if (this.cmn_emptyCheck(this.postingRegisterParams.closedDt)) {
-      //   window.alert('모집 마감일을 입력해주세요.')
-      //   return false
-      // }
-      // if (this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.value) || this.cmn_emptyCheck(this.postingRegisterParams.ownerContact.type)) {
-      //   window.alert('연락 수단을 정확히 입력해주세요.')
-      //   return false
-      // }
-      // if (this.cmn_emptyCheck(this.postingRegisterParams.communicationTool)) {
-      //   window.alert('진행방식을 선택해주세요.')
-      //   return false
-      // }
-      // if (this.cmn_emptyCheck(this.recruitTotalCntTxt)) {
-      //   window.alert('모집 인원수를 입력해주세요.')
-      //   return false
-      // }
-      // let closedDt = new Date()
-      // closedDt.setDate(closedDt.getDate() + (this.d_day * 1))
-      // closedDt = closedDt.toISOString()
-      // closedDt = closedDt.split('T')[0] + ' ' + closedDt.split('T')[1].substring(0, 5)
-      // this.postingRegisterParams.closedDt = closedDt
-      // this.postingRegisterParams.recruitTotalCnt = this.recruitTotalCntTxt * 1
       return true
     }
   }
@@ -764,444 +623,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#PostingPage {
-  width: 100vw;
-  height: 100vh;
-  overflow: scroll;
-  background-color: #f3f3f3;
-  #TopBar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .panel {
-    width: 770px;
-    margin: 117px auto;
-    .form {
-      .group {
-        &.info {
-          padding-bottom: 52px;
-          border-bottom: 1px solid #e7e7e7;
-        }
-      }
-      .title-group {
-        display: flex;
-        .title {
-          font-size: 1.38rem;
-          font-weight: 700;
-          flex-grow: 1;
-        }
-        .close {
-          img {
-            width: 32px;
-            height: 32px;
-            cursor: pointer;
-          }
-        }
-      }
-      .posting-group {
-        margin-top: 52px;
-        font-size: 1.25rem;
-        font-weight: 500;
-        strong {
-          color: #e74133;
-        }
-      }
-      .line {
-        display: flex;
-        margin-top: 30px;
-        .form-wrp {
-          .sub-title {
-            font-size: 0.88rem;
-            font-weight: 500;
-            color: #7a7a7a;
-          }
-          .sub-wrp {
-            height: 46px;
-            line-height: 46px;
-            margin-top: 12px;
-            // padding-left: 12px;
-            background-color: #ffffff;
-            border: 1px solid #e7e7e7;
-            border-radius: 8px;
-          }
-
-          .sub-wrp::placeholder {
-            color: #c8c8c8;
-          }
-          .d-day-input {
-            display: flex;
-            div {
-              font-size: 0.88rem;
-              padding: 0 13px;
-            }
-            input {
-              width: 100%;
-              padding: 0 16px;
-              border: none;
-              border-radius: 8px;
-            }
-            input:focus {
-              outline: none;
-            }
-            input::placeholder {
-              // font-size: 1rem;
-              // text-align: right;
-            }
-          }
-          .content {
-            width: 706px;
-            height: 400px;
-            padding: 32px;
-            font-size: 1rem;
-            background: #ffffff;
-            border: 1px solid #e7e7e7;
-            border-radius: 8px;
-          }
-          .content::placeholder {
-            color: #c8c8c8;
-          }
-        }
-        .category {
-          width: 370px;
-          .sub-wrp {
-            width: 100%;
-          }
-        }
-        .process,
-        .d-day {
-          flex-grow: 1;
-          margin-left: 30px;
-          .sub-wrp {
-            width: 170px;
-          }
-        }
-        .people-count {
-          width: 170px;
-          .sub-wrp {
-            width: 155px;
-            padding-left: 12px;
-          }
-        }
-        .call {
-          width: 470px;
-          margin-left: 30px;
-          .sub-wrp {
-            display: flex;
-            padding-left: 0px;
-            .call-dropdown {
-              width: 146px;
-            }
-            .call-input {
-              width: 200px;
-              height: 16px;
-              padding: 0 20px;
-              margin: 16px 0px;
-              border: none;
-              border-left: 1px solid #e7e7e7;
-            }
-            .call-input:focus {
-              outline: none;
-            }
-            .call-input::placeholder {
-              color: #c8c8c8;
-            }
-          }
-        }
-      }
-      .add-img {
-        display: flex;
-        width: 750px;
-        height: 70px;
-        line-height: 80px;
-        margin: 16px 0 42px 0;
-        padding-left: 24px;
-        font-size: 1rem;
-        font-weight: 500;
-        color: #a3a3a3;
-        background: #fafafa;
-        border: 1px solid #e7e7e7;
-        border-radius: 8px;
-        .camera-img {
-          padding: 0 5px 0 0;
-          img {
-            width: 26px;
-            height: 22px;
-          }
-        }
-        .reg-btn {
-          // z-index: 10;
-          width: max-height;
-          height: 40px;
-          margin-top: 18px;
-          color: #a3a3a3;
-          border: none;
-          background: none;
-          text-decoration: underline;
-          cursor: pointer;
-        }
-        .reg-btn:focus {
-          outline: none;
-        }
-        .img-grp {
-          width: 600px;
-          overflow-x: scroll;
-          #postingImages {
-            display: flex;
-            div {
-              margin-left: 10px;
-              margin-top: 10px;
-              width: 50px;
-              height: 50px;
-              .obj {
-                width: 50px;
-                height: 50px;
-                border-radius: 12px;
-              }
-              .img-btn-grp {
-                height: 30px;
-                // display: flex;
-                // padding: 5px 10px 0px 60px;
-                margin-top: -120px;
-                .del {
-                  margin-left: 25px;
-                  width: 20px;
-                  height: 20px;
-                  z-index: 1;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    .upload {
-      width: 146px;
-      height: 47px;
-      line-height: 47px;
-      margin: 0 auto;
-      font-size: 1rem;
-      font-weight: 500;
-      background: #ffffff;
-      // opacity: 0.4;
-      border: 1px solid #e1e2e3;
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-    }
-  }
-}
-
-#PostingPageMobile {
-  width: 100vw;
-  height: 100vh;
-  overflow: scroll;
-  background-color: #f3f3f3;
-  .panel {
-    // width: 355px;
-    // margin: 0px auto;
-    .form {
-      .title-group {
-        display: flex;
-        height: 56px;
-        line-height: 56px;
-        padding-top: 10px;
-        background-color: #fff;
-        .title {
-          padding-left: 48px;
-          font-size: 1.13rem;
-          font-weight: 600;
-          flex-grow: 1;
-          text-align: center;
-        }
-        .close {
-          img {
-            width: 24px;
-            height: 24px;
-            margin: 12px 12px;
-            cursor: pointer;
-          }
-        }
-      }
-      .group {
-        margin: 0 20px;
-        &.info {
-          padding-bottom: 52px;
-          border-bottom: 1px solid #d9d9d9;
-        }
-      }
-      .posting-group {
-        margin-top: 24px;
-        font-size: 1rem;
-        font-weight: 600;
-        strong {
-          color: #e74133;
-        }
-      }
-      .line {
-        // display: flex;
-        .form-wrp {
-          .sub-title {
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: #454545;
-          }
-          .sub-wrp {
-            width: 100%;
-            height: 46px;
-            line-height: 46px;
-            margin-top: 12px;
-            font-size: 1rem;
-            background-color: #ffffff;
-            border: 1px solid #e7e7e7;
-            border-radius: 8px;
-            &.summary {
-              width: calc(100% - 32px);
-              padding: 0 16px;
-            }
-          }
-
-          .sub-wrp::placeholder {
-            color: #c8c8c8;
-          }
-          .d-day-wrp {
-            display: flex;
-            input[type='checkbox' i] {
-              // -webkit-appearance: none;
-              // -moz-appearance: none;
-              background-color: #fff;
-              width: 20px;
-              height: 20px;
-              margin: 25px 12px 0px 0px;
-              border: 1px solid #c8c8c8;
-              // border-radius: 100%;
-            }
-          }
-          .d-day-input {
-            display: flex;
-            flex-grow: 1;
-            div {
-              font-size: 0.88rem;
-              padding: 0 13px;
-            }
-            input {
-              width: 100%;
-              padding: 0 16px;
-              border: none;
-              border-radius: 8px;
-            }
-            input:focus {
-              outline: none;
-            }
-            input::placeholder {
-              // font-size: 1rem;
-              // text-align: right;
-            }
-          }
-          .content {
-            width: calc(100% - 32px);
-            height: 400px;
-            margin-top: 12px;
-            padding: 16px;
-            font-size: 1rem;
-            background: #ffffff;
-            border: 1px solid #e7e7e7;
-            border-radius: 8px;
-          }
-          .content::placeholder {
-            color: #c8c8c8;
-          }
-        }
-        .category {
-          margin-top: 24px;
-          .sub-wrp {
-            width: 100%;
-          }
-        }
-        .d-day {
-          margin-top: 20px;
-        }
-      }
-      .add-img {
-        display: flex;
-        height: 70px;
-        line-height: 80px;
-        margin: 16px 0 42px 0;
-        padding-left: 24px;
-        font-size: 1rem;
-        font-weight: 500;
-        color: #a3a3a3;
-        background: #fafafa;
-        border: 1px solid #e7e7e7;
-        border-radius: 8px;
-        .camera-img {
-          padding: 0 5px 0 0;
-          img {
-            width: 26px;
-            height: 22px;
-          }
-        }
-        .reg-btn {
-          // z-index: 10;
-          width: max-height;
-          height: 40px;
-          margin-top: 18px;
-          color: #a3a3a3;
-          border: none;
-          background: none;
-          text-decoration: underline;
-          cursor: pointer;
-        }
-        .reg-btn:focus {
-          outline: none;
-        }
-        .img-grp {
-          width: 150px;
-          overflow-x: scroll;
-          #postingImages {
-            display: flex;
-            div {
-              margin-left: 10px;
-              margin-top: 10px;
-              width: 50px;
-              height: 50px;
-              .obj {
-                width: 50px;
-                height: 50px;
-                border-radius: 12px;
-              }
-              .img-btn-grp {
-                height: 30px;
-                // display: flex;
-                // padding: 5px 10px 0px 60px;
-                margin-top: -120px;
-                .del {
-                  margin-left: 25px;
-                  width: 20px;
-                  height: 20px;
-                  z-index: 1;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    .upload {
-      width: 146px;
-      height: 47px;
-      line-height: 47px;
-      margin: 0 auto;
-      margin-bottom: 40px;
-      font-size: 1rem;
-      font-weight: 500;
-      background: #ffffff;
-      // opacity: 0.4;
-      border: 1px solid #e1e2e3;
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-    }
-  }
-}
+@import '@assets/scss/detail-page/posting.scss';
 </style>

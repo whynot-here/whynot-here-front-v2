@@ -145,7 +145,6 @@ export default {
           this.currentNickName = this.inputNickName
         })
         .catch((error) => {
-          // window.alert(error.response.data.message)
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',

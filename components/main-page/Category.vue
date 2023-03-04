@@ -13,11 +13,6 @@
         </div>
       </section>
       <section class="category">
-        <!-- <div @click="checkLogin()">
-          <div class="posting-btn">
-            📝 글쓰기
-          </div>
-        </div> -->
         <div class="sub-menu-wrp">
           <div class="search">
             <div class="search-box">
@@ -63,14 +58,6 @@
           >
             {{ cat.parentName }}
           </div>
-          <!-- <div
-            v-for="(sub, sIdx) in cat.children"
-            :key="sIdx"
-            :class="sub.code.toLowerCase() === selectedSubCategory ? 'sub-title selected' : 'sub-title'"
-            @click="selectSubCategory({ id: sub.id, type: cat.parentCode.toLowerCase(), subType: sub.code.toLowerCase(), name: sub.name, catName: cat.parentName })"
-          >
-            {{ sub.name }}
-          </div> -->
         </div>
       </section>
     </div>
@@ -138,7 +125,6 @@ export default {
     },
     moveMyPostingsPage () {
       if (!this.$store.state.userInfo.initLoginDone) {
-        // alert('로그인 후 이용해 주세요')
         this.cmn_openAlertPopup({
           option: {
             title: '⚠️알림',
@@ -163,7 +149,6 @@ export default {
     },
     moveBookmarkPage () {
       if (!this.$store.state.userInfo.initLoginDone) {
-        // alert('로그인 후 이용해 주세요')
         this.cmn_openAlertPopup({
           option: {
             title: '⚠️알림',
@@ -203,7 +188,6 @@ export default {
       this.$bus.$emit('setSubCategoryId', { id, name, catName })
       this.selectedCategory = type
       this.selectedSubCategory = subType
-      // this.$router.push({ path: `/${this.selectedCategory}`, params: { sub: `${type}` } })
       this.$router.push(`/gather/${this.selectedCategory}?sub=${this.selectedSubCategory}`)
       this.toggleCategoryPanel()
     },

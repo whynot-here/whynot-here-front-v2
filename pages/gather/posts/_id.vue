@@ -68,9 +68,6 @@
           <div>
             {{ postComp.writerName }}
           </div>
-          <!-- <div class="contact" @click="copyContactInfo()">
-            {{ postComp.contactText }} 연락
-          </div> -->
         </div>
         <div class="bottom">
           <div class="comment-count">
@@ -123,19 +120,9 @@
         </div>
       </section>
     </div>
-    <!-- <div>
-      <img :src="postComp.writer.profileImg" alt="">
-      {{ postComp.writer.nickname }}
-    </div> -->
   </div>
   <div v-else id="m-PostingPage">
     <main>
-      <!-- <div class="m-detail-header">
-        <div class="m-close">
-          <img class="m-back-btn" src="@/assets/img/common/left-arrow.png" alt="" @click.prevent="$router.go(-1)">
-        </div>
-      </div> -->
-
       <div v-if="activeComponent === 'DetailView'">
         <div class="m-detail-container">
           <div class="m-detail-content">
@@ -177,27 +164,11 @@
               </div>
             </div>
           </div>
-
-          <!-- <div class="m-detail-transition" @click="renderComponent('CommentView')">
-            <div class="m-trans-text">댓글</div> 
-            <img class="m-trans-icon" src="@/assets/img/common/bottom-arrow.png" />
-          </div> -->
         </div>
       </div>
 
       <div v-else-if="activeComponent === 'CommentView'">
         <div class="m-comment-container">
-          <!-- <div
-            class="m-detail-transition"
-            @click="renderComponent('DetailView')"
-          >
-            <div></div>
-            <div class="m-trans-text">본문</div>
-            <img
-              class="m-trans-icon"
-              src="@/assets/img/common/upper-arrow.png"
-            />
-          </div> -->
 
           <div v-if="commentComp.length > 0" class="m-comment-list">
             <div
@@ -259,17 +230,6 @@
       </div>
 
       <div class="m-detail-footer">
-        <!-- <div></div> -->
-        <!-- <div class="m-img-wrp">
-            <img src="@/assets/img/posting/copy-detail.png" alt="" @click="copyUrl()">
-          </div>
-          <div class="m-img-wrp">
-            <img v-if="isBookmarked" src="@/assets/img/posting/bookmark-detail-selected.png" @click.prevent="bookmark()">
-            <img v-else src="@/assets/img/posting/bookmark-detail.png" @click.prevent="bookmark()">
-          </div>
-          <div class="m-img-wrp">
-            <img src="@/assets/img/posting/chat.png" alt="">
-          </div> -->
         <div class="m-comment-posting-toggle">
           <div
             v-if="activeComponent === 'DetailView'"
@@ -313,9 +273,6 @@
             @click="copyUrl()"
           />
         </div>
-        <!-- <div class="m-contact" @click="copyContactInfo()">
-          <div>{{ postComp.contactText }} 연락</div>
-        </div> -->
       </div>
     </main>
   </div>
@@ -401,7 +358,6 @@ export default {
     copyUrl() { 
       this.copySomething(window.document.location.href)
 
-      // alert('URL이 복사되었습니다.')
       this.cmn_openAlertPopup({
         option: {
           title: '⚠️알림',
@@ -414,7 +370,6 @@ export default {
     },
     registerComment() {
       if (!this.currentComment.length > 0) {
-        // alert('댓글을 입력해주세요')
         this.cmn_openAlertPopup({
           option: {
             title: '⚠️알림',
@@ -442,7 +397,6 @@ export default {
           }
         )
         .then((res) => {
-          // alert('댓글이 등록되었습니다.')
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',
@@ -477,7 +431,6 @@ export default {
           }
         })
         .then((res) => {
-          // alert('댓글이 삭제되었습니다.')
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',
@@ -499,7 +452,6 @@ export default {
               cancelText: ''
             }
           })
-          // window.alert(error.response.data.message)
         })
     },
     renderComponent(component) {
@@ -509,7 +461,6 @@ export default {
       navigator.clipboard
         .writeText(this.postComp.ownerContact.value)
         .then(() => {
-          // alert(`'${this.postComp.ownerContact.value}' 가 복사되었습니다`)
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',
@@ -588,7 +539,6 @@ export default {
             this.isBookmarked = false
           })
           .catch((error) => {
-            // window.alert(error.response.data.message)
             this.cmn_openAlertPopup({
               option: {
                 title: '⚠️알림',
@@ -616,7 +566,6 @@ export default {
             this.isBookmarked = true
           })
           .catch((error) => {
-            // window.alert(error.response.data.message)
             this.cmn_openAlertPopup({
               option: {
                 title: '⚠️알림',

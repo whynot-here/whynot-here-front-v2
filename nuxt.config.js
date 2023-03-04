@@ -4,9 +4,6 @@ export default {
     port: 3001
   },
   target: 'server',
-  // generate: {
-  //   fallback: true
-  // },
   env: {
     frontUrl:
       process.env.NODE_ENV === 'production'

@@ -101,19 +101,6 @@
           </div>
         </div>
       </div>
-      <!-- <div v-if="compModalOpen" class="comp-modal">
-        <div class="comp-wrp">
-          <div class="notice">
-            모집 마감을 누르시면 해당 글<br />
-            <strong>수정 / 모집이 불가합니다.</strong><br />
-            그래도 진행 하시겠습니까?
-          </div>
-          <div class="select-wrp">
-            <div @click="compModalOpen = false">아니요</div>
-            <div @click="compRecruit()">네</div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -123,30 +110,10 @@ export default {
   name: 'WhynotCard',
   components: {},
   props: {
-    // postsProps: {
-    //   type: Array,
-    //   default: null
-    // },
-    // categoryId: {
-    //   type: Number,
-    //   default: 1
-    // },
-    // categoryProps: {
-    //   type: String,
-    //   default: ''
-    // },
-    // subCategoryProps: {
-    //   type: String,
-    //   default: ''
-    // },
     searchText: {
       type: String,
       default: ''
     }
-    // subCategory: {
-    //   type: String,
-    //   default: ''
-    // }
   },
   data() {
     return {
@@ -176,7 +143,6 @@ export default {
         } else {
           post.title_short = post.title
         }
-        // post.selected = false
         if (post.content.length > 30) {
           post.content_light = post.content.substr(0, 30) + '...'
         } else {
@@ -209,36 +175,16 @@ export default {
 
         post.passedDay = this.cmn_getPassedDay(post.createdDt)
 
-        // post.bookmark = post.selected
-        // post.isOpenSubMenu = false
         return post
       })
     }
   },
-  watch: {
-    // bookmarkMode: {
-    //   deep: true,
-    //   handler () {
-    //     if (this.bookmarkMode) {
-    //       this.bookmarkMode = false
-    //     }
-    //   }
-    // },
-    // postsProps: {
-    //   deep: true,
-    //   handler () {
-    //   }
-    // }
-  },
   created() {
     this.$bus.$off('refreshCard')
     this.$bus.$on('refreshCard', () => {
-      // this.refreshCard()
     })
   },
   mounted() {
-    // this.category = this.categoryProps
-    // this.refreshCard()
   },
   methods: {
     refreshCard() {
@@ -310,7 +256,6 @@ export default {
         }
 
         if (this.categoryId > 0) {
-          // this.$axios.get('https://whynot-here.o-r.kr/v2/posts')
           this.$axios
             .get(
               `https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`
@@ -325,7 +270,6 @@ export default {
         } else {
           this.$axios
             .get('https://whynot-here.o-r.kr/v2/posts')
-            // this.$axios.get(`https://whynot-here.o-r.kr/v2/posts/category/${this.categoryId}`)
             .then((res) => {
               this.posts = []
               res.data.map((res) => {
@@ -401,7 +345,6 @@ export default {
             this.bookmarkComp = true
           })
           .catch(function (res) {
-            // alert('다시 로그인 해주세요.')
             this.cmn_openAlertPopup({
               option: {
                 content: '다시 로그인 해주세요.',
@@ -414,13 +357,9 @@ export default {
       } else {
         this.bookmarkComp = true
       }
-      // setTimeout(() => {
-      //   this.bookmarkComp = false
-      // }, 1000)
     },
     bookmark(id) {
       if (!this.$store.state.userInfo.initLoginDone) {
-        // alert('로그인 후 이용해 주세요')
         this.cmn_openAlertPopup({
           option: {
             content: '로그인 후 이용해 주세요.',
@@ -474,12 +413,10 @@ export default {
         }
         return post
       })
-      // this.refreshCard()
       // 사간 간격 안 두면 결과 반영이 안되는 경우가 있어서
       setTimeout(() => {
         this.getBookmark()
       }, 300)
-      // this.bookmarkMode = true
     },
     openSubMenuPopup(id) {
       this.posts.map((post) => {
@@ -511,7 +448,6 @@ export default {
           })
           .then((res) => {
             // 카드 새로고침
-            // alert('삭제했습니다')
             this.cmn_openAlertPopup({
               option: {
                 title: '⚠️알림',
@@ -521,17 +457,11 @@ export default {
                 cancelText: ''
               }
             })
-            // this.$emit('refreshCard', {})
             this.refreshCard()
           })
       }
     },
     compModalToggle(id) {
-      // if (this.compModalOpen) {
-      //   this.compModalOpen = false
-      // } else {
-      //   this.compModalOpen = true
-      // }
       this.cmn_openAlertPopup({
         option: {
           title: '⚠️알림',
@@ -566,7 +496,6 @@ export default {
           this.compModalOpen = false
           this.compRecruitId = ''
           this.refreshCard()
-          // alert('모집이 마감되었습니다.')
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',
@@ -578,7 +507,6 @@ export default {
           })
         })
         .catch((error) => {
-          // window.alert(error.response.data.message)
           this.cmn_openAlertPopup({
             option: {
               title: '⚠️알림',

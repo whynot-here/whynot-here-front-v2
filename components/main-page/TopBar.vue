@@ -2,12 +2,6 @@
   <div v-if="isFromPc" id="TopBar">
     <div class="topbar" @click.self="toggleAccountPopup">
       <div class="topbar-wrp">
-        <!-- <div class="logo-left">
-          사람이 모이는 공간
-        </div>
-        <div class="logo" @click="mainPage">
-          <img src="@/assets/img/common/whynot-here-logo.png" alt="">
-        </div> -->
         <div class="category-wrp">
           <div>
             {{ categoryTitleProps }}
@@ -41,12 +35,6 @@
         >
           로그인
         </div>
-        <!-- <div
-          v-else
-          class="logined"
-        >
-          {{ $store.state.userInfo.detail.nickname }}님 안녕하세요!
-        </div> -->
         <div v-if="initLoginDone" class="profile" @click="toggleAccountPopup">
           <div v-if="profileImg !== ''">
             <img :src="profileImg" alt="" />
@@ -56,7 +44,6 @@
           </div>
           <div v-if="openAccount" class="open-account">
             <div class="sub-menu-wrp">
-              <!-- <div class="sub-menu">{{ $store.state.userInfo.detail.nickname }}님 안녕하세요!</div> -->
               <div
                 class="sub-menu"
                 style="cursor: pointer"
@@ -172,9 +159,6 @@ export default {
       this.$router.push('/')
     },
     moveToLoginPage() {
-      // if (this.isMobile) {
-      //   this.$bus.$emit('toggleReviewButton', {})
-      // }
       this.$router.push('/login')
     },
     toggleAccountPopup() {

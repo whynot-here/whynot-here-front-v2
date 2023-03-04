@@ -4,10 +4,6 @@ import Vue from 'vue'
 const common = {
   data() {
     return {
-      // category: '',
-      // subCategory: '',
-      // categoryTitle: '',
-      // subCategoryTitle: '',
       categoryGroup: [
         {
           parentId: 0,
@@ -161,12 +157,10 @@ const common = {
       const d = new Date()
       d.setTime(d.getTime() + exhour * 60 * 60 * 1000)
       const expires = 'expires=' + d.toUTCString()
-      // todo: 배포시 분리 필요
+
       document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/;'
       if (window.location.href.search('127.0.0.1') > -1) {
         document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/;'
-      } else {
-        // document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/;domain=;'
       }
     },
 
@@ -258,17 +252,6 @@ const common = {
     },
 
     cmn_logout() {
-      // if (window.confirm('로그아웃 하시겠어요?')) {
-      //   this.$cookies.remove('token')
-
-      //   this.$store.commit('userInfo/setToken', { token: '' })
-      //   this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
-      //   this.$store.commit('userInfo/setDetail', { info: null })
-
-      //   Cookies.remove('vuex')
-      //   this.$bus.$emit('refreshCard', {})
-      //   this.cmn_goMainPage()
-      // }
       this.cmn_openAlertPopup({
         option: {
           title: '로그아웃',
@@ -314,9 +297,7 @@ const common = {
     toastPopup(text) {
       this.$toasted.show(text, {
         position: 'bottom-right',
-        duration: 1500,
-        // type: 'success',
-        // theme: 'bubble'
+        duration: 1500
       })
     }
   }

@@ -1,0 +1,18 @@
+#ReviewComponent {
+  .notice {
+    background-color: #181818;
+    height: 44px;
+    line-height: 44px;
+    color: #ffffff;
+    font-size: 0.88rem;
+    font-weight: 400;
+    text-align: center;
+    strong {
+      margin-left: 16px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #a0c4ff;
+      cursor: pointer;
+    }
+  }
+}

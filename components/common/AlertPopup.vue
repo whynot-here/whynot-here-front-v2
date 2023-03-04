@@ -61,51 +61,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.popup-wrap {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .popup {
-    width: 300px;
-    background-color: #fff;
-    border-radius: 5px;
-    .popup-header {
-      padding: 20px;
-      border-bottom: 1px solid #eee;
-      h2 {
-        font-size: 16px;
-        font-weight: 600;
-      }
-    }
-    .popup-body {
-      padding: 20px;
-      p {
-        font-size: 14px;
-      }
-    }
-    .popup-footer {
-      padding: 20px;
-      border-top: 1px solid #eee;
-      text-align: right;
-      button {
-        padding: 5px 10px;
-        border: 1px solid #eee;
-        border-radius: 5px;
-        background-color: #fff;
-        font-size: 14px;
-        cursor: pointer;
-        &:first-child {
-          margin-right: 10px;
-        }
-      }
-    }
-  }
-}
+@import '@assets/scss/components/common/alert-popup.scss';
 </style>
