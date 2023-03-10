@@ -3,19 +3,23 @@
 #Card {
   .pc-env {
     // flex-grow: 1;
-    width: 100%; height: calc(100vh - 80px - 44px);
+    width: 100%;
+    height: calc(100vh - 80px - 44px);
     overflow-y: scroll;
-    background-color: #F3F3F3;
+    background-color: #f3f3f3;
     .comp-modal {
       position: fixed;
       z-index: 10;
-      width: 100vw; height: 100vh;
-      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
       background-color: rgba(24, 24, 24, 0.4);
       .comp-wrp {
         margin: calc(100vh / 3) auto;
-        width: 400px; height: 208px;
-        background-color: #FFFFFF;
+        width: 400px;
+        height: 208px;
+        background-color: #ffffff;
         border-radius: 12px;
         text-align: center;
         .notice {
@@ -29,15 +33,17 @@
         .select-wrp {
           display: flex;
           margin: 0 24px;
-          border-top: 1px solid #E7E7E7;
+          border-top: 1px solid #e7e7e7;
           div {
-            width: 50%; height: 30px; line-height: 30px;
+            width: 50%;
+            height: 30px;
+            line-height: 30px;
             margin: 16px 0;
             cursor: pointer;
           }
           div:first-child {
-            color: #E74133;
-            border-right: 1px solid #E7E7E7;
+            color: #e74133;
+            border-right: 1px solid #e7e7e7;
           }
           div:nth-child(2) {
           }
@@ -50,33 +56,40 @@
       height: 79px;
       margin: 0 auto;
       padding: 32px;
-      color: #005B9A;
-      input[type="checkbox" i] {
-        width: 16px; height: 16px;
-        background-color: #005B9A;
+      color: #005b9a;
+      input[type='checkbox' i] {
+        width: 16px;
+        height: 16px;
+        background-color: #005b9a;
       }
       div:first-child {
         flex-grow: 1;
         text-align: right;
       }
       div:nth-child(2) {
-        width: max-content; height: 22px; line-height: 22px;
-        font-size: .75rem; font-weight: 500;
+        width: max-content;
+        height: 22px;
+        line-height: 22px;
+        font-size: 0.75rem;
+        font-weight: 500;
         padding-left: 8px;
       }
     }
     .cards-wrp {
       display: grid;
       grid-gap: 32px;
-      padding-top: 40px; padding-bottom: 100px;
+      padding-top: 40px;
+      padding-bottom: 100px;
       margin: 0 auto;
       width: 1070px;
       .card-wrp {
-        width: 470px; height: 130px;
+        width: 470px;
+        height: 130px;
         padding: 24px;
-        background: #FFFFFF;
-        box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
-        border: 2px solid #FFFFFF;
+        background: #ffffff;
+        box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
+          0px 8px 16px rgba(0, 52, 138, 0.08);
+        border: 2px solid #ffffff;
         border-radius: 16px;
         cursor: pointer;
         .card-top {
@@ -85,60 +98,70 @@
           .writer-title-wrp {
             flex-grow: 1;
             .writer {
-              height: 22px; line-height: 22px;
-              font-size: .81rem; font-weight: 500;
-              color: #A3A3A3;
+              height: 22px;
+              line-height: 22px;
+              font-size: 0.81rem;
+              font-weight: 500;
+              color: #a3a3a3;
             }
             .card-title {
               width: 300px;
               margin-top: 3px;
               margin-bottom: 10px;
-              font-size: 1.13rem; font-weight: 700;
+              font-size: 1.13rem;
+              font-weight: 700;
             }
           }
           .book-mark {
-            width: 16px; height: 22px;
+            width: 16px;
+            height: 22px;
             img {
-              width: 16px; height: 22px;
+              width: 16px;
+              height: 22px;
             }
           }
           .sub-menu-btn {
             position: relative;
-            width: 20px; height: 24px;
+            width: 20px;
+            height: 24px;
             text-align: right;
             img {
-              width: 4px; height: 24px;
+              width: 4px;
+              height: 24px;
             }
             .sub-menu {
               position: absolute;
-              width: 96px; height: 98px;
+              width: 96px;
+              height: 98px;
               margin: -30px 30px;
-              background-color: #FFFFFF;
-              border: 1px solid #E1E2E3;
+              background-color: #ffffff;
+              border: 1px solid #e1e2e3;
               border-radius: 4px;
               div {
                 text-align: center;
-                height: 32px; line-height: 32px;
-                font-size: .75rem; font-weight: 400;
-                color: #D05F5F;
+                height: 32px;
+                line-height: 32px;
+                font-size: 0.75rem;
+                font-weight: 400;
+                color: #d05f5f;
                 cursor: pointer;
               }
               div:not(div:nth-child(3)) {
-                border-bottom: 1px solid #E1E2E3;
+                border-bottom: 1px solid #e1e2e3;
                 color: #414243;
               }
               div:hover {
-                background-color: #F5F5F5;
+                background-color: #f5f5f5;
               }
             }
           }
         }
         .card-middle {
-          color: #4D4D4D;
+          color: #4d4d4d;
           .content {
             height: 40px;
             // padding-top: 16px;
-            font-size: .88rem;
+            font-size: 0.88rem;
           }
         }
         .card-bottom {
@@ -148,9 +171,9 @@
           .item {
             line-height: 14px;
             padding: 6px 10px;
-            background: #F3F3F3;
+            background: #f3f3f3;
             border-radius: 16px;
-            font-size: .88rem; 
+            font-size: 0.88rem;
             text-align: center;
           }
           .comp {
@@ -161,13 +184,13 @@
             padding: 6px 10px;
             background: rgba(62, 130, 241, 0.26);
             border-radius: 16px;
-            color: #00348A;
-            font-size: .88rem; 
+            color: #00348a;
+            font-size: 0.88rem;
             text-align: center;
           }
           .d-day {
             font-weight: 600;
-            color: #3E82F1;
+            color: #3e82f1;
           }
           .created-day {
             color: #484848;
@@ -191,10 +214,12 @@
             display: flex;
             // margin-left: 230px;
             line-height: 26px;
-            font-size: .75rem; font-weight: 500;
-            color: #A1A2A3;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #a1a2a3;
             img {
-              width: 16px; height: 16px;
+              width: 16px;
+              height: 16px;
               margin-top: 5px;
               margin-right: 8px;
             }
@@ -202,14 +227,15 @@
         }
       }
       .card-wrp:hover {
-        border: 2px solid #3E82F1;
+        border: 2px solid #3e82f1;
       }
 
       .comp-card {
         z-index: 10;
-        width: 473px; height: 137px;
+        width: 473px;
+        height: 137px;
         background-color: rgba(24, 24, 24, 0.7);
-        color: #FFFFFF;
+        color: #ffffff;
         padding: 24px;
         border-radius: 16px;
         margin-left: -25px;
@@ -217,9 +243,11 @@
         .close {
           z-index: 10;
           margin: 0 24px 0 455px;
-          width: 24px; height: 24px;
+          width: 24px;
+          height: 24px;
           img {
-            width: 24px; height: 24px;
+            width: 24px;
+            height: 24px;
           }
         }
         .notice {
@@ -232,7 +260,8 @@
           .check {
             img {
               margin-top: 1.5px;
-              width: 28px; height: 28px;
+              width: 28px;
+              height: 28px;
             }
           }
           .comp-text {
@@ -244,58 +273,65 @@
       }
       @include mobile {
         width: 500px;
-        grid-template-columns: repeat(1,520px);
+        grid-template-columns: repeat(1, 520px);
         .cards-wrp {
           .card-wrp {
-            width: 520px; height: 179px;
-          } 
+            width: 520px;
+            height: 179px;
+          }
         }
       }
       @include tablet {
-        width: 800px; 
-        grid-template-columns: repeat(2,520px);
+        width: 800px;
+        grid-template-columns: repeat(2, 520px);
         .cards-wrp {
           .card-wrp {
-            width: 520px; height: 179px;
-          } 
+            width: 520px;
+            height: 179px;
+          }
         }
       }
       @include desktop {
-        // width: 890px; 
-        grid-template-columns: repeat(2,520px);
+        // width: 890px;
+        grid-template-columns: repeat(2, 520px);
         .cards-wrp {
           .card-wrp {
-            width: 520px; height: 179px;
-          } 
+            width: 520px;
+            height: 179px;
+          }
         }
       }
       @include screen {
         // width: 890px;
-        grid-template-columns: repeat(2,520px);
+        grid-template-columns: repeat(2, 520px);
         .cards-wrp {
           .card-wrp {
-            width: 520px; height: 179px;
-          } 
+            width: 520px;
+            height: 179px;
+          }
         }
       }
     }
   }
   .mobile-env {
-    width: 100vw; height: calc(100vh - 115px);
+    width: 100vw;
+    height: calc(100vh - 115px);
     padding-bottom: 30px;
     overflow-y: scroll;
-    background-color: #F3F3F3;
+    background-color: #f3f3f3;
 
     .sts-i-wrp {
       display: flex;
       padding: 23px 16px;
-      color: #005B9A;
-      input[type="checkbox" i] {
-        width: 16px; height: 16px;
-        background-color: #005B9A;
+      color: #005b9a;
+      input[type='checkbox' i] {
+        width: 16px;
+        height: 16px;
+        background-color: #005b9a;
 
         @include tablet {
-          width: 24px; height: 24px;
+          width: 24px;
+          height: 24px;
         }
       }
       div:first-child {
@@ -303,30 +339,37 @@
         // text-align: right;
       }
       div:nth-child(2) {
-        width: max-content; height: 22px; line-height: 22px;
-        font-size: .75rem; font-weight: 500;
+        width: max-content;
+        height: 22px;
+        line-height: 22px;
+        font-size: 0.75rem;
+        font-weight: 500;
         padding-left: 8px;
 
         @include tablet {
-          height: 33px; line-height: 33px;
+          height: 33px;
+          line-height: 33px;
           font-size: 16px;
         }
       }
     }
 
     .card-wrp {
-      width: 319px; height: 110px;
+      width: 319px;
+      height: 110px;
       margin: 0 auto 12px auto;
       padding: 16px;
       position: relative;
 
       @include tablet {
-        width: 600px; height: 160px;
+        width: 600px;
+        height: 160px;
         margin: 0 auto 20px auto;
       }
 
-      background: #FFFFFF;
-      box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04), 0px 8px 16px rgba(0, 52, 138, 0.08);
+      background: #ffffff;
+      box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
+        0px 8px 16px rgba(0, 52, 138, 0.08);
       // border: 2px solid #FFFFFF;
       border-radius: 12px;
       .card-top {
@@ -335,12 +378,15 @@
         .writer-title-wrp {
           flex-grow: 1;
           .writer {
-            height: 22px; line-height: 22px;
-            font-size: .69rem; font-weight: 500;
-            color: #A3A3A3;
+            height: 22px;
+            line-height: 22px;
+            font-size: 0.69rem;
+            font-weight: 500;
+            color: #a3a3a3;
 
             @include tablet {
-              height: 33px; line-height: 33px;
+              height: 33px;
+              line-height: 33px;
               font-size: 15px;
             }
           }
@@ -348,7 +394,8 @@
             width: 290px;
             margin-top: 3px;
             margin-bottom: 6px;
-            font-size: 1rem; font-weight: 700;
+            font-size: 1rem;
+            font-weight: 700;
 
             @include tablet {
               width: 435px;
@@ -359,54 +406,63 @@
           }
         }
         .book-mark {
-          width: 16px; height: 22px;
+          width: 16px;
+          height: 22px;
           img {
-            width: 16px; height: 22px;
+            width: 16px;
+            height: 22px;
           }
 
           @include tablet {
-            width: 22px; height: 30px;
+            width: 22px;
+            height: 30px;
             img {
-              width: 22px; height: 30px;
+              width: 22px;
+              height: 30px;
             }
           }
         }
         .sub-menu-btn {
           position: relative;
-          width: 20px; height: 24px;
+          width: 20px;
+          height: 24px;
           text-align: right;
           img {
-            width: 4px; height: 24px;
+            width: 4px;
+            height: 24px;
           }
           .sub-menu {
             position: absolute;
             right: 1px;
-            width: 96px; height: 98px;
-            background-color: #FFFFFF;
-            border: 1px solid #E1E2E3;
+            width: 96px;
+            height: 98px;
+            background-color: #ffffff;
+            border: 1px solid #e1e2e3;
             border-radius: 4px;
             div {
               text-align: center;
-              height: 32px; line-height: 32px;
-              font-size: .75rem; font-weight: 400;
-              color: #D05F5F;
+              height: 32px;
+              line-height: 32px;
+              font-size: 0.75rem;
+              font-weight: 400;
+              color: #d05f5f;
               cursor: pointer;
             }
             div:not(div:nth-child(3)) {
-              border-bottom: 1px solid #E1E2E3;
+              border-bottom: 1px solid #e1e2e3;
               color: #414243;
             }
             div:hover {
-              background-color: #F5F5F5;
+              background-color: #f5f5f5;
             }
           }
         }
       }
       .card-middle {
-        color: #4D4D4D;
+        color: #4d4d4d;
         .content {
           height: 20px;
-          font-size: .75rem;
+          font-size: 0.75rem;
 
           @include tablet {
             height: 30px;
@@ -426,9 +482,9 @@
         .item {
           line-height: 14px;
           padding: 6px 10px;
-          background: #F3F3F3;
+          background: #f3f3f3;
           border-radius: 16px;
-          font-size: .69rem; 
+          font-size: 0.69rem;
           text-align: center;
 
           @include tablet {
@@ -445,13 +501,13 @@
           padding: 6px 10px;
           background: rgba(62, 130, 241, 0.26);
           border-radius: 16px;
-          color: #00348A;
-          font-size: .69rem; 
+          color: #00348a;
+          font-size: 0.69rem;
           text-align: center;
         }
         .d-day {
           font-weight: 600;
-          color: #3E82F1;
+          color: #3e82f1;
         }
         .com-tool {
           font-weight: 500;
@@ -472,10 +528,12 @@
           display: flex;
           // margin-left: 230px;
           line-height: 26px;
-          font-size: .75rem; font-weight: 500;
-          color: #A1A2A3;
+          font-size: 0.75rem;
+          font-weight: 500;
+          color: #a1a2a3;
           img {
-            width: 16px; height: 16px;
+            width: 16px;
+            height: 16px;
             margin-top: 5px;
             margin-right: 8px;
           }
@@ -485,7 +543,8 @@
             font-size: 16px;
 
             img {
-              width: 20px; height: 20px;
+              width: 20px;
+              height: 20px;
               margin-top: 9px;
               margin-right: 12px;
             }
@@ -496,14 +555,16 @@
     .comp-card {
       z-index: 10;
       position: absolute;
-      width: 319px; height: 110px;
+      width: 319px;
+      height: 110px;
 
       @include tablet {
-        width: 600px; height: 165px;
+        width: 600px;
+        height: 165px;
       }
 
       background-color: rgba(24, 24, 24, 0.7);
-      color: #FFFFFF;
+      color: #ffffff;
       padding: 16px;
       border-radius: 12px;
       margin-left: -16px;
@@ -515,28 +576,26 @@
 
       .close {
         z-index: 10;
-        margin: 0 24px 0 455px;
-
-        @include tablet {
-          margin: 0 24px 0 550px;
-        }
-
-        width: 24px; height: 24px;
+        float: right;
         img {
-          width: 24px; height: 24px;
+          width: 24px;
+          height: 24px;
         }
       }
       .notice {
         display: flex;
         width: 110px;
-        margin: 40px auto;
         &.mypage {
-          margin: 25px auto;
+          margin: 42px auto;
+          @include tablet {
+            margin: 65px auto;
+          }
         }
         .check {
           img {
             margin-top: 1.5px;
-            width: 28px; height: 28px;
+            width: 28px;
+            height: 28px;
           }
         }
         .comp-text {
