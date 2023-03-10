@@ -3,19 +3,12 @@ export default function ({ params, query, route, store, redirect }) {
     '/gather',
     `/gather/${params.category}`,
     `/gather/posts/${params.id}`,
-    '/aboutus'
+    '/aboutus',
+    '/posting',
+    '/mypage'
   ]
 
-  if (
-    !route.query.accessToken &&
-    !exceptPath.includes(route.path) &&
-    !store.state.userInfo.initLoginDone
-  ) {
-    // return redirect({
-    //   name: 'gather-category',
-    //   params: {
-    //     category: 'all'
-    //   }
-    // })
+  if (exceptPath.includes(route.path)) {
+    return redirect('/')
   }
 }
