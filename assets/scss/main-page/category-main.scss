@@ -1,3 +1,4 @@
 #CategoryPage {
-  height: calc(100vh - 80px);
+  // 32px은 카테고리 부분 임시 높이
+  height: calc(100vh - 166px - 32px);
 }
