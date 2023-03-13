@@ -3,6 +3,7 @@
     :class="
       !isFromPc ? `category-wrp-m ${isOpenCategoryPanel}` : 'category-wrp'
     "
+    @click.self="!isFromPc ? toggleCategoryPanel() : ''"
   >
     <div v-show="isFromPc || isOpenCategoryPanel" id="Category">
       <section class="logo">
