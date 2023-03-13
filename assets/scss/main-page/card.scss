@@ -355,7 +355,7 @@
     }
 
     .card-wrp {
-      width: 319px;
+      width: calc(100% - 64px);
       height: 110px;
       margin: 0 auto 12px auto;
       padding: 16px;
@@ -555,7 +555,7 @@
     .comp-card {
       z-index: 10;
       position: absolute;
-      width: 319px;
+      width: calc(100% - 32px);
       height: 110px;
 
       @include tablet {
