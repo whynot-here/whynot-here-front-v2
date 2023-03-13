@@ -46,7 +46,7 @@
         </div>
         <div
           class="content"
-          style="white-space: pre-line"
+          style="white-space: pre-line; word-wrap: break-word"
           v-text="postComp.content"
         ></div>
         <div class="content-img">
@@ -164,7 +164,7 @@
             <div class="m-detail-content-body">
               <div
                 class="content"
-                style="white-space: pre-line"
+                style="white-space: pre-line; word-wrap: break-word"
                 v-text="postComp.content"
               ></div>
               <div class="m-content-img">
