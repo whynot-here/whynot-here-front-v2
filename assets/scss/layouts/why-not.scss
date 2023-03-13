@@ -27,6 +27,7 @@
     @include mobile {
       .top-bar-wrp {
         position: fixed;
+        width: 100%;
         height: 100%;
       }
       .category-wrp {

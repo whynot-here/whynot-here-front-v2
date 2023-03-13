@@ -585,12 +585,12 @@
       .notice {
         display: flex;
         width: 110px;
-        &.mypage {
-          margin: 42px auto;
-          @include tablet {
-            margin: 65px auto;
-          }
+        margin: 42px auto;
+
+        @include tablet {
+          margin: 65px auto;
         }
+
         .check {
           img {
             margin-top: 1.5px;
