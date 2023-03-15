@@ -6,8 +6,8 @@ WORKDIR /app
 ADD . /app/
 
 # yarn.lock, package-lock.json을 삭제
-RUN rm yarn.lock
-RUN rm package-lock.json
+# RUN rm yarn.lock
+# RUN rm package-lock.json
 
 RUN yarn config delete proxy
 RUN yarn config delete https-proxy
