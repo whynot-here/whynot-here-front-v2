@@ -48,9 +48,11 @@
                     oninput="this.value = this.value.replace(/[^\/0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                   > -->
 
-
                 <div v-if="useDday">
-                  <custom-date-picker v-model="postingRegisterParams.closedDt" class="sub-wrp d-day-input bg-white border px-2 py-1 rounded" />
+                  <custom-date-picker
+                    v-model="postingRegisterParams.closedDt"
+                    class="sub-wrp d-day-input bg-white border px-2 py-1 rounded"
+                  />
                 </div>
                 <div v-else>
                   <input disabled class="sub-wrp d-day-input px-2 py-1" />
@@ -179,7 +181,10 @@
                     />
                   </div>
                   <div v-if="useDday">
-                    <custom-date-picker v-model="postingRegisterParams.closedDt" class="sub-wrp d-day-input bg-white border px-2 py-1 rounded" />
+                    <custom-date-picker
+                      v-model="postingRegisterParams.closedDt"
+                      class="sub-wrp d-day-input bg-white border px-2 py-1 rounded"
+                    />
                   </div>
                   <div v-else>
                     <input disabled class="sub-wrp d-day-input px-2 py-1" />
@@ -216,7 +221,7 @@
               </div>
             </div>
             <div>
-              <!-- <div id="AddPostImg" class="add-img">
+              <div id="AddPostImg" class="add-img">
                 <div class="camera-img">
                   <img src="@/assets/img/posting/camera.png" alt="" />
                 </div>
@@ -243,7 +248,7 @@
                     </div>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
         </section>
@@ -394,7 +399,7 @@ export default {
             return this.inputImg.push(img)
           })
 
-          if (this.postingRegisterParams.closedDt !== "") {
+          if (this.postingRegisterParams.closedDt !== '') {
             this.useDday = true
           }
         })
@@ -490,17 +495,13 @@ export default {
       this.paramsSetting()
       // 포스팅 저장 (사진 제외)
       this.$axios
-        .post(
-          `${process.env.apiUrl}/v2/posts`,
-          this.postingRegisterParams,
-          {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
+        .post(`${process.env.apiUrl}/v2/posts`, this.postingRegisterParams, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
           }
-        )
+        })
         .then((res) => {
           this.cmn_openAlertPopup({
             option: {
@@ -566,7 +567,7 @@ export default {
     paramsSetting() {
       this.postingRegisterParams.categoryId =
         this.postingRegisterParams.category.id
-      if (! this.useDday || this.postingRegisterParams.closedDt === "") {
+      if (!this.useDday || this.postingRegisterParams.closedDt === '') {
         delete this.postingRegisterParams.closedDt
       }
     },
