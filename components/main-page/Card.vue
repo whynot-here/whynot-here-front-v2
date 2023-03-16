@@ -64,10 +64,7 @@
               </div>
             </div>
             <div class="card-bottom">
-              <div
-                v-if="category === 'mypostings' || category === 'bookmark'"
-                class="category-name"
-              >
+              <div class="category-name">
                 {{ post.categoryName }}
               </div>
               <div :class="'item created-day'">
