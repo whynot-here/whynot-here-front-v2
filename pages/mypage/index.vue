@@ -48,55 +48,65 @@
   <div v-else id="m-MyPage">
     <section class="m-mypage-wrp">
       <div class="m-mypage-header">
+        <div class="m-title">마이페이지</div>
         <div class="m-close">
           <img
             class="m-back-btn"
-            src="@/assets/img/common/left-arrow.png"
+            src="@/assets/img/common/close-review.png"
             alt=""
             @click="$router.go(-1)"
           />
         </div>
-        <div class="m-title">내정보</div>
       </div>
 
-      <div class="m-mypage-body">
+      <div class="m-mypage-body" @click.self="editNickNameMode = false">
         <div>
           <img
             class="m-profile-img"
             :src="$store.state.userInfo.detail.profileImg"
             alt=""
           />
+          <img
+            class="m-profile-edit-btn"
+            src="@/assets/img/common/edit-img-btn.png"
+            alt=""
+          />
         </div>
-        <div class="m-sub-title">
-          안녕하세요
-          <strong class="m-sub-title-highlight">{{ currentNickName }}</strong>
-          님!
-        </div>
-        <div v-if="!editNickNameMode" class="m-nickname">
-          <div class="m-nickname-left">닉네임</div>
-          <div class="m-nickname-content" @click="editNickNameMode = true">
-            {{ currentNickName }}
-          </div>
-        </div>
-        <div v-else class="m-nickname m-selected">
-          <div class="m-nickname-left">닉네임</div>
+
+        <div class="m-nickname-left">닉네임</div>
+        <div :class="editNickNameMode ? 'm-nickname m-selected' : 'm-nickname'">
           <div class="m-nickname-content">
-            <input v-model="inputNickName" class="m-edit-input" type="text" />
+            <input
+              ref="cursor"
+              v-model="inputNickName"
+              class="m-edit-input"
+              type="text"
+              @focus="editNickNameModeToggle(true)"
+            />
           </div>
           <div class="m-edit-button-wrp">
-            <div @click="editNickName()">저장</div>
+            <div @click="editNickName()">확인</div>
           </div>
         </div>
 
         <div class="m-email">
           <input
             type="text"
-            :value="$store.state.userInfo.detail.email"
+            :value="
+              $store.state.userInfo.detail.email.length == 0 ||
+              $store.state.userInfo.detail.email == undefined ||
+              $store.state.userInfo.detail.email == null
+                ? '이메일 제공 없음'
+                : $store.state.userInfo.detail.email
+            "
             disabled
           />
         </div>
         <div class="m-delete-account" @click="openDeleteAccountPopup()">
-          회원탈퇴 >
+          <div class="title">회원탈퇴</div>
+          <div class="right-arrow">
+            <img src="@/assets/img/common/right-arrow.png" alt="" />
+          </div>
         </div>
       </div>
     </section>
@@ -124,6 +134,9 @@ export default {
     this.inputNickName = this.$store.state.userInfo.detail.nickname
   },
   methods: {
+    editNickNameModeToggle(type) {
+      this.editNickNameMode = type
+    },
     editNickName() {
       this.$axios
         .post(
