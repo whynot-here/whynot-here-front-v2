@@ -205,22 +205,20 @@ const common = {
 
     cmn_getPassedDay(createdDt) {
       const today = new Date()
-      const end = new Date(createdDt.replaceAll('-', '/'))
+      const createdDate = new Date(createdDt.replaceAll('-', '/'))
 
-      const diff = Math.floor(
-        ((end.getTime() - today.getTime()) / (1000 * 3600 * 24)) * -1
-      )
+      const minutesDiff = (today.getTime() - createdDate.getTime()) / (1000 * 60)
+      const day = {
+        "month": createdDate.getMonth().toString().padStart(2, '0'),
+        "date": createdDate.getDate().toString().padStart(2, '0'),
+        "hour": createdDate.getHours().toString().padStart(2, '0'),
+        "minute": createdDate.getMinutes().toString().padStart(2, '0')
+      }
 
-      if (diff === 0) {
-        return '오늘'
-      } else if (diff === 1) {
-        return '어제'
-      } else if (diff === 2) {
-        return '2일전'
-      } else if (diff === 3) {
-        return '3일전'
+      if (minutesDiff >= 60){
+        return `${day.month}/${day.date} ${day.hour}:${day.minute}`
       } else {
-        return createdDt.substring(0, 10)
+        return `${Math.ceil(minutesDiff)}분전`
       }
     },
 
