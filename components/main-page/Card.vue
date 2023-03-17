@@ -79,7 +79,7 @@
               </div>
             </div>
           </div>
-          <div v-if="!post.recruiting" class="comp-card">
+          <div v-if="!post.recruiting" class="comp-card" @click="moveDetailPage(post.id)">
             <div v-if="category === 'mypostings'" class="close">
               <img
                 src="@/assets/img/common/close-gray.png"
