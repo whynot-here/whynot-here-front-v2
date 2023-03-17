@@ -140,8 +140,29 @@
               <div v-if="postComp.dDay !== ''">
                 <div class="d-day">마감 {{ postComp.dDay }}</div>
               </div>
-              <div class="writer">
-                {{ postComp.writerName }}
+              <div class="m-profile-info-main">
+                <div
+                  v-if="
+                    postComp.writerProfileImage !== '' &&
+                    postComp.writerProfileImage !== null
+                  "
+                >
+                  <img
+                    class="m-profile-img"
+                    :src="postComp.writerProfileImage"
+                    alt=""
+                  />
+                </div>
+                <div v-else>
+                  <img
+                    class="m-profile-img"
+                    src="@/assets/img/common/default-profile.png"
+                    alt=""
+                  />
+                </div>
+                <div class="writer">
+                  {{ postComp.writerName }}
+                </div>
               </div>
               <div class="title">
                 {{ postComp.title }}

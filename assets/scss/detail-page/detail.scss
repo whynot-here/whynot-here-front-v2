@@ -262,6 +262,10 @@
         margin: 20px 16px;
         padding: 16px;
 
+        .d-day {
+          margin-bottom: 10px;
+        }
+
         .m-detail-content-header {
           padding-bottom: 20px;
           margin-bottom: 20px;
@@ -271,6 +275,29 @@
             'title' 2fr
             'tags' 2fr
             '.' 1fr / 1fr;
+
+            .m-profile-info-main {
+              display: flex;
+              align-items: center;
+              grid-area: writer;
+    
+              .m-profile-img {
+                width: 30px;
+                height: 30px;
+                margin-right: 8px;
+                border-radius: 100%;
+              }
+
+              .writer {
+                align-self: center;
+                color: #a3a3a3;
+                font-size: 13px;
+    
+                @include tablet {
+                  font-size: 18px;
+                }
+              }
+            }
 
           .d-day {
             width: max-content;
@@ -286,18 +313,6 @@
             box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
               0px 4px 8px rgba(0, 52, 138, 0.06);
             border-radius: 24px;
-          }
-
-          .writer {
-            color: #a3a3a3;
-            font-size: 0.79rem;
-            grid-area: writer;
-            align-self: flex-end;
-            padding-top: 15px;
-
-            @include tablet {
-              font-size: 18px;
-            }
           }
 
           .title {
@@ -328,6 +343,9 @@
               display: flex;
               align-items: center;
               gap: 0em 1em;
+              padding: 5px 8px;
+              background: #f3f3f3;
+              border-radius: 16px;
 
               @include tablet {
                 font-size: 17px;
