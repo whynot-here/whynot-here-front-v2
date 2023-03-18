@@ -104,6 +104,12 @@
       </div>
     </div>
     <div class="middle">🗓️ 이번주는 한동 <strong>3주차</strong></div>
+    <VueCarousel :autoplay=true :nav=false :loop=true :dots=true :items=1>
+      <img class="banner-img" src="@/assets/img/ads/banner.png">
+      <img class="banner-img" src="@/assets/img/ads/banner.png">
+      <img class="banner-img" src="@/assets/img/ads/banner.png">
+      <img class="banner-img" src="@/assets/img/ads/banner.png">
+    </VueCarousel>
     <div class="bottom">
       <div class="category-wrp">
         <div>
@@ -187,4 +193,18 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/components/main-page/top-bar.scss';
+
+
+</style>
+
+<style>
+.banner-img {
+  height: 80px;
+}
+
+.owl-dots {
+  position: relative;
+  z-index: 10;
+  margin-top: -25px !important;
+}
 </style>
