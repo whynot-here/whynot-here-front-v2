@@ -62,11 +62,8 @@
       <div class="m-mypage-body" @click.self="editNickNameMode = false">
         <div class="m-mypage-body-top">
           <div class="m-profile-img-wrp">
-            <img
-              class="m-profile-img"
-              :src="$store.state.userInfo.detail.profileImg"
-              alt=""
-            />
+            <img :src="profileImg" alt="" class="m-profile-img" />
+
             <div class="m-profile-edit-btn">
               <img src="@/assets/img/common/edit-img-btn.png" alt="" />
               <b-form-group id="fileInput" class="mypage-profile">
@@ -132,8 +129,8 @@ export default {
       editNickNameMode: false,
       currentNickName: '',
       inputNickName: '',
-      inputImg: '',
-      file: '',
+      inputImg: [],
+      files: [],
       dir: '',
       profileImg: ''
     }
@@ -142,6 +139,10 @@ export default {
     // mobile or pc
     this.currentNickName = this.$store.state.userInfo.detail.nickname
     this.inputNickName = this.$store.state.userInfo.detail.nickname
+    this.profileImg =
+      this.$store.state.userInfo.detail.profileImg === ''
+        ? '@/assets/img/common/default-profile.png'
+        : this.$store.state.userInfo.detail.profileImg
   },
   methods: {
     editNickNameModeToggle(type) {
@@ -229,23 +230,23 @@ export default {
           })
         }
         fileReader.readAsDataURL(input[0])
-        this.file.push(input[0])
+        this.files.push(input[0])
         event.target.value = ''
       }
 
       const formData = new FormData()
-      formData.append('images', this.file)
+      formData.append('images', this.files[0])
 
       const cur = new Date()
       const year = (cur.getFullYear() + '').substring(2)
       const month = cur.getMonth() + 1 + ''
-      this.dir = year + '-' + month
+      this.dir = 'profile-' + year + '-' + month
 
       this.editProfileImg({ formData, callback: this.editProfileImgUrl })
     },
     editProfileImg({ formData, callback }) {
       this.$axios
-        .post(`${process.env.apiUrl}/images/profile/${this.dir}`, formData, {
+        .post(`${process.env.apiUrl}/images/${this.dir}`, formData, {
           withCredentials: true,
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -253,7 +254,9 @@ export default {
           }
         })
         .then((res) => {
-          this.profileImg.push(res.data.url)
+          this.profileImg = res.data.url
+          this.files = []
+          this.inputImg = []
           callback()
         })
         .catch((error) => {
@@ -271,13 +274,19 @@ export default {
     },
     editProfileImgUrl() {
       this.$axios
-        .put(`${process.env.apiUrl}/account/profileImg`, this.profileImg, {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
+        .put(
+          `${process.env.apiUrl}/account/profileImg`,
+          {
+            profileImg: this.profileImg
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
           }
-        })
+        )
         .then((res) => {})
         .catch((error) => {
           this.cmn_openAlertPopup({
