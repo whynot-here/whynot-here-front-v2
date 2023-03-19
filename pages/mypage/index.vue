@@ -108,7 +108,13 @@
             disabled
           />
         </div>
-        <div class="m-delete-account" @click="openDeleteAccountPopup()">
+        <div class="m-mypage-bottom _01" @click="moveMyPostingsPage()">
+          <div class="title">내가 쓴 글 목록</div>
+          <div class="right-arrow">
+            <img src="@/assets/img/common/right-arrow.png" alt="" />
+          </div>
+        </div>
+        <div class="m-mypage-bottom _02" @click="openDeleteAccountPopup()">
           <div class="title">회원탈퇴</div>
           <div class="right-arrow">
             <img src="@/assets/img/common/right-arrow.png" alt="" />
@@ -312,6 +318,27 @@ export default {
             }
           })
         })
+    },
+
+    moveMyPostingsPage() {
+      if (!this.$store.state.userInfo.initLoginDone) {
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '로그인 후 이용해 주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
+        return false
+      }
+      this.$router.push({
+        name: 'gather-category',
+        params: {
+          category: 'mypostings'
+        }
+      })
     }
   }
 }

@@ -207,15 +207,16 @@ const common = {
       const today = new Date()
       const createdDate = new Date(createdDt.replaceAll('-', '/'))
 
-      const minutesDiff = (today.getTime() - createdDate.getTime()) / (1000 * 60)
+      const minutesDiff =
+        (today.getTime() - createdDate.getTime()) / (1000 * 60)
       const day = {
-        "month": createdDate.getMonth().toString().padStart(2, '0'),
-        "date": createdDate.getDate().toString().padStart(2, '0'),
-        "hour": createdDate.getHours().toString().padStart(2, '0'),
-        "minute": createdDate.getMinutes().toString().padStart(2, '0')
+        month: createdDate.getMonth().toString().padStart(2, '0'),
+        date: createdDate.getDate().toString().padStart(2, '0'),
+        hour: createdDate.getHours().toString().padStart(2, '0'),
+        minute: createdDate.getMinutes().toString().padStart(2, '0')
       }
 
-      if (minutesDiff >= 60){
+      if (minutesDiff >= 60) {
         return `${day.month}/${day.date} ${day.hour}:${day.minute}`
       } else {
         return `${Math.ceil(minutesDiff)}분전`
