@@ -60,17 +60,23 @@
       </div>
 
       <div class="m-mypage-body" @click.self="editNickNameMode = false">
-        <div>
-          <img
-            class="m-profile-img"
-            :src="$store.state.userInfo.detail.profileImg"
-            alt=""
-          />
-          <img
-            class="m-profile-edit-btn"
-            src="@/assets/img/common/edit-img-btn.png"
-            alt=""
-          />
+        <div class="m-mypage-body-top">
+          <div class="m-profile-img-wrp">
+            <img
+              class="m-profile-img"
+              :src="$store.state.userInfo.detail.profileImg"
+              alt=""
+            />
+            <div class="m-profile-edit-btn">
+              <img src="@/assets/img/common/edit-img-btn.png" alt="" />
+              <b-form-group id="fileInput" class="mypage-profile">
+                <b-form-file
+                  accept="image/jpeg, image/png, image/gif"
+                  @change="onFileChange"
+                ></b-form-file>
+              </b-form-group>
+            </div>
+          </div>
         </div>
 
         <div class="m-nickname-left">닉네임</div>
@@ -125,7 +131,11 @@ export default {
     return {
       editNickNameMode: false,
       currentNickName: '',
-      inputNickName: ''
+      inputNickName: '',
+      inputImg: '',
+      file: '',
+      dir: '',
+      profileImg: ''
     }
   },
   mounted() {
@@ -206,6 +216,79 @@ export default {
         })
         .catch((error) => {
           window.alert(error.response.data.message)
+        })
+    },
+    // 사진 선택
+    onFileChange(event) {
+      const input = event.target.files
+      if (input.length > 0) {
+        const fileReader = new FileReader()
+        fileReader.onload = (e) => {
+          this.inputImg.push({
+            prev_url: e.target.result
+          })
+        }
+        fileReader.readAsDataURL(input[0])
+        this.file.push(input[0])
+        event.target.value = ''
+      }
+
+      const formData = new FormData()
+      formData.append('images', this.file)
+
+      const cur = new Date()
+      const year = (cur.getFullYear() + '').substring(2)
+      const month = cur.getMonth() + 1 + ''
+      this.dir = year + '-' + month
+
+      this.editProfileImg({ formData, callback: this.editProfileImgUrl })
+    },
+    editProfileImg({ formData, callback }) {
+      this.$axios
+        .post(`${process.env.apiUrl}/images/profile/${this.dir}`, formData, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.profileImg.push(res.data.url)
+          callback()
+        })
+        .catch((error) => {
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+          return false
+        })
+    },
+    editProfileImgUrl() {
+      this.$axios
+        .put(`${process.env.apiUrl}/account/profileImg`, this.profileImg, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {})
+        .catch((error) => {
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error.response.data.message,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
         })
     }
   }
