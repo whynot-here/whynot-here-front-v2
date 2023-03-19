@@ -62,7 +62,7 @@
       <div class="m-mypage-body" @click.self="editNickNameMode = false">
         <div class="m-mypage-body-top">
           <div class="m-profile-img-wrp">
-            <img :src="profileImg" alt="" class="m-profile-img" />
+            <img :src="currentProfileImg" alt="" class="m-profile-img" />
 
             <div class="m-profile-edit-btn">
               <img src="@/assets/img/common/edit-img-btn.png" alt="" />
@@ -132,17 +132,19 @@ export default {
       inputImg: [],
       files: [],
       dir: '',
-      profileImg: ''
+      currentProfileImg: '',
+      inputProfileImg: ''
     }
   },
   mounted() {
     // mobile or pc
     this.currentNickName = this.$store.state.userInfo.detail.nickname
     this.inputNickName = this.$store.state.userInfo.detail.nickname
-    this.profileImg =
+    this.currentProfileImg =
       this.$store.state.userInfo.detail.profileImg === ''
         ? '@/assets/img/common/default-profile.png'
         : this.$store.state.userInfo.detail.profileImg
+    this.inputProfileImg = this.$store.state.userInfo.detail.profileImg
   },
   methods: {
     editNickNameModeToggle(type) {
@@ -254,7 +256,7 @@ export default {
           }
         })
         .then((res) => {
-          this.profileImg = res.data.url
+          this.inputProfileImg = res.data.url
           this.files = []
           this.inputImg = []
           callback()
@@ -275,9 +277,9 @@ export default {
     editProfileImgUrl() {
       this.$axios
         .put(
-          `${process.env.apiUrl}/account/profileImg`,
+          `${process.env.apiUrl}/v2/account/profileImg`,
           {
-            profileImg: this.profileImg
+            profileImg: this.inputProfileImg
           },
           {
             withCredentials: true,
@@ -287,7 +289,10 @@ export default {
             }
           }
         )
-        .then((res) => {})
+        .then((res) => {
+          this.cmn_getUserInfo(this.$store.state.userInfo.token)
+          this.currentProfileImg = this.inputProfileImg
+        })
         .catch((error) => {
           this.cmn_openAlertPopup({
             option: {
