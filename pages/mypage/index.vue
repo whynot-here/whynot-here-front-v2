@@ -59,7 +59,7 @@
         </div>
       </div>
 
-      <div class="m-mypage-body" @click.self="editNickNameMode = false">
+      <div class="m-mypage-body" @click="editNickNameModeToggle(false)">
         <div class="m-mypage-body-top">
           <div class="m-profile-img-wrp">
             <img :src="currentProfileImg" alt="" class="m-profile-img" />
@@ -78,7 +78,10 @@
 
         <div class="m-nickname-left">닉네임</div>
         <div :class="editNickNameMode ? 'm-nickname m-selected' : 'm-nickname'">
-          <div class="m-nickname-content">
+          <div
+            class="m-nickname-content"
+            @click.stop="editNickNameModeToggle(true)"
+          >
             <input
               ref="cursor"
               v-model="inputNickName"
@@ -87,7 +90,7 @@
               @focus="editNickNameModeToggle(true)"
             />
           </div>
-          <div class="m-edit-button-wrp">
+          <div v-show="editNickNameMode" class="m-edit-button-wrp">
             <div @click="editNickName()">확인</div>
           </div>
         </div>
@@ -126,7 +129,7 @@ export default {
   },
   data() {
     return {
-      editNickNameMode: false,
+      isEditNickName: '',
       currentNickName: '',
       inputNickName: '',
       inputImg: [],
@@ -134,6 +137,11 @@ export default {
       dir: '',
       currentProfileImg: '',
       inputProfileImg: ''
+    }
+  },
+  computed: {
+    editNickNameMode() {
+      return this.isEditNickName
     }
   },
   mounted() {
@@ -148,7 +156,7 @@ export default {
   },
   methods: {
     editNickNameModeToggle(type) {
-      this.editNickNameMode = type
+      this.isEditNickName = type
     },
     editNickName() {
       this.$axios
