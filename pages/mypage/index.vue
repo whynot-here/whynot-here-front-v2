@@ -60,17 +60,20 @@
       </div>
 
       <div class="m-mypage-body" @click.self="editNickNameMode = false">
-        <div>
-          <img
-            class="m-profile-img"
-            :src="$store.state.userInfo.detail.profileImg"
-            alt=""
-          />
-          <img
-            class="m-profile-edit-btn"
-            src="@/assets/img/common/edit-img-btn.png"
-            alt=""
-          />
+        <div class="m-mypage-body-top">
+          <div class="m-profile-img-wrp">
+            <img :src="currentProfileImg" alt="" class="m-profile-img" />
+
+            <div class="m-profile-edit-btn">
+              <img src="@/assets/img/common/edit-img-btn.png" alt="" />
+              <b-form-group id="fileInput" class="mypage-profile">
+                <b-form-file
+                  accept="image/jpeg, image/png, image/gif"
+                  @change="onFileChange"
+                ></b-form-file>
+              </b-form-group>
+            </div>
+          </div>
         </div>
 
         <div class="m-nickname-left">닉네임</div>
@@ -125,13 +128,23 @@ export default {
     return {
       editNickNameMode: false,
       currentNickName: '',
-      inputNickName: ''
+      inputNickName: '',
+      inputImg: [],
+      files: [],
+      dir: '',
+      currentProfileImg: '',
+      inputProfileImg: ''
     }
   },
   mounted() {
     // mobile or pc
     this.currentNickName = this.$store.state.userInfo.detail.nickname
     this.inputNickName = this.$store.state.userInfo.detail.nickname
+    this.currentProfileImg =
+      this.$store.state.userInfo.detail.profileImg === ''
+        ? '@/assets/img/common/default-profile.png'
+        : this.$store.state.userInfo.detail.profileImg
+    this.inputProfileImg = this.$store.state.userInfo.detail.profileImg
   },
   methods: {
     editNickNameModeToggle(type) {
@@ -206,6 +219,90 @@ export default {
         })
         .catch((error) => {
           window.alert(error.response.data.message)
+        })
+    },
+    // 사진 선택
+    onFileChange(event) {
+      const input = event.target.files
+      if (input.length > 0) {
+        const fileReader = new FileReader()
+        fileReader.onload = (e) => {
+          this.inputImg.push({
+            prev_url: e.target.result
+          })
+        }
+        fileReader.readAsDataURL(input[0])
+        this.files.push(input[0])
+        event.target.value = ''
+      }
+
+      const formData = new FormData()
+      formData.append('images', this.files[0])
+
+      const cur = new Date()
+      const year = (cur.getFullYear() + '').substring(2)
+      const month = cur.getMonth() + 1 + ''
+      this.dir = 'profile-' + year + '-' + month
+
+      this.editProfileImg({ formData, callback: this.editProfileImgUrl })
+    },
+    editProfileImg({ formData, callback }) {
+      this.$axios
+        .post(`${process.env.apiUrl}/images/${this.dir}`, formData, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.inputProfileImg = res.data.url
+          this.files = []
+          this.inputImg = []
+          callback()
+        })
+        .catch((error) => {
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+          return false
+        })
+    },
+    editProfileImgUrl() {
+      this.$axios
+        .put(
+          `${process.env.apiUrl}/v2/account/profileImg`,
+          {
+            profileImg: this.inputProfileImg
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          }
+        )
+        .then((res) => {
+          this.cmn_getUserInfo(this.$store.state.userInfo.token)
+          this.currentProfileImg = this.inputProfileImg
+        })
+        .catch((error) => {
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error.response.data.message,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
         })
     }
   }
