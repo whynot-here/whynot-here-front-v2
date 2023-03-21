@@ -1,6 +1,12 @@
 <template>
   <div id="Card">
     <div :class="isFromPc ? 'pc-env' : 'mobile-env'">
+      <VueCarousel :autoplay=true :nav=false :loop=true :dots=true :items=1>
+        <img class="banner-img" src="@/assets/img/ads/banner.png">
+        <img class="banner-img" src="@/assets/img/ads/banner.png">
+        <img class="banner-img" src="@/assets/img/ads/banner.png">
+        <img class="banner-img" src="@/assets/img/ads/banner.png">
+      </VueCarousel>
       <div class="sts-i-wrp">
         <div>
           <input
