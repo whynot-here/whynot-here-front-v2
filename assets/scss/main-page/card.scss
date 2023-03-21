@@ -358,7 +358,7 @@
       width: calc(100% - 64px);
       height: 110px;
       margin: 0 auto 12px auto;
-      padding: 16px;
+      padding: 15px;
       position: relative;
 
       @include tablet {
@@ -406,11 +406,9 @@
           }
         }
         .book-mark {
-          width: 16px;
-          height: 22px;
+          width: 24px;
           img {
-            width: 16px;
-            height: 22px;
+            width: 24px;
           }
 
           @include tablet {

@@ -1,11 +1,17 @@
 <template>
   <div id="Card">
     <div :class="isFromPc ? 'pc-env' : 'mobile-env'">
-      <VueCarousel :autoplay=true :nav=false :loop=true :dots=true :items=1>
-        <img class="banner-img" src="@/assets/img/ads/banner.png">
-        <img class="banner-img" src="@/assets/img/ads/banner.png">
-        <img class="banner-img" src="@/assets/img/ads/banner.png">
-        <img class="banner-img" src="@/assets/img/ads/banner.png">
+      <VueCarousel
+        :autoplay="true"
+        :nav="false"
+        :loop="true"
+        :dots="true"
+        :items="1"
+      >
+        <img class="banner-img" src="@/assets/img/ads/banner.png" />
+        <img class="banner-img" src="@/assets/img/ads/banner.png" />
+        <img class="banner-img" src="@/assets/img/ads/banner.png" />
+        <img class="banner-img" src="@/assets/img/ads/banner.png" />
       </VueCarousel>
       <div class="sts-i-wrp">
         <div>
@@ -54,12 +60,12 @@
               <div v-else class="book-mark" @click.stop="bookmark(post.id)">
                 <img
                   v-if="post.isBookmarked === undefined || !post.isBookmarked"
-                  src="@/assets/img/category/bookmark.png"
+                  src="@/assets/img/posting/like-selected.png"
                   alt=""
                 />
                 <img
                   v-if="post.isBookmarked"
-                  src="@/assets/img/category/bookmark-selected.png"
+                  src="@/assets/img/posting/like-unselected.png"
                   alt=""
                 />
               </div>
@@ -85,7 +91,11 @@
               </div>
             </div>
           </div>
-          <div v-if="!post.recruiting" class="comp-card" @click="moveDetailPage(post.id)">
+          <div
+            v-if="!post.recruiting"
+            class="comp-card"
+            @click="moveDetailPage(post.id)"
+          >
             <div v-if="category === 'mypostings'" class="close">
               <img
                 src="@/assets/img/common/close-gray.png"
