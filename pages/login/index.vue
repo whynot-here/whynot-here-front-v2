@@ -48,13 +48,6 @@
           </div>
         </div>
         <div class="social-login">
-          <div v-if="!isFromPc" class="social-login-btn">
-            <img
-              src="@/assets/img/login/apple-login-btn.png"
-              alt=""
-              @click="appleLogin()"
-            />
-          </div>
           <div v-if="isFromPc" class="social-login-btn">
             <img
               src="@/assets/img/login/google-login-btn.png"
@@ -74,6 +67,13 @@
               src="@/assets/img/login/naver-login-btn.png"
               alt=""
               @click="naverLogin()"
+            />
+          </div>
+          <div v-if="!isFromPc" class="social-login-btn">
+            <img
+              src="@/assets/img/login/apple-login-btn.png"
+              alt=""
+              @click="appleLogin()"
             />
           </div>
         </div>
