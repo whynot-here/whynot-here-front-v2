@@ -187,4 +187,18 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/components/main-page/top-bar.scss';
+
+
+</style>
+
+<style>
+.banner-img {
+  height: 80px;
+}
+
+.owl-dots {
+  position: relative;
+  z-index: 10;
+  margin-top: -25px !important;
+}
 </style>
