@@ -616,6 +616,7 @@ export default {
 
       // 사간 간격 안 두면 결과 반영이 안되는 경우가 있어서
       setTimeout(() => {
+        this.getPost()
         this.checkBookmark()
       }, 300)
     }

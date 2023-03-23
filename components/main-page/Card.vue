@@ -60,12 +60,12 @@
               <div v-else class="book-mark" @click.stop="bookmark(post.id)">
                 <img
                   v-if="post.isBookmarked === undefined || !post.isBookmarked"
-                  src="@/assets/img/posting/like-selected.png"
+                  src="@/assets/img/posting/like-unselected.png"
                   alt=""
                 />
                 <img
                   v-if="post.isBookmarked"
-                  src="@/assets/img/posting/like-unselected.png"
+                  src="@/assets/img/posting/like-selected.png"
                   alt=""
                 />
               </div>
@@ -114,7 +114,7 @@
           </div>
         </div>
         <div v-if="!hasFavorites" class="nolikes-wrp">
-          <img class="nolikes-img" src="@/assets/img/category/nolikes.png">
+          <img class="nolikes-img" src="@/assets/img/category/nolikes.png" />
           <div class="text-1">앗 이런</div>
           <div class="text-2">좋아요 항목이 없어요</div>
         </div>
@@ -144,7 +144,7 @@ export default {
       onlyRecruit: false,
       isSubCategory: false,
       categoryId: '',
-      hasFavorites: true,
+      hasFavorites: true
     }
   },
   computed: {
