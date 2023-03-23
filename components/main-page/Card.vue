@@ -113,6 +113,11 @@
             </div>
           </div>
         </div>
+        <div v-if="!hasFavorites" class="nolikes-wrp">
+          <img class="nolikes-img" src="@/assets/img/category/nolikes.png">
+          <div class="text-1">앗 이런</div>
+          <div class="text-2">좋아요 항목이 없어요</div>
+        </div>
       </div>
     </div>
   </div>
@@ -138,7 +143,8 @@ export default {
       compRecruitId: '',
       onlyRecruit: false,
       isSubCategory: false,
-      categoryId: ''
+      categoryId: '',
+      hasFavorites: true,
     }
   },
   computed: {
@@ -239,6 +245,11 @@ export default {
               res.isBookmarked = true
               return this.posts.push(res)
             })
+            if (this.posts.length === 0) {
+              this.hasFavorites = false
+            } else {
+              this.hasFavorites = true
+            }
           })
       } else if (this.category === 'search') {
         this.$axios

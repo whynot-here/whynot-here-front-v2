@@ -550,6 +550,33 @@
         }
       }
     }
+
+    .nolikes-wrp {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .nolikes-img {
+        width: 110px;
+        padding-top: 60px;
+      }
+
+      .text-1 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #14428D;
+        padding-top: 30px;
+      }
+
+      .text-2 {
+        font-size: 16px;
+        font-weight: 400;
+        color: #0C2958;
+        padding-top: 5px;
+      }
+    }
+
     .comp-card {
       z-index: 10;
       position: absolute;
