@@ -1,7 +1,7 @@
 <template>
   <div id="SelectBoxDouble">
     <div class="select-box-wrp">
-      <div :class="`select-box left ${disabled01 ? 'disabled' : ''}`">
+      <div :class="`select-box right ${disabled01 ? 'disabled' : ''}`">
         <button :class="`label _01 ${labelFirst}`" @click="openOptions">
           {{ labelFirst }}
         </button>
@@ -18,7 +18,7 @@
           </li>
         </ul>
       </div>
-      <div :class="`select-box right ${disabled02 ? 'disabled' : ''}`">
+      <!-- <div :class="`select-box right ${disabled02 ? 'disabled' : ''}`">
         <button :class="`label _02 ${labelSecond}`" @click="openOptions">
           {{ labelSecond }}
         </button>
@@ -36,7 +36,7 @@
             {{ item.name }}
           </li>
         </ul>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -81,22 +81,22 @@ export default {
         result.push(item)
       })
       return result
-    },
-    subCategoryList() {
-      const result = []
-
-      const category = this.categoryGroup.filter((category) => {
-        return category.parentId === this.selectedCategoryId
-      })
-      category[0].children.forEach((subCategory) => {
-        const item = {
-          id: subCategory.id,
-          name: subCategory.name
-        }
-        result.push(item)
-      })
-      return result
     }
+    // subCategoryList() {
+    //   const result = []
+
+    //   const category = this.categoryGroup.filter((category) => {
+    //     return category.parentId === this.selectedCategoryId
+    //   })
+    //   category[0].children.forEach((subCategory) => {
+    //     const item = {
+    //       id: subCategory.id,
+    //       name: subCategory.name
+    //     }
+    //     result.push(item)
+    //   })
+    //   return result
+    // }
   },
   methods: {
     openOptions() {
@@ -108,15 +108,9 @@ export default {
         document
           .querySelector(`.${this.labelFirst}`)
           .parentNode.classList.remove('active')
-        document
-          .querySelector(`.${this.labelSecond}`)
-          .parentNode.classList.remove('active')
       } else {
         document
           .querySelector(`.${this.labelFirst}`)
-          .parentNode.classList.add('active')
-        document
-          .querySelector(`.${this.labelSecond}`)
           .parentNode.classList.add('active')
       }
     },
@@ -125,28 +119,31 @@ export default {
       document.querySelector(`.${this.labelFirst}`).style.color = '#000'
       this.selectedCategoryId = item.id
       this.parentId = item.id
-      this.$emit('get-label', item)
-    },
-    selectOptionSub(item) {
-      // 처음에 메인 카테고리 선택 안하고 서브 카테고리 바로 선택한 경우 때문에
-      if (this.selectedCategoryId === 1) {
-        const firstItem = {
-          name: '스터디',
-          id: 1
-        }
-        this.selectOptionMain(firstItem)
-      }
-      document.querySelector(`.${this.labelSecond}`).innerHTML = item.name + ''
-      document.querySelector(`.${this.labelSecond}`).style.color = '#000'
       document
         .querySelector(`.${this.labelFirst}`)
         .parentNode.classList.remove('active')
-      document
-        .querySelector(`.${this.labelSecond}`)
-        .parentNode.classList.remove('active')
-      this.childrenId = item.id
       this.$emit('get-label', item)
     }
+    // selectOptionSub(item) {
+    //   // 처음에 메인 카테고리 선택 안하고 서브 카테고리 바로 선택한 경우 때문에
+    //   if (this.selectedCategoryId === 1) {
+    //     const firstItem = {
+    //       name: '스터디',
+    //       id: 1
+    //     }
+    //     this.selectOptionMain(firstItem)
+    //   }
+    //   document.querySelector(`.${this.labelSecond}`).innerHTML = item.name + ''
+    //   document.querySelector(`.${this.labelSecond}`).style.color = '#000'
+    //   document
+    //     .querySelector(`.${this.labelFirst}`)
+    //     .parentNode.classList.remove('active')
+    //   document
+    //     .querySelector(`.${this.labelSecond}`)
+    //     .parentNode.classList.remove('active')
+    //   this.childrenId = item.id
+    //   this.$emit('get-label', item)
+    // }
   }
 }
 </script>
