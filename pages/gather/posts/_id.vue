@@ -46,7 +46,7 @@
         </div>
         <div
           class="content"
-          style="white-space: pre-line"
+          style="white-space: pre-line; word-wrap: break-word"
           v-text="postComp.content"
         ></div>
         <div class="content-img">
@@ -140,8 +140,29 @@
               <div v-if="postComp.dDay !== ''">
                 <div class="d-day">마감 {{ postComp.dDay }}</div>
               </div>
-              <div class="writer">
-                {{ postComp.writerName }}
+              <div class="m-profile-info-main">
+                <div
+                  v-if="
+                    postComp.writerProfileImage !== '' &&
+                    postComp.writerProfileImage !== null
+                  "
+                >
+                  <img
+                    class="m-profile-img"
+                    :src="postComp.writerProfileImage"
+                    alt=""
+                  />
+                </div>
+                <div v-else>
+                  <img
+                    class="m-profile-img"
+                    src="@/assets/img/common/default-profile.png"
+                    alt=""
+                  />
+                </div>
+                <div class="writer">
+                  {{ postComp.writerName }}
+                </div>
               </div>
               <div class="title">
                 {{ postComp.title }}
@@ -164,7 +185,7 @@
             <div class="m-detail-content-body">
               <div
                 class="content"
-                style="white-space: pre-line"
+                style="white-space: pre-line; word-wrap: break-word"
                 v-text="postComp.content"
               ></div>
               <div class="m-content-img">
@@ -274,16 +295,16 @@
         <div class="sub-menu">
           <img
             v-if="isBookmarked"
-            src="@/assets/img/posting/bookmark-detail-selected.png"
+            src="@/assets/img/posting/like-selected.png"
             @click.prevent="bookmark()"
           />
           <img
             v-else
-            src="@/assets/img/posting/bookmark-detail.png"
+            src="@/assets/img/posting/like-unselected.png"
             @click.prevent="bookmark()"
           />
+          <span>{{ postComp.likes }}</span>
         </div>
-
         <div>
           <img
             src="@/assets/img/posting/copy-detail.png"
@@ -595,6 +616,7 @@ export default {
 
       // 사간 간격 안 두면 결과 반영이 안되는 경우가 있어서
       setTimeout(() => {
+        this.getPost()
         this.checkBookmark()
       }, 300)
     }

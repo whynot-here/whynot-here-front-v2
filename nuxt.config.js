@@ -6,8 +6,8 @@ export default {
   env: {
     frontUrl:
       process.env.NODE_ENV === 'production'
-        ? 'https://why-not-here.o-r.kr'
-        : 'http://localhost:3000',
+        ? 'https://dev.why-not-here.o-r.kr'
+        : 'http://localhost:3001',
     apiUrl: 'https://whynot-here.o-r.kr'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -54,7 +54,8 @@ export default {
     },
     { src: '~/plugins/v-calendar.js', mode: 'client' },
     { src: '~/plugins/vue-toasted.js', mode: 'client' },
-    { src: '~/plugins/vue-persian-datetime-picker.js', mode: 'client' }
+    { src: '~/plugins/vue-persian-datetime-picker.js', mode: 'client' },
+    { src: '~/plugins/v-owl-carousel.js', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

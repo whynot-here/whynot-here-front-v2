@@ -180,6 +180,7 @@
         .img-grp {
           width: 600px;
           overflow-x: scroll;
+          overflow-y: hidden;
           #postingImages {
             display: flex;
             div {
@@ -392,6 +393,7 @@
         .img-grp {
           width: 150px;
           overflow-x: scroll;
+          overflow-y: hidden;
           #postingImages {
             display: flex;
             div {

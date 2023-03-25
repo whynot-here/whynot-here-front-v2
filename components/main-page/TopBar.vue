@@ -62,9 +62,6 @@
   </div>
   <div v-else id="TopBarM">
     <div class="top">
-      <div class="category-toggle" @click.prevent="toggleCategoryPanel">
-        <img src="@/assets/img/common/category-toggle.png" alt="" />
-      </div>
       <div class="logo-wrp">
         <div class="title">사람이 모이는 공간</div>
         <div class="logo-img" @click="mainPage">
@@ -102,7 +99,11 @@
           </div>
         </div>
       </div>
+      <div class="category-toggle" @click.prevent="toggleCategoryPanel">
+        <img src="@/assets/img/common/category-toggle.png" alt="" />
+      </div>
     </div>
+    <div class="middle">🗓️ 이번주는 한동 <strong>4주차</strong></div>
     <div class="bottom">
       <div class="category-wrp">
         <div>
@@ -185,5 +186,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/main-page/top-bar.scss';
+@import '@/assets/scss/components/main-page/top-bar.scss';
+
+
+</style>
+
+<style>
+.banner-img {
+  height: 80px;
+}
+
+.owl-dots {
+  position: relative;
+  z-index: 10;
+  margin-top: -25px !important;
+}
 </style>

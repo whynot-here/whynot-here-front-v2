@@ -120,10 +120,10 @@
           <div class="m-subtitle">why not Here를 이끌고 있는 운영진</div>
           <div class="m-title">Our Team</div>
           <div class="m-team-grid">
-            <img src="@/assets/img/about/Yoonie.png" />
-            <img src="@/assets/img/about/MJ.png" />
-            <img src="@/assets/img/about/Jin.png" />
-            <img src="@/assets/img/about/D.png" />
+            <div class="team1"></div>
+            <div class="team2"></div>
+            <div class="team3"></div>
+            <div class="team4"></div>
           </div>
         </div>
       </div>

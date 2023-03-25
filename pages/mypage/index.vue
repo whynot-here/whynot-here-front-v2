@@ -48,55 +48,77 @@
   <div v-else id="m-MyPage">
     <section class="m-mypage-wrp">
       <div class="m-mypage-header">
+        <div class="m-title">마이페이지</div>
         <div class="m-close">
           <img
             class="m-back-btn"
-            src="@/assets/img/common/left-arrow.png"
+            src="@/assets/img/common/close-review.png"
             alt=""
             @click="$router.go(-1)"
           />
         </div>
-        <div class="m-title">내정보</div>
       </div>
 
-      <div class="m-mypage-body">
-        <div>
-          <img
-            class="m-profile-img"
-            :src="$store.state.userInfo.detail.profileImg"
-            alt=""
-          />
-        </div>
-        <div class="m-sub-title">
-          안녕하세요
-          <strong class="m-sub-title-highlight">{{ currentNickName }}</strong>
-          님!
-        </div>
-        <div v-if="!editNickNameMode" class="m-nickname">
-          <div class="m-nickname-left">닉네임</div>
-          <div class="m-nickname-content" @click="editNickNameMode = true">
-            {{ currentNickName }}
+      <div class="m-mypage-body" @click="editNickNameModeToggle(false)">
+        <div class="m-mypage-body-top">
+          <div class="m-profile-img-wrp">
+            <img :src="currentProfileImg" alt="" class="m-profile-img" />
+
+            <div class="m-profile-edit-btn">
+              <img src="@/assets/img/common/edit-img-btn.png" alt="" />
+              <b-form-group id="fileInput" class="mypage-profile">
+                <b-form-file
+                  accept="image/jpeg, image/png, image/gif"
+                  @change="onFileChange"
+                ></b-form-file>
+              </b-form-group>
+            </div>
           </div>
         </div>
-        <div v-else class="m-nickname m-selected">
-          <div class="m-nickname-left">닉네임</div>
-          <div class="m-nickname-content">
-            <input v-model="inputNickName" class="m-edit-input" type="text" />
+
+        <div class="m-nickname-left">닉네임</div>
+        <div :class="editNickNameMode ? 'm-nickname m-selected' : 'm-nickname'">
+          <div
+            class="m-nickname-content"
+            @click.stop="editNickNameModeToggle(true)"
+          >
+            <input
+              ref="cursor"
+              v-model="inputNickName"
+              class="m-edit-input"
+              type="text"
+              @focus="editNickNameModeToggle(true)"
+            />
           </div>
-          <div class="m-edit-button-wrp">
-            <div @click="editNickName()">저장</div>
+          <div v-show="editNickNameMode" class="m-edit-button-wrp">
+            <div @click="editNickName()">확인</div>
           </div>
         </div>
 
         <div class="m-email">
           <input
             type="text"
-            :value="$store.state.userInfo.detail.email"
+            :value="
+              $store.state.userInfo.detail.email.length == 0 ||
+              $store.state.userInfo.detail.email == undefined ||
+              $store.state.userInfo.detail.email == null
+                ? '이메일 제공 없음'
+                : $store.state.userInfo.detail.email
+            "
             disabled
           />
         </div>
-        <div class="m-delete-account" @click="openDeleteAccountPopup()">
-          회원탈퇴 >
+        <div class="m-mypage-bottom _01" @click="moveMyPostingsPage()">
+          <div class="title">내가 쓴 글 목록</div>
+          <div class="right-arrow">
+            <img src="@/assets/img/common/right-arrow.png" alt="" />
+          </div>
+        </div>
+        <div class="m-mypage-bottom _02" @click="openDeleteAccountPopup()">
+          <div class="title">회원탈퇴</div>
+          <div class="right-arrow">
+            <img src="@/assets/img/common/right-arrow.png" alt="" />
+          </div>
         </div>
       </div>
     </section>
@@ -113,17 +135,35 @@ export default {
   },
   data() {
     return {
-      editNickNameMode: false,
+      isEditNickName: '',
       currentNickName: '',
-      inputNickName: ''
+      inputNickName: '',
+      inputImg: [],
+      files: [],
+      dir: '',
+      currentProfileImg: '',
+      inputProfileImg: ''
+    }
+  },
+  computed: {
+    editNickNameMode() {
+      return this.isEditNickName
     }
   },
   mounted() {
     // mobile or pc
     this.currentNickName = this.$store.state.userInfo.detail.nickname
     this.inputNickName = this.$store.state.userInfo.detail.nickname
+    this.currentProfileImg =
+      this.$store.state.userInfo.detail.profileImg === ''
+        ? '@/assets/img/common/default-profile.png'
+        : this.$store.state.userInfo.detail.profileImg
+    this.inputProfileImg = this.$store.state.userInfo.detail.profileImg
   },
   methods: {
+    editNickNameModeToggle(type) {
+      this.isEditNickName = type
+    },
     editNickName() {
       this.$axios
         .post(
@@ -194,6 +234,111 @@ export default {
         .catch((error) => {
           window.alert(error.response.data.message)
         })
+    },
+    // 사진 선택
+    onFileChange(event) {
+      const input = event.target.files
+      if (input.length > 0) {
+        const fileReader = new FileReader()
+        fileReader.onload = (e) => {
+          this.inputImg.push({
+            prev_url: e.target.result
+          })
+        }
+        fileReader.readAsDataURL(input[0])
+        this.files.push(input[0])
+        event.target.value = ''
+      }
+
+      const formData = new FormData()
+      formData.append('images', this.files[0])
+
+      const cur = new Date()
+      const year = (cur.getFullYear() + '').substring(2)
+      const month = cur.getMonth() + 1 + ''
+      this.dir = 'profile-' + year + '-' + month
+
+      this.editProfileImg({ formData, callback: this.editProfileImgUrl })
+    },
+    editProfileImg({ formData, callback }) {
+      this.$axios
+        .post(`${process.env.apiUrl}/images/${this.dir}`, formData, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.inputProfileImg = res.data.url
+          this.files = []
+          this.inputImg = []
+          callback()
+        })
+        .catch((error) => {
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+          return false
+        })
+    },
+    editProfileImgUrl() {
+      this.$axios
+        .put(
+          `${process.env.apiUrl}/v2/account/profileImg`,
+          {
+            profileImg: this.inputProfileImg
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          }
+        )
+        .then((res) => {
+          this.cmn_getUserInfo(this.$store.state.userInfo.token)
+          this.currentProfileImg = this.inputProfileImg
+        })
+        .catch((error) => {
+          this.cmn_openAlertPopup({
+            option: {
+              title: '⚠️알림',
+              content: error.response.data.message,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+        })
+    },
+
+    moveMyPostingsPage() {
+      if (!this.$store.state.userInfo.initLoginDone) {
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '로그인 후 이용해 주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
+        return false
+      }
+      this.$router.push({
+        name: 'gather-category',
+        params: {
+          category: 'mypostings'
+        }
+      })
     }
   }
 }

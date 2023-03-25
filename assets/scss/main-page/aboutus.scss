@@ -227,18 +227,28 @@
         .m-team-grid {
           display: flex;
           flex-direction: column;
-          align-items: center;
+          align-items: flex-start;
 
-          img {
-            height: 147px;
+          .team1, .team2, .team3, .team4 {
+            width: 90%;
+            height: 120px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-top: 15px;
+            margin-left: 10px;
           }
 
-          img:nth-child(1) {
-            margin-left: -30px;
+          .team1 {
+            background-image: url("@/assets/img/about/Yoonie.png");
           }
-
-          img:nth-child(3) {
-            margin-left: -20px;
+          .team2 {
+            background-image: url("@/assets/img/about/MJ.png");
+          }
+          .team3 {
+            background-image: url("@/assets/img/about/Jin.png");
+          }
+          .team4 {
+            background-image: url("@/assets/img/about/D.png");
           }
         }
       }

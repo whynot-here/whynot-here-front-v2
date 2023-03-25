@@ -12,48 +12,22 @@ const common = {
           children: []
         },
         {
-          parentId: 1,
-          parentCode: 'STUDY',
-          parentName: '스터디',
-          children: [
-            { id: 2, code: 'PROJECT', name: '프로젝트', parentCode: 'STUDY' },
-            { id: 3, code: 'MAJOR', name: '전공공부', parentCode: 'STUDY' },
-            { id: 4, code: 'RECRUIT', name: '리쿠르팅', parentCode: 'STUDY' },
-            { id: 5, code: 'ETC-STUDY', name: '그 외', parentCode: 'STUDY' }
-          ]
+          parentId: 40,
+          parentCode: 'FREE',
+          parentName: '자유게시판',
+          children: []
         },
         {
-          parentId: 6,
-          parentCode: 'FRIEND',
-          parentName: '친목',
-          children: [
-            { id: 7, code: 'WALK', name: '산책', parentCode: 'FRIEND' },
-            { id: 8, code: 'NIGHT', name: '야식모임', parentCode: 'FRIEND' },
-            { id: 9, code: 'TEA', name: '티타임', parentCode: 'FRIEND' },
-            { id: 10, code: 'DATING', name: '소개팅', parentCode: 'FRIEND' },
-            { id: 11, code: 'ALCOHOL', name: '알코올', parentCode: 'FRIEND' },
-            { id: 12, code: 'ETC-FRIEND', name: '그 외', parentCode: 'FRIEND' }
-          ]
+          parentId: 41,
+          parentCode: 'ADS',
+          parentName: '얼리어답터',
+          children: []
         },
         {
-          parentId: 13,
-          parentCode: 'TRANSPORT',
-          parentName: '교통수단',
-          children: [
-            { id: 14, code: 'CARPOOL', name: '카풀', parentCode: 'TRANSPORT' },
-            {
-              id: 15,
-              code: 'KTX',
-              name: 'KTX 동반석',
-              parentCode: 'TRANSPORT'
-            },
-            {
-              id: 16,
-              code: 'ETC-TRANSPORT',
-              name: '그 외',
-              parentCode: 'TRANSPORT'
-            }
-          ]
+          parentId: 42,
+          parentCode: 'MUST-EAT',
+          parentName: '한슐랭',
+          children: []
         },
         {
           parentId: 17,
@@ -66,18 +40,20 @@ const common = {
           ]
         },
         {
-          parentId: 21,
-          parentCode: 'EXERCISE',
-          parentName: '운동',
+          parentId: 43,
+          parentCode: 'LOST-FOUND',
+          parentName: 'Lost & Found',
+          children: []
+        },
+        {
+          parentId: 1,
+          parentCode: 'STUDY',
+          parentName: '스터디',
           children: [
-            { id: 22, code: 'FUTSAL', name: '풋살', parentCode: 'EXERCISE' },
-            { id: 23, code: 'PINGPONG', name: '탁구', parentCode: 'EXERCISE' },
-            {
-              id: 24,
-              code: 'ETC-EXERCISE',
-              name: '그 외',
-              parentCode: 'EXERCISE'
-            }
+            { id: 2, code: 'PROJECT', name: '프로젝트', parentCode: 'STUDY' },
+            { id: 3, code: 'MAJOR', name: '전공공부', parentCode: 'STUDY' },
+            { id: 4, code: 'RECRUIT', name: '리쿠르팅', parentCode: 'STUDY' },
+            { id: 5, code: 'ETC-STUDY', name: '그 외', parentCode: 'STUDY' }
           ]
         },
         {
@@ -101,22 +77,38 @@ const common = {
           ]
         },
         {
-          parentId: 29,
-          parentCode: 'GAME',
-          parentName: '게임',
+          parentId: 21,
+          parentCode: 'EXERCISE',
+          parentName: '운동',
           children: [
-            { id: 30, code: 'BOARD', name: '보드게임', parentCode: 'GAME' },
-            { id: 31, code: 'ROL', name: '롤', parentCode: 'GAME' },
-            { id: 32, code: 'ETC-GAME', name: '그 외', parentCode: 'GAME' }
+            { id: 22, code: 'FUTSAL', name: '풋살', parentCode: 'EXERCISE' },
+            { id: 23, code: 'PINGPONG', name: '탁구', parentCode: 'EXERCISE' },
+            {
+              id: 24,
+              code: 'ETC-EXERCISE',
+              name: '그 외',
+              parentCode: 'EXERCISE'
+            }
           ]
         },
         {
-          parentId: 33,
-          parentCode: 'FAITH',
-          parentName: '신앙',
+          parentId: 13,
+          parentCode: 'TRANSPORT',
+          parentName: '교통수단',
           children: [
-            { id: 34, code: 'PRAY', name: '기도모임', parentCode: 'FAITH' },
-            { id: 35, code: 'ETC-FAITH', name: '그 외', parentCode: 'FAITH' }
+            { id: 14, code: 'CARPOOL', name: '카풀', parentCode: 'TRANSPORT' },
+            {
+              id: 15,
+              code: 'KTX',
+              name: 'KTX 동반석',
+              parentCode: 'TRANSPORT'
+            },
+            {
+              id: 16,
+              code: 'ETC-TRANSPORT',
+              name: '그 외',
+              parentCode: 'TRANSPORT'
+            }
           ]
         },
         {
@@ -132,6 +124,15 @@ const common = {
               name: '그 외',
               parentCode: 'GROUP-BUY'
             }
+          ]
+        },
+        {
+          parentId: 33,
+          parentCode: 'FAITH',
+          parentName: '기도실',
+          children: [
+            { id: 34, code: 'PRAY', name: '기도모임', parentCode: 'FAITH' },
+            { id: 35, code: 'ETC-FAITH', name: '그 외', parentCode: 'FAITH' }
           ]
         }
       ]
@@ -205,22 +206,21 @@ const common = {
 
     cmn_getPassedDay(createdDt) {
       const today = new Date()
-      const end = new Date(createdDt.replaceAll('-', '/'))
+      const createdDate = new Date(createdDt.replaceAll('-', '/'))
 
-      const diff = Math.floor(
-        ((end.getTime() - today.getTime()) / (1000 * 3600 * 24)) * -1
-      )
+      const minutesDiff =
+        (today.getTime() - createdDate.getTime()) / (1000 * 60)
+      const day = {
+        month: createdDate.getMonth().toString().padStart(2, '0'),
+        date: createdDate.getDate().toString().padStart(2, '0'),
+        hour: createdDate.getHours().toString().padStart(2, '0'),
+        minute: createdDate.getMinutes().toString().padStart(2, '0')
+      }
 
-      if (diff === 0) {
-        return '오늘'
-      } else if (diff === 1) {
-        return '어제'
-      } else if (diff === 2) {
-        return '2일전'
-      } else if (diff === 3) {
-        return '3일전'
+      if (minutesDiff >= 60) {
+        return `${day.month}/${day.date} ${day.hour}:${day.minute}`
       } else {
-        return createdDt.substring(0, 10)
+        return `${Math.ceil(minutesDiff)}분전`
       }
     },
 
