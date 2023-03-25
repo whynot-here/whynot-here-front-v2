@@ -8,10 +8,9 @@
         :dots="true"
         :items="1"
       >
-        <img class="banner-img" src="@/assets/img/ads/banner.png" />
-        <img class="banner-img" src="@/assets/img/ads/banner.png" />
-        <img class="banner-img" src="@/assets/img/ads/banner.png" />
-        <img class="banner-img" src="@/assets/img/ads/banner.png" />
+        <img class="banner-img" src="@/assets/img/ads/admin-insta.png" />
+        <img class="banner-img" src="@/assets/img/ads/admin-matter.png" />
+        <img class="banner-img" src="@/assets/img/ads/admin-tab-hanchelin.png" />
       </VueCarousel>
       <div class="sts-i-wrp">
         <div>
