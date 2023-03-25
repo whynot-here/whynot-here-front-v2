@@ -7,7 +7,7 @@ export default {
     frontUrl:
       process.env.NODE_ENV === 'production'
         ? 'https://dev.why-not-here.o-r.kr'
-        : 'http://localhost:3001',
+        : 'http://localhost:3000',
     apiUrl: 'https://whynot-here.o-r.kr'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
