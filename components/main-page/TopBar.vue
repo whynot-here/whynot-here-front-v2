@@ -192,10 +192,6 @@ export default {
 </style>
 
 <style>
-.banner-img {
-  height: 80px;
-}
-
 .owl-dots {
   position: relative;
   z-index: 10;

@@ -8,10 +8,9 @@
         :dots="true"
         :items="1"
       >
-        <img class="banner-img" src="@/assets/img/ads/banner.png" />
-        <img class="banner-img" src="@/assets/img/ads/banner.png" />
-        <img class="banner-img" src="@/assets/img/ads/banner.png" />
-        <img class="banner-img" src="@/assets/img/ads/banner.png" />
+        <img class="banner-img" src="@/assets/img/ads/admin-insta.png" />
+        <img class="banner-img" src="@/assets/img/ads/admin-matter.png" />
+        <img class="banner-img" src="@/assets/img/ads/admin-tab-hanchelin.png" @click="moveToTab(5, 'must-eat')"/>
       </VueCarousel>
       <div class="sts-i-wrp">
         <div>
@@ -534,6 +533,12 @@ export default {
             }
           })
         })
+    },
+
+    moveToTab(categoryIdx, type) {
+      this.$bus.$emit('getCategoryIdAndGetPosts', {})
+      document.querySelector(`#Category > section.category > div:nth-child(${categoryIdx}) > div`).classList.add("selected");
+      this.$router.push(`/gather/${type}`)
     }
   }
 }

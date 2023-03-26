@@ -320,6 +320,14 @@
     overflow-y: scroll;
     background-color: #f3f3f3;
 
+    .banner-img {
+      height: 80px;
+
+      @include tablet {
+        height: 140px;
+      }
+    }
+
     .sts-i-wrp {
       display: flex;
       padding: 23px 16px;
