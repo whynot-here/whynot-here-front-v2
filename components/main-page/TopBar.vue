@@ -103,7 +103,7 @@
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
     </div>
-    <div class="middle">🗓️ 이번주는 한동 <strong>4주차</strong></div>
+    <div class="middle">🗓️ 이번주는 한동 <strong>5주차</strong></div>
     <div class="bottom">
       <div class="category-wrp">
         <div>
@@ -187,8 +187,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/components/main-page/top-bar.scss';
-
-
 </style>
 
 <style>
