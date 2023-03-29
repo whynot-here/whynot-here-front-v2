@@ -322,6 +322,7 @@
 
     .banner-img {
       height: 80px;
+      width: 100%;
 
       @include tablet {
         height: 140px;

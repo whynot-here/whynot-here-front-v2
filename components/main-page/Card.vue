@@ -1,17 +1,7 @@
 <template>
   <div id="Card">
     <div :class="isFromPc ? 'pc-env' : 'mobile-env'">
-      <VueCarousel
-        :autoplay="true"
-        :nav="false"
-        :loop="true"
-        :dots="true"
-        :items="1"
-      >
-        <img class="banner-img" src="@/assets/img/ads/admin-insta.png" />
-        <img class="banner-img" src="@/assets/img/ads/admin-matter.png" />
-        <img class="banner-img" src="@/assets/img/ads/admin-tab-hanchelin.png" @click="moveToTab(5, 'must-eat')"/>
-      </VueCarousel>
+      <img class="banner-img" src="@/assets/img/ads/admin-insta.png" />
       <div class="sts-i-wrp">
         <div>
           <input
