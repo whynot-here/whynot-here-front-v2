@@ -1,7 +1,8 @@
 <template>
   <div id="Card">
     <div :class="isFromPc ? 'pc-env' : 'mobile-env'">
-      <VueCarousel
+      <carousel
+        v-if="isNuxtReady"
         :autoplay="true"
         :nav="false"
         :loop="true"
@@ -10,8 +11,12 @@
       >
         <img class="banner-img" src="@/assets/img/ads/admin-insta.png" />
         <img class="banner-img" src="@/assets/img/ads/admin-matter.png" />
-        <img class="banner-img" src="@/assets/img/ads/admin-tab-hanchelin.png" @click="moveToTab(5, 'must-eat')"/>
-      </VueCarousel>
+        <img
+          class="banner-img"
+          src="@/assets/img/ads/admin-tab-hanchelin.png"
+          @click="moveToTab(5, 'must-eat')"
+        />
+      </carousel>
       <div class="sts-i-wrp">
         <div>
           <input
@@ -123,9 +128,11 @@
 </template>
 
 <script>
+const carousel = () =>
+  window && window !== undefined ? import('v-owl-carousel') : null
 export default {
   name: 'WhynotCard',
-  components: {},
+  components: { carousel },
   props: {
     searchText: {
       type: String,
@@ -134,6 +141,7 @@ export default {
   },
   data() {
     return {
+      isNuxtReady: false,
       posts: [],
       category: '',
       subCategory: '',
@@ -201,7 +209,13 @@ export default {
     this.$bus.$off('refreshCard')
     this.$bus.$on('refreshCard', () => {})
   },
-  mounted() {},
+  mounted() {
+    const vm = this
+    window.onNuxtReady((app) => {
+      console.log('Nuxt ready!')
+      vm.isNuxtReady = true
+    })
+  },
   methods: {
     refreshCard() {
       this.getPosts()
@@ -537,7 +551,11 @@ export default {
 
     moveToTab(categoryIdx, type) {
       this.$bus.$emit('getCategoryIdAndGetPosts', {})
-      document.querySelector(`#Category > section.category > div:nth-child(${categoryIdx}) > div`).classList.add("selected");
+      document
+        .querySelector(
+          `#Category > section.category > div:nth-child(${categoryIdx}) > div`
+        )
+        .classList.add('selected')
       this.$router.push(`/gather/${type}`)
     }
   }
