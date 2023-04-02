@@ -72,6 +72,7 @@
                   src="@/assets/img/posting/like-selected.png"
                   alt=""
                 />
+                <div class="likes-cnt">{{ post.likes }}</div>
               </div>
             </div>
             <div class="card-middle">
@@ -414,6 +415,7 @@ export default {
               })
               .then((res) => {
                 post.isBookmarked = false
+                post.likes -= 1
                 this.toastPopup('북마크가 해제되었습니다.')
               })
               .catch((error) => {
@@ -434,6 +436,7 @@ export default {
               )
               .then((res) => {
                 post.isBookmarked = true
+                post.likes += 1
                 this.toastPopup('북마크가 추가되었습니다.')
               })
               .catch((error) => {
