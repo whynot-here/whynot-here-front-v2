@@ -552,11 +552,13 @@ export default {
 
     moveToTab(categoryIdx, type) {
       this.$bus.$emit('getCategoryIdAndGetPosts', {})
-      document
-        .querySelector(
-          `#Category > section.category > div:nth-child(${categoryIdx}) > div`
-        )
-        .classList.add('selected')
+      for (let i=0; i<2; i++) {
+        document
+          .querySelector(
+            `#Category > section.category > div:nth-child(${categoryIdx}) > div`
+          )
+          .click()
+      }
       this.$router.push(`/gather/${type}`)
     }
   }
