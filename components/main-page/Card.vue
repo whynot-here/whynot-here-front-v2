@@ -245,7 +245,7 @@ export default {
             })
           })
       } else if (this.category === 'bookmark') {
-        this.categoryTitle = "북마크"
+        this.categoryTitle = "좋아요"
         if (!this.$store.state.userInfo.token) {
           return false
         }
@@ -415,7 +415,7 @@ export default {
               })
               .then((res) => {
                 post.isBookmarked = false
-                this.toastPopup('북마크가 해제되었습니다.')
+                this.toastPopup('관심 등록 해제')
               })
               .catch((error) => {
                 window.alert(error.response.data.message)
@@ -435,7 +435,7 @@ export default {
               )
               .then((res) => {
                 post.isBookmarked = true
-                this.toastPopup('북마크가 추가되었습니다.')
+                this.toastPopup('관심 등록 완료')
               })
               .catch((error) => {
                 window.alert(error.response.data.message)

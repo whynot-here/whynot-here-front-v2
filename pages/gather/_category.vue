@@ -90,7 +90,7 @@ export default {
         if (this.category === 'mypostings') {
           categoryTitle = 'My 모임'
         } else if (this.category === 'bookmark') {
-          categoryTitle = '북마크'
+          categoryTitle = '좋아요'
         } else if (this.category === 'search') {
           categoryTitle = '검색 결과'
         }
