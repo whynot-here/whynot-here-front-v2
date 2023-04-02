@@ -420,11 +420,9 @@
           }
 
           @include tablet {
-            width: 22px;
-            height: 30px;
+            width: 30px;
             img {
-              width: 22px;
-              height: 30px;
+              width: 30px;
             }
           }
         }
@@ -514,6 +512,12 @@
           color: #00348a;
           font-size: 0.69rem;
           text-align: center;
+
+          @include tablet {
+            line-height: 21px;
+            padding: 8px 14px;
+            font-size: 15px;
+          }
         }
         .d-day {
           font-weight: 600;
