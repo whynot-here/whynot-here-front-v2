@@ -54,7 +54,7 @@
             :class="selectedCategory === 'bookmark' ? 'menu selected' : 'menu'"
             @click="moveBookmarkPage()"
           >
-            <div>🔖 북마크</div>
+            <div>🔖 좋아요</div>
             <div>
               <img src="@/assets/img/category/right-arrow.png" alt="" />
             </div>
