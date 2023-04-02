@@ -117,10 +117,8 @@
             </div>
           </div>
         </div>
-        <div v-if="!hasFavorites" class="nolikes-wrp">
-          <img class="nolikes-img" src="@/assets/img/category/nolikes.png" />
-          <div class="text-1">앗 이런</div>
-          <div class="text-2">좋아요 항목이 없어요</div>
+        <div v-if="checkIsEmpty">
+          <EmptyPosting :kind="categoryTitle"/>
         </div>
       </div>
     </div>
@@ -128,11 +126,13 @@
 </template>
 
 <script>
+import EmptyPosting from '@/components/common/EmptyPosting'
+
 const carousel = () =>
   window && window !== undefined ? import('v-owl-carousel') : null
 export default {
   name: 'WhynotCard',
-  components: { carousel },
+  components: { carousel, EmptyPosting },
   props: {
     searchText: {
       type: String,
@@ -151,12 +151,15 @@ export default {
       onlyRecruit: false,
       isSubCategory: false,
       categoryId: '',
-      hasFavorites: true
+      categoryTitle: ''
     }
   },
   computed: {
     categoryIdProc() {
       return this.categoryId
+    },
+    checkIsEmpty() {
+      return this.posts.length === 0
     },
     postsProc() {
       // 북마크 받아오는 시점 이후에 처리 가능하도록
@@ -225,6 +228,7 @@ export default {
     },
     getPosts() {
       if (this.category === 'mypostings') {
+        this.categoryTitle = "My 모임"
         this.$axios
           .get(`${process.env.apiUrl}/v2/posts/own`, {
             withCredentials: true,
@@ -241,6 +245,7 @@ export default {
             })
           })
       } else if (this.category === 'bookmark') {
+        this.categoryTitle = "북마크"
         if (!this.$store.state.userInfo.token) {
           return false
         }
@@ -258,13 +263,9 @@ export default {
               res.isBookmarked = true
               return this.posts.push(res)
             })
-            if (this.posts.length === 0) {
-              this.hasFavorites = false
-            } else {
-              this.hasFavorites = true
-            }
           })
       } else if (this.category === 'search') {
+        this.categoryTitle = `'${this.searchText}' 검색`
         this.$axios
           .get(
             `${process.env.apiUrl}/v2/posts/search?keyword=` + this.searchText,
