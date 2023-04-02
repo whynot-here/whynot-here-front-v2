@@ -72,6 +72,7 @@
                   src="@/assets/img/posting/like-selected.png"
                   alt=""
                 />
+                <div class="likes-cnt">{{ post.likes }}</div>
               </div>
             </div>
             <div class="card-middle">
@@ -415,6 +416,7 @@ export default {
               })
               .then((res) => {
                 post.isBookmarked = false
+                post.likes -= 1
                 this.toastPopup('관심 등록 해제')
               })
               .catch((error) => {
@@ -435,6 +437,7 @@ export default {
               )
               .then((res) => {
                 post.isBookmarked = true
+                post.likes += 1
                 this.toastPopup('관심 등록 완료')
               })
               .catch((error) => {
