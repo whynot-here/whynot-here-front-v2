@@ -131,6 +131,7 @@ import EmptyPosting from '@/components/common/EmptyPosting'
 
 const carousel = () =>
   window && window !== undefined ? import('v-owl-carousel') : null
+
 export default {
   name: 'WhynotCard',
   components: { carousel, EmptyPosting },
@@ -214,11 +215,11 @@ export default {
     this.$bus.$on('refreshCard', () => {})
   },
   mounted() {
-    const vm = this
-    window.onNuxtReady((app) => {
-      console.log('Nuxt ready!')
-      vm.isNuxtReady = true
-    })
+    // window.onNuxtReady((app) => {
+    //   console.log('Nuxt ready!')
+    //   this.isNuxtReady = true
+    // })
+    this.isNuxtReady = true
   },
   methods: {
     refreshCard() {
