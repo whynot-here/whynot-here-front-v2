@@ -9,8 +9,12 @@
         :dots="true"
         :items="1"
       >
-        <img class="banner-img" src="@/assets/img/ads/admin-insta.png" />
-        <img class="banner-img" src="@/assets/img/ads/admin-matter.png" />
+        <a href="https://instagram.com/wnh.crew?igshid=YmMyMTA2M2Y=" target="_blank">
+          <img class="banner-img" src="@/assets/img/ads/admin-insta.png" />
+        </a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHI0GEFhMLC208q0RkZ-tX2H2fqBJgQWktIeiGlGa8t8kvYw/viewform" target="_blank">
+          <img class="banner-img" src="@/assets/img/ads/admin-matter.png" />
+        </a>
         <img
           class="banner-img"
           src="@/assets/img/ads/admin-tab-hanchelin.png"
