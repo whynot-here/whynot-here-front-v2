@@ -20,7 +20,7 @@ const common = {
         {
           parentId: 41,
           parentCode: 'ADS',
-          parentName: '얼리어답터',
+          parentName: '얼리어답터(홍보)',
           children: []
         },
         {
