@@ -408,6 +408,17 @@ export default {
       })
     },
     registerComment() {
+      if (!this.$store.state.userInfo.initLoginDone) {
+        this.cmn_openAlertPopup({
+          option: {
+            content: '로그인 후 이용해 주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
+        return false
+      }
       if (!this.currentComment.length > 0) {
         this.cmn_openAlertPopup({
           option: {
