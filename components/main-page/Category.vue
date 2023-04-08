@@ -77,8 +77,8 @@
           <div
             :class="
               cat.parentCode.toLowerCase() === selectedCategory
-                ? 'title selected'
-                : 'title'
+                ? `categoryId-${cat.parentId} title selected`
+                : `categoryId-${cat.parentId} title`
             "
             @click="
               selectCategory({

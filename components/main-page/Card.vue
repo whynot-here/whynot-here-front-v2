@@ -9,14 +9,14 @@
         :dots="true"
         :items="1"
       >
-        <a href="https://instagram.com/wnh.crew?igshid=YmMyMTA2M2Y=" target="_blank">
+        <a class="banner-admin-insta" href="https://instagram.com/wnh.crew?igshid=YmMyMTA2M2Y=" target="_blank">
           <img class="banner-img" src="@/assets/img/ads/admin-insta.png" />
         </a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSehQTbXuL7UX_lZu04VKVamrd4hglaohso7UE8Ldq66kjamLw/viewform" target="_blank">
+        <a class="banner-admin-matter" href="https://docs.google.com/forms/d/e/1FAIpQLSehQTbXuL7UX_lZu04VKVamrd4hglaohso7UE8Ldq66kjamLw/viewform" target="_blank">
           <img class="banner-img" src="@/assets/img/ads/admin-matter.png" />
         </a>
         <img
-          class="banner-img"
+          class="banner-img banner-admin-tab-hanchelin"
           src="@/assets/img/ads/admin-tab-hanchelin.png"
           @click="moveToTab(5, 'must-eat')"
         />
@@ -28,6 +28,7 @@
             type="checkbox"
             name="color"
             value="blue"
+            class="checkbox-only-recruit"
           />
         </div>
         <div>모집중만 보기</div>

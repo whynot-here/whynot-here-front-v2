@@ -272,7 +272,7 @@
         <div class="m-comment-posting-toggle">
           <div
             v-if="activeComponent === 'DetailView'"
-            class="m-img-wrp"
+            class="m-img-wrp btn-text-comment"
             @click="renderComponent('CommentView')"
           >
             <img
@@ -283,7 +283,7 @@
             <span>댓글</span>
             <strong>{{ comments.length }}</strong>
           </div>
-          <div v-else class="m-img-wrp" @click="renderComponent('DetailView')">
+          <div v-else class="m-img-wrp btn-text-detail" @click="renderComponent('DetailView')">
             <img
               class="detail-img"
               src="@/assets/img/posting/posting-black.png"
@@ -305,7 +305,7 @@
           />
           <span>{{ postComp.likes }}</span>
         </div>
-        <div>
+        <div class="copy-url">
           <img
             src="@/assets/img/posting/copy-detail.png"
             alt=""
