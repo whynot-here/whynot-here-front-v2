@@ -69,7 +69,12 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', 'bootstrap-vue/nuxt', 'nuxt-user-agent'],
+  modules: ['@nuxtjs/axios', 'bootstrap-vue/nuxt', 'nuxt-user-agent', '@nuxtjs/gtm'],
+
+  gtm: {
+    id: 'GTM-PMPQGWW',
+    enabled: true
+  },
 
   bootstrapVue: {
     bootstrapCss: false,
