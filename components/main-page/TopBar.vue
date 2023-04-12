@@ -103,7 +103,7 @@
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
     </div>
-    <div class="middle">🗓️ 이번주는 한동 <strong>6주차</strong></div>
+    <div class="middle">🗓️ 이번주는 한동 <strong>7주차</strong></div>
     <div class="bottom">
       <div class="category-wrp">
         <div>
@@ -172,9 +172,11 @@ export default {
       if (!this.$store.state.userInfo.initLoginDone) {
         this.$router.push('/login')
       }
-
+      // this.movePostingPage({ type })
+    },
+    movePostingPage({ type }) {
       if (this.$store.state.userInfo.initLoginDone && type !== 'card') {
-        this.$router.push('/posting?m=write')
+        this.$router.push(`/posting?m=write&type=${type}`)
       }
     },
     logout() {
