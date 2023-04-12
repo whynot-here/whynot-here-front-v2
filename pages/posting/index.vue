@@ -283,7 +283,8 @@ export default {
     return {
       category: params.category,
       mode: query.m,
-      id: query.id
+      id: query.id,
+      type: params.type
     }
   },
   data() {
