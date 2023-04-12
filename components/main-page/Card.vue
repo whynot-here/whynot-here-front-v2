@@ -22,16 +22,29 @@
         />
       </carousel>
       <div class="sts-i-wrp">
-        <div>
-          <input
-            v-model="onlyRecruit"
-            type="checkbox"
-            name="color"
-            value="blue"
-            class="checkbox-only-recruit"
-          />
+        <div class="checkbox-recruit-wrap">
+          <div>
+            <input
+              v-model="onlyRecruit"
+              type="checkbox"
+              name="color"
+              value="blue"
+              class="checkbox-only-recruit"
+            />
+          </div>
+          <div>모집중만 보기</div>
         </div>
-        <div>모집중만 보기</div>
+        <div v-if="categoryId==42">
+          <div :class="isSubFilterOn ? 'hanchelin-sub-filter selected' : 'hanchelin-sub-filter'" @click="onSubFilterTapped">
+            <div :class="isSubFilterOn ? 'sub-filter-text selected': 'sub-filter-text'">전체</div>
+            <div v-if="isSubFilterOn" class="bottom-arrow">
+              <img src="@/assets/img/common/bottom-arrow-selected.png"/>
+            </div>
+            <div v-else class="bottom-arrow">
+              <img src="@/assets/img/common/bottom-arrow.png"/>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="cards-wrp">
         <div
@@ -158,7 +171,8 @@ export default {
       onlyRecruit: false,
       isSubCategory: false,
       categoryId: '',
-      categoryTitle: ''
+      categoryTitle: '',
+      isSubFilterOn: false,
     }
   },
   computed: {
@@ -569,6 +583,10 @@ export default {
           .click()
       }
       this.$router.push(`/gather/${type}`)
+    },
+
+    onSubFilterTapped() {
+      this.isSubFilterOn = !this.isSubFilterOn
     }
   }
 }

@@ -330,34 +330,75 @@
 
     .sts-i-wrp {
       display: flex;
-      padding: 23px 16px;
-      color: #005b9a;
-      input[type='checkbox' i] {
-        width: 16px;
-        height: 16px;
-        background-color: #005b9a;
+      justify-content: space-between;
+      align-items: center;
 
-        @include tablet {
-          width: 24px;
-          height: 24px;
+      .checkbox-recruit-wrap{
+        display: flex;
+        padding: 23px 16px;
+        color: #005b9a;
+        input[type='checkbox' i] {
+          width: 16px;
+          height: 16px;
+          background-color: #005b9a;
+
+          @include tablet {
+            width: 24px;
+            height: 24px;
+          }
+        }
+        div:first-child {
+          // flex-grow: 1;
+          // text-align: right;
+        }
+        div:nth-child(2) {
+          width: max-content;
+          height: 22px;
+          line-height: 22px;
+          font-size: 0.75rem;
+          font-weight: 500;
+          padding-left: 8px;
+
+          @include tablet {
+            height: 33px;
+            line-height: 33px;
+            font-size: 16px;
+          }
         }
       }
-      div:first-child {
-        // flex-grow: 1;
-        // text-align: right;
-      }
-      div:nth-child(2) {
-        width: max-content;
-        height: 22px;
-        line-height: 22px;
-        font-size: 0.75rem;
-        font-weight: 500;
-        padding-left: 8px;
+      
+      .hanchelin-sub-filter {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 4px 12px;
+        gap: 4px;
+        margin-right: 20px;
+        
+        width: 55px;
+        height: 25px;
+        
+        background: #FFFFFF;
+        border: 1px solid #EFEFEF;
+        border-radius: 9999px;
 
-        @include tablet {
-          height: 33px;
-          line-height: 33px;
-          font-size: 16px;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        color: #4D4D4D;
+
+        &.selected {
+          color: #005B9A;
+          border: 1px solid #005B9A;
+        }
+
+        .bottom-arrow {
+          width: 15px;
+          img {
+            width: 15px;
+            height: 9px;
+            vertical-align: middle;
+          }
         }
       }
     }
