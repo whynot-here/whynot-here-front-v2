@@ -34,16 +34,11 @@
           </div>
           <div>모집중만 보기</div>
         </div>
-        <div v-if="categoryId==42">
-          <div :class="isSubFilterOn ? 'hanchelin-sub-filter selected' : 'hanchelin-sub-filter'" @click="onSubFilterTapped">
-            <div :class="isSubFilterOn ? 'sub-filter-text selected': 'sub-filter-text'">전체</div>
-            <div v-if="isSubFilterOn" class="bottom-arrow">
-              <img src="@/assets/img/common/bottom-arrow-selected.png"/>
-            </div>
-            <div v-else class="bottom-arrow">
-              <img src="@/assets/img/common/bottom-arrow.png"/>
-            </div>
-          </div>
+        <div v-if="categoryId==hanchelinCategoryId">
+          <SubFilterDropdown
+            label-first="전체"
+            @get-label="selectSubCategory"
+          />
         </div>
       </div>
       <div class="cards-wrp">
@@ -146,13 +141,15 @@
 
 <script>
 import EmptyPosting from '@/components/common/EmptyPosting'
+import SubFilterDropdown from '@/components/common/subFilterDropdown'
+import categoryConst from '@/plugins/const/categoryConst';
 
 const carousel = () =>
   window && window !== undefined ? import('v-owl-carousel') : null
 
 export default {
   name: 'WhynotCard',
-  components: { carousel, EmptyPosting },
+  components: { carousel, EmptyPosting, SubFilterDropdown },
   props: {
     searchText: {
       type: String,
@@ -172,7 +169,8 @@ export default {
       isSubCategory: false,
       categoryId: '',
       categoryTitle: '',
-      isSubFilterOn: false,
+      originalPosts: [],
+      hanchelinCategoryId: categoryConst.hanchelinCategoryId
     }
   },
   computed: {
@@ -320,6 +318,7 @@ export default {
                 res.selected = false
                 return this.posts.push(res)
               })
+              this.originalPosts = this.posts
             })
         } else {
           this.$axios.get(`${process.env.apiUrl}/v2/posts`).then((res) => {
@@ -584,9 +583,11 @@ export default {
       }
       this.$router.push(`/gather/${type}`)
     },
-
-    onSubFilterTapped() {
-      this.isSubFilterOn = !this.isSubFilterOn
+    selectSubCategory(item) {
+      this.posts = this.originalPosts
+      if (item.id !== categoryConst.hanchelinCategoryId) {
+        this.posts = this.posts.filter(it => it.category.id === item.id)
+      }
     }
   }
 }
