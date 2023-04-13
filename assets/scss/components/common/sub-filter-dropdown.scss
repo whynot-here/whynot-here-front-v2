@@ -19,7 +19,9 @@
   color: #4D4D4D;
 
   &.selected {
-    color: #005B9A;
+    .select-box-wrp >.select-box > .label {
+      color: #005B9A !important;
+    }
     border: 1px solid #005B9A;
   }
 
