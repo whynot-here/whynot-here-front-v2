@@ -381,7 +381,6 @@ export default {
     DropdownCategory
   },
   asyncData({ params, query }) {
-    console.log(query.type)
     return {
       category: params.category,
       mode: query.m,
@@ -515,7 +514,6 @@ export default {
       this.postingRegisterParams.communicationTool = item.value
     },
     selectCategory(item) {
-      console.log(item)
       this.postingRegisterParams.category.id = item.id
       this.postingRegisterParams.category.name = item.name
       this.postingRegisterParams.category.code = item.code
@@ -677,6 +675,9 @@ export default {
       if (!this.useDday || this.postingRegisterParams.closedDt === '') {
         delete this.postingRegisterParams.closedDt
       }
+      if (this.postingRegisterParams.locationUrl.length === 0) {
+        delete this.postingRegisterParams.locationUrl
+      }
     },
     // 사진 선택
     onFileChange(event) {
@@ -717,6 +718,21 @@ export default {
           option: {
             title: '⚠️알림',
             content: '내용을 입력해주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
+        return false
+      }
+      if (
+        this.postingRegisterParams.locationUrl.length > 0 &&
+        !this.postingRegisterParams.locationUrl.includes('https')
+      ) {
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '위치 url은 https로 시작해야합니다.',
             type: 'alert',
             confirmText: '확인',
             cancelText: ''
