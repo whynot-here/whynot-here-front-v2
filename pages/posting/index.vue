@@ -136,7 +136,8 @@
     </div>
     <div v-else id="PostingPageMobile">
       <div class="panel">
-        <section class="form">
+        <!-- 타입이 한슐랭 일 때와 아닐 때를 구분 -->
+        <section v-if="type === undefined" class="form">
           <div class="title-group">
             <div class="title">글쓰기</div>
             <div class="close">
@@ -252,6 +253,104 @@
             </div>
           </div>
         </section>
+        <section v-else class="form">
+          <div class="title-group">
+            <div class="title">글쓰기</div>
+            <div class="close">
+              <img
+                src="@/assets/img/common/close-btn.png"
+                alt=""
+                @click="cmn_goMainPage"
+              />
+            </div>
+          </div>
+          <div class="group info">
+            <div class="posting-group">카테고리 선택 <strong>*</strong></div>
+            <div class="line">
+              <div class="form-wrp category">
+                <div name="" class="sub-wrp">
+                  <DropdownCategory
+                    ref="DropdownCategory"
+                    :label-first="'카테고리'"
+                    :label-second="'상세'"
+                    @get-label="selectCategory"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="group">
+            <div class="posting-group">식당 이름 <strong>*</strong></div>
+            <div class="line">
+              <div class="form-wrp">
+                <input
+                  v-model="postingRegisterParams.title"
+                  type="text"
+                  placeholder="식당 이름을 적어주세요"
+                  class="sub-wrp summary"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="group">
+            <div class="posting-group">위치 url</div>
+            <div class="line">
+              <div class="form-wrp">
+                <input
+                  v-model="postingRegisterParams.title"
+                  type="text"
+                  placeholder="위치 url을 붙여넣기 해주세요"
+                  class="sub-wrp summary"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="group">
+            <div class="posting-group">내용 입력 <strong>*</strong></div>
+            <div class="line">
+              <div class="form-wrp">
+                <textarea
+                  v-model="postingRegisterParams.content"
+                  class="content"
+                  name="introduce"
+                  cols="30"
+                  rows="10"
+                  placeholder="식당을 소개해주세요"
+                ></textarea>
+              </div>
+            </div>
+            <div>
+              <div id="AddPostImg" class="add-img">
+                <div class="camera-img">
+                  <img src="@/assets/img/posting/camera.png" alt="" />
+                </div>
+                <b-button class="reg-btn"> 이미지 추가 </b-button>
+                <b-form-group id="fileInput" class="dragdrop">
+                  <b-form-file
+                    multiple
+                    accept="image/jpeg, image/png, image/gif"
+                    @change="onFileChange"
+                  ></b-form-file>
+                </b-form-group>
+                <div v-if="inputImg && inputImg.length > 0" class="img-grp">
+                  <div id="postingImages">
+                    <div v-for="(image, idx) in inputImg" :key="idx">
+                      <b-img thumbnail :src="image.prev_url" class="obj" />
+                      <div class="img-btn-grp">
+                        <img
+                          class="del"
+                          src="@/assets/img/common/img-del.png"
+                          alt=""
+                          @click="cancelPhoto(idx)"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         <section>
           <div
             v-if="postingMode === 'write'"
@@ -280,11 +379,12 @@ export default {
     DropdownCategory
   },
   asyncData({ params, query }) {
+    console.log(query.type)
     return {
       category: params.category,
       mode: query.m,
       id: query.id,
-      type: params.type
+      type: query.type
     }
   },
   data() {
