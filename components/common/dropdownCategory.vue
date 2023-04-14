@@ -1,7 +1,11 @@
 <template>
   <div id="SelectBoxDouble">
     <div class="select-box-wrp">
-      <div :class="`select-box left ${disabled01 ? 'disabled' : ''}`">
+      <div
+        :class="`select-box ${postingType == 'must-eat' ? 'left' : 'right'} ${
+          disabled01 ? 'disabled' : ''
+        }`"
+      >
         <button :class="`label _01 ${labelFirst}`" @click="openOptions">
           {{ labelFirst }}
         </button>
@@ -18,7 +22,10 @@
           </li>
         </ul>
       </div>
-      <div :class="`select-box right ${disabled02 ? 'disabled' : ''}`">
+      <div
+        v-if="postingType == 'must-eat'"
+        :class="`select-box right ${disabled02 ? 'disabled' : ''}`"
+      >
         <button :class="`label _02 ${labelSecond}`" @click="openOptions">
           {{ labelSecond }}
         </button>
@@ -60,6 +67,10 @@ export default {
     disabled02: {
       type: Boolean,
       default: false
+    },
+    postingType: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -76,9 +87,20 @@ export default {
       this.categoryGroup.forEach((category) => {
         const item = {
           id: category.parentId,
-          name: category.parentName
+          name: category.parentName,
+          code: category.parentCode
         }
-        result.push(item)
+        if (this.postingType === 'must-eat') {
+          if (item.code === 'MUST-EAT') {
+            result.push(item)
+          }
+        }
+
+        if (this.postingType !== 'must-eat') {
+          if (item.code !== 'MUST-EAT') {
+            result.push(item)
+          }
+        }
       })
       return result
     },
@@ -91,11 +113,17 @@ export default {
       category[0].children.forEach((subCategory) => {
         const item = {
           id: subCategory.id,
-          name: subCategory.name
+          name: subCategory.name,
+          code: subCategory.code
         }
         result.push(item)
       })
       return result
+    }
+  },
+  mounted() {
+    if (this.postingType === 'must-eat') {
+      this.selectOptionMain(this.categoryList[0])
     }
   },
   methods: {
@@ -108,16 +136,20 @@ export default {
         document
           .querySelector(`.${this.labelFirst}`)
           .parentNode.classList.remove('active')
-        document
-          .querySelector(`.${this.labelSecond}`)
-          .parentNode.classList.remove('active')
+        if (this.postingType === 'must-eat') {
+          document
+            .querySelector(`.${this.labelSecond}`)
+            .parentNode.classList.remove('active')
+        }
       } else {
         document
           .querySelector(`.${this.labelFirst}`)
           .parentNode.classList.add('active')
-        document
-          .querySelector(`.${this.labelSecond}`)
-          .parentNode.classList.add('active')
+        if (this.postingType === 'must-eat') {
+          document
+            .querySelector(`.${this.labelSecond}`)
+            .parentNode.classList.add('active')
+        }
       }
     },
     selectOptionMain(item) {
@@ -129,9 +161,11 @@ export default {
         document
           .querySelector(`.${this.labelFirst}`)
           .parentNode.classList.remove('active')
-        document
-          .querySelector(`.${this.labelSecond}`)
-          .parentNode.classList.remove('active')
+        if (this.postingType === 'must-eat') {
+          document
+            .querySelector(`.${this.labelSecond}`)
+            .parentNode.classList.remove('active')
+        }
       }
       this.$emit('get-label', item)
     },

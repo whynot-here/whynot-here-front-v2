@@ -137,7 +137,7 @@
     <div v-else id="PostingPageMobile">
       <div class="panel">
         <!-- 타입이 한슐랭 일 때와 아닐 때를 구분 -->
-        <section v-if="type === undefined" class="form">
+        <section v-if="type !== 'must-eat'" class="form">
           <div class="title-group">
             <div class="title">글쓰기</div>
             <div class="close">
@@ -158,6 +158,7 @@
                     ref="DropdownCategory"
                     :label-first="'카테고리'"
                     :label-second="'상세'"
+                    :posting-type="type"
                     @get-label="selectCategory"
                   />
                 </div>
@@ -273,6 +274,7 @@
                     ref="DropdownCategory"
                     :label-first="'카테고리'"
                     :label-second="'상세'"
+                    :posting-type="type"
                     @get-label="selectCategory"
                   />
                 </div>
@@ -513,7 +515,10 @@ export default {
       this.postingRegisterParams.communicationTool = item.value
     },
     selectCategory(item) {
+      console.log(item)
       this.postingRegisterParams.category.id = item.id
+      this.postingRegisterParams.category.name = item.name
+      this.postingRegisterParams.category.code = item.code
     },
     uploadPostingAndPicture() {
       if (!this.checkRegisterParamsValid()) {
