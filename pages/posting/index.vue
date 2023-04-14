@@ -297,7 +297,7 @@
             <div class="line">
               <div class="form-wrp">
                 <input
-                  v-model="postingRegisterParams.title"
+                  v-model="postingRegisterParams.locationUrl"
                   type="text"
                   placeholder="위치 url을 붙여넣기 해주세요"
                   class="sub-wrp summary"
@@ -420,6 +420,7 @@ export default {
       d_day: '',
       postingRegisterParams: {
         title: '',
+        locationUrl: '',
         content: '',
         imageLinks: [],
         categoryId: 0,
