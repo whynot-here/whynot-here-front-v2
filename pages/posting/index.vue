@@ -136,7 +136,8 @@
     </div>
     <div v-else id="PostingPageMobile">
       <div class="panel">
-        <section class="form">
+        <!-- 타입이 한슐랭 일 때와 아닐 때를 구분 -->
+        <section v-if="type !== 'must-eat'" class="form">
           <div class="title-group">
             <div class="title">글쓰기</div>
             <div class="close">
@@ -157,6 +158,7 @@
                     ref="DropdownCategory"
                     :label-first="'카테고리'"
                     :label-second="'상세'"
+                    :posting-type="type"
                     @get-label="selectCategory"
                   />
                 </div>
@@ -252,13 +254,112 @@
             </div>
           </div>
         </section>
-        <section>
+        <section v-else class="form">
+          <div class="title-group">
+            <div class="title">글쓰기</div>
+            <div class="close">
+              <img
+                src="@/assets/img/common/close-btn.png"
+                alt=""
+                @click="cmn_goMainPage"
+              />
+            </div>
+          </div>
+          <div class="group info">
+            <div class="posting-group">카테고리 선택</div>
+            <div class="line">
+              <div class="form-wrp category">
+                <div name="" class="sub-wrp">
+                  <DropdownCategory
+                    ref="DropdownCategory"
+                    :label-first="'카테고리'"
+                    :label-second="'상세'"
+                    :posting-type="type"
+                    @get-label="selectCategory"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="group">
+            <div class="posting-group">식당 이름 <strong>*</strong></div>
+            <div class="line">
+              <div class="form-wrp">
+                <input
+                  v-model="postingRegisterParams.title"
+                  type="text"
+                  placeholder="식당 이름을 적어주세요"
+                  class="sub-wrp summary"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="group">
+            <div class="posting-group">위치 url</div>
+            <div class="line">
+              <div class="form-wrp">
+                <input
+                  v-model="postingRegisterParams.locationUrl"
+                  type="text"
+                  placeholder="위치 url을 붙여넣기 해주세요"
+                  class="sub-wrp summary"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="group">
+            <div class="posting-group">내용 입력 <strong>*</strong></div>
+            <div class="line">
+              <div class="form-wrp">
+                <textarea
+                  v-model="postingRegisterParams.content"
+                  class="content"
+                  name="introduce"
+                  cols="30"
+                  rows="10"
+                  placeholder="식당을 소개해주세요"
+                ></textarea>
+              </div>
+            </div>
+            <div>
+              <div id="AddPostImg" class="add-img">
+                <div class="camera-img">
+                  <img src="@/assets/img/posting/camera.png" alt="" />
+                </div>
+                <b-button class="reg-btn"> 이미지 추가 </b-button>
+                <b-form-group id="fileInput" class="dragdrop">
+                  <b-form-file
+                    multiple
+                    accept="image/jpeg, image/png, image/gif"
+                    @change="onFileChange"
+                  ></b-form-file>
+                </b-form-group>
+                <div v-if="inputImg && inputImg.length > 0" class="img-grp">
+                  <div id="postingImages">
+                    <div v-for="(image, idx) in inputImg" :key="idx">
+                      <b-img thumbnail :src="image.prev_url" class="obj" />
+                      <div class="img-btn-grp">
+                        <img
+                          class="del"
+                          src="@/assets/img/common/img-del.png"
+                          alt=""
+                          @click="cancelPhoto(idx)"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="bottom">
           <div
             v-if="postingMode === 'write'"
             class="upload"
             @click="uploadPostingAndPicture"
           >
-            글 업로드
+            글 등록
           </div>
           <div v-else class="upload" @click="editPostingAndPicture">
             수정하기
@@ -283,7 +384,8 @@ export default {
     return {
       category: params.category,
       mode: query.m,
-      id: query.id
+      id: query.id,
+      type: query.type
     }
   },
   data() {
@@ -319,6 +421,7 @@ export default {
       d_day: '',
       postingRegisterParams: {
         title: '',
+        locationUrl: '',
         content: '',
         imageLinks: [],
         categoryId: 0,
@@ -412,6 +515,8 @@ export default {
     },
     selectCategory(item) {
       this.postingRegisterParams.category.id = item.id
+      this.postingRegisterParams.category.name = item.name
+      this.postingRegisterParams.category.code = item.code
     },
     uploadPostingAndPicture() {
       if (!this.checkRegisterParamsValid()) {
@@ -570,6 +675,9 @@ export default {
       if (!this.useDday || this.postingRegisterParams.closedDt === '') {
         delete this.postingRegisterParams.closedDt
       }
+      if (this.postingRegisterParams.locationUrl.length === 0) {
+        delete this.postingRegisterParams.locationUrl
+      }
     },
     // 사진 선택
     onFileChange(event) {
@@ -610,6 +718,21 @@ export default {
           option: {
             title: '⚠️알림',
             content: '내용을 입력해주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
+        return false
+      }
+      if (
+        this.postingRegisterParams.locationUrl.length > 0 &&
+        !this.postingRegisterParams.locationUrl.includes('https')
+      ) {
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '위치 url은 https로 시작해야합니다.',
             type: 'alert',
             confirmText: '확인',
             cancelText: ''

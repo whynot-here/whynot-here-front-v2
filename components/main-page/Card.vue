@@ -9,10 +9,18 @@
         :dots="true"
         :items="1"
       >
-        <a class="banner-admin-insta" href="https://instagram.com/wnh.crew?igshid=YmMyMTA2M2Y=" target="_blank">
+        <a
+          class="banner-admin-insta"
+          href="https://instagram.com/wnh.crew?igshid=YmMyMTA2M2Y="
+          target="_blank"
+        >
           <img class="banner-img" src="@/assets/img/ads/admin-insta.png" />
         </a>
-        <a class="banner-admin-matter" href="https://docs.google.com/forms/d/e/1FAIpQLSehQTbXuL7UX_lZu04VKVamrd4hglaohso7UE8Ldq66kjamLw/viewform" target="_blank">
+        <a
+          class="banner-admin-matter"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSehQTbXuL7UX_lZu04VKVamrd4hglaohso7UE8Ldq66kjamLw/viewform"
+          target="_blank"
+        >
           <img class="banner-img" src="@/assets/img/ads/admin-matter.png" />
         </a>
         <img
@@ -61,7 +69,7 @@
                   alt=""
                 />
                 <div v-if="post.isOpenSubMenu" class="sub-menu">
-                  <div @click.stop="editPosting(post.id)">수정하기</div>
+                  <div @click.stop="editPosting(post)">수정하기</div>
                   <div @click.stop="compModalToggle(post.id)">모집마감</div>
                   <div @click.stop="deletePosting(post.id)">삭제</div>
                 </div>
@@ -124,7 +132,7 @@
           </div>
         </div>
         <div v-if="checkIsEmpty">
-          <EmptyPosting :kind="categoryTitle"/>
+          <EmptyPosting :kind="categoryTitle" />
         </div>
       </div>
     </div>
@@ -235,7 +243,7 @@ export default {
     },
     getPosts() {
       if (this.category === 'mypostings') {
-        this.categoryTitle = "My 모임"
+        this.categoryTitle = 'My 모임'
         this.$axios
           .get(`${process.env.apiUrl}/v2/posts/own`, {
             withCredentials: true,
@@ -252,7 +260,7 @@ export default {
             })
           })
       } else if (this.category === 'bookmark') {
-        this.categoryTitle = "좋아요"
+        this.categoryTitle = '좋아요'
         if (!this.$store.state.userInfo.token) {
           return false
         }
@@ -473,8 +481,12 @@ export default {
     moveDetailPage(id) {
       this.$router.push(`/gather/posts/${id}`)
     },
-    editPosting(id) {
-      this.$router.push(`/posting?m=edit&id=${id}`)
+    editPosting(post) {
+      if (post.category.parentCode === 'MUST-EAT') {
+        this.$router.push(`/posting?m=edit&id=${post.id}&type=must-eat`)
+      } else {
+        this.$router.push(`/posting?m=edit&id=${post.id}`)
+      }
     },
     deletePosting(id) {
       if (confirm('삭제하시겠습니까?')) {
@@ -561,7 +573,7 @@ export default {
 
     moveToTab(categoryIdx, type) {
       this.$bus.$emit('getCategoryIdAndGetPosts', {})
-      for (let i=0; i<2; i++) {
+      for (let i = 0; i < 2; i++) {
         document
           .querySelector(
             `#Category > section.category > div:nth-child(${categoryIdx}) > div`
