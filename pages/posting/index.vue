@@ -265,7 +265,7 @@
             </div>
           </div>
           <div class="group info">
-            <div class="posting-group">카테고리 선택 <strong>*</strong></div>
+            <div class="posting-group">카테고리 선택</div>
             <div class="line">
               <div class="form-wrp category">
                 <div name="" class="sub-wrp">
@@ -351,13 +351,13 @@
             </div>
           </div>
         </section>
-        <section>
+        <section class="bottom">
           <div
             v-if="postingMode === 'write'"
             class="upload"
             @click="uploadPostingAndPicture"
           >
-            글 업로드
+            글 등록
           </div>
           <div v-else class="upload" @click="editPostingAndPicture">
             수정하기

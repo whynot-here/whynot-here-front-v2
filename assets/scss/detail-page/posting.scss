@@ -229,9 +229,9 @@
 
 #PostingPageMobile {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 70px);
   overflow: scroll;
-  background-color: #f3f3f3;
+  background-color: #f5f5f5;
   .panel {
     // width: 355px;
     // margin: 0px auto;
@@ -261,17 +261,15 @@
       .group {
         margin: 0 20px;
         &.info {
-          padding-bottom: 52px;
+          padding-bottom: 24px;
           border-bottom: 1px solid #d9d9d9;
         }
       }
       .posting-group {
         margin-top: 24px;
         font-size: 1rem;
-        font-weight: 600;
-        strong {
-          color: #e74133;
-        }
+        font-weight: 500;
+        color: #181818;
       }
       .line {
         // display: flex;
@@ -334,8 +332,8 @@
             }
           }
           .content {
-            width: calc(100% - 32px);
-            height: 400px;
+            width: calc(100% - 40px);
+            height: 150px;
             margin-top: 12px;
             padding: 16px;
             font-size: 1rem;
@@ -348,7 +346,7 @@
           }
         }
         .category {
-          margin-top: 24px;
+          margin-top: 12px;
           .sub-wrp {
             width: 50%;
           }
@@ -361,7 +359,7 @@
         display: flex;
         height: 70px;
         line-height: 80px;
-        margin: 16px 0 42px 0;
+        margin: 16px 0 0 0;
         padding-left: 24px;
         font-size: 1rem;
         font-weight: 500;
@@ -423,20 +421,26 @@
         }
       }
     }
-    .upload {
-      width: 146px;
-      height: 47px;
-      line-height: 47px;
-      margin: 0 auto;
-      margin-bottom: 40px;
-      font-size: 1rem;
-      font-weight: 500;
-      background: #ffffff;
-      // opacity: 0.4;
-      border: 1px solid #e1e2e3;
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
+    .bottom {
+      position: absolute;
+      width: 100%;
+      height: 60px;
+      bottom: 0;
+      background-color: #fff;
+      padding-top: 10px;
+      .upload {
+        width: calc(100% - 40px);
+        height: 48px;
+        line-height: 48px;
+        margin: auto;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+        background: #3e82f1;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+      }
     }
   }
 }
