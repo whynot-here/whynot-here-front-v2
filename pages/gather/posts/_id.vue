@@ -183,19 +183,20 @@
               </div>
             </div>
             <div class="m-detail-content-body">
-              <a :href="postComp.locationUrl" target="_blank">
-                <div
-                  class="content"
-                  style="white-space: pre-line; word-wrap: break-word"
-                  v-text="postComp.locationUrl"
-                ></div>
+              <a
+                :href="postComp.locationUrl"
+                target="_blank"
+                style="text-decoration: none"
+              >
+                <div>📍 위치 링크로 이동하기</div>
               </a>
-
+              <br />
               <div
                 class="content"
                 style="white-space: pre-line; word-wrap: break-word"
                 v-text="postComp.content"
               ></div>
+              <br />
               <div class="m-content-img">
                 <div v-for="(postImg, idx) in postComp.imageLinks" :key="idx">
                   <img :src="postImg.link" class="m-postImg" />
