@@ -30,16 +30,24 @@
         />
       </carousel>
       <div class="sts-i-wrp">
-        <div>
-          <input
-            v-model="onlyRecruit"
-            type="checkbox"
-            name="color"
-            value="blue"
-            class="checkbox-only-recruit"
+        <div class="checkbox-recruit-wrap">
+          <div>
+            <input
+              v-model="onlyRecruit"
+              type="checkbox"
+              name="color"
+              value="blue"
+              class="checkbox-only-recruit"
+            />
+          </div>
+          <div>모집중만 보기</div>
+        </div>
+        <div v-if="categoryId==hanchelinCategoryId">
+          <SubFilterDropdown
+            label-first="전체"
+            @get-label="selectSubCategory"
           />
         </div>
-        <div>모집중만 보기</div>
       </div>
       <div class="cards-wrp">
         <div
@@ -141,13 +149,15 @@
 
 <script>
 import EmptyPosting from '@/components/common/EmptyPosting'
+import SubFilterDropdown from '@/components/common/subFilterDropdown'
+import categoryConst from '@/plugins/const/categoryConst';
 
 const carousel = () =>
   window && window !== undefined ? import('v-owl-carousel') : null
 
 export default {
   name: 'WhynotCard',
-  components: { carousel, EmptyPosting },
+  components: { carousel, EmptyPosting, SubFilterDropdown },
   props: {
     searchText: {
       type: String,
@@ -166,7 +176,9 @@ export default {
       onlyRecruit: false,
       isSubCategory: false,
       categoryId: '',
-      categoryTitle: ''
+      categoryTitle: '',
+      originalPosts: [],
+      hanchelinCategoryId: categoryConst.hanchelinCategoryId
     }
   },
   computed: {
@@ -314,6 +326,7 @@ export default {
                 res.selected = false
                 return this.posts.push(res)
               })
+              this.originalPosts = this.posts
             })
         } else {
           this.$axios.get(`${process.env.apiUrl}/v2/posts`).then((res) => {
@@ -581,6 +594,12 @@ export default {
           .click()
       }
       this.$router.push(`/gather/${type}`)
+    },
+    selectSubCategory(item) {
+      this.posts = this.originalPosts
+      if (item.id !== categoryConst.hanchelinCategoryId) {
+        this.posts = this.posts.filter(it => it.category.id === item.id)
+      }
     }
   }
 }

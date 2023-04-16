@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import Vue from 'vue'
+import categoryConst from '@/plugins/const/categoryConst';
 
 const common = {
   data() {
@@ -24,7 +25,7 @@ const common = {
           children: []
         },
         {
-          parentId: 42,
+          parentId: categoryConst.hanchelinCategoryId,
           parentCode: 'MUST-EAT',
           parentName: '한슐랭',
           children: [
@@ -33,18 +34,8 @@ const common = {
             { id: 46, code: 'KOREAN', name: '한식', parentCode: 'MUST-EAT' },
             { id: 47, code: 'CHINESE', name: '중식', parentCode: 'MUST-EAT' },
             { id: 48, code: 'NIGHT', name: '야식', parentCode: 'MUST-EAT' },
-            {
-              id: 49,
-              code: 'CAFE',
-              name: '카페/디저트',
-              parentCode: 'MUST-EAT'
-            },
-            {
-              id: 50,
-              code: 'ETC-MUST-EAT',
-              name: '기타',
-              parentCode: 'MUST-EAT'
-            }
+            { id: 49, code: 'CAFE', name: '카페/디저트', parentCode: 'MUST-EAT' },
+            { id: 50, code: 'ETC-MUST-EAT', name: '기타', parentCode: 'MUST-EAT' },
           ]
         },
         {
