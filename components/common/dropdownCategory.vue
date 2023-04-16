@@ -18,7 +18,10 @@
           </li>
         </ul>
       </div>
-      <!-- <div :class="`select-box right ${disabled02 ? 'disabled' : ''}`">
+      <div
+        v-show="postingType === 'must-eat'"
+        :class="`select-box right ${disabled02 ? 'disabled' : ''}`"
+      >
         <button :class="`label _02 ${labelSecond}`" @click="openOptions">
           {{ labelSecond }}
         </button>
@@ -36,7 +39,7 @@
             {{ item.name }}
           </li>
         </ul>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -60,6 +63,10 @@ export default {
     disabled02: {
       type: Boolean,
       default: false
+    },
+    postingType: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -76,27 +83,42 @@ export default {
       this.categoryGroup.forEach((category) => {
         const item = {
           id: category.parentId,
-          name: category.parentName
+          name: category.parentName,
+          code: category.parentCode,
+          parentCode: category.parentCode
+        }
+        result.push(item)
+      })
+      return result
+    },
+    subCategoryList() {
+      const result = []
+
+      const category = this.categoryGroup.filter((category) => {
+        return category.parentId === this.parentId
+      })
+      category[0].children.forEach((subCategory) => {
+        const item = {
+          id: subCategory.id,
+          name: subCategory.name,
+          code: subCategory.code,
+          parentCode: subCategory.parentCode
         }
         result.push(item)
       })
       return result
     }
-    // subCategoryList() {
-    //   const result = []
-
-    //   const category = this.categoryGroup.filter((category) => {
-    //     return category.parentId === this.selectedCategoryId
-    //   })
-    //   category[0].children.forEach((subCategory) => {
-    //     const item = {
-    //       id: subCategory.id,
-    //       name: subCategory.name
-    //     }
-    //     result.push(item)
-    //   })
-    //   return result
-    // }
+  },
+  mounted() {
+    if (this.postingType === 'must-eat') {
+      this.selectOptionMain(this.categoryList[3])
+    } else {
+      this.categoryList.forEach((item) => {
+        if (item.code.toLowerCase() === this.postingType) {
+          this.selectOptionMain(item)
+        }
+      })
+    }
   },
   methods: {
     openOptions() {
@@ -108,10 +130,21 @@ export default {
         document
           .querySelector(`.${this.labelFirst}`)
           .parentNode.classList.remove('active')
+
+        if (this.postingType === 'must-eat') {
+          document
+            .querySelector(`.${this.labelSecond}`)
+            .parentNode.classList.remove('active')
+        }
       } else {
         document
           .querySelector(`.${this.labelFirst}`)
           .parentNode.classList.add('active')
+        if (this.postingType === 'must-eat') {
+          document
+            .querySelector(`.${this.labelSecond}`)
+            .parentNode.classList.add('active')
+        }
       }
     },
     selectOptionMain(item) {
@@ -119,31 +152,33 @@ export default {
       document.querySelector(`.${this.labelFirst}`).style.color = '#000'
       this.selectedCategoryId = item.id
       this.parentId = item.id
+      if (this.postingType !== 'must-eat') {
+        document
+          .querySelector(`.${this.labelFirst}`)
+          .parentNode.classList.remove('active')
+      }
+      this.$emit('get-label', item)
+    },
+    selectOptionSub(item) {
+      // 처음에 메인 카테고리 선택 안하고 서브 카테고리 바로 선택한 경우 때문에
+      if (this.selectedCategoryId === 1) {
+        const firstItem = {
+          name: '스터디',
+          id: 1
+        }
+        this.selectOptionMain(firstItem)
+      }
+      document.querySelector(`.${this.labelSecond}`).innerHTML = item.name + ''
+      document.querySelector(`.${this.labelSecond}`).style.color = '#000'
       document
         .querySelector(`.${this.labelFirst}`)
         .parentNode.classList.remove('active')
+      document
+        .querySelector(`.${this.labelSecond}`)
+        .parentNode.classList.remove('active')
+      this.childrenId = item.id
       this.$emit('get-label', item)
     }
-    // selectOptionSub(item) {
-    //   // 처음에 메인 카테고리 선택 안하고 서브 카테고리 바로 선택한 경우 때문에
-    //   if (this.selectedCategoryId === 1) {
-    //     const firstItem = {
-    //       name: '스터디',
-    //       id: 1
-    //     }
-    //     this.selectOptionMain(firstItem)
-    //   }
-    //   document.querySelector(`.${this.labelSecond}`).innerHTML = item.name + ''
-    //   document.querySelector(`.${this.labelSecond}`).style.color = '#000'
-    //   document
-    //     .querySelector(`.${this.labelFirst}`)
-    //     .parentNode.classList.remove('active')
-    //   document
-    //     .querySelector(`.${this.labelSecond}`)
-    //     .parentNode.classList.remove('active')
-    //   this.childrenId = item.id
-    //   this.$emit('get-label', item)
-    // }
   }
 }
 </script>

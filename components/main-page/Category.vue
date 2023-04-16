@@ -51,6 +51,15 @@
             </div>
           </div>
           <div
+            :class="selectedCategory === 'posting' ? 'menu selected' : 'menu'"
+            @click="movePostingPage()"
+          >
+            <div>📝 글쓰기</div>
+            <div>
+              <img src="@/assets/img/category/right-arrow.png" alt="" />
+            </div>
+          </div>
+          <div
             :class="selectedCategory === 'bookmark' ? 'menu selected' : 'menu'"
             @click="moveBookmarkPage()"
           >
@@ -176,6 +185,25 @@ export default {
         }
       })
       this.toggleCategoryPanel()
+    },
+    movePostingPage() {
+      if (!this.$store.state.userInfo.initLoginDone) {
+        this.cmn_openAlertPopup({
+          option: {
+            title: '⚠️알림',
+            content: '로그인 후 이용해 주세요.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
+        return false
+      }
+      if (this.selectedCategory !== '') {
+        this.$router.push(`/posting?m=write&type=${this.selectedCategory}`)
+      } else {
+        this.$router.push(`/posting?m=write`)
+      }
     },
     moveBookmarkPage() {
       if (!this.$store.state.userInfo.initLoginDone) {

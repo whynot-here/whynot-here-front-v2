@@ -43,9 +43,9 @@ const common = {
           parentCode: 'USED',
           parentName: '중고거래',
           children: [
-            { id: 18, code: 'HOUSE', name: '양도', parentCode: 'USED' },
-            { id: 19, code: 'TEXTBOOK', name: '전공책', parentCode: 'USED' },
-            { id: 20, code: 'ETC-USED', name: '그 외', parentCode: 'USED' }
+            // { id: 18, code: 'HOUSE', name: '양도', parentCode: 'USED' },
+            // { id: 19, code: 'TEXTBOOK', name: '전공책', parentCode: 'USED' },
+            // { id: 20, code: 'ETC-USED', name: '그 외', parentCode: 'USED' }
           ]
         },
         {
@@ -59,10 +59,10 @@ const common = {
           parentCode: 'STUDY',
           parentName: '스터디',
           children: [
-            { id: 2, code: 'PROJECT', name: '프로젝트', parentCode: 'STUDY' },
-            { id: 3, code: 'MAJOR', name: '전공공부', parentCode: 'STUDY' },
-            { id: 4, code: 'RECRUIT', name: '리쿠르팅', parentCode: 'STUDY' },
-            { id: 5, code: 'ETC-STUDY', name: '그 외', parentCode: 'STUDY' }
+            // { id: 2, code: 'PROJECT', name: '프로젝트', parentCode: 'STUDY' },
+            // { id: 3, code: 'MAJOR', name: '전공공부', parentCode: 'STUDY' },
+            // { id: 4, code: 'RECRUIT', name: '리쿠르팅', parentCode: 'STUDY' },
+            // { id: 5, code: 'ETC-STUDY', name: '그 외', parentCode: 'STUDY' }
           ]
         },
         {
@@ -70,19 +70,19 @@ const common = {
           parentCode: 'PART-JOB',
           parentName: '알바',
           children: [
-            { id: 26, code: 'IN-SCHOOL', name: '교내', parentCode: 'PART-JOB' },
-            {
-              id: 27,
-              code: 'OUT-SCHOOL',
-              name: '교외',
-              parentCode: 'PART-JOB'
-            },
-            {
-              id: 28,
-              code: 'ETC-PART-JOB',
-              name: '그 외',
-              parentCode: 'PART-JOB'
-            }
+            // { id: 26, code: 'IN-SCHOOL', name: '교내', parentCode: 'PART-JOB' },
+            // {
+            //   id: 27,
+            //   code: 'OUT-SCHOOL',
+            //   name: '교외',
+            //   parentCode: 'PART-JOB'
+            // },
+            // {
+            //   id: 28,
+            //   code: 'ETC-PART-JOB',
+            //   name: '그 외',
+            //   parentCode: 'PART-JOB'
+            // }
           ]
         },
         {
@@ -90,14 +90,14 @@ const common = {
           parentCode: 'EXERCISE',
           parentName: '운동',
           children: [
-            { id: 22, code: 'FUTSAL', name: '풋살', parentCode: 'EXERCISE' },
-            { id: 23, code: 'PINGPONG', name: '탁구', parentCode: 'EXERCISE' },
-            {
-              id: 24,
-              code: 'ETC-EXERCISE',
-              name: '그 외',
-              parentCode: 'EXERCISE'
-            }
+            // { id: 22, code: 'FUTSAL', name: '풋살', parentCode: 'EXERCISE' },
+            // { id: 23, code: 'PINGPONG', name: '탁구', parentCode: 'EXERCISE' },
+            // {
+            //   id: 24,
+            //   code: 'ETC-EXERCISE',
+            //   name: '그 외',
+            //   parentCode: 'EXERCISE'
+            // }
           ]
         },
         {
@@ -105,19 +105,19 @@ const common = {
           parentCode: 'TRANSPORT',
           parentName: '교통수단',
           children: [
-            { id: 14, code: 'CARPOOL', name: '카풀', parentCode: 'TRANSPORT' },
-            {
-              id: 15,
-              code: 'KTX',
-              name: 'KTX 동반석',
-              parentCode: 'TRANSPORT'
-            },
-            {
-              id: 16,
-              code: 'ETC-TRANSPORT',
-              name: '그 외',
-              parentCode: 'TRANSPORT'
-            }
+            // { id: 14, code: 'CARPOOL', name: '카풀', parentCode: 'TRANSPORT' },
+            // {
+            //   id: 15,
+            //   code: 'KTX',
+            //   name: 'KTX 동반석',
+            //   parentCode: 'TRANSPORT'
+            // },
+            // {
+            //   id: 16,
+            //   code: 'ETC-TRANSPORT',
+            //   name: '그 외',
+            //   parentCode: 'TRANSPORT'
+            // }
           ]
         },
         {
@@ -125,14 +125,14 @@ const common = {
           parentCode: 'GROUP-BUY',
           parentName: '공동구매',
           children: [
-            { id: 37, code: 'STUFF', name: '물건', parentCode: 'GROUP-BUY' },
-            { id: 38, code: 'OTT', name: 'OTT 구독', parentCode: 'GROUP-BUY' },
-            {
-              id: 39,
-              code: 'ETC-GROUP-BUY',
-              name: '그 외',
-              parentCode: 'GROUP-BUY'
-            }
+            // { id: 37, code: 'STUFF', name: '물건', parentCode: 'GROUP-BUY' },
+            // { id: 38, code: 'OTT', name: 'OTT 구독', parentCode: 'GROUP-BUY' },
+            // {
+            //   id: 39,
+            //   code: 'ETC-GROUP-BUY',
+            //   name: '그 외',
+            //   parentCode: 'GROUP-BUY'
+            // }
           ]
         },
         {
@@ -140,8 +140,8 @@ const common = {
           parentCode: 'FAITH',
           parentName: '기도실',
           children: [
-            { id: 34, code: 'PRAY', name: '기도모임', parentCode: 'FAITH' },
-            { id: 35, code: 'ETC-FAITH', name: '그 외', parentCode: 'FAITH' }
+            // { id: 34, code: 'PRAY', name: '기도모임', parentCode: 'FAITH' },
+            // { id: 35, code: 'ETC-FAITH', name: '그 외', parentCode: 'FAITH' }
           ]
         }
       ]
