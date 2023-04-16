@@ -183,6 +183,14 @@
               </div>
             </div>
             <div class="m-detail-content-body">
+              <a :href="postComp.locationUrl" target="_blank">
+                <div
+                  class="content"
+                  style="white-space: pre-line; word-wrap: break-word"
+                  v-text="postComp.locationUrl"
+                ></div>
+              </a>
+
               <div
                 class="content"
                 style="white-space: pre-line; word-wrap: break-word"
@@ -283,7 +291,11 @@
             <span>댓글</span>
             <strong>{{ comments.length }}</strong>
           </div>
-          <div v-else class="m-img-wrp btn-text-detail" @click="renderComponent('DetailView')">
+          <div
+            v-else
+            class="m-img-wrp btn-text-detail"
+            @click="renderComponent('DetailView')"
+          >
             <img
               class="detail-img"
               src="@/assets/img/posting/posting-black.png"
@@ -368,6 +380,9 @@ export default {
       result.writerProfileImage = this.post.writer.profileImg
       result.dDay = this.cmn_getDday(result.closedDt)
       result.passedDay = this.cmn_getPassedDay(result.createdDt)
+      if (this.post.locationUrl !== undefined) {
+        result.locationUrl = this.post.locationUrl
+      }
       return result
     },
     commentComp() {
