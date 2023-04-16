@@ -137,7 +137,10 @@
     <div v-else id="PostingPageMobile">
       <div class="panel">
         <!-- 타입이 한슐랭 일 때와 아닐 때를 구분 -->
-        <section v-if="type !== 'must-eat'" class="form">
+        <section
+          v-if="type !== 'must-eat' && selectedCode !== 'MUST-EAT'"
+          class="form"
+        >
           <div class="title-group">
             <div class="title">글쓰기</div>
             <div class="close">
@@ -153,7 +156,15 @@
             <div class="line">
               <div class="form-wrp category">
                 <div class="sub-title">카테고리</div>
-                <div name="" class="sub-wrp">
+                <div
+                  name=""
+                  class="sub-wrp"
+                  :style="
+                    type !== 'must-eat' && selectedCode !== 'MUST-EAT'
+                      ? 'width: 50%;'
+                      : 'width: 100%;'
+                  "
+                >
                   <DropdownCategory
                     ref="DropdownCategory"
                     :label-first="'카테고리'"
@@ -444,6 +455,9 @@ export default {
   computed: {
     postingMode() {
       return this.mode
+    },
+    selectedCode() {
+      return this.postingRegisterParams.category.code
     }
   },
   mounted() {
@@ -517,6 +531,12 @@ export default {
       this.postingRegisterParams.category.id = item.id
       this.postingRegisterParams.category.name = item.name
       this.postingRegisterParams.category.code = item.code
+
+      if (item.parentCode === 'MUST-EAT') {
+        this.type = 'must-eat'
+      } else {
+        this.type = item.parentCode.toLowerCase()
+      }
     },
     uploadPostingAndPicture() {
       if (!this.checkRegisterParamsValid()) {
