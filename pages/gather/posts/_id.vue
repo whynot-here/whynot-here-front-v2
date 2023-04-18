@@ -415,7 +415,7 @@ export default {
 
       this.cmn_openAlertPopup({
         option: {
-          title: '⚠️알림',
+          title: '📣 알림',
           content: 'URL이 복사되었습니다.',
           type: 'alert',
           confirmText: '확인',
@@ -438,7 +438,7 @@ export default {
       if (!this.currentComment.length > 0) {
         this.cmn_openAlertPopup({
           option: {
-            title: '⚠️알림',
+            title: '📣 알림',
             content: '댓글을 입력해주세요.',
             type: 'alert',
             confirmText: '확인',
@@ -465,7 +465,7 @@ export default {
         .then((res) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: '댓글이 등록되었습니다.',
               type: 'alert',
               confirmText: '확인',
@@ -478,7 +478,7 @@ export default {
         .catch((error) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
@@ -499,7 +499,7 @@ export default {
         .then((res) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: '댓글이 삭제되었습니다.',
               type: 'alert',
               confirmText: '확인',
@@ -511,7 +511,7 @@ export default {
         .catch((error) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
@@ -529,7 +529,7 @@ export default {
         .then(() => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: `'${this.postComp.ownerContact.value}' 가 복사되었습니다`,
               type: 'alert',
               confirmText: '확인',
@@ -540,7 +540,7 @@ export default {
         .catch((error) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
@@ -579,7 +579,7 @@ export default {
         // alert('로그인 후 이용해 주세요')
         this.cmn_openAlertPopup({
           option: {
-            title: '⚠️알림',
+            title: '📣 알림',
             content: '로그인 후 이용해 주세요',
             type: 'alert',
             confirmText: '확인',
@@ -604,7 +604,7 @@ export default {
           .catch((error) => {
             this.cmn_openAlertPopup({
               option: {
-                title: '⚠️알림',
+                title: '📣 알림',
                 content: error.response.data.message,
                 type: 'alert',
                 confirmText: '확인',
@@ -631,7 +631,7 @@ export default {
           .catch((error) => {
             this.cmn_openAlertPopup({
               option: {
-                title: '⚠️알림',
+                title: '📣 알림',
                 content: error.response.data.message,
                 type: 'alert',
                 confirmText: '확인',

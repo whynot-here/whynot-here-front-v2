@@ -515,7 +515,7 @@ export default {
             // 카드 새로고침
             this.cmn_openAlertPopup({
               option: {
-                title: '⚠️알림',
+                title: '📣 알림',
                 content: '삭제했습니다.',
                 type: 'alert',
                 confirmText: '확인',
@@ -529,7 +529,7 @@ export default {
     compModalToggle(id) {
       this.cmn_openAlertPopup({
         option: {
-          title: '⚠️알림',
+          title: '📣 알림',
           content:
             '모집 마감을 누르시면 해당 글 수정 / 모집이 불가합니다. 그래도 진행 하시겠습니까?',
           type: 'confirm',
@@ -563,7 +563,7 @@ export default {
           this.refreshCard()
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: '모집이 마감되었습니다.',
               type: 'alert',
               confirmText: '확인',
@@ -574,7 +574,7 @@ export default {
         .catch((error) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',

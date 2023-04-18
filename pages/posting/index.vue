@@ -487,7 +487,9 @@ export default {
             if (category.parentId === this.postingRegisterParams.category.id) {
               categoryItem = {
                 id: category.parentId,
-                name: category.parentName
+                name: category.parentName,
+                code: category.parentCode,
+                parentCode: category.parentCode
               }
               this.$refs.DropdownCategory.selectOptionMain(categoryItem)
             } else {
@@ -495,12 +497,16 @@ export default {
                 if (child.id === this.postingRegisterParams.category.id) {
                   categoryItem = {
                     id: child.id,
-                    name: child.name
+                    name: child.name,
+                    code: child.code,
+                    parentCode: child.parentCode
                   }
                   this.$refs.DropdownCategory.selectOptionSub(categoryItem)
                   categoryItem = {
                     id: category.parentId,
-                    name: category.parentName
+                    name: category.parentName,
+                    code: category.parentCode,
+                    parentCode: category.parentCode
                   }
                   this.$refs.DropdownCategory.selectOptionMain(categoryItem)
                 }
@@ -606,7 +612,7 @@ export default {
         .catch((error) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: error,
               type: 'alert',
               confirmText: '확인',
@@ -630,7 +636,7 @@ export default {
         .then((res) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: '공고 생성 성공',
               type: 'alert',
               confirmText: '확인',
@@ -642,7 +648,7 @@ export default {
         .catch((error) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
@@ -668,7 +674,7 @@ export default {
         .then((res) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: '공고 수정 성공',
               type: 'alert',
               confirmText: '확인',
@@ -680,7 +686,7 @@ export default {
         .catch((error) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
@@ -703,7 +709,7 @@ export default {
     onFileChange(event) {
       const input = event.target.files
       if (input.length > 0) {
-        for(let i=0; i<input.length; i++) {
+        for (let i = 0; i < input.length; i++) {
           const fileReader = new FileReader()
           fileReader.onload = (e) => {
             this.inputImg.push({
@@ -726,7 +732,7 @@ export default {
       if (this.cmn_emptyCheck(this.postingRegisterParams.title)) {
         this.cmn_openAlertPopup({
           option: {
-            title: '⚠️알림',
+            title: '📣 알림',
             content: '제목을 입력해주세요.',
             type: 'alert',
             confirmText: '확인',
@@ -738,7 +744,7 @@ export default {
       if (this.cmn_emptyCheck(this.postingRegisterParams.content)) {
         this.cmn_openAlertPopup({
           option: {
-            title: '⚠️알림',
+            title: '📣 알림',
             content: '내용을 입력해주세요.',
             type: 'alert',
             confirmText: '확인',
@@ -753,7 +759,7 @@ export default {
       ) {
         this.cmn_openAlertPopup({
           option: {
-            title: '⚠️알림',
+            title: '📣 알림',
             content: '위치 url은 https로 시작해야합니다.',
             type: 'alert',
             confirmText: '확인',
