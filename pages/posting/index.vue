@@ -703,15 +703,17 @@ export default {
     onFileChange(event) {
       const input = event.target.files
       if (input.length > 0) {
-        const fileReader = new FileReader()
-        fileReader.onload = (e) => {
-          this.inputImg.push({
-            prev_url: e.target.result,
-            isNew: true
-          })
+        for(let i=0; i<input.length; i++) {
+          const fileReader = new FileReader()
+          fileReader.onload = (e) => {
+            this.inputImg.push({
+              prev_url: e.target.result,
+              isNew: true
+            })
+          }
+          fileReader.readAsDataURL(input[i])
+          this.files.push(input[i])
         }
-        fileReader.readAsDataURL(input[0])
-        this.files.push(input[0])
         event.target.value = ''
       }
     },
