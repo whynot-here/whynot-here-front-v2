@@ -606,7 +606,7 @@ export default {
         .catch((error) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: error,
               type: 'alert',
               confirmText: '확인',
@@ -630,7 +630,7 @@ export default {
         .then((res) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: '공고 생성 성공',
               type: 'alert',
               confirmText: '확인',
@@ -642,7 +642,7 @@ export default {
         .catch((error) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
@@ -668,7 +668,7 @@ export default {
         .then((res) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: '공고 수정 성공',
               type: 'alert',
               confirmText: '확인',
@@ -680,7 +680,7 @@ export default {
         .catch((error) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
@@ -726,7 +726,7 @@ export default {
       if (this.cmn_emptyCheck(this.postingRegisterParams.title)) {
         this.cmn_openAlertPopup({
           option: {
-            title: '⚠️알림',
+            title: '📣 알림',
             content: '제목을 입력해주세요.',
             type: 'alert',
             confirmText: '확인',
@@ -738,7 +738,7 @@ export default {
       if (this.cmn_emptyCheck(this.postingRegisterParams.content)) {
         this.cmn_openAlertPopup({
           option: {
-            title: '⚠️알림',
+            title: '📣 알림',
             content: '내용을 입력해주세요.',
             type: 'alert',
             confirmText: '확인',
@@ -753,7 +753,7 @@ export default {
       ) {
         this.cmn_openAlertPopup({
           option: {
-            title: '⚠️알림',
+            title: '📣 알림',
             content: '위치 url은 https로 시작해야합니다.',
             type: 'alert',
             confirmText: '확인',

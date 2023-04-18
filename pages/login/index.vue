@@ -164,7 +164,7 @@ export default {
         .catch((error) => {
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',

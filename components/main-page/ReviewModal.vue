@@ -236,7 +236,7 @@ export default {
         // alert('후기를 작성해주세요.')
         this.cmn_openAlertPopup({
           option: {
-            title: '⚠️알림',
+            title: '📣 알림',
             content: '후기를 작성해주세요.',
             type: 'alert',
             confirmText: '확인',
@@ -269,7 +269,7 @@ export default {
           // window.alert(error.response.data.message)
           this.cmn_openAlertPopup({
             option: {
-              title: '⚠️알림',
+              title: '📣 알림',
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',

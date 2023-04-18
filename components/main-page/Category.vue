@@ -166,7 +166,7 @@ export default {
       if (!this.$store.state.userInfo.initLoginDone) {
         this.cmn_openAlertPopup({
           option: {
-            title: '⚠️알림',
+            title: '📣 알림',
             content: '로그인 후 이용해 주세요.',
             type: 'alert',
             confirmText: '확인',
@@ -190,7 +190,7 @@ export default {
       if (!this.$store.state.userInfo.initLoginDone) {
         this.cmn_openAlertPopup({
           option: {
-            title: '⚠️알림',
+            title: '📣 알림',
             content: '로그인 후 이용해 주세요.',
             type: 'alert',
             confirmText: '확인',
@@ -209,7 +209,7 @@ export default {
       if (!this.$store.state.userInfo.initLoginDone) {
         this.cmn_openAlertPopup({
           option: {
-            title: '⚠️알림',
+            title: '📣 알림',
             content: '로그인 후 이용해 주세요.',
             type: 'alert',
             confirmText: '확인',
