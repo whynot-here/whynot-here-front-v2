@@ -487,7 +487,9 @@ export default {
             if (category.parentId === this.postingRegisterParams.category.id) {
               categoryItem = {
                 id: category.parentId,
-                name: category.parentName
+                name: category.parentName,
+                code: category.parentCode,
+                parentCode: category.parentCode
               }
               this.$refs.DropdownCategory.selectOptionMain(categoryItem)
             } else {
@@ -495,12 +497,16 @@ export default {
                 if (child.id === this.postingRegisterParams.category.id) {
                   categoryItem = {
                     id: child.id,
-                    name: child.name
+                    name: child.name,
+                    code: child.code,
+                    parentCode: child.parentCode
                   }
                   this.$refs.DropdownCategory.selectOptionSub(categoryItem)
                   categoryItem = {
                     id: category.parentId,
-                    name: category.parentName
+                    name: category.parentName,
+                    code: category.parentCode,
+                    parentCode: category.parentCode
                   }
                   this.$refs.DropdownCategory.selectOptionMain(categoryItem)
                 }
@@ -703,7 +709,7 @@ export default {
     onFileChange(event) {
       const input = event.target.files
       if (input.length > 0) {
-        for(let i=0; i<input.length; i++) {
+        for (let i = 0; i < input.length; i++) {
           const fileReader = new FileReader()
           fileReader.onload = (e) => {
             this.inputImg.push({
