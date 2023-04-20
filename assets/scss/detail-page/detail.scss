@@ -618,7 +618,6 @@
       .m-comment-wrp {
         margin: 16px 16px 16px 16px;
         height: 124px;
-        font-size: 1rem;
         .m-comment-input {
           width: calc(100% - 32px);
           height: calc(100% - 32px);
@@ -626,6 +625,7 @@
           background: #fafafa;
           border-radius: 8px;
           border: none !important;
+          font-size: 1rem;
           // resize: none;
         }
         .m-comment-input:focus {
