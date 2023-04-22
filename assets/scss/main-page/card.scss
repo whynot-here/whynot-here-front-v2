@@ -388,6 +388,7 @@
       border-radius: 12px;
       .card-top {
         display: flex;
+        justify-content: space-between;
         height: max-content;
         .writer-title-wrp {
           flex-grow: 1;
@@ -405,37 +406,65 @@
             }
           }
           .card-title {
-            width: 290px;
             margin-top: 3px;
             margin-bottom: 6px;
             font-size: 1rem;
             font-weight: 700;
 
             @include tablet {
-              width: 435px;
               margin-top: 4.5px;
               margin-bottom: 9px;
               font-size: 22px;
             }
           }
         }
-        .book-mark {
-          width: 24px;
-          img {
-            width: 24px;
+        .post-meta-info-wrap {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 75px;
+          height: 24px;
+
+          .comment-wrap {
+            display: flex;
+            align-items: center;
+            
+            .comment-img {
+              width: 24px;
+              height: 24px;
+
+              @include tablet {
+                img {
+                  width: 30px;
+                  height: 30px;
+                }
+              }
+            }
+            .comment-cnt {
+              font-size: 0.75rem;
+              padding-left: 2px;
+              color: #A3A3A3;
+            }
           }
 
-          @include tablet {
-            width: 30px;
+          .book-mark {
+            display: flex;
+            align-items: center;
+
             img {
-              width: 30px;
+              width: 19px;
+              height: 19px;
+            }
+
+            .likes-cnt {
+              padding-left: 4px;
+              font-size: 0.75rem;
+              color: #A3A3A3;
+              text-align: center;
             }
           }
         }
-        .likes-cnt {
-          font-size: 0.75rem;
-          text-align: center;
-        }
+        
         .sub-menu-btn {
           position: relative;
           width: 20px;

@@ -308,12 +308,12 @@
         <div class="sub-menu">
           <img
             v-if="isBookmarked"
-            src="@/assets/img/posting/like-selected.png"
+            src="@/assets/img/posting/like-filled-selected.png"
             @click.prevent="bookmark()"
           />
           <img
             v-else
-            src="@/assets/img/posting/like-unselected.png"
+            src="@/assets/img/posting/like-filled.png"
             @click.prevent="bookmark()"
           />
           <span>{{ postComp.likes }}</span>
