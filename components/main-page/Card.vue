@@ -82,18 +82,28 @@
                   <div @click.stop="deletePosting(post.id)">삭제</div>
                 </div>
               </div>
-              <div v-else class="book-mark" @click.stop="bookmark(post.id)">
-                <img
-                  v-if="post.isBookmarked === undefined || !post.isBookmarked"
-                  src="@/assets/img/posting/like-unselected.png"
-                  alt=""
-                />
-                <img
-                  v-if="post.isBookmarked"
-                  src="@/assets/img/posting/like-selected.png"
-                  alt=""
-                />
-                <div class="likes-cnt">{{ post.likes }}</div>
+              <div v-else class="post-meta-info-wrap">
+                <div class="comment-wrap">
+                  <img
+                    class="comment-img"
+                    src="@/assets/img/posting/comment.png"
+                    alt=""
+                  />
+                  <div class="comment-cnt">{{ post.commentCnt }}</div>
+                </div>
+                <div class="book-mark" @click.stop="bookmark(post.id)">
+                  <img
+                    v-if="post.isBookmarked === undefined || !post.isBookmarked"
+                    src="@/assets/img/posting/like-filled.png"
+                    alt=""
+                  />
+                  <img
+                    v-if="post.isBookmarked"
+                    src="@/assets/img/posting/like-filled-selected.png"
+                    alt=""
+                  />
+                  <div class="likes-cnt">{{ post.likes }}</div>
+                </div>
               </div>
             </div>
             <div class="card-middle">
