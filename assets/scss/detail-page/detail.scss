@@ -489,6 +489,9 @@
         // margin-left: 16px;
         display: flex;
         width: 55vw;
+        height: 50px;
+        background: #FAFAFA;
+        border-radius: 8px;
         // line-height: 44px;
         font-size: 0.88rem;
         color: #181818;
@@ -499,7 +502,12 @@
         }
 
         .m-img-wrp {
-          width: max-content;
+          display: flex;
+          padding-left: 20px;
+          justify-content: space-around;
+          align-items: center;
+          width: 80px;
+
           .comment-img {
             width: 24px;
             height: 24px;

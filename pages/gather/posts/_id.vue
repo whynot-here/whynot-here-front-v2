@@ -289,8 +289,7 @@
               src="@/assets/img/posting/comment-black.png"
               alt=""
             />
-            <span>댓글</span>
-            <strong>{{ comments.length }}</strong>
+            <span>댓글 <strong>{{ comments.length }}</strong></span>
           </div>
           <div
             v-else
