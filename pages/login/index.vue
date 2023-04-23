@@ -36,7 +36,7 @@
             </div>
           </div>
           <div v-else style="height: 160px"></div>
-          <div class="login-btn-wrp" @click="idPwLogin()">
+          <!-- <div class="login-btn-wrp" @click="idPwLogin()">
             <div class="login-btn">
               <div v-if="!isIdPwLoginMode" class="login-icon">
                 <img src="@/assets/img/login/login-icon.png" alt="" />
@@ -45,7 +45,7 @@
                 {{ isIdPwLoginMode ? '로그인' : '일반 로그인' }}
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="social-login">
           <div v-if="isFromPc" class="social-login-btn">
