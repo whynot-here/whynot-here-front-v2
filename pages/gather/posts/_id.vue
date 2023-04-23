@@ -184,6 +184,7 @@
             </div>
             <div class="m-detail-content-body">
               <a
+                v-if="postComp.locationUrl !== null"
                 :href="postComp.locationUrl"
                 target="_blank"
                 style="text-decoration: none"
@@ -289,7 +290,9 @@
               src="@/assets/img/posting/comment-black.png"
               alt=""
             />
-            <span>댓글 <strong>{{ comments.length }}</strong></span>
+            <span
+              >댓글 <strong>{{ comments.length }}</strong></span
+            >
           </div>
           <div
             v-else
