@@ -50,6 +50,7 @@
         </div>
       </div>
       <div class="cards-wrp">
+        <NuxtLoadingIndicator v-if="isLoading" />
         <div
           v-for="(post, idx) in postsProc"
           v-show="onlyRecruit ? (post.recruiting ? true : false) : true"
@@ -149,7 +150,7 @@
             </div>
           </div>
         </div>
-        <div v-if="checkIsEmpty">
+        <div v-if="checkIsEmpty && !isLoading">
           <EmptyPosting :kind="categoryTitle" />
         </div>
       </div>
@@ -159,6 +160,7 @@
 
 <script>
 import EmptyPosting from '@/components/common/EmptyPosting'
+import NuxtLoadingIndicator from '@/components/common/LoadingBar'
 import SubFilterDropdown from '@/components/common/subFilterDropdown'
 import categoryConst from '@/plugins/const/categoryConst';
 
@@ -167,7 +169,7 @@ const carousel = () =>
 
 export default {
   name: 'WhynotCard',
-  components: { carousel, EmptyPosting, SubFilterDropdown },
+  components: { carousel, EmptyPosting, SubFilterDropdown, NuxtLoadingIndicator },
   props: {
     searchText: {
       type: String,
@@ -188,7 +190,8 @@ export default {
       categoryId: '',
       categoryTitle: '',
       originalPosts: [],
-      hanchelinCategoryId: categoryConst.hanchelinCategoryId
+      hanchelinCategoryId: categoryConst.hanchelinCategoryId,
+      isLoading: true
     }
   },
   computed: {
@@ -245,28 +248,42 @@ export default {
       })
     }
   },
+  watch: {
+    isLoading(newValue) {
+      this.$nextTick(() => {
+        if (newValue) {
+          this.$nuxt.$loading.start()
+        } else {
+          this.$nuxt.$loading.finish()
+        }
+    })
+    }
+  },
   created() {
     this.$bus.$off('refreshCard')
     this.$bus.$on('refreshCard', () => {})
   },
   mounted() {
-    // window.onNuxtReady((app) => {
-    //   console.log('Nuxt ready!')
-    //   this.isNuxtReady = true
-    // })
     this.isNuxtReady = true
+    this.$nextTick(() => {
+          this.$nuxt.$loading.start()
+    })
   },
   methods: {
     refreshCard() {
-      this.getPosts()
+      this.getPosts().then(() => {
+        this.isLoading = false;
+      })
+      
       setTimeout(() => {
         this.getBookmark()
       }, 300)
     },
-    getPosts() {
+    async getPosts() {
+      this.isLoading = true;
       if (this.category === 'mypostings') {
         this.categoryTitle = 'My 모임'
-        this.$axios
+        await this.$axios
           .get(`${process.env.apiUrl}/v2/posts/own`, {
             withCredentials: true,
             headers: {
@@ -286,7 +303,7 @@ export default {
         if (!this.$store.state.userInfo.token) {
           return false
         }
-        this.$axios
+        await this.$axios
           .get(`${process.env.apiUrl}/v2/posts/favorite`, {
             withCredentials: true,
             headers: {
@@ -303,7 +320,7 @@ export default {
           })
       } else if (this.category === 'search') {
         this.categoryTitle = `'${this.searchText}' 검색`
-        this.$axios
+        await this.$axios
           .get(
             `${process.env.apiUrl}/v2/posts/search?keyword=` + this.searchText,
             {
@@ -328,7 +345,7 @@ export default {
         }
 
         if (this.categoryId > 0) {
-          this.$axios
+          await this.$axios
             .get(`${process.env.apiUrl}/v2/posts/category/${this.categoryId}`)
             .then((res) => {
               this.posts = []
@@ -339,7 +356,7 @@ export default {
               this.originalPosts = this.posts
             })
         } else {
-          this.$axios.get(`${process.env.apiUrl}/v2/posts`).then((res) => {
+          await this.$axios.get(`${process.env.apiUrl}/v2/posts`).then((res) => {
             this.posts = []
             res.data.map((res) => {
               res.selected = false
