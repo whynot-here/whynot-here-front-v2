@@ -40,6 +40,8 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
+  loading: '~/components/common/LoadingBar.vue',
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['@/assets/css/common.css'],
 
