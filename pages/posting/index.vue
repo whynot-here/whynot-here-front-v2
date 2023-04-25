@@ -755,7 +755,7 @@ export default {
       }
       if (
         this.postingRegisterParams.locationUrl.length > 0 &&
-        !this.postingRegisterParams.locationUrl.substring(0,4) !== 'https') {
+        this.postingRegisterParams.locationUrl.substring(0,5) !== 'https') {
         this.cmn_openAlertPopup({
           option: {
             title: '📣 알림',
