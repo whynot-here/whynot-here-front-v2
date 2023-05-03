@@ -1,6 +1,6 @@
 <template>
   <div id="Card">
-    <div :class="isFromPc ? 'pc-env' : 'mobile-env'">
+    <div :class="isFromPc ? 'pc-env' : 'mobile-env'" @scroll="handleScroll">
       <carousel
         v-if="isNuxtReady"
         :autoplay="true"
@@ -42,7 +42,7 @@
           </div>
           <div>모집중만 보기</div>
         </div>
-        <div v-if="categoryId==hanchelinCategoryId">
+        <div v-if="categoryId == hanchelinCategoryId">
           <SubFilterDropdown
             label-first="전체"
             @get-label="selectSubCategory"
@@ -162,14 +162,19 @@
 import EmptyPosting from '@/components/common/EmptyPosting'
 import NuxtLoadingIndicator from '@/components/common/LoadingBar'
 import SubFilterDropdown from '@/components/common/subFilterDropdown'
-import categoryConst from '@/plugins/const/categoryConst';
+import categoryConst from '@/plugins/const/categoryConst'
 
 const carousel = () =>
   window && window !== undefined ? import('v-owl-carousel') : null
 
 export default {
   name: 'WhynotCard',
-  components: { carousel, EmptyPosting, SubFilterDropdown, NuxtLoadingIndicator },
+  components: {
+    carousel,
+    EmptyPosting,
+    SubFilterDropdown,
+    NuxtLoadingIndicator
+  },
   props: {
     searchText: {
       type: String,
@@ -191,6 +196,7 @@ export default {
       categoryTitle: '',
       originalPosts: [],
       hanchelinCategoryId: categoryConst.hanchelinCategoryId,
+      scrollYHeight: 0,
       isLoading: true
     }
   },
@@ -256,7 +262,7 @@ export default {
         } else {
           this.$nuxt.$loading.finish()
         }
-    })
+      })
     }
   },
   created() {
@@ -266,21 +272,37 @@ export default {
   mounted() {
     this.isNuxtReady = true
     this.$nextTick(() => {
-          this.$nuxt.$loading.start()
+      this.$nuxt.$loading.start()
+    })
+    // scroll history
+    setTimeout(() => {
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual'
+      }
+      const wrp = document.getElementsByClassName('mobile-env')[0]
+      wrp.scrollTop = this.$store.state.listHistory.scrollHeight
+    }, 800)
+  },
+  destroyed() {
+    this.$store.commit('listHistory/setScrollHeight', {
+      height: this.scrollYHeight
     })
   },
   methods: {
+    handleScroll(e) {
+      this.scrollYHeight = e.target.scrollTop
+    },
     refreshCard() {
       this.getPosts().then(() => {
-        this.isLoading = false;
+        this.isLoading = false
       })
-      
+
       setTimeout(() => {
         this.getBookmark()
       }, 300)
     },
     async getPosts() {
-      this.isLoading = true;
+      this.isLoading = true
       if (this.category === 'mypostings') {
         this.categoryTitle = 'My 모임'
         await this.$axios
@@ -356,13 +378,15 @@ export default {
               this.originalPosts = this.posts
             })
         } else {
-          await this.$axios.get(`${process.env.apiUrl}/v2/posts`).then((res) => {
-            this.posts = []
-            res.data.map((res) => {
-              res.selected = false
-              return this.posts.push(res)
+          await this.$axios
+            .get(`${process.env.apiUrl}/v2/posts`)
+            .then((res) => {
+              this.posts = []
+              res.data.map((res) => {
+                res.selected = false
+                return this.posts.push(res)
+              })
             })
-          })
         }
       }
     },
@@ -625,7 +649,7 @@ export default {
     selectSubCategory(item) {
       this.posts = this.originalPosts
       if (item.id !== categoryConst.hanchelinCategoryId) {
-        this.posts = this.posts.filter(it => it.category.id === item.id)
+        this.posts = this.posts.filter((it) => it.category.id === item.id)
       }
     }
   }
