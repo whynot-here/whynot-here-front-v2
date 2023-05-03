@@ -315,9 +315,12 @@
   }
   .mobile-env {
     width: 100vw;
-    height: calc(100vh - 185px);
     padding-bottom: 30px;
-    overflow-y: scroll;
+    height: calc(100vh - 185px);
+    // height: 500px;
+    // overflow-y: scroll;
+    overflow: auto;
+    scroll-behavior: smooth;
     background-color: #f3f3f3;
 
     .banner-img {
@@ -333,7 +336,7 @@
       justify-content: space-between;
       align-items: center;
 
-      .checkbox-recruit-wrap{
+      .checkbox-recruit-wrap {
         display: flex;
         padding: 23px 16px;
         color: #005b9a;
@@ -428,7 +431,7 @@
           .comment-wrap {
             display: flex;
             align-items: center;
-            
+
             .comment-img {
               width: 24px;
               height: 24px;
@@ -443,7 +446,7 @@
             .comment-cnt {
               font-size: 0.75rem;
               padding-left: 2px;
-              color: #A3A3A3;
+              color: #a3a3a3;
             }
           }
 
@@ -459,12 +462,12 @@
             .likes-cnt {
               padding-left: 4px;
               font-size: 0.75rem;
-              color: #A3A3A3;
+              color: #a3a3a3;
               text-align: center;
             }
           }
         }
-        
+
         .sub-menu-btn {
           position: relative;
           width: 20px;
@@ -616,14 +619,14 @@
       .text-1 {
         font-size: 24px;
         font-weight: 600;
-        color: #14428D;
+        color: #14428d;
         padding-top: 30px;
       }
 
       .text-2 {
         font-size: 16px;
         font-weight: 400;
-        color: #0C2958;
+        color: #0c2958;
         padding-top: 5px;
       }
     }

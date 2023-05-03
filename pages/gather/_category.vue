@@ -78,6 +78,10 @@ export default {
       this.$refs.Card.toggleIsSubCategory(true, this.category, this.subCategory)
       this.geySubCategoryIdAndGetPosts()
     }
+
+    setTimeout(() => {
+      window.scrollTo(0, 3500)
+    }, 1000)
   },
   methods: {
     getCategoryIdAndGetPosts() {
