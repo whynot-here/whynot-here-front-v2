@@ -157,6 +157,11 @@ export default {
       this.$bus.$emit('toggleCategoryPanel', {})
     },
     mainPage() {
+      // 모바일 상단 logo를 눌렀을 때 저장된 스크롤 높이 초기화
+      this.$store.commit('listHistory/setScrollHeight', {
+        height: 0
+      })
+
       this.$router.push('/')
     },
     moveToLoginPage() {
