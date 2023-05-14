@@ -162,11 +162,13 @@ export default {
           this.isAuthComplete = true
         })
         .catch((error) => {
+          console.log(error)
           // window.alert(error.response.data.message)
           this.cmn_openAlertPopup({
             option: {
               title: '📣 알림',
-              content: error.response.data.message,
+              content:
+                '기존에 신청한 인증을 처리 중입니다! 기존 인증 이후 24시간이 지나도 인증이 안되었을 경우 WHYNOT 이메일로 문의주세요!',
               type: 'alert',
               confirmText: '확인',
               cancelText: ''
