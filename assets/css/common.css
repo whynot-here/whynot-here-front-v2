@@ -63,6 +63,10 @@ body {
   position: relative;
 }
 
+#fileInput.authpage-edit {
+  margin-top: -330px !important;
+}
+
 #fileInput.authpage > div > .custom-file > input {
   cursor: pointer;
   z-index: 0 !important;
@@ -70,3 +74,11 @@ body {
   height: 300px;
   margin: 0 auto;
 }
+
+/* #fileInput.authpage-eidt > div > .custom-file > input {
+  cursor: pointer;
+  z-index: 0 !important;
+  width: 100%;
+  height: 300px;
+  margin: 0 auto;
+} */

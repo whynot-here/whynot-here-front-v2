@@ -1,6 +1,7 @@
 <template>
   <div id="AuthPage">
-    <section class="m-authpage-wrp">
+    <NuxtLoadingIndicator v-if="isLoading" />
+    <section v-if="!isLoading" class="m-authpage-wrp">
       <div class="m-authpage-header">
         <div class="m-title" />
         <div class="m-close">
@@ -51,8 +52,57 @@
             확인 했어요
           </div>
           <div v-if="currentStep == 2" class="step2">인증 완료하기</div>
-          <div v-if="currentStep == 3" class="step3" @click="authComplete">
+          <div
+            v-if="currentStep == 3"
+            class="step3"
+            @click="authComplete({ type: 'register' })"
+          >
             인증 완료하기
+          </div>
+        </section>
+      </div>
+      <div v-else-if="alreadyComplete" class="m-authpage-middle">
+        <div class="title">학교 인증</div>
+        <div v-if="!imgAuthenticated" class="description">
+          빠른 시일 내로 학생증 인증을 완료해드리겠습니다. <br />
+          사진을 클릭하면 사진 수정도 가능합니다.
+        </div>
+        <div v-else class="description">학교 인증이 완료되었습니다.</div>
+        <section class="img-upload">
+          <div class="step2">
+            <div v-if="inputImg.length === 0" class="uploaded-img">
+              <div>
+                <img :src="inputAuthImg" alt="" />
+              </div>
+            </div>
+            <b-form-group id="fileInput" class="authpage authpage-edit">
+              <b-form-file
+                accept="image/jpeg, image/png, image/gif"
+                @change="onFileChange"
+              ></b-form-file>
+            </b-form-group>
+            <div v-if="inputImg && inputImg.length > 0" class="img-grp">
+              <div id="Images" class="edit">
+                <div v-for="(image, idx) in inputImg" :key="idx">
+                  <b-img thumbnail :src="inputImg[0].prev_url" class="obj" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="reg-btn">
+          <div v-if="!imgAuthenticated && currentStep == 2" class="step2">
+            수정하기
+          </div>
+          <div
+            v-else-if="!imgAuthenticated && currentStep == 3"
+            class="step3"
+            @click="authComplete({ type: 'edit' })"
+          >
+            수정하기
+          </div>
+          <div v-else class="go-main-btn step1" @click="cmn_goMainPage">
+            홈화면으로 가기
           </div>
         </section>
       </div>
@@ -71,20 +121,78 @@
 </template>
 
 <script>
+import NuxtLoadingIndicator from '@/components/common/LoadingBar'
+
 export default {
   name: 'AuthPage',
-  components: {},
+  components: {
+    NuxtLoadingIndicator
+  },
   data() {
     return {
       isAuthComplete: false,
+      alreadyComplete: false,
+      imgAuthenticated: false,
       currentStep: 1,
       files: [],
       inputImg: [],
       inputAuthImg: '',
-      dir: ''
+      dir: '',
+      isLoading: true
     }
   },
+  watch: {
+    isLoading(newValue) {
+      this.$nextTick(() => {
+        if (newValue) {
+          this.$nuxt.$loading.start()
+        } else {
+          this.$nuxt.$loading.finish()
+        }
+      })
+    }
+  },
+  mounted() {
+    this.getMyAuthImg().then(() => {
+      this.isLoading = false
+    })
+  },
   methods: {
+    async getMyAuthImg() {
+      await this.$axios
+        .get(`${process.env.apiUrl}/v2/student/img`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          if (res.data.imgUrl.length > 0) {
+            this.alreadyComplete = true
+            this.isAuthComplete = true
+            this.inputAuthImg = res.data.imgUrl
+            this.imgAuthenticated = res.data.authenticated
+            if (!this.imgAuthenticated) {
+              this.currentStep = 2
+            } else {
+              this.currentStep = 1
+            }
+          }
+        })
+        .catch((error) => {
+          this.cmn_openAlertPopup({
+            option: {
+              title: '📣 알림',
+              content: error,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+          return false
+        })
+    },
     // 사진 선택
     onFileChange(event) {
       const input = event.target.files
@@ -104,7 +212,7 @@ export default {
       }
       this.currentStep = 3
     },
-    authComplete() {
+    authComplete({ type }) {
       const formData = new FormData()
       formData.append('images', this.files[0])
 
@@ -113,7 +221,11 @@ export default {
       const month = cur.getMonth() + 1 + ''
       this.dir = 'auth-' + year + '-' + month
 
-      this.registerAuthImg({ formData, callback: this.registerAuthImgUrl })
+      this.registerAuthImg({
+        formData,
+        callback:
+          type === 'register' ? this.registerAuthImgUrl : this.editAuthImgUrl
+      })
     },
     registerAuthImg({ formData, callback }) {
       this.$axios
@@ -160,6 +272,40 @@ export default {
         )
         .then((res) => {
           this.isAuthComplete = true
+        })
+        .catch((error) => {
+          console.log(error)
+          // window.alert(error.response.data.message)
+          this.cmn_openAlertPopup({
+            option: {
+              title: '📣 알림',
+              content:
+                '기존에 신청한 인증을 처리 중입니다! 기존 인증 이후 24시간이 지나도 인증이 안되었을 경우 WHYNOT 이메일로 문의주세요!',
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+        })
+    },
+    editAuthImgUrl() {
+      this.$axios
+        .put(
+          `${process.env.apiUrl}/v2/student/request-auth`,
+          {
+            imgUrl: this.inputAuthImg
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          }
+        )
+        .then((res) => {
+          this.isAuthComplete = true
+          this.alreadyComplete = false
         })
         .catch((error) => {
           console.log(error)
@@ -259,13 +405,25 @@ export default {
               }
             }
           }
+          .uploaded-img {
+            div {
+              img {
+                width: 205px;
+                height: 339px;
+              }
+            }
+          }
           #Images {
             margin-top: -347px;
             .obj {
+              max-width: 340px;
               height: 340px;
               border-radius: 12px;
               object-fit: contain;
             }
+          }
+          .edit {
+            margin-top: 0px !important;
           }
         }
       }
