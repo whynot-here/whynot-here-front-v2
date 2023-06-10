@@ -157,6 +157,7 @@ export default {
     }
   },
   mounted() {
+    this.cmn_getUserInfo(this.$store.state.userInfo.token)
     // mobile or pc
     this.currentNickName = this.$store.state.userInfo.detail.nickname
     this.inputNickName = this.$store.state.userInfo.detail.nickname
