@@ -168,15 +168,17 @@ export default {
           }
         })
         .then((res) => {
-          if (res.data.imgUrl.length > 0) {
-            this.alreadyComplete = true
-            this.isAuthComplete = true
-            this.inputAuthImg = res.data.imgUrl
-            this.imgAuthenticated = res.data.authenticated
-            if (!this.imgAuthenticated) {
-              this.currentStep = 2
-            } else {
-              this.currentStep = 1
+          if (res.data.imgUrl !== null) {
+            if (res.data.imgUrl.length > 0) {
+              this.alreadyComplete = true
+              this.isAuthComplete = true
+              this.inputAuthImg = res.data.imgUrl
+              this.imgAuthenticated = res.data.authenticated
+              if (!this.imgAuthenticated) {
+                this.currentStep = 2
+              } else {
+                this.currentStep = 1
+              }
             }
           }
         })
