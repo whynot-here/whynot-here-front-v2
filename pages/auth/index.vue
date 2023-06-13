@@ -1,0 +1,491 @@
+<template>
+  <div id="AuthPage">
+    <NuxtLoadingIndicator v-if="isLoading" />
+    <section v-if="!isLoading" class="m-authpage-wrp">
+      <div class="m-authpage-header">
+        <div class="m-title" />
+        <div class="m-close">
+          <img
+            class="m-back-btn"
+            src="@/assets/img/common/close-review.png"
+            alt=""
+            @click="cmn_goMainPage"
+          />
+        </div>
+      </div>
+      <div v-if="!isAuthComplete" class="m-authpage-middle">
+        <div class="title">학교 인증</div>
+        <div class="description">
+          <strong>한동대학교 스마트캠퍼스 앱</strong>을 연 후
+          <strong>이름, 학번</strong>이 나오도록 사진을 찍어주세요
+        </div>
+        <section class="img-upload">
+          <div v-if="currentStep == 1" class="step1">
+            <div class="upload-ex">
+              <img src="@/assets/img/auth/auth-example.png" alt="" />
+            </div>
+            <div class="upload-desc">예시 사진</div>
+          </div>
+          <div v-if="currentStep == 2 || currentStep == 3" class="step2">
+            <div class="upload-img">
+              <div>
+                <img src="@/assets/img/auth/add-btn.png" alt="" />
+              </div>
+            </div>
+            <b-form-group id="fileInput" class="authpage">
+              <b-form-file
+                accept="image/jpeg, image/png, image/gif"
+                @change="onFileChange"
+              ></b-form-file>
+            </b-form-group>
+            <div v-if="inputImg && inputImg.length > 0" class="img-grp">
+              <div id="Images">
+                <div v-for="(image, idx) in inputImg" :key="idx">
+                  <b-img thumbnail :src="inputImg[0].prev_url" class="obj" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="reg-btn">
+          <div v-if="currentStep == 1" class="step1" @click="currentStep = 2">
+            확인 했어요
+          </div>
+          <div v-if="currentStep == 2" class="step2">인증 완료하기</div>
+          <div
+            v-if="currentStep == 3"
+            class="step3"
+            @click="authComplete({ type: 'register' })"
+          >
+            인증 완료하기
+          </div>
+        </section>
+      </div>
+      <div v-else-if="alreadyComplete" class="m-authpage-middle">
+        <div class="title">학교 인증</div>
+        <div v-if="!imgAuthenticated" class="description">
+          빠른 시일 내로 학생증 인증을 완료해드리겠습니다. <br />
+          사진을 클릭하면 사진 수정도 가능합니다.
+        </div>
+        <div v-else class="description">학교 인증이 완료되었습니다.</div>
+        <section class="img-upload">
+          <div class="step2">
+            <div v-if="inputImg.length === 0" class="uploaded-img">
+              <div>
+                <img :src="inputAuthImg" alt="" />
+              </div>
+            </div>
+            <b-form-group id="fileInput" class="authpage authpage-edit">
+              <b-form-file
+                accept="image/jpeg, image/png, image/gif"
+                @change="onFileChange"
+              ></b-form-file>
+            </b-form-group>
+            <div v-if="inputImg && inputImg.length > 0" class="img-grp">
+              <div id="Images" class="edit">
+                <div v-for="(image, idx) in inputImg" :key="idx">
+                  <b-img thumbnail :src="inputImg[0].prev_url" class="obj" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="reg-btn">
+          <div v-if="!imgAuthenticated && currentStep == 2" class="step2">
+            수정하기
+          </div>
+          <div
+            v-else-if="!imgAuthenticated && currentStep == 3"
+            class="step3"
+            @click="authComplete({ type: 'edit' })"
+          >
+            수정하기
+          </div>
+          <div v-else class="go-main-btn step1" @click="cmn_goMainPage">
+            홈화면으로 가기
+          </div>
+        </section>
+      </div>
+      <div v-else>
+        <section class="m-authpage-complete">
+          <div class="notice">인증 완료까지 평균 하루 걸려요</div>
+          <div class="notice-sub">
+            인증이 완료되고 나면 WHN 어플을 자유롭게<br />
+            사용할 수 있습니다.
+          </div>
+          <div class="go-main-btn" @click="cmn_goMainPage">홈화면으로 가기</div>
+        </section>
+      </div>
+    </section>
+  </div>
+</template>
+
+<script>
+import NuxtLoadingIndicator from '@/components/common/LoadingBar'
+
+export default {
+  name: 'AuthPage',
+  components: {
+    NuxtLoadingIndicator
+  },
+  data() {
+    return {
+      isAuthComplete: false,
+      alreadyComplete: false,
+      imgAuthenticated: false,
+      currentStep: 1,
+      files: [],
+      inputImg: [],
+      inputAuthImg: '',
+      dir: '',
+      isLoading: true
+    }
+  },
+  watch: {
+    isLoading(newValue) {
+      this.$nextTick(() => {
+        if (newValue) {
+          this.$nuxt.$loading.start()
+        } else {
+          this.$nuxt.$loading.finish()
+        }
+      })
+    }
+  },
+  mounted() {
+    this.getMyAuthImg().then(() => {
+      this.isLoading = false
+    })
+  },
+  methods: {
+    async getMyAuthImg() {
+      await this.$axios
+        .get(`${process.env.apiUrl}/v2/student/img`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          if (res.data.imgUrl !== null) {
+            if (res.data.imgUrl.length > 0) {
+              this.alreadyComplete = true
+              this.isAuthComplete = true
+              this.inputAuthImg = res.data.imgUrl
+              this.imgAuthenticated = res.data.authenticated
+              if (!this.imgAuthenticated) {
+                this.currentStep = 2
+              } else {
+                this.currentStep = 1
+              }
+            }
+          }
+        })
+        .catch((error) => {
+          this.cmn_openAlertPopup({
+            option: {
+              title: '📣 알림',
+              content: error,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+          return false
+        })
+    },
+    // 사진 선택
+    onFileChange(event) {
+      const input = event.target.files
+      if (input.length > 0) {
+        for (let i = 0; i < input.length; i++) {
+          const fileReader = new FileReader()
+          fileReader.onload = (e) => {
+            this.inputImg.push({
+              prev_url: e.target.result,
+              isNew: true
+            })
+          }
+          fileReader.readAsDataURL(input[i])
+          this.files.push(input[i])
+        }
+        event.target.value = ''
+      }
+      this.currentStep = 3
+    },
+    authComplete({ type }) {
+      const formData = new FormData()
+      formData.append('images', this.files[0])
+
+      const cur = new Date()
+      const year = (cur.getFullYear() + '').substring(2)
+      const month = cur.getMonth() + 1 + ''
+      this.dir = 'auth-' + year + '-' + month
+
+      this.registerAuthImg({
+        formData,
+        callback:
+          type === 'register' ? this.registerAuthImgUrl : this.editAuthImgUrl
+      })
+    },
+    registerAuthImg({ formData, callback }) {
+      this.$axios
+        .post(`${process.env.apiUrl}/images/${this.dir}`, formData, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.inputAuthImg = res.data.url
+          this.files = []
+          this.inputImg = []
+          callback()
+        })
+        .catch((error) => {
+          this.cmn_openAlertPopup({
+            option: {
+              title: '📣 알림',
+              content: error,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+          return false
+        })
+    },
+    registerAuthImgUrl() {
+      this.$axios
+        .post(
+          `${process.env.apiUrl}/v2/student/request-auth`,
+          {
+            imgUrl: this.inputAuthImg
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          }
+        )
+        .then((res) => {
+          this.isAuthComplete = true
+        })
+        .catch((error) => {
+          console.log(error)
+          // window.alert(error.response.data.message)
+          this.cmn_openAlertPopup({
+            option: {
+              title: '📣 알림',
+              content:
+                '기존에 신청한 인증을 처리 중입니다! 기존 인증 이후 24시간이 지나도 인증이 안되었을 경우 WHYNOT 이메일로 문의주세요!',
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+        })
+    },
+    editAuthImgUrl() {
+      this.$axios
+        .put(
+          `${process.env.apiUrl}/v2/student/request-auth`,
+          {
+            imgUrl: this.inputAuthImg
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          }
+        )
+        .then((res) => {
+          this.isAuthComplete = true
+          this.alreadyComplete = false
+        })
+        .catch((error) => {
+          console.log(error)
+          // window.alert(error.response.data.message)
+          this.cmn_openAlertPopup({
+            option: {
+              title: '📣 알림',
+              content:
+                '기존에 신청한 인증을 처리 중입니다! 기존 인증 이후 24시간이 지나도 인증이 안되었을 경우 WHYNOT 이메일로 문의주세요!',
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+        })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+#AuthPage {
+  .m-authpage-wrp {
+    .m-authpage-header {
+      height: 60px;
+      line-height: 60px;
+      padding: 44px 20px 0 20px;
+      display: flex;
+      .m-title {
+        font-size: 1.13rem;
+        color: #181818;
+        font-weight: 500;
+        flex-grow: 1;
+      }
+
+      .m-close {
+        width: 24px;
+        img {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+    .m-authpage-middle {
+      height: calc(100vh - 140px);
+      padding: 8px 20px 24px 20px;
+      .title {
+        color: #14428d;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      .description {
+        padding-top: 12px;
+        font-size: 0.88rem;
+        color: #0c2958;
+        line-height: 1.4;
+        strong {
+          font-weight: 500;
+        }
+      }
+      .img-upload {
+        text-align: center;
+        .step1 {
+          .upload-ex {
+            margin-top: 40px;
+            background: rgba(252, 252, 252, 0.919);
+            border: 1px solid #e7e7e7;
+            box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
+              0px 8px 16px rgba(0, 52, 138, 0.08);
+            border-radius: 12px;
+            img {
+              width: 205px;
+              height: 339px;
+            }
+          }
+          .upload-desc {
+            padding-top: 13px;
+            color: #a3a3a3;
+            font-weight: 500;
+            font-size: 1rem;
+          }
+        }
+        .step2 {
+          height: 340px;
+          margin-top: 40px;
+          background: rgba(252, 252, 252, 0.919);
+          border: 1px solid #e7e7e7;
+          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
+            0px 8px 16px rgba(0, 52, 138, 0.08);
+          border-radius: 12px;
+          .upload-img {
+            div {
+              padding-top: 152px;
+              img {
+                width: 40px;
+                height: 40px;
+              }
+            }
+          }
+          .uploaded-img {
+            div {
+              img {
+                width: 205px;
+                height: 339px;
+              }
+            }
+          }
+          #Images {
+            margin-top: -347px;
+            .obj {
+              max-width: 340px;
+              height: 340px;
+              border-radius: 12px;
+              object-fit: contain;
+            }
+          }
+          .edit {
+            margin-top: 0px !important;
+          }
+        }
+      }
+      .reg-btn {
+        position: fixed;
+        width: calc(100% - 40px);
+        height: 50px;
+        line-height: 50px;
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+        bottom: 24px;
+        color: #fff;
+        .step1 {
+          background-color: #3e82f1;
+          border-radius: 8px;
+        }
+        .step2 {
+          background-color: #d9d9d9;
+          border-radius: 8px;
+        }
+        .step3 {
+          background-color: #f7a62c;
+          border-radius: 8px;
+        }
+      }
+    }
+    .m-authpage-complete {
+      text-align: center;
+
+      padding: 0 20px 0 20px;
+      .notice {
+        padding-top: 278px;
+        color: #14428d;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      .notice-sub {
+        padding-top: 16px;
+        font-size: 0.88rem;
+        color: #0c2958;
+        line-height: 1.4;
+        strong {
+          font-weight: 500;
+        }
+      }
+      .go-main-btn {
+        background-color: #3e82f1;
+        border-radius: 8px;
+        position: fixed;
+        width: calc(100% - 40px);
+        height: 50px;
+        line-height: 50px;
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+        bottom: 24px;
+        color: #fff;
+      }
+    }
+  }
+}
+</style>

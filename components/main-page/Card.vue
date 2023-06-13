@@ -42,6 +42,10 @@
           </div>
           <div>모집중만 보기</div>
         </div>
+        <div v-if="isNeedAuthRequest" class="auth-need-img" @click="goToAuthPage">
+          <img src="@/assets/img/auth/auth-need-warning.png" alt="" />
+          <div class="auth-info-text">학교 인증하기</div>
+        </div>
         <div v-if="categoryId == hanchelinCategoryId">
           <SubFilterDropdown
             label-first="전체"
@@ -197,7 +201,8 @@ export default {
       originalPosts: [],
       hanchelinCategoryId: categoryConst.hanchelinCategoryId,
       scrollYHeight: 0,
-      isLoading: true
+      isLoading: true,
+      isNeedAuthRequest: false,
     }
   },
   computed: {
@@ -282,6 +287,11 @@ export default {
       const wrp = document.getElementsByClassName('mobile-env')[0]
       wrp.scrollTop = this.$store.state.listHistory.scrollHeight
     }, 800)
+
+    if (this.$store.state.userInfo.detail.roles !== undefined &&
+    !this.$store.state.userInfo.detail.roles.includes("ROLE_USER")) {
+      this.isNeedAuthRequest = true;
+    }
   },
   destroyed() {
     this.$store.commit('listHistory/setScrollHeight', {
@@ -651,6 +661,9 @@ export default {
       if (item.id !== categoryConst.hanchelinCategoryId) {
         this.posts = this.posts.filter((it) => it.category.id === item.id)
       }
+    },
+    goToAuthPage() {
+      this.$router.push(`/auth`)
     }
   }
 }
