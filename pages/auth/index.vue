@@ -128,6 +128,11 @@ export default {
   components: {
     NuxtLoadingIndicator
   },
+  asyncData({ params }) {
+    return {
+      token: params.token
+    }
+  },
   data() {
     return {
       isAuthComplete: false,
@@ -153,6 +158,11 @@ export default {
     }
   },
   mounted() {
+    const token = this.$route.query.token;
+    if (token != null) {
+      this.updateDeviceToken(token);
+    }
+
     this.getMyAuthImg().then(() => {
       this.isLoading = false
     })
@@ -323,6 +333,22 @@ export default {
             }
           })
         })
+    },
+    updateDeviceToken(token) {
+      this.$axios
+      .put(
+        `${process.env.apiUrl}/v2/account/device-token`,
+          {
+            token
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          }
+      )
     }
   }
 }
