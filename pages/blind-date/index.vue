@@ -181,7 +181,176 @@
         </div>
       </div>
     </section>
-    <section v-show="curStage === 6">6단계 페이지</section>
+    <section v-show="curStage === 6">
+      <div class="percent">
+        <img src="@/assets/img/blind-date/percent_80.png" alt="" />
+      </div>
+      <div class="title">
+        Q6. 추가정보 입력
+        <div class="desc">
+          상대방이 학우님을 파악하는데 도움이 되어 <br />
+          매칭률이 올라가요!
+        </div>
+      </div>
+      <div class="content_01">
+        <div class="sub-title">1. 당신의 mbti는? <strong>(필수)</strong></div>
+        <div class="btn-select-multi-wrp">
+          <div class="btn-select-wrp">
+            <div
+              :class="
+                applyParams.mbti_01 === 'E'
+                  ? 'button-half selected'
+                  : 'button-half'
+              "
+              @click="applyParams.mbti_01 = 'E'"
+            >
+              E
+            </div>
+            <div
+              :class="
+                applyParams.mbti_01 === 'I'
+                  ? 'button-half selected'
+                  : 'button-half'
+              "
+              @click="applyParams.mbti_01 = 'I'"
+            >
+              I
+            </div>
+          </div>
+          <div class="btn-select-wrp">
+            <div
+              :class="
+                applyParams.mbti_02 === 'S'
+                  ? 'button-half selected'
+                  : 'button-half'
+              "
+              @click="applyParams.mbti_02 = 'S'"
+            >
+              S
+            </div>
+            <div
+              :class="
+                applyParams.mbti_02 === 'N'
+                  ? 'button-half selected'
+                  : 'button-half'
+              "
+              @click="applyParams.mbti_02 = 'N'"
+            >
+              N
+            </div>
+          </div>
+          <div class="btn-select-wrp">
+            <div
+              :class="
+                applyParams.mbti_03 === 'T'
+                  ? 'button-half selected'
+                  : 'button-half'
+              "
+              @click="applyParams.mbti_03 = 'T'"
+            >
+              T
+            </div>
+            <div
+              :class="
+                applyParams.mbti_03 === 'F'
+                  ? 'button-half selected'
+                  : 'button-half'
+              "
+              @click="applyParams.mbti_03 = 'F'"
+            >
+              F
+            </div>
+          </div>
+          <div class="btn-select-wrp">
+            <div
+              :class="
+                applyParams.mbti_04 === 'J'
+                  ? 'button-half selected'
+                  : 'button-half'
+              "
+              @click="applyParams.mbti_04 = 'J'"
+            >
+              J
+            </div>
+            <div
+              :class="
+                applyParams.mbti_04 === 'P'
+                  ? 'button-half selected'
+                  : 'button-half'
+              "
+              @click="applyParams.mbti_04 = 'P'"
+            >
+              P
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content_01">
+        <div>2. 흡연을 하시나요? <strong>(필수)</strong></div>
+        <div class="btn-select-wrp">
+          <div
+            :class="
+              applyParams.smoking === true
+                ? 'button-half selected'
+                : 'button-half'
+            "
+            @click="applyParams.smoking = true"
+          >
+            네
+          </div>
+          <div
+            :class="
+              applyParams.smoking === false
+                ? 'button-half selected'
+                : 'button-half'
+            "
+            @click="applyParams.smoking = false"
+          >
+            아니오
+          </div>
+        </div>
+      </div>
+      <div class="content_01">
+        <div class="sub-title">
+          3. 혹시 정말 만나고 싶지 않은 사람이 있다면?
+        </div>
+        <div v-for="(item, idx) in applyParams.avoid" :key="idx">
+          <div v-if="item.isShow">
+            <input
+              v-model="item.name"
+              class="input-long"
+              placeholder="이름"
+              type="text"
+            />
+            <div style="width: 100%" class="btn-select-wrp">
+              <input
+                v-model="item.name"
+                class="input-half"
+                placeholder="학과"
+                type="text"
+              />
+              <input
+                v-model="item.name"
+                class="input-half"
+                placeholder="학번"
+                type="text"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="add-btn">
+          <img src="@/assets/img/blind-date/add-btn.png" alt="" />
+        </div>
+      </div>
+      <div class="content_01">
+        <div class="sub-title">4. 마지막으로 상대에게 하고픈 말이 있다면?</div>
+        <textarea
+          v-model="applyParams.sendTalk"
+          class="send-to"
+          @keydown="checkIsNextActive(1)"
+        />
+      </div>
+    </section>
     <section v-show="curStage === 7">
       <div class="percent">
         <img src="@/assets/img/blind-date/percent_100.png" alt="" />
@@ -218,7 +387,7 @@ export default {
   components: {},
   data() {
     return {
-      curStage: 7,
+      curStage: 6,
       applyParams: {
         name: '',
         gender: 'male',
@@ -227,7 +396,33 @@ export default {
         dateStyle: 1,
         myHobby: 1,
         faith: 1,
-        kakaoLink: ''
+        smoking: true,
+        mbti_01: 'E',
+        mbti_02: 'S',
+        mbti_03: 'T',
+        mbti_04: 'J',
+        sendTalk: '',
+        kakaoLink: '',
+        avoid: [
+          {
+            isShow: true,
+            name: '',
+            major: '',
+            id: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            major: '',
+            id: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            major: '',
+            id: ''
+          }
+        ]
       },
       dateStyle: [
         {
@@ -317,9 +512,25 @@ export default {
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
+    .desc {
+      padding: 8px 0px;
+      color: #414141;
+      font-family: Pretendard;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 18px; /* 138.462% */
+    }
   }
   .content_01 {
     padding: 20px 20px 40px 20px;
+    strong {
+      color: #e74133;
+      font-family: Pretendard;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 400;
+    }
     .sub-title {
       color: #061832;
       font-family: Pretendard;
@@ -338,8 +549,21 @@ export default {
       font-size: 14px;
       padding-left: 14px;
     }
-    .input-long:focus {
+    .input-long:focus,
+    .send-to:focus {
       outline: 1px solid #7eb2ff;
+    }
+    .send-to {
+      width: calc(100% - 35px);
+      height: 146px;
+      margin-top: 20px;
+      flex-shrink: 0;
+      border-radius: 6px;
+      border: 1px solid #ececec;
+      background: #fff;
+      font-family: Pretendard;
+      font-size: 14px;
+      padding: 14px;
     }
     .btn-select-wrp {
       display: flex;
@@ -365,6 +589,55 @@ export default {
         border-radius: 6px;
         border: 1px solid #7eb2ff;
         background: #fff;
+      }
+      .input-half {
+        width: 50%;
+        height: 44px;
+        border-radius: 6px;
+        border: 1px solid #ececec;
+        background: #fff;
+        font-family: Pretendard;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        padding-left: 14px;
+      }
+    }
+    .btn-select-multi-wrp {
+      display: flex;
+      flex-direction: row;
+      gap: 42px;
+      .btn-select-wrp {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        .button-half {
+          width: 52px;
+          height: 48px;
+          border-radius: 6px;
+          border: 1px solid #eee;
+          background: #f9fafc;
+          flex-shrink: 0;
+          color: #5c6c82;
+          font-family: Pretendard;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          line-height: 44px;
+          text-align: center;
+        }
+        .selected {
+          border-radius: 6px;
+          border: 1px solid #7eb2ff;
+          background: #fff;
+          color: #061832;
+          font-family: Pretendard;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 500;
+        }
       }
     }
     .radio-long {
@@ -398,6 +671,14 @@ export default {
     }
     .selected {
       border: 1px solid #7eb2ff;
+    }
+    .add-btn {
+      width: 32px;
+      margin: 20px auto 0 auto;
+      img {
+        width: 32px;
+        height: 32px;
+      }
     }
   }
   .next-prev-btn {
