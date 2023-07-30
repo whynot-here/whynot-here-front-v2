@@ -338,8 +338,12 @@
             </div>
           </div>
         </div>
-        <div class="add-btn">
-          <img src="@/assets/img/blind-date/add-btn.png" alt="" />
+        <div v-if="isAddBtnActive" class="add-btn">
+          <img
+            src="@/assets/img/blind-date/add-btn.png"
+            alt=""
+            @click="addAvoid()"
+          />
         </div>
       </div>
       <div class="content_01">
@@ -465,6 +469,7 @@ export default {
           url: require('@/assets/img/blind-date/christian.png')
         }
       ],
+      isAddBtnActive: true,
       isNextActive: false
     }
   },
@@ -487,6 +492,16 @@ export default {
       this.isNextActive = false
       console.log(this.applyParams)
       this.checkIsNextActive(this.curStage)
+    },
+    addAvoid() {
+      const idx = this.applyParams.avoid.findIndex((item) => {
+        return item.isShow === false
+      })
+      this.applyParams.avoid[idx].isShow = true
+
+      if (idx === 2) {
+        this.isAddBtnActive = false
+      }
     }
   }
 }
