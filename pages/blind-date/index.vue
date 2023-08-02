@@ -19,21 +19,21 @@
         <div class="btn-select-wrp">
           <div
             :class="
-              applyParams.gender === 'male'
+              applyParams.gender === 'M'
                 ? 'button-half selected'
                 : 'button-half'
             "
-            @click="applyParams.gender = 'male'"
+            @click="applyParams.gender = 'M'"
           >
             남성
           </div>
           <div
             :class="
-              applyParams.gender === 'female'
+              applyParams.gender === 'F'
                 ? 'button-half selected'
                 : 'button-half'
             "
-            @click="applyParams.gender = 'female'"
+            @click="applyParams.gender = 'F'"
           >
             여성
           </div>
@@ -48,7 +48,7 @@
       <div class="content_01">
         <div class="sub-title">본인의 나이를 입력해주세요 (숫자만)</div>
         <input
-          v-model="applyParams.age"
+          v-model="applyParams.myAge"
           class="input-long"
           type="text"
           oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
@@ -60,25 +60,31 @@
         <div class="btn-select-wrp">
           <div
             :class="
-              applyParams.wantAge === 1 ? 'button-half selected' : 'button-half'
+              applyParams.favoriteAge === 'NO_MATTER'
+                ? 'button-half selected'
+                : 'button-half'
             "
-            @click="applyParams.wantAge = 1"
+            @click="applyParams.favoriteAge = 'NO_MATTER'"
           >
             상관없음
           </div>
           <div
             :class="
-              applyParams.wantAge === 2 ? 'button-half selected' : 'button-half'
+              applyParams.favoriteAge === 'UP'
+                ? 'button-half selected'
+                : 'button-half'
             "
-            @click="applyParams.wantAge = 2"
+            @click="applyParams.favoriteAge = 'UP'"
           >
             연상
           </div>
           <div
             :class="
-              applyParams.wantAge === 3 ? 'button-half selected' : 'button-half'
+              applyParams.favoriteAge === 'DOWN'
+                ? 'button-half selected'
+                : 'button-half'
             "
-            @click="applyParams.wantAge = 3"
+            @click="applyParams.favoriteAge = 'DOWN'"
           >
             연하
           </div>
@@ -95,16 +101,16 @@
         <div v-for="(item, idx) in dateStyle" :key="idx">
           <div
             :class="
-              applyParams.dateStyle === item.idx
+              applyParams.dateStyle === item.id
                 ? 'radio-long selected'
                 : 'radio-long'
             "
-            @click="applyParams.dateStyle = item.idx"
+            @click="applyParams.dateStyle = item.id"
           >
             <div class="radio">
               <img
                 :src="
-                  applyParams.dateStyle === item.idx
+                  applyParams.dateStyle === item.id
                     ? require('@/assets/img/blind-date/selected.png')
                     : require('@/assets/img/blind-date/unselected.png')
                 "
@@ -124,19 +130,19 @@
       <div class="title">Q4. 취미 정보</div>
       <div class="content_01">
         <div class="sub-title">활동적인 취미가 많으신가요?</div>
-        <div v-for="(item, idx) in myHobby" :key="idx">
+        <div v-for="(item, idx) in hobby" :key="idx">
           <div
             :class="
-              applyParams.myHobby === item.idx
+              applyParams.hobby === item.id
                 ? 'radio-long selected'
                 : 'radio-long'
             "
-            @click="applyParams.myHobby = item.idx"
+            @click="applyParams.hobby = item.id"
           >
             <div class="radio">
               <img
                 :src="
-                  applyParams.myHobby === item.idx
+                  applyParams.hobby === item.id
                     ? require('@/assets/img/blind-date/selected.png')
                     : require('@/assets/img/blind-date/unselected.png')
                 "
@@ -159,16 +165,16 @@
         <div v-for="(item, idx) in faith" :key="idx">
           <div
             :class="
-              applyParams.faith === item.idx
+              applyParams.faith === item.id
                 ? 'radio-long selected'
                 : 'radio-long'
             "
-            @click="applyParams.faith = item.idx"
+            @click="applyParams.faith = item.id"
           >
             <div class="radio">
               <img
                 :src="
-                  applyParams.faith === item.idx
+                  applyParams.faith === item.id
                     ? require('@/assets/img/blind-date/selected.png')
                     : require('@/assets/img/blind-date/unselected.png')
                 "
@@ -290,21 +296,17 @@
         <div class="btn-select-wrp">
           <div
             :class="
-              applyParams.smoking === true
-                ? 'button-half selected'
-                : 'button-half'
+              applyParams.smoke === 'Y' ? 'button-half selected' : 'button-half'
             "
-            @click="applyParams.smoking = true"
+            @click="applyParams.smoke = 'Y'"
           >
             네
           </div>
           <div
             :class="
-              applyParams.smoking === false
-                ? 'button-half selected'
-                : 'button-half'
+              applyParams.smoke === 'N' ? 'button-half selected' : 'button-half'
             "
-            @click="applyParams.smoking = false"
+            @click="applyParams.smoke = 'N'"
           >
             아니오
           </div>
@@ -314,7 +316,7 @@
         <div class="sub-title">
           3. 혹시 정말 만나고 싶지 않은 사람이 있다면?
         </div>
-        <div v-for="(item, idx) in applyParams.avoid" :key="idx">
+        <div v-for="(item, idx) in applyParams.excludeCondList" :key="idx">
           <div v-if="item.isShow">
             <input
               v-model="item.name"
@@ -324,13 +326,13 @@
             />
             <div style="width: 100%" class="btn-select-wrp">
               <input
-                v-model="item.name"
+                v-model="item.department"
                 class="input-half"
                 placeholder="학과"
                 type="text"
               />
               <input
-                v-model="item.name"
+                v-model="item.studentId"
                 class="input-half"
                 placeholder="학번"
                 type="text"
@@ -349,7 +351,7 @@
       <div class="content_01">
         <div class="sub-title">4. 마지막으로 상대에게 하고픈 말이 있다면?</div>
         <textarea
-          v-model="applyParams.sendTalk"
+          v-model="applyParams.comment"
           class="send-to"
           @keydown="checkIsNextActive(1)"
         />
@@ -371,7 +373,7 @@
         />
       </div>
     </section>
-    <section class="next-prev-btn">
+    <section v-show="curStage >= 1 || curStage <= 7" class="next-prev-btn">
       <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
         이전
       </div>
@@ -391,80 +393,81 @@ export default {
   components: {},
   data() {
     return {
-      curStage: 6,
+      curStage: 1,
       applyParams: {
+        season: 1,
         name: '',
-        gender: 'male',
-        age: '',
-        wantAge: 1,
-        dateStyle: 1,
-        myHobby: 1,
-        faith: 1,
-        smoking: true,
+        gender: 'M',
+        myAge: '',
+        favoriteAge: 'NO_MATTER',
+        dateStyle: 'CAFE',
+        hobby: 'HOME',
+        faith: 'NO_MATTER',
+        smoke: 'N',
         mbti_01: 'E',
         mbti_02: 'S',
         mbti_03: 'T',
         mbti_04: 'J',
-        sendTalk: '',
+        comment: '',
         kakaoLink: '',
-        avoid: [
+        excludeCondList: [
           {
             isShow: true,
             name: '',
-            major: '',
-            id: ''
+            department: '',
+            studentId: ''
           },
           {
             isShow: false,
             name: '',
-            major: '',
-            id: ''
+            department: '',
+            studentId: ''
           },
           {
             isShow: false,
             name: '',
-            major: '',
-            id: ''
+            department: '',
+            studentId: ''
           }
         ]
       },
       dateStyle: [
         {
-          idx: 1,
+          id: 'CAFE',
           name: '카페 데이트',
           url: require('@/assets/img/blind-date/cafe.png')
         },
         {
-          idx: 2,
+          id: 'HEALTH',
           name: '방탈출, 헬스장 데이트',
           url: require('@/assets/img/blind-date/exercise.png')
         },
         {
-          idx: 3,
+          id: 'WALK',
           name: '산책, 걷기 데이트',
           url: require('@/assets/img/blind-date/jogging.png')
         }
       ],
-      myHobby: [
+      hobby: [
         {
-          idx: 1,
+          id: 'HOME',
           name: '나는 집이 좋은 집돌이, 집순이',
           url: require('@/assets/img/blind-date/home.png')
         },
         {
-          idx: 2,
+          id: 'OUTSIDE',
           name: '주말 바깥 공기 필수!',
           url: require('@/assets/img/blind-date/exercise.png')
         }
       ],
       faith: [
         {
-          idx: 1,
+          id: 'NO_MATTER',
           name: '상관없어요',
           url: require('@/assets/img/blind-date/heart.png')
         },
         {
-          idx: 2,
+          id: 'CHRISTIAN',
           name: '기독교이신 분과만 매칭을 원해요',
           url: require('@/assets/img/blind-date/christian.png')
         }
@@ -480,24 +483,66 @@ export default {
       if (stage === 1) {
         this.isNextActive = this.applyParams.name.length > 0
       } else if (stage === 2) {
-        this.isNextActive = this.applyParams.age.length > 0
-      } else if (stage === 3 || stage === 4 || stage === 5) {
+        this.isNextActive = this.applyParams.myAge.length > 0
+      } else if (stage === 3 || stage === 4 || stage === 5 || stage === 6) {
         this.isNextActive = true
       } else if (stage === 7) {
         this.isNextActive = this.applyParams.kakaoLink.length > 0
       }
     },
     changeStage(addNum) {
+      if (this.curStage === 7) {
+        this.submit()
+      }
+
       this.curStage += addNum
       this.isNextActive = false
-      console.log(this.applyParams)
       this.checkIsNextActive(this.curStage)
     },
+    submit() {
+      this.setSubmitParams()
+      console.log(this.applyParams)
+      this.$axios
+        .post(`${process.env.apiUrl}/v2/blind-date`, this.applyParams, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.$router.push('/blind-date/proceeding')
+        })
+        .catch((error) => {
+          window.alert(error.response.data.message)
+        })
+    },
+    setSubmitParams() {
+      this.applyParams.mbti =
+        this.applyParams.mbti_01 +
+        this.applyParams.mbti_02 +
+        this.applyParams.mbti_03 +
+        this.applyParams.mbti_04
+
+      delete this.applyParams.mbti_01
+      delete this.applyParams.mbti_02
+      delete this.applyParams.mbti_03
+      delete this.applyParams.mbti_04
+
+      this.applyParams.excludeCondList.map((item) => {
+        return delete item.isShow
+      })
+
+      this.applyParams.excludeCondList =
+        this.applyParams.excludeCondList.filter((item) => {
+          return item.name !== ''
+        })
+    },
     addAvoid() {
-      const idx = this.applyParams.avoid.findIndex((item) => {
+      const idx = this.applyParams.excludeCondList.findIndex((item) => {
         return item.isShow === false
       })
-      this.applyParams.avoid[idx].isShow = true
+      this.applyParams.excludeCondList[idx].isShow = true
 
       if (idx === 2) {
         this.isAddBtnActive = false
