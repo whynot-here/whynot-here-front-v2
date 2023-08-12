@@ -13,7 +13,7 @@
         <img src="@/assets/img/blind-date/blind-date-intro.png" alt="" />
       </div>
       <div class="bottom-wrp">
-        <div class="btn">
+        <div class="btn" @click="moveDownloadPage('playstore')">
           <div class="btn-title">플레이스토어 다운로드</div>
           <div class="img-wrp">
             <img
@@ -23,7 +23,7 @@
             />
           </div>
         </div>
-        <div class="btn">
+        <div class="btn" @click="moveDownloadPage('appstore')">
           <div class="btn-title">앱스토어 다운로드</div>
           <div class="img-wrp">
             <img
@@ -35,7 +35,11 @@
         </div>
         <div class="link-wrp">
           <div class="left">이미 앱이 있다면?</div>
-          <div class="right">앱으로 이동</div>
+          <div class="right">
+            <a href="https://whynot.page.link/share" target="_blank">
+              앱으로 이동
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -51,7 +55,17 @@ export default {
   },
   watch: {},
   mounted() {},
-  methods: {}
+  methods: {
+    moveDownloadPage(type) {
+      if (type === 'appstore') {
+        window.open('https://apps.apple.com/kr/app/whynothere/id1665014097')
+      } else if (type === 'playstore') {
+        window.open(
+          'https://play.google.com/store/apps/details?id=com.sangjin.whynot'
+        )
+      }
+    }
+  }
 }
 </script>
 
@@ -179,13 +193,16 @@ export default {
           line-height: 24px;
         }
         .right {
-          padding-right: 9px;
-          color: #3e82f1;
-          font-family: Pretendard;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: 24px;
+          a {
+            padding-right: 9px;
+            color: #3e82f1;
+            font-family: Pretendard;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 24px;
+            text-decoration: none;
+          }
         }
       }
     }
