@@ -6,9 +6,9 @@
         한대소!
       </div>
     </section>
-    <section class="middle">
+    <!-- <section class="middle">
       <div class="middle-img">
-        <img src="@/assets/img/blind-date/notice_01.png" alt="" />
+        <img class="img_01" src="@/assets/img/blind-date/notice_01.png" alt="" />
       </div>
       <div class="desc _01">본 이벤트는,</div>
       <div class="desc _02">
@@ -19,6 +19,18 @@
         <div class="left">한동대 학생들 (재학중)</div>
         <div class="right">참여 가능합니다.</div>
       </div>
+      <div></div>
+    </section> -->
+    <section class="middle">
+      <div class="middle-img">
+        <img
+          class="img_02"
+          src="@/assets/img/blind-date/notice_02.png"
+          alt=""
+        />
+      </div>
+      <div class="desc _04">시작하기 위해서 학생증 인증이 필요해요</div>
+      <div class="auth-btn">학생증 인증하기</div>
       <div></div>
     </section>
     <section></section>
@@ -69,9 +81,19 @@ export default {
       height: 380px;
       /* 설정 */
       position: relative;
-      img {
+      .img_01 {
         width: 107.408px;
         height: 98.9px;
+        align-content: middle;
+        /* 상하좌우 정중앙 정렬하기 */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .img_02 {
+        width: 160px;
+        height: 160px;
         align-content: middle;
         /* 상하좌우 정중앙 정렬하기 */
         position: absolute;
@@ -108,6 +130,31 @@ export default {
       .right {
         line-height: 30px;
       }
+    }
+    ._04 {
+      color: var(--gray-80, #454545);
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+      text-align: center;
+    }
+    .auth-btn {
+      width: 335px;
+      height: 52px;
+      line-height: 52px;
+      margin: 12px auto;
+      border-radius: 4px;
+      border: 1px solid #d9e5f4;
+      background: #fff;
+      color: #414c5b;
+      font-family: Pretendard;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 600;
+      text-align: center;
     }
   }
 }
