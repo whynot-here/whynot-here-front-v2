@@ -75,6 +75,12 @@ body {
   margin: 0 auto;
 }
 
+.swiper-pagination-bullet {
+  width: 9px !important;
+  height: 9px !important;
+  margin: 0 8px;
+}
+
 /* #fileInput.authpage-eidt > div > .custom-file > input {
   cursor: pointer;
   z-index: 0 !important;

@@ -6,6 +6,51 @@
         한대소!
       </div>
     </section>
+
+    <div
+      v-if="isNuxtReady"
+      v-swiper:mySwiper="swiperOption"
+      class="swiper-container"
+    >
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <section class="middle">
+            <div class="middle-img">
+              <img
+                class="img_01"
+                src="@/assets/img/blind-date/notice_01.png"
+                alt=""
+              />
+            </div>
+            <div class="desc _01">본 이벤트는,</div>
+            <div class="desc _02">
+              <div class="left">11.11 ~ 11.11 (4일간)</div>
+              <div class="right">진행되고,</div>
+            </div>
+            <div class="desc _03">
+              <div class="left">한동대 학생들 (재학중)</div>
+              <div class="right">참여 가능합니다.</div>
+            </div>
+            <div></div>
+          </section>
+        </div>
+        <div class="swiper-slide">
+          <section class="middle">
+            <div class="middle-img">
+              <img
+                class="img_02"
+                src="@/assets/img/blind-date/notice_02.png"
+                alt=""
+              />
+            </div>
+            <div class="desc _04">시작하기 위해서 학생증 인증이 필요해요</div>
+            <div class="auth-btn">학생증 인증하기</div>
+            <div></div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
     <!-- <section class="middle">
       <div class="middle-img">
         <img class="img_01" src="@/assets/img/blind-date/notice_01.png" alt="" />
@@ -21,7 +66,7 @@
       </div>
       <div></div>
     </section> -->
-    <section class="middle">
+    <!-- <section class="middle">
       <div class="middle-img">
         <img
           class="img_02"
@@ -32,20 +77,49 @@
       <div class="desc _04">시작하기 위해서 학생증 인증이 필요해요</div>
       <div class="auth-btn">학생증 인증하기</div>
       <div></div>
-    </section>
-    <section></section>
+    </section> -->
   </div>
 </template>
 
 <script>
 export default {
   name: 'IndexPage',
-  components: {},
   data() {
-    return {}
+    return {
+      isNuxtReady: false,
+      swiperOption: {
+        loop: false,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+          // dynamicBullets: true,
+          // dynamicMainBullets: 2
+        }
+        // breakpoints: {
+        //   // when window width is >= 480px
+        //   480: {
+        //     slidesPerView: 2,
+        //     spaceBetween: 10
+        //   },
+        //   // when window width is >= 640px
+        //   640: {
+        //     slidesPerView: 3,
+        //     spaceBetween: 20
+        //   },
+        //   1264: {
+        //     slidesPerView: 4,
+        //     spaceBetween: 30
+        //   }
+        // }
+      }
+    }
   },
   watch: {},
-  mounted() {},
+  mounted() {
+    this.isNuxtReady = true
+  },
   methods: {}
 }
 </script>
@@ -156,6 +230,37 @@ export default {
       font-weight: 600;
       text-align: center;
     }
+  }
+
+  .swiper-container {
+    width: 100%;
+    // height: 300px;
+  }
+
+  .swiper-slide {
+    // text-align: center;
+    font-size: 18px;
+    // background: #fafafa;
+
+    /* Center slide text vertically */
+    // display: -webkit-box;
+    // display: -ms-flexbox;
+    // display: -webkit-flex;
+    // display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+  .swiper-pagination {
+    position: relative !important;
+    margin: 68px auto 0 auto;
+    --swiper-theme-color: #6254f0;
   }
 }
 </style>
