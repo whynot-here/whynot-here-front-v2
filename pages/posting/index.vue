@@ -68,7 +68,7 @@
                   v-model="postingRegisterParams.title"
                   type="text"
                   style="width: 750px; padding-left: 20px"
-                  placeholder="카테고리와 관련된 내용을 입력해 주세요."
+                  placeholder="욕, 비방 관련 글은 무통보 삭제 될 수 있습니다."
                   class="sub-wrp"
                 />
               </div>
@@ -84,7 +84,7 @@
                   name="introduce"
                   cols="30"
                   rows="10"
-                  placeholder="카테고리와 관련된 내용을 입력해 주세요."
+                  placeholder="욕, 비방 관련 글은 무통보 삭제 될 수 있습니다."
                 ></textarea>
               </div>
             </div>
@@ -213,7 +213,7 @@
                 <input
                   v-model="postingRegisterParams.title"
                   type="text"
-                  placeholder="카테고리와 관련된 내용을 입력해 주세요."
+                  placeholder="욕, 비방 관련 글은 무통보 삭제 될 수 있습니다."
                   class="sub-wrp summary"
                 />
               </div>
@@ -229,7 +229,7 @@
                   name="introduce"
                   cols="30"
                   rows="10"
-                  placeholder="카테고리와 관련된 내용을 입력해 주세요."
+                  placeholder="욕, 비방 관련 글은 무통보 삭제 될 수 있습니다."
                 ></textarea>
               </div>
             </div>
@@ -755,7 +755,8 @@ export default {
       }
       if (
         this.postingRegisterParams.locationUrl.length > 0 &&
-        !this.postingRegisterParams.locationUrl.substring(0,4) !== 'https') {
+        !this.postingRegisterParams.locationUrl.substring(0, 4) !== 'https'
+      ) {
         this.cmn_openAlertPopup({
           option: {
             title: '📣 알림',
