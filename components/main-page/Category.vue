@@ -77,6 +77,12 @@
               <img src="@/assets/img/category/right-arrow.png" alt="" />
             </div>
           </div>
+          <div class="menu" @click="isOpenAskPopup = true">
+            <div>문의하기</div>
+            <div>
+              <img src="@/assets/img/category/right-arrow.png" alt="" />
+            </div>
+          </div>
         </div>
         <div
           v-for="(cat, idx) in categoryGroup"
@@ -100,6 +106,33 @@
           </div>
         </div>
       </section>
+      <div
+        v-if="isOpenAskPopup"
+        class="ask-popup"
+        @click.self="isOpenAskPopup = false"
+      >
+        <div class="content-wrp">
+          <div class="close">
+            <img
+              src="@/assets/img/common/close-review.png"
+              alt=""
+              @click.self="isOpenAskPopup = false"
+            />
+          </div>
+          <div class="top">
+            <div>아래 이메일로 문의주세요</div>
+            <div>system1whynot@gmail.com</div>
+          </div>
+          <div class="btn" @click="copyUrl()">
+            <div class="btn-content-wrp">
+              <div class="copy">
+                <img src="@/assets/img/posting/copy-detail.png" alt="" />
+              </div>
+              <div>문의 메일 복사</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -123,7 +156,8 @@ export default {
       selectedCategory: '',
       selectedSubCategory: '',
       searchText: '',
-      isOpenCategoryPanel: false
+      isOpenCategoryPanel: false,
+      isOpenAskPopup: false
     }
   },
   async fetch() {
@@ -257,6 +291,11 @@ export default {
       } else {
         this.$router.push('/posting?m=write')
       }
+    },
+
+    copyUrl() {
+      this.copySomething('system1whynot@gmail.com')
+      this.toastPopup('문의 메일이 복사되었습니다.')
     }
   }
 }
