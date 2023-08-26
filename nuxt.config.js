@@ -57,7 +57,8 @@ export default {
     { src: '~/plugins/v-calendar.js', mode: 'client' },
     { src: '~/plugins/vue-toasted.js', mode: 'client' },
     { src: '~/plugins/vue-persian-datetime-picker.js', mode: 'client' },
-    { src: '~/plugins/v-owl-carousel.js', mode: 'client' }
+    { src: '~/plugins/v-owl-carousel.js', mode: 'client' },
+    { src: '~/plugins/vue-awesome-swiper', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -70,7 +71,12 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', 'bootstrap-vue/nuxt', 'nuxt-user-agent', '@nuxtjs/gtm'],
+  modules: [
+    '@nuxtjs/axios',
+    'bootstrap-vue/nuxt',
+    'nuxt-user-agent',
+    '@nuxtjs/gtm'
+  ],
 
   gtm: {
     id: 'GTM-PMPQGWW',

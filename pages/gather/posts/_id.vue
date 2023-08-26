@@ -321,14 +321,64 @@
           <span>{{ postComp.likes }}</span>
         </div>
         <div class="copy-url">
-          <img
+          <!-- <img
             src="@/assets/img/posting/copy-detail.png"
             alt=""
             @click="copyUrl()"
+          /> -->
+          <img
+            src="@/assets/img/posting/accusation.png"
+            alt=""
+            @click="isOpenAccusationPopup = true"
           />
         </div>
       </div>
     </main>
+    <div
+      v-if="isOpenAccusationPopup"
+      class="accusation-popup"
+      @click.self="isOpenAccusationPopup = false"
+    >
+      <div class="content-wrp">
+        <div class="title">신고</div>
+        <div class="desc">
+          누적 신고하기가 3회 이상인 유저는 게시글을 작성할 수 없습니다.
+        </div>
+        <div v-for="(item, idx) in accusationList" :key="idx">
+          <div class="select-wrp" @click="selectedAccusation = item.id">
+            <div class="select-img">
+              <img
+                v-if="item.id * 1 != selectedAccusation * 1"
+                src="@/assets/img/posting/accusation-unselected.png"
+                alt=""
+              />
+              <img
+                v-else
+                src="@/assets/img/posting/accusation-selected.png"
+                alt=""
+              />
+            </div>
+            <div>{{ item.title }}</div>
+          </div>
+        </div>
+        <div class="btn" @click="accusation()">신고하기</div>
+      </div>
+    </div>
+    <div
+      v-if="isOpenAccusationCompletePopup"
+      class="accusation-complete-popup"
+      @click.self="isOpenAccusationCompletePopup = false"
+    >
+      <div class="content-wrp">
+        <div class="top">
+          <div>신고가 접수되었습니다.</div>
+          <div>검토까지는 최대 24시간이 소요됩니다.</div>
+        </div>
+        <div class="btn" @click.self="isOpenAccusationCompletePopup = false">
+          확인
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -349,7 +399,40 @@ export default {
       currentComment: '',
       activeComponent: 'DetailView',
       isBookmarked: false,
-      isCommentView: false
+      isCommentView: false,
+      isOpenAccusationPopup: false,
+      isOpenAccusationCompletePopup: false,
+      accusationList: [
+        {
+          id: 1,
+          title: '상업적 광고 및 판매'
+        },
+        {
+          id: 2,
+          title: '음란물/불건전한 만남 및 대화'
+        },
+        {
+          id: 3,
+          title: '정당/정치인 비하 및 선거운동'
+        },
+        {
+          id: 4,
+          title: '욕설/비하'
+        },
+        {
+          id: 5,
+          title: '낚시/놀림/도배'
+        },
+        {
+          id: 6,
+          title: '게시판 성격에 부적절함'
+        },
+        {
+          id: 7,
+          title: '유출/사칭/사기'
+        }
+      ],
+      selectedAccusation: 1
     }
   },
   computed: {
@@ -648,6 +731,27 @@ export default {
         this.getPost()
         this.checkBookmark()
       }, 300)
+    },
+    accusation() {
+      this.$axios
+        .post(
+          `${process.env.apiUrl}/v2/accusation`,
+          {
+            postId: this.id,
+            reason: this.accusationList[this.selectedAccusation - 1].title
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          }
+        )
+        .then((res) => {
+          this.isOpenAccusationPopup = false
+          this.isOpenAccusationCompletePopup = true
+        })
     }
   }
 }
