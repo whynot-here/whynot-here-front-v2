@@ -327,13 +327,35 @@
             @click="copyUrl()"
           /> -->
           <img
-            src="@/assets/img/posting/accusation.png"
+            src="@/assets/img/posting/posting-menu.png"
             alt=""
-            @click="isOpenAccusationPopup = true"
+            @click="isOpenDetailMenu = true"
           />
         </div>
       </div>
     </main>
+    <div
+      v-if="isOpenDetailMenu"
+      class="detail-menu-popup"
+      @click.self="isOpenDetailMenu = false"
+    >
+      <div class="content-wrp">
+        <div
+          class="title"
+          @click="
+            isOpenAccusationPopup = true
+            isOpenDetailMenu = false
+          "
+        >
+          <div><img src="@/assets/img/posting/accusation.png" alt="" /></div>
+          <div>이 게시물 신고하기</div>
+        </div>
+        <div class="title" @click="blockAccount()">
+          <div><img src="@/assets/img/posting/block.png" alt="" /></div>
+          <div>사용자 및 게시물 차단하기</div>
+        </div>
+      </div>
+    </div>
     <div
       v-if="isOpenAccusationPopup"
       class="accusation-popup"
@@ -366,7 +388,7 @@
     </div>
     <div
       v-if="isOpenAccusationCompletePopup"
-      class="accusation-complete-popup"
+      class="complete-popup"
       @click.self="isOpenAccusationCompletePopup = false"
     >
       <div class="content-wrp">
@@ -375,6 +397,21 @@
           <div>검토까지는 최대 24시간이 소요됩니다.</div>
         </div>
         <div class="btn" @click.self="isOpenAccusationCompletePopup = false">
+          확인
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="isOpenBlockAccountCompletePopup"
+      class="complete-popup"
+      @click.self="isOpenBlockAccountCompletePopup = false"
+    >
+      <div class="content-wrp">
+        <div class="top">
+          <div>해당 사용자 및 게시물 차단 완료</div>
+          <div>마이페이지 - 차단한 계정에서<br />관리 가능합니다.</div>
+        </div>
+        <div class="btn" @click.self="isOpenBlockAccountCompletePopup = false">
           확인
         </div>
       </div>
@@ -401,7 +438,9 @@ export default {
       isBookmarked: false,
       isCommentView: false,
       isOpenAccusationPopup: false,
+      isOpenDetailMenu: false,
       isOpenAccusationCompletePopup: false,
+      isOpenBlockAccountCompletePopup: false,
       accusationList: [
         {
           id: 1,
@@ -751,6 +790,40 @@ export default {
         .then((res) => {
           this.isOpenAccusationPopup = false
           this.isOpenAccusationCompletePopup = true
+        })
+    },
+    blockAccount() {
+      this.$axios
+        .post(
+          `${process.env.apiUrl}/v2/account/block-account`,
+          {
+            postId: this.id
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          }
+        )
+        .then((res) => {
+          this.isOpenDetailMenu = false
+          this.isOpenBlockAccountCompletePopup = true
+          this.cmn_goMainPage()
+        })
+        .catch((error) => {
+          console.log(error)
+          // window.alert(error.response.data.message)
+          this.cmn_openAlertPopup({
+            option: {
+              title: '📣 알림',
+              content: error.response.data.message,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
         })
     }
   }
