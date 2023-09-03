@@ -34,13 +34,13 @@ export default {
   components: {},
   data() {
     return {
-      blockAccount: []
+      blockAccount: [],
     }
   },
   computed: {
     blockAccountComp() {
       return this.blockAccount
-    }
+    },
   },
   mounted() {
     this.getBlockAccount()
@@ -52,8 +52,8 @@ export default {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
+            Authorization: this.$store.state.userInfo.token,
+          },
         })
         .then((res) => {
           this.blockAccount = []
@@ -68,12 +68,13 @@ export default {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
+            Authorization: this.$store.state.userInfo.token,
+          },
         })
         .then((res) => {
           setTimeout(() => {
             this.getBlockAccount()
+            this.toastPopup('차단해제 되었습니다.')
           }, 2000)
         })
         .catch((error) => {
@@ -84,12 +85,12 @@ export default {
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
         })
-    }
-  }
+    },
+  },
 }
 </script>
 
