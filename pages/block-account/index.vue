@@ -75,7 +75,7 @@ export default {
           setTimeout(() => {
             this.getBlockAccount()
             this.toastPopup('차단해제 되었습니다.')
-          }, 2000)
+          }, 500)
         })
         .catch((error) => {
           // window.alert(error.response.data.message)
