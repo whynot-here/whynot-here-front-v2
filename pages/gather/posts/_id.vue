@@ -340,13 +340,7 @@
       @click.self="isOpenDetailMenu = false"
     >
       <div class="content-wrp">
-        <div
-          class="title"
-          @click="
-            isOpenAccusationPopup = true
-            isOpenDetailMenu = false
-          "
-        >
+        <div class="title" @click="openAccusationPopup()">
           <div><img src="@/assets/img/posting/accusation.png" alt="" /></div>
           <div>이 게시물 신고하기</div>
         </div>
@@ -411,7 +405,13 @@
           <div>해당 사용자 및 게시물 차단 완료</div>
           <div>마이페이지 - 차단한 계정에서<br />관리 가능합니다.</div>
         </div>
-        <div class="btn" @click.self="isOpenBlockAccountCompletePopup = false">
+        <div
+          class="btn"
+          @click.self="
+            isOpenBlockAccountCompletePopup = false
+            cmn_goMainPage()
+          "
+        >
           확인
         </div>
       </div>
@@ -425,7 +425,7 @@ export default {
   layout: 'why-not',
   asyncData({ params }) {
     return {
-      id: params.id
+      id: params.id,
     }
   },
   data() {
@@ -444,34 +444,34 @@ export default {
       accusationList: [
         {
           id: 1,
-          title: '상업적 광고 및 판매'
+          title: '상업적 광고 및 판매',
         },
         {
           id: 2,
-          title: '음란물/불건전한 만남 및 대화'
+          title: '음란물/불건전한 만남 및 대화',
         },
         {
           id: 3,
-          title: '정당/정치인 비하 및 선거운동'
+          title: '정당/정치인 비하 및 선거운동',
         },
         {
           id: 4,
-          title: '욕설/비하'
+          title: '욕설/비하',
         },
         {
           id: 5,
-          title: '낚시/놀림/도배'
+          title: '낚시/놀림/도배',
         },
         {
           id: 6,
-          title: '게시판 성격에 부적절함'
+          title: '게시판 성격에 부적절함',
         },
         {
           id: 7,
-          title: '유출/사칭/사기'
-        }
+          title: '유출/사칭/사기',
+        },
       ],
-      selectedAccusation: 1
+      selectedAccusation: 1,
     }
   },
   computed: {
@@ -499,7 +499,7 @@ export default {
       result.contactText = {
         EMAIL: '이메일',
         KAKAO_OPEN_CHAT: '카카오톡',
-        PHONE: '휴대전화'
+        PHONE: '휴대전화',
       }[this.post.ownerContact.type]
       result.writerName = this.post.writer.nickname
       result.writerProfileImage = this.post.writer.profileImg
@@ -512,7 +512,7 @@ export default {
     },
     commentComp() {
       return this.comments
-    }
+    },
   },
   created() {
     this.getPost()
@@ -543,8 +543,8 @@ export default {
           content: 'URL이 복사되었습니다.',
           type: 'alert',
           confirmText: '확인',
-          cancelText: ''
-        }
+          cancelText: '',
+        },
       })
     },
     registerComment() {
@@ -554,8 +554,8 @@ export default {
             content: '로그인 후 이용해 주세요.',
             type: 'alert',
             confirmText: '확인',
-            cancelText: ''
-          }
+            cancelText: '',
+          },
         })
         return false
       }
@@ -566,8 +566,8 @@ export default {
             content: '댓글을 입력해주세요.',
             type: 'alert',
             confirmText: '확인',
-            cancelText: ''
-          }
+            cancelText: '',
+          },
         })
         return false
       }
@@ -576,14 +576,14 @@ export default {
           `${process.env.apiUrl}/v2/comments`,
           {
             postId: this.id,
-            comment: this.currentComment
+            comment: this.currentComment,
           },
           {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
+              Authorization: this.$store.state.userInfo.token,
+            },
           }
         )
         .then((res) => {
@@ -593,8 +593,8 @@ export default {
               content: '댓글이 등록되었습니다.',
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
           this.currentComment = ''
           this.getComment()
@@ -606,8 +606,8 @@ export default {
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
         })
     },
@@ -617,8 +617,8 @@ export default {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
+            Authorization: this.$store.state.userInfo.token,
+          },
         })
         .then((res) => {
           this.cmn_openAlertPopup({
@@ -627,8 +627,8 @@ export default {
               content: '댓글이 삭제되었습니다.',
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
           this.getComment()
         })
@@ -639,8 +639,8 @@ export default {
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
         })
     },
@@ -657,8 +657,8 @@ export default {
               content: `'${this.postComp.ownerContact.value}' 가 복사되었습니다`,
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
         })
         .catch((error) => {
@@ -668,8 +668,8 @@ export default {
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
         })
     },
@@ -687,8 +687,8 @@ export default {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
+            Authorization: this.$store.state.userInfo.token,
+          },
         })
         .then((res) => {
           res.data.forEach((res) => {
@@ -707,8 +707,8 @@ export default {
             content: '로그인 후 이용해 주세요',
             type: 'alert',
             confirmText: '확인',
-            cancelText: ''
-          }
+            cancelText: '',
+          },
         })
         return false
       }
@@ -719,8 +719,8 @@ export default {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
+              Authorization: this.$store.state.userInfo.token,
+            },
           })
           .then((res) => {
             this.isBookmarked = false
@@ -732,8 +732,8 @@ export default {
                 content: error.response.data.message,
                 type: 'alert',
                 confirmText: '확인',
-                cancelText: ''
-              }
+                cancelText: '',
+              },
             })
           })
       } else {
@@ -745,8 +745,8 @@ export default {
               withCredentials: true,
               headers: {
                 'Content-Type': 'application/json',
-                Authorization: this.$store.state.userInfo.token
-              }
+                Authorization: this.$store.state.userInfo.token,
+              },
             }
           )
           .then((res) => {
@@ -759,8 +759,8 @@ export default {
                 content: error.response.data.message,
                 type: 'alert',
                 confirmText: '확인',
-                cancelText: ''
-              }
+                cancelText: '',
+              },
             })
           })
       }
@@ -771,20 +771,37 @@ export default {
         this.checkBookmark()
       }, 300)
     },
+    openAccusationPopup() {
+      if (!this.$store.state.userInfo.token) {
+        this.cmn_openAlertPopup({
+          option: {
+            title: '📣 알림',
+            content: '로그인 후 이용해 주세요',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: '',
+          },
+        })
+        return false
+      }
+
+      this.isOpenAccusationPopup = true
+      this.isOpenDetailMenu = false
+    },
     accusation() {
       this.$axios
         .post(
           `${process.env.apiUrl}/v2/accusation`,
           {
             postId: this.id,
-            reason: this.accusationList[this.selectedAccusation - 1].title
+            reason: this.accusationList[this.selectedAccusation - 1].title,
           },
           {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
+              Authorization: this.$store.state.userInfo.token,
+            },
           }
         )
         .then((res) => {
@@ -793,24 +810,36 @@ export default {
         })
     },
     blockAccount() {
+      if (!this.$store.state.userInfo.token) {
+        this.cmn_openAlertPopup({
+          option: {
+            title: '📣 알림',
+            content: '로그인 후 이용해 주세요',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: '',
+          },
+        })
+        return false
+      }
+
       this.$axios
         .post(
           `${process.env.apiUrl}/v2/account/block-account`,
           {
-            postId: this.id
+            postId: this.id,
           },
           {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
+              Authorization: this.$store.state.userInfo.token,
+            },
           }
         )
         .then((res) => {
           this.isOpenDetailMenu = false
           this.isOpenBlockAccountCompletePopup = true
-          this.cmn_goMainPage()
         })
         .catch((error) => {
           console.log(error)
@@ -821,12 +850,12 @@ export default {
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
         })
-    }
-  }
+    },
+  },
 }
 </script>
 
