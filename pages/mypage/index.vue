@@ -76,55 +76,65 @@
           </div>
         </div>
 
-        <div class="m-nickname-left">닉네임</div>
-        <div :class="editNickNameMode ? 'm-nickname m-selected' : 'm-nickname'">
+        <section class="mypage-middle">
+          <div class="m-nickname-left">닉네임</div>
           <div
-            class="m-nickname-content"
-            @click.stop="editNickNameModeToggle(true)"
+            :class="editNickNameMode ? 'm-nickname m-selected' : 'm-nickname'"
           >
+            <div
+              class="m-nickname-content"
+              @click.stop="editNickNameModeToggle(true)"
+            >
+              <input
+                ref="cursor"
+                v-model="inputNickName"
+                class="m-edit-input"
+                type="text"
+                @focus="editNickNameModeToggle(true)"
+              />
+            </div>
+            <div v-show="editNickNameMode" class="m-edit-button-wrp">
+              <div @click="editNickName()">확인</div>
+            </div>
+          </div>
+
+          <div class="m-email">
             <input
-              ref="cursor"
-              v-model="inputNickName"
-              class="m-edit-input"
               type="text"
-              @focus="editNickNameModeToggle(true)"
+              :value="
+                $store.state.userInfo.detail.email.length == 0 ||
+                $store.state.userInfo.detail.email == undefined ||
+                $store.state.userInfo.detail.email == null
+                  ? '이메일 제공 없음'
+                  : $store.state.userInfo.detail.email
+              "
+              disabled
             />
           </div>
-          <div v-show="editNickNameMode" class="m-edit-button-wrp">
-            <div @click="editNickName()">확인</div>
+          <div class="m-mypage-bottom _01" @click="moveMyPostingsPage()">
+            <div class="title">내가 쓴 글 목록</div>
+            <div class="right-arrow">
+              <img src="@/assets/img/common/right-arrow.png" alt="" />
+            </div>
           </div>
-        </div>
+          <div class="m-mypage-bottom _02" @click="moveAuthPage()">
+            <div class="title">한동대 학생 인증</div>
+            <div class="right-arrow">
+              <img src="@/assets/img/common/right-arrow.png" alt="" />
+            </div>
+          </div>
+          <div class="m-mypage-bottom _02" @click="moveBlockAccount()">
+            <div class="title">차단한 계정</div>
+            <div class="right-arrow">
+              <img src="@/assets/img/common/right-arrow.png" alt="" />
+            </div>
+          </div>
+        </section>
 
-        <div class="m-email">
-          <input
-            type="text"
-            :value="
-              $store.state.userInfo.detail.email.length == 0 ||
-              $store.state.userInfo.detail.email == undefined ||
-              $store.state.userInfo.detail.email == null
-                ? '이메일 제공 없음'
-                : $store.state.userInfo.detail.email
-            "
-            disabled
-          />
-        </div>
-        <div class="m-mypage-bottom _01" @click="moveMyPostingsPage()">
-          <div class="title">내가 쓴 글 목록</div>
-          <div class="right-arrow">
-            <img src="@/assets/img/common/right-arrow.png" alt="" />
-          </div>
-        </div>
-        <div class="m-mypage-bottom _02" @click="moveAuthPage()">
-          <div class="title">한동대 학생 인증</div>
-          <div class="right-arrow">
-            <img src="@/assets/img/common/right-arrow.png" alt="" />
-          </div>
-        </div>
-        <div class="m-mypage-bottom _02" @click="openDeleteAccountPopup()">
-          <div class="title">회원탈퇴</div>
-          <div class="right-arrow">
-            <img src="@/assets/img/common/right-arrow.png" alt="" />
-          </div>
+        <div class="blank"></div>
+        <div class="m-mypage-menu">
+          <div @click="openDeleteAccountPopup()">회원탈퇴</div>
+          <div>문의하기</div>
         </div>
       </div>
     </section>
@@ -346,6 +356,9 @@ export default {
           category: 'mypostings'
         }
       })
+    },
+    moveBlockAccount() {
+      this.$router.push('/block-account')
     },
     moveAuthPage() {
       if (!this.$store.state.userInfo.initLoginDone) {
