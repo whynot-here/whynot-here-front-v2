@@ -134,7 +134,7 @@
         <div class="blank"></div>
         <div class="m-mypage-menu">
           <div @click="openDeleteAccountPopup()">회원탈퇴</div>
-          <div>문의하기</div>
+          <!-- <div>문의하기</div> -->
         </div>
       </div>
     </section>

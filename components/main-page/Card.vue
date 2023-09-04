@@ -42,7 +42,11 @@
           </div>
           <div>모집중만 보기</div>
         </div>
-        <div v-if="isNeedAuthRequest" class="auth-need-img" @click="goToAuthPage">
+        <div
+          v-if="isNeedAuthRequest"
+          class="auth-need-img"
+          @click="goToAuthPage"
+        >
           <img src="@/assets/img/auth/auth-need-warning.png" alt="" />
           <div class="auth-info-text">학교 인증하기</div>
         </div>
@@ -202,7 +206,7 @@ export default {
       hanchelinCategoryId: categoryConst.hanchelinCategoryId,
       scrollYHeight: 0,
       isLoading: true,
-      isNeedAuthRequest: false,
+      isNeedAuthRequest: false
     }
   },
   computed: {
@@ -288,9 +292,11 @@ export default {
       wrp.scrollTop = this.$store.state.listHistory.scrollHeight
     }, 800)
 
-    if (this.$store.state.userInfo.detail.roles !== undefined &&
-    !this.$store.state.userInfo.detail.roles.includes("ROLE_USER")) {
-      this.isNeedAuthRequest = true;
+    if (
+      this.$store.state.userInfo.detail.roles !== undefined &&
+      !this.$store.state.userInfo.detail.roles.includes('ROLE_USER')
+    ) {
+      this.isNeedAuthRequest = true
     }
   },
   destroyed() {
@@ -389,7 +395,13 @@ export default {
             })
         } else {
           await this.$axios
-            .get(`${process.env.apiUrl}/v2/posts`)
+            .get(`${process.env.apiUrl}/v2/posts`, {
+              withCredentials: true,
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: this.$store.state.userInfo.token
+              }
+            })
             .then((res) => {
               this.posts = []
               res.data.map((res) => {
