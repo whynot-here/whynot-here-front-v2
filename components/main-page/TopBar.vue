@@ -104,6 +104,10 @@
       </div>
     </div>
     <div class="middle">🗓️ 이번주는 한동 <strong>15주차</strong></div>
+    <div class="matching-banner">
+      <div>📢 매칭이 완료되었어요!</div>
+      <div @click="isOpenMatchingPopup = true">응답하기</div>
+    </div>
     <div class="bottom">
       <div class="category-wrp">
         <div>
@@ -114,6 +118,31 @@
         </div>
         <div>
           {{ subCategoryTitleProps }}
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="isOpenMatchingPopup === true"
+      class="complete-popup"
+      @click.self="isOpenMatchingPopup = false"
+    >
+      <div class="content-wrp">
+        <div class="close">
+          <img
+            src="@/assets/img/common/close-review.png"
+            alt=""
+            @click.self="isOpenMatchingPopup = false"
+          />
+        </div>
+        <div class="img">
+          <img src="@/assets/img/common/matching.png" alt="" />
+        </div>
+        <div class="top">
+          <div>매칭이 완료되었어요!</div>
+          <div>어떤 분과 매칭이 되었는지 알아보러 갈까요?</div>
+        </div>
+        <div class="btn" @click.self="moveMatchingPage()">
+          상대방 확인하러 가기
         </div>
       </div>
     </div>
@@ -139,7 +168,8 @@ export default {
       initLoginDone: false,
       openAccount: false,
       categoryTitle: '',
-      subCategoryTitle: ''
+      subCategoryTitle: '',
+      isOpenMatchingPopup: false
     }
   },
   created() {
@@ -183,6 +213,10 @@ export default {
       if (this.$store.state.userInfo.initLoginDone && type !== 'card') {
         this.$router.push(`/posting?m=write&type=${type}`)
       }
+    },
+    moveMatchingPage() {
+      this.isOpenMatchingPopup = false
+      this.$router.push(`/blind-date/matching`)
     },
     logout() {
       this.cmn_logout()
