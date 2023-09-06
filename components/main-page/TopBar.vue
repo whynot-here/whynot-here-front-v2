@@ -103,7 +103,7 @@
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
     </div>
-    <div class="middle">🗓️ 이번주는 한동 <strong>15주차</strong></div>
+    <div class="middle">🗓️ 이번주는 한동 <strong>2주차</strong></div>
     <div class="matching-banner">
       <div>📢 매칭이 완료되었어요!</div>
       <div @click="isOpenMatchingPopup = true">응답하기</div>
