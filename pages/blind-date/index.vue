@@ -1,5 +1,5 @@
 <template>
-  <div id="BlindDate">
+  <div v-show="isShow" id="BlindDate">
     <section class="top">
       <div class="title">
         <strong>두근두근</strong><br />
@@ -43,8 +43,14 @@
                 alt=""
               />
             </div>
-            <div class="desc _04">시작하기 위해서 학생증 인증이 필요해요</div>
-            <div class="auth-btn">학생증 인증하기</div>
+            <div v-if="!isAuthComplete" class="desc _04">
+              시작하기 위해서 학생증 인증이 필요해요
+            </div>
+            <div v-else class="desc _04">
+              학생증 인증이 완료되어 한대소에 참여할 수 있어요
+            </div>
+            <div v-if="!isAuthComplete" class="auth-btn">학생증 인증하기</div>
+            <div v-else class="start auth-btn">다음</div>
             <div></div>
           </section>
         </div>
@@ -87,6 +93,8 @@ export default {
   data() {
     return {
       isNuxtReady: false,
+      isAuthComplete: false,
+      isShow: false,
       swiperOption: {
         loop: false,
         slidesPerView: 1,
@@ -119,8 +127,57 @@ export default {
   watch: {},
   mounted() {
     this.isNuxtReady = true
+    this.getMyAuthImg().then((res) => {
+      this.blindDateParticipation()
+    })
   },
-  methods: {}
+  methods: {
+    async getMyAuthImg() {
+      await this.$axios
+        .get(`${process.env.apiUrl}/v2/student/img`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          if (res.data.imgUrl !== null) {
+            if (res.data.imgUrl.length > 0) {
+              this.isAuthComplete = true
+            }
+          }
+        })
+        .catch((error) => {
+          this.cmn_openAlertPopup({
+            option: {
+              title: '📣 알림',
+              content: error,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+          return false
+        })
+    },
+    blindDateParticipation() {
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          if (res) {
+            this.$router.push('/blind-date/proceeding')
+          } else {
+            this.isShow = true
+          }
+        })
+    }
+  }
 }
 </script>
 
@@ -229,6 +286,11 @@ export default {
       font-style: normal;
       font-weight: 600;
       text-align: center;
+    }
+    .start {
+      background: #6254f0;
+      border: none;
+      color: #fff;
     }
   }
 

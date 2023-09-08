@@ -11,7 +11,8 @@ export default function ({ params, query, route, store, redirect }) {
     '/gather/myposting',
     '/gather/bookmark',
     '/posting',
-    '/mypage'
+    '/mypage',
+    '/blind-date'
   ]
 
   if (

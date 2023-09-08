@@ -181,8 +181,25 @@ export default {
   mounted() {
     this.profileImg = this.$store.state.userInfo.detail.profileImg
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
+    this.blindDateParticipation()
   },
   methods: {
+    blindDateParticipation() {
+      if (!this.$store.state.userInfo.token) {
+        return false
+      }
+
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          console.log(res)
+        })
+    },
     toggleCategoryPanel() {
       this.$bus.$emit('toggleCategoryPanel', {})
     },
