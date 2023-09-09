@@ -7,7 +7,7 @@
         한대소!
       </div>
       <div class="apply-cnt">현재 <strong>{{ totalCount }}명</strong> 참여중!</div>
-      <!-- <div class="apply-ratio"> {{ applicantRatio }}% (남여 비율 차이로 매칭이 되는 퍼센트입니다. 적극 지원해주세요.)</div> -->
+      <div class="apply-ratio">(남여 비율 차이로 매칭이 되지 않을 수 있습니다.)</div>
     </section>
     <section class="bottom">
       <div class="point-img">
@@ -54,7 +54,6 @@ export default {
   data() {
     return {
       totalCount: 0,
-      applicantRatio: 0
     }
   },
   watch: {},
@@ -138,6 +137,7 @@ export default {
     }
     .apply-cnt {
       margin-top: 16px;
+      margin-bottom: 10px;
       color: var(--gray-80, #454545);
       font-family: Pretendard;
       font-size: 16px;

@@ -13,6 +13,7 @@ export default function ({ params, query, route, store, redirect }) {
     '/gather/bookmark',
     '/posting',
     '/mypage',
+    '/blind-date',
     '/blind-date/apply'
   ]
 

@@ -10,7 +10,7 @@
     </div>
     <div class="desc-bottom">
       푸쉬알림으로 알려드리니 알람 설정 필수! <br />
-      <strong>매칭 결과는 9월 16일에 확인할 수 있습니다.</strong>
+      <strong>매칭 결과는 9월 17일에 확인할 수 있습니다.</strong>
     </div>
     <div class="button" @click="cmn_goMainPage">그동안 앱 둘러보기</div>
   </div>

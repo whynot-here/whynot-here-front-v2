@@ -24,7 +24,7 @@
             </div>
             <div class="desc _01">본 이벤트는,</div>
             <div class="desc _02">
-              <div class="left">11.11 ~ 11.11 (4일간)</div>
+              <div class="left">09.11 ~ 09.15 (5일간)</div>
               <div class="right">진행되고,</div>
             </div>
             <div class="desc _03">
@@ -63,7 +63,7 @@
       </div>
       <div class="desc _01">본 이벤트는,</div>
       <div class="desc _02">
-        <div class="left">11.11 ~ 11.11 (4일간)</div>
+        <div class="left">09.11 ~ 09.15 (5일간)</div>
         <div class="right">진행되고,</div>
       </div>
       <div class="desc _03">
@@ -94,7 +94,7 @@ export default {
     return {
       isNuxtReady: false,
       isAuthComplete: false,
-      isShow: false,
+      isShow: true,
       swiperOption: {
         loop: false,
         slidesPerView: 1,
@@ -127,11 +127,20 @@ export default {
   watch: {},
   mounted() {
     this.isNuxtReady = true
-    this.getMyAuthImg().then((res) => {
-      this.blindDateParticipation()
-    })
+    // this.getMyAuthImg().then((res) => {
+    //   this.blindDateParticipation()
+    // })
+    this.getAuthState()
   },
   methods: {
+    async getAuthState() {
+      await this.cmn_getUserInfo(this.$store.state.userInfo.token)
+      if (
+        this.$store.state.userInfo.detail.roles.includes('ROLE_USER')
+      ) {
+        this.isAuthComplete = true
+      }
+    },
     async getMyAuthImg() {
       await this.$axios
         .get(`${process.env.apiUrl}/v2/student/img`, {
