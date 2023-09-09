@@ -1,12 +1,13 @@
 <template>
   <div id="IntroPage">
     <section class="top">
-      <div class="period">23.11.11~23.11.11 까지</div>
+      <div class="period">23.09.11~23.09.15 까지</div>
       <div class="title">
         <strong>두근두근</strong><br />
         한대소!
       </div>
-      <div class="apply-cnt">현재 <strong>123명</strong> 참여중!</div>
+      <div class="apply-cnt">현재 <strong>{{ totalCount }}명</strong> 참여중!</div>
+      <!-- <div class="apply-ratio"> {{ applicantRatio }}% (남여 비율 차이로 매칭이 되는 퍼센트입니다. 적극 지원해주세요.)</div> -->
     </section>
     <section class="bottom">
       <div class="point-img">
@@ -51,10 +52,15 @@ export default {
   name: 'IntroPage',
   components: {},
   data() {
-    return {}
+    return {
+      totalCount: 0,
+      applicantRatio: 0
+    }
   },
   watch: {},
-  mounted() {},
+  mounted() {
+    this.getApplicantTotalCnt()
+  },
   methods: {
     moveDownloadPage(type) {
       if (type === 'appstore') {
@@ -64,6 +70,19 @@ export default {
           'https://play.google.com/store/apps/details?id=com.sangjin.whynot'
         )
       }
+    },
+
+    async getApplicantTotalCnt() {
+      await this.$axios
+          .get(`${process.env.apiUrl}/v2/blind-date/total-cnt?season=1`, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          })
+          .then((res) => {
+            this.totalCount = res.data
+          })
     }
   }
 }
@@ -94,7 +113,7 @@ export default {
   .top {
     flex-grow: 1;
     .period {
-      width: 158px;
+      width: 175px;
       padding: 4px 8px;
       border-radius: 4px;
       background: #2c3849;

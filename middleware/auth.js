@@ -4,7 +4,8 @@ export default function ({ params, query, route, store, redirect }) {
     `/gather/${params.category}`,
     `/gather/posts/${params.id}`,
     '/aboutus',
-    '/login'
+    '/login',
+    '/blind-date/intro'
   ]
 
   const isAuthenticatedPath = [
@@ -12,7 +13,7 @@ export default function ({ params, query, route, store, redirect }) {
     '/gather/bookmark',
     '/posting',
     '/mypage',
-    '/blind-date'
+    '/blind-date/apply'
   ]
 
   if (
