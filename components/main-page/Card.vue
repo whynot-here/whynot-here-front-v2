@@ -9,6 +9,11 @@
         :dots="true"
         :items="1"
       >
+        <img
+          class="banner-img banner-admin-tab-hanchelin"
+          src="@/assets/img/ads/admin-blind-date.png"
+          @click="$router.push('/blind-date')"
+        />
         <a
           class="banner-admin-insta"
           href="https://instagram.com/wnh.crew?igshid=YmMyMTA2M2Y="
@@ -675,6 +680,7 @@ export default {
       }
     },
     goToAuthPage() {
+      this.cmn_getUserInfo(this.$store.state.userInfo.token)
       this.$router.push(`/auth`)
     }
   }

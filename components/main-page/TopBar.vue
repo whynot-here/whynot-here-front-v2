@@ -103,7 +103,7 @@
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
     </div>
-    <div class="middle">🗓️ 이번주는 한동 <strong>방학중~</strong></div>
+    <div class="middle">🗓️ 이번주는 한동 <strong>3주차</strong></div>
     <div class="bottom">
       <div class="category-wrp">
         <div>
@@ -114,6 +114,31 @@
         </div>
         <div>
           {{ subCategoryTitleProps }}
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="isOpenMatchingPopup === true"
+      class="complete-popup"
+      @click.self="isOpenMatchingPopup = false"
+    >
+      <div class="content-wrp">
+        <div class="close">
+          <img
+            src="@/assets/img/common/close-review.png"
+            alt=""
+            @click.self="isOpenMatchingPopup = false"
+          />
+        </div>
+        <div class="img">
+          <img src="@/assets/img/common/matching.png" alt="" />
+        </div>
+        <div class="top">
+          <div>매칭이 완료되었어요!</div>
+          <div>어떤 분과 매칭이 되었는지 알아보러 갈까요?</div>
+        </div>
+        <div class="btn" @click.self="moveMatchingPage()">
+          상대방 확인하러 가기
         </div>
       </div>
     </div>
@@ -139,7 +164,8 @@ export default {
       initLoginDone: false,
       openAccount: false,
       categoryTitle: '',
-      subCategoryTitle: ''
+      subCategoryTitle: '',
+      isOpenMatchingPopup: false
     }
   },
   created() {
@@ -151,8 +177,25 @@ export default {
   mounted() {
     this.profileImg = this.$store.state.userInfo.detail.profileImg
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
+    this.blindDateParticipation()
   },
   methods: {
+    blindDateParticipation() {
+      if (!this.$store.state.userInfo.token) {
+        return false
+      }
+
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          console.log(res)
+        })
+    },
     toggleCategoryPanel() {
       this.$bus.$emit('toggleCategoryPanel', {})
     },
@@ -183,6 +226,9 @@ export default {
       if (this.$store.state.userInfo.initLoginDone && type !== 'card') {
         this.$router.push(`/posting?m=write&type=${type}`)
       }
+    },
+    moveMatchingPage() {
+      this.isOpenMatchingPopup = false
     },
     logout() {
       this.cmn_logout()

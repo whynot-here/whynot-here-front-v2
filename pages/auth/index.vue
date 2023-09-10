@@ -108,7 +108,7 @@
       </div>
       <div v-else>
         <section class="m-authpage-complete">
-          <div class="notice">인증 완료까지 평균 하루 걸려요</div>
+          <div class="notice">인증 검토 중이에요</div>
           <div class="notice-sub">
             인증이 완료되고 나면 WHN 어플을 자유롭게<br />
             사용할 수 있습니다.
