@@ -680,6 +680,7 @@ export default {
       }
     },
     goToAuthPage() {
+      this.cmn_getUserInfo(this.$store.state.userInfo.token)
       this.$router.push(`/auth`)
     }
   }
