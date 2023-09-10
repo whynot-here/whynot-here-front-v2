@@ -21,6 +21,7 @@
     <div class="link-info">
       <p>본인 혹은 상대방의 채팅방 중 하나가 사용됩니다.</p>
       <p>아래 링크가 본인의 링크라면, 상대방의 입장을 기다려주세요~!</p>
+      <p class="bold">(카카오톡 앱이 바로 열리지 않는다면, 링크 복사 후 입장 부탁드립니다🙏)</p>
     </div>
 
     <div class="footer">
@@ -190,6 +191,10 @@ export default {
     line-height: 8px;
     color: rgba(92, 108, 130, 1);
     text-align: center;
+
+    .bold {
+      color: black;
+    }
   }
   .footer {
     padding: 20px 20px 40px 20px;
