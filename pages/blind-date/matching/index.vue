@@ -1,5 +1,5 @@
 <template>
-  <div id="MatchingPage">
+  <div v-if="isShow" id="MatchingPage">
     <div class="title">
       {{ matchingInfo.myName }} 님의 매칭상대
     </div>
@@ -41,13 +41,58 @@ export default {
   name: 'MatchingPage',
   data() {
     return {
-      matchingInfo: {}
+      matchingInfo: {},
+      isShow: false
     }
   },
   mounted() {
+    this.getAuthState();
     this.getMatchingResult();
   },
   methods: {
+    // 학생증 인증 여부
+    async getAuthState() {
+      await this.cmn_getUserInfo(this.$store.state.userInfo.token)
+      if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {  // 학생증 인증 O
+        this.blindDateParticipation()
+      } else {                                                              // 학생증 인증 X
+        this.$router.push('/')
+      }
+    },
+    // 신청 여부 확인
+    blindDateParticipation() {
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          if (res.data) {             // 이미 참여한 경우 => 매칭 결과 대상자 인지 확인
+            this.getMatchinReveal()
+          } else {                    // 참여 안한 경우 => 메인 페이지
+            this.$router.push('/')
+          }
+        })
+    },
+    async getMatchinReveal() {
+      await this.$axios
+          .get(`${process.env.apiUrl}/v2/blind-date/reveal-result?season=1`, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          })
+          .then((res) => {
+            if (res.data) {             // 매칭 결과 오픈인 경우
+              this.isShow = true;
+            } else {
+              this.$router.push('/')
+            }
+          })
+    },
     async getMatchingResult() {
       await this.$axios
           .get(`${process.env.apiUrl}/v2/blind-date/matching-result?season=1`, {

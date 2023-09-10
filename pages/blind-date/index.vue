@@ -49,8 +49,8 @@
             <div v-else class="desc _04">
               학생증 인증이 완료되어 한대소에 참여할 수 있어요
             </div>
-            <div v-if="!isAuthComplete" class="auth-btn">학생증 인증하기</div>
-            <div v-else class="start auth-btn">다음</div>
+            <div v-if="!isAuthComplete" class="auth-btn" @click.prevent="goToAuthPage">학생증 인증하기</div>
+            <div v-else class="start auth-btn" @click.prevent="goToApplyPage">다음</div>
             <div></div>
           </section>
         </div>
@@ -185,6 +185,12 @@ export default {
             this.isShow = true
           }
         })
+    },
+    goToAuthPage() {
+      this.$router.push(`/auth`)
+    },
+    goToApplyPage() {
+      this.$router.push(`/blind-date/apply`)
     }
   }
 }

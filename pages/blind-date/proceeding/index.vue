@@ -1,5 +1,5 @@
 <template>
-  <div id="Proceeding">
+  <div v-if="isShow" id="Proceeding">
     <div class="title">
       why not here가 <br />
       열심히 매칭 중이에요
@@ -21,11 +21,42 @@ export default {
   name: 'ProceedingPage',
   components: {},
   data() {
-    return {}
+    return {
+      isShow: false
+    }
   },
   watch: {},
-  mounted() {},
-  methods: {}
+  mounted() {
+    this.getAuthState()
+  },
+  methods: {
+    // 학생증 인증 여부
+    async getAuthState() {
+      await this.cmn_getUserInfo(this.$store.state.userInfo.token)
+      if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {  // 학생증 인증 O
+        this.blindDateParticipation()
+      } else {                                                              // 학생증 인증 X
+        this.$router.push('/')
+      }
+    },
+    // 신청 여부 확인
+    blindDateParticipation() {
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          if (res.data) {             // 이미 참여한 경우 => 매칭 진행중 페이지
+            this.isShow = true;
+          } else {                    // 아직 참여 전인 경우 => 매칭 안내 페이지
+            this.$router.push('/blind-date')
+          }
+        })
+    },
+  }
 }
 </script>
 

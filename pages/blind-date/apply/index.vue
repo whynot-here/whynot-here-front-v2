@@ -1,5 +1,5 @@
 <template>
-  <div id="ApplyPage">
+  <div v-if="isShow" id="ApplyPage">
     <section v-show="curStage === 1">
       <div class="percent">
         <img src="@/assets/img/blind-date/percent_20.png" alt="" />
@@ -473,12 +473,41 @@ export default {
         }
       ],
       isAddBtnActive: true,
-      isNextActive: false
+      isNextActive: false,
+      isShow: false
     }
   },
   watch: {},
-  mounted() {},
+  mounted() {
+    this.getAuthState()
+  },
   methods: {
+    // 학생증 인증 여부
+    async getAuthState() {
+      await this.cmn_getUserInfo(this.$store.state.userInfo.token)
+      if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {  // 학생증 인증 O
+        this.blindDateParticipation()
+      } else {                                                              // 학생증 인증 X
+        this.$router.push('/blind-date')  
+      }
+    },
+    // 신청 여부 확인
+    blindDateParticipation() {
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          if (res.data) {             // 이미 참여한 경우
+            this.$router.push('/blind-date/proceeding')
+          } else {                    // 진입 가능
+            this.isShow = true;
+          }
+        })
+    },
     checkIsNextActive(stage) {
       if (stage === 1) {
         this.isNextActive = this.applyParams.name.length > 0
