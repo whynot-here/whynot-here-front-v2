@@ -185,9 +185,11 @@ const common = {
     },
 
     cmn_getCookie(cname) {
-      console.log(cname)
-      console.log(Cookies.get())
       return this.$cookies.get(cname)
+    },
+
+    cmn_removeCookie(cname) {
+      return this.$cookies.remove(cname)
     },
 
     cmn_getUserInfo(accessToken) {
@@ -288,7 +290,7 @@ const common = {
           cancelText: '아니오',
           confirmCallback: () => {
             this.$cookies.remove('token')
-            this.$cookies.remove('close-today')
+            this.$cookies.remove('close-notice')
 
             this.$store.commit('userInfo/setToken', { token: '' })
             this.$store.commit('userInfo/setInitLoginDone', {
@@ -306,7 +308,7 @@ const common = {
 
     cmn_auto_logout() {
       this.$cookies.remove('token')
-      this.$cookies.remove('close-today')
+      this.$cookies.remove('close-notice')
 
       this.$store.commit('userInfo/setToken', { token: '' })
       this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })

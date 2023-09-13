@@ -48,7 +48,7 @@ export default {
   mounted() {},
   methods: {
     closeToday() {
-      this.cmn_setCookie('close-today', true, 24)
+      this.cmn_setCookie('close-notice', true, 3000)
       this.closePopup()
     },
     closePopup() {

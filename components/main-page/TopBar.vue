@@ -187,7 +187,10 @@ export default {
     this.profileImg = this.$store.state.userInfo.detail.profileImg
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
     this.blindDateParticipation()
-    this.isOpenNoticePopup = !this.cmn_getCookie('close-today')
+    // 공지사항을 띄우는 경우
+    this.isOpenNoticePopup = !this.cmn_getCookie('close-notice')
+    // 공지 기간 끝났을 때
+    // this.cmn_removeCookie('close-notice')
   },
   methods: {
     closeNoticePopup() {
