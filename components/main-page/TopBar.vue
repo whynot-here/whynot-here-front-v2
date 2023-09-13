@@ -142,12 +142,20 @@
         </div>
       </div>
     </div>
+    <div>
+      <NoticePopup
+        :is-open-popup="isOpenNoticePopup"
+        @closePopup="closeNoticePopup"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import NoticePopup from '@/components/common/NoticePopup'
 export default {
   name: 'TopBar',
+  components: { NoticePopup },
   props: {
     categoryTitleProps: {
       type: String,
@@ -165,7 +173,8 @@ export default {
       openAccount: false,
       categoryTitle: '',
       subCategoryTitle: '',
-      isOpenMatchingPopup: false
+      isOpenMatchingPopup: false,
+      isOpenNoticePopup: true
     }
   },
   created() {
@@ -180,6 +189,9 @@ export default {
     this.blindDateParticipation()
   },
   methods: {
+    closeNoticePopup() {
+      this.isOpenNoticePopup = false
+    },
     blindDateParticipation() {
       if (!this.$store.state.userInfo.token) {
         return false
