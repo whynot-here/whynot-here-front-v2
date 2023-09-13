@@ -21,6 +21,6 @@ RUN yarn --network-timeout 1000000
 RUN yarn build
 
 ENV HOST 0.0.0.0
-EXPOSE 3000
+EXPOSE 3001
 
 CMD [ "yarn", "start" ]
