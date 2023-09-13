@@ -1,14 +1,13 @@
 export default {
   server: {
-    host: process.env.HOST,
-    port: 3001
+    host: process.env.HOST
   },
   target: 'server',
   env: {
     frontUrl:
       process.env.NODE_ENV === 'production'
-        ? 'https://dev.why-not-here.o-r.kr'
-        : 'http://localhost:3001',
+        ? 'https://why-not-here.o-r.kr'
+        : 'http://localhost:3000',
     apiUrl: 'https://whynot-here.o-r.kr'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
