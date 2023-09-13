@@ -174,7 +174,7 @@ export default {
       categoryTitle: '',
       subCategoryTitle: '',
       isOpenMatchingPopup: false,
-      isOpenNoticePopup: true
+      isOpenNoticePopup: false
     }
   },
   created() {
@@ -187,6 +187,7 @@ export default {
     this.profileImg = this.$store.state.userInfo.detail.profileImg
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
     this.blindDateParticipation()
+    this.isOpenNoticePopup = !this.cmn_getCookie('close-today')
   },
   methods: {
     closeNoticePopup() {

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isOpenPopup">
+  <div v-if="isOpenPopup && $store.state.userInfo.initLoginDone">
     <div class="popup" @click.self="closePopup">
       <div class="content-wrp">
         <!-- <div class="close">
@@ -23,8 +23,8 @@
           </div>
         </div>
         <div class="btn-wrp">
-          <div class="btn">다시 열지 않음</div>
-          <div class="btn">닫기</div>
+          <div class="btn" @click="closeToday()">다시 열지 않음</div>
+          <div class="btn" @click.self="closePopup">닫기</div>
         </div>
       </div>
     </div>
@@ -47,6 +47,10 @@ export default {
   computed: {},
   mounted() {},
   methods: {
+    closeToday() {
+      this.cmn_setCookie('close-today', true, 24)
+      this.closePopup()
+    },
     closePopup() {
       this.$emit('closePopup', {})
     }
@@ -59,8 +63,8 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
   display: inline-flex;

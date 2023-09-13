@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 import Vue from 'vue'
-import categoryConst from '@/plugins/const/categoryConst';
+import categoryConst from '@/plugins/const/categoryConst'
 
 const common = {
   data() {
@@ -34,8 +34,18 @@ const common = {
             { id: 46, code: 'KOREAN', name: '한식', parentCode: 'MUST-EAT' },
             { id: 47, code: 'CHINESE', name: '중식', parentCode: 'MUST-EAT' },
             { id: 48, code: 'NIGHT', name: '야식', parentCode: 'MUST-EAT' },
-            { id: 49, code: 'CAFE', name: '카페/디저트', parentCode: 'MUST-EAT' },
-            { id: 50, code: 'ETC-MUST-EAT', name: '기타', parentCode: 'MUST-EAT' },
+            {
+              id: 49,
+              code: 'CAFE',
+              name: '카페/디저트',
+              parentCode: 'MUST-EAT'
+            },
+            {
+              id: 50,
+              code: 'ETC-MUST-EAT',
+              name: '기타',
+              parentCode: 'MUST-EAT'
+            }
           ]
         },
         {
@@ -174,6 +184,12 @@ const common = {
       }
     },
 
+    cmn_getCookie(cname) {
+      console.log(cname)
+      console.log(Cookies.get())
+      return this.$cookies.get(cname)
+    },
+
     cmn_getUserInfo(accessToken) {
       this.$axios
         .get(`${process.env.apiUrl}/v2/account/info`, {
@@ -272,6 +288,7 @@ const common = {
           cancelText: '아니오',
           confirmCallback: () => {
             this.$cookies.remove('token')
+            this.$cookies.remove('close-today')
 
             this.$store.commit('userInfo/setToken', { token: '' })
             this.$store.commit('userInfo/setInitLoginDone', {
@@ -289,6 +306,7 @@ const common = {
 
     cmn_auto_logout() {
       this.$cookies.remove('token')
+      this.$cookies.remove('close-today')
 
       this.$store.commit('userInfo/setToken', { token: '' })
       this.$store.commit('userInfo/setInitLoginDone', { loginDone: false })
