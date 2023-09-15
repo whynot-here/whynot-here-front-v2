@@ -49,8 +49,9 @@
             <div v-else class="desc _04">
               학생증 인증이 완료되어 한대소에 참여할 수 있어요
             </div>
-            <div v-if="!isAuthComplete" class="auth-btn" @click.prevent="goToAuthPage">학생증 인증하기</div>
-            <div v-else class="start auth-btn" @click.prevent="goToApplyPage">다음</div>
+            <div class="auth-btn">시즌1 신청 마감!</div>
+            <!-- <div v-if="!isAuthComplete" class="auth-btn" @click.prevent="goToAuthPage">학생증 인증하기</div>
+            <div v-else class="start auth-btn" @click.prevent="goToApplyPage">다음</div> -->
             <div></div>
           </section>
         </div>
@@ -135,9 +136,7 @@ export default {
   methods: {
     async getAuthState() {
       await this.cmn_getUserInfo(this.$store.state.userInfo.token)
-      if (
-        this.$store.state.userInfo.detail.roles.includes('ROLE_USER')
-      ) {
+      if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
         this.isAuthComplete = true
       }
     },
@@ -295,7 +294,8 @@ export default {
       border-radius: 4px;
       border: 1px solid #d9e5f4;
       background: #fff;
-      color: #414c5b;
+      // color: #414c5b;
+      color: #b3b3b3;
       font-family: Pretendard;
       font-size: 15px;
       font-style: normal;

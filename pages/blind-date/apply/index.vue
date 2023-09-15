@@ -479,16 +479,21 @@ export default {
   },
   watch: {},
   mounted() {
-    this.getAuthState()
+    // 한대소 시즌 기간인 경우
+    // this.getAuthState()
+    // 한대소 시즌 마감인 경우
+    this.cmn_goMainPage()
   },
   methods: {
     // 학생증 인증 여부
     async getAuthState() {
       await this.cmn_getUserInfo(this.$store.state.userInfo.token)
-      if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {  // 학생증 인증 O
+      if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
+        // 학생증 인증 O
         this.blindDateParticipation()
-      } else {                                                              // 학생증 인증 X
-        this.$router.push('/blind-date')  
+      } else {
+        // 학생증 인증 X
+        this.$router.push('/blind-date')
       }
     },
     // 신청 여부 확인
@@ -501,10 +506,12 @@ export default {
           }
         })
         .then((res) => {
-          if (res.data) {             // 이미 참여한 경우
+          if (res.data) {
+            // 이미 참여한 경우
             this.$router.push('/blind-date/proceeding')
-          } else {                    // 진입 가능
-            this.isShow = true;
+          } else {
+            // 진입 가능
+            this.isShow = true
           }
         })
     },
