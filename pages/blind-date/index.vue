@@ -294,7 +294,8 @@ export default {
       border-radius: 4px;
       border: 1px solid #d9e5f4;
       background: #fff;
-      color: #414c5b;
+      // color: #414c5b;
+      color: #b3b3b3;
       font-family: Pretendard;
       font-size: 15px;
       font-style: normal;
