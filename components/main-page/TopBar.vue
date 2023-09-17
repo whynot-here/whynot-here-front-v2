@@ -104,6 +104,10 @@
       </div>
     </div>
     <div class="middle">🗓️ 이번주는 한동 <strong>3주차</strong></div>
+    <div v-if="isRevealMatchingResult" class="matching-banner">
+      <div>📢 매칭이 완료되었어요!</div>
+      <div @click="isOpenMatchingPopup = true">결과보기</div>
+    </div>
     <div class="bottom">
       <div class="category-wrp">
         <div>
@@ -174,7 +178,8 @@ export default {
       categoryTitle: '',
       subCategoryTitle: '',
       isOpenMatchingPopup: false,
-      isOpenNoticePopup: false
+      isOpenNoticePopup: false,
+      isRevealMatchingResult: false
     }
   },
   created() {
@@ -191,8 +196,28 @@ export default {
     this.isOpenNoticePopup = !this.cmn_getCookie('close-notice')
     // 공지 기간 끝났을 때
     // this.cmn_removeCookie('close-notice')
+
+    // 소개팅 결과 버튼 노출 여부
+    this.getMatchinReveal()
   },
   methods: {
+    async getMatchinReveal() {
+      await this.$axios
+          .get(`${process.env.apiUrl}/v2/blind-date/reveal-result?season=1`, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          })
+          .then((res) => {
+            if (res.data) {                          // blind-date 참여한 사람
+              this.isRevealMatchingResult = true;
+            } else {
+              this.isRevealMatchingResult = false;
+            }
+          })
+    },
     closeNoticePopup() {
       this.isOpenNoticePopup = false
     },
@@ -245,6 +270,7 @@ export default {
     },
     moveMatchingPage() {
       this.isOpenMatchingPopup = false
+      this.$router.push(`/blind-date/matching`)
     },
     logout() {
       this.cmn_logout()

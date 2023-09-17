@@ -76,7 +76,7 @@
               매칭 성공
             </div>
             <div class="cnt">
-              113팀
+              114팀
             </div>
           </div>
         </div>
