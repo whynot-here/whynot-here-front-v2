@@ -103,7 +103,7 @@
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
     </div>
-    <div class="middle">🗓️ 이번주는 한동 <strong>3주차</strong></div>
+    <div class="middle">🗓️ 이번주는 한동 <strong>4주차</strong></div>
     <div v-if="isRevealMatchingResult" class="matching-banner">
       <div>📢 매칭이 완료되었어요!</div>
       <div @click="isOpenMatchingPopup = true">결과보기</div>
@@ -163,12 +163,12 @@ export default {
   props: {
     categoryTitleProps: {
       type: String,
-      default: ''
+      default: '',
     },
     subCategoryTitleProps: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   data() {
     return {
@@ -179,7 +179,7 @@ export default {
       subCategoryTitle: '',
       isOpenMatchingPopup: false,
       isOpenNoticePopup: false,
-      isRevealMatchingResult: false
+      isRevealMatchingResult: false,
     }
   },
   created() {
@@ -203,20 +203,21 @@ export default {
   methods: {
     async getMatchinReveal() {
       await this.$axios
-          .get(`${process.env.apiUrl}/v2/blind-date/reveal-result?season=1`, {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
-          })
-          .then((res) => {
-            if (res.data) {                          // blind-date 참여한 사람
-              this.isRevealMatchingResult = true;
-            } else {
-              this.isRevealMatchingResult = false;
-            }
-          })
+        .get(`${process.env.apiUrl}/v2/blind-date/reveal-result?season=1`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token,
+          },
+        })
+        .then((res) => {
+          if (res.data) {
+            // blind-date 참여한 사람
+            this.isRevealMatchingResult = true
+          } else {
+            this.isRevealMatchingResult = false
+          }
+        })
     },
     closeNoticePopup() {
       this.isOpenNoticePopup = false
@@ -230,8 +231,8 @@ export default {
         .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
+            Authorization: this.$store.state.userInfo.token,
+          },
         })
         .then((res) => {
           console.log(res)
@@ -243,7 +244,7 @@ export default {
     mainPage() {
       // 모바일 상단 logo를 눌렀을 때 저장된 스크롤 높이 초기화
       this.$store.commit('listHistory/setScrollHeight', {
-        height: 0
+        height: 0,
       })
 
       this.$router.push('/')
@@ -275,8 +276,8 @@ export default {
     logout() {
       this.cmn_logout()
       this.initLoginDone = false
-    }
-  }
+    },
+  },
 }
 </script>
 
