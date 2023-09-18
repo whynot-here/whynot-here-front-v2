@@ -504,21 +504,21 @@
         .m-img-wrp {
           display: flex;
           padding-left: 20px;
-          justify-content: space-around;
+          // justify-content: space-around;
           align-items: center;
-          width: 80px;
+          width: 100%;
 
           .comment-img {
             width: 24px;
             height: 24px;
-            margin-right: 5px;
+            margin-right: 15px;
             margin-top: -1px;
             vertical-align: middle;
           }
           .detail-img {
             width: 14px;
             height: 20px;
-            margin-right: 5px;
+            margin-right: 15px;
             margin-top: -1px;
             vertical-align: middle;
           }
