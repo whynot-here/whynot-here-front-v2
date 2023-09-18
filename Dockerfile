@@ -1,5 +1,5 @@
 # FROM node:lts as builder
-FROM node:16.6 as builder
+FROM node:16.10.0-slim as builder
 
 # 컨테이너에 working directory /app을 만들고 project를 /app 폴더에 추가한다.
 WORKDIR /app

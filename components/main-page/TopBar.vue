@@ -195,7 +195,6 @@ export default {
     // main 페이지인 경우만 매칭 배너 띄우기
     $route: {
       handler(to, from) {
-        console.log(to.name, from.name)
         if (to.name === 'gather-category') {
           this.isMainPage = true
         } else {
@@ -245,7 +244,7 @@ export default {
             // blind-date 참여한 사람
             this.isRevealMatchingResult = true
           } else {
-            this.isRevealMatchingResult = true
+            this.isRevealMatchingResult = false
           }
         })
     },
