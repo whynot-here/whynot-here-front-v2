@@ -186,13 +186,13 @@ export default {
     carousel,
     EmptyPosting,
     SubFilterDropdown,
-    NuxtLoadingIndicator
+    NuxtLoadingIndicator,
   },
   props: {
     searchText: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   data() {
     return {
@@ -211,7 +211,7 @@ export default {
       hanchelinCategoryId: categoryConst.hanchelinCategoryId,
       scrollYHeight: 0,
       isLoading: true,
-      isNeedAuthRequest: false
+      isNeedAuthRequest: false,
     }
   },
   computed: {
@@ -259,14 +259,14 @@ export default {
         post.contactText = {
           EMAIL: '이메일',
           KAKAO_OPEN_CHAT: '카카오톡',
-          PHONE: '휴대전화'
+          PHONE: '휴대전화',
         }[post.ownerContact.type]
 
         post.passedDay = this.cmn_getPassedDay(post.createdDt)
 
         return post
       })
-    }
+    },
   },
   watch: {
     isLoading(newValue) {
@@ -277,7 +277,7 @@ export default {
           this.$nuxt.$loading.finish()
         }
       })
-    }
+    },
   },
   created() {
     this.$bus.$off('refreshCard')
@@ -306,7 +306,7 @@ export default {
   },
   destroyed() {
     this.$store.commit('listHistory/setScrollHeight', {
-      height: this.scrollYHeight
+      height: this.scrollYHeight,
     })
   },
   methods: {
@@ -331,8 +331,8 @@ export default {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
+              Authorization: this.$store.state.userInfo.token,
+            },
           })
           .then((res) => {
             this.posts = []
@@ -351,8 +351,8 @@ export default {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
+              Authorization: this.$store.state.userInfo.token,
+            },
           })
           .then((res) => {
             this.posts = []
@@ -370,8 +370,8 @@ export default {
               withCredentials: true,
               headers: {
                 'Content-Type': 'application/json',
-                Authorization: this.$store.state.userInfo.token
-              }
+                Authorization: this.$store.state.userInfo.token,
+              },
             }
           )
           .then((res) => {
@@ -404,8 +404,8 @@ export default {
               withCredentials: true,
               headers: {
                 'Content-Type': 'application/json',
-                Authorization: this.$store.state.userInfo.token
-              }
+                Authorization: this.$store.state.userInfo.token,
+              },
             })
             .then((res) => {
               this.posts = []
@@ -433,7 +433,7 @@ export default {
 
       this.$bus.$emit('sendCategoryTitle', {
         categoryTitle: this.categoryTitle,
-        subCategoryTitle: this.subCategoryTitle
+        subCategoryTitle: this.subCategoryTitle,
       })
     },
     getSubCategoryId() {
@@ -452,7 +452,7 @@ export default {
 
       this.$bus.$emit('sendCategoryTitle', {
         categoryTitle: this.categoryTitle,
-        subCategoryTitle: this.subCategoryTitle
+        subCategoryTitle: this.subCategoryTitle,
       })
     },
     getBookmark() {
@@ -467,8 +467,8 @@ export default {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
+              Authorization: this.$store.state.userInfo.token,
+            },
           })
           .then((res) => {
             res.data.forEach((bookmark) => {
@@ -487,8 +487,8 @@ export default {
                 content: '다시 로그인 해주세요.',
                 type: 'alert',
                 confirmText: '확인',
-                cancelText: ''
-              }
+                cancelText: '',
+              },
             })
           })
       } else {
@@ -502,8 +502,8 @@ export default {
             content: '로그인 후 이용해 주세요.',
             type: 'alert',
             confirmText: '확인',
-            cancelText: ''
-          }
+            cancelText: '',
+          },
         })
         return false
       }
@@ -516,8 +516,8 @@ export default {
                 withCredentials: true,
                 headers: {
                   'Content-Type': 'application/json',
-                  Authorization: this.$store.state.userInfo.token
-                }
+                  Authorization: this.$store.state.userInfo.token,
+                },
               })
               .then((res) => {
                 post.isBookmarked = false
@@ -536,8 +536,8 @@ export default {
                   withCredentials: true,
                   headers: {
                     'Content-Type': 'application/json',
-                    Authorization: this.$store.state.userInfo.token
-                  }
+                    Authorization: this.$store.state.userInfo.token,
+                  },
                 }
               )
               .then((res) => {
@@ -586,8 +586,8 @@ export default {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
+              Authorization: this.$store.state.userInfo.token,
+            },
           })
           .then((res) => {
             // 카드 새로고침
@@ -597,8 +597,8 @@ export default {
                 content: '삭제했습니다.',
                 type: 'alert',
                 confirmText: '확인',
-                cancelText: ''
-              }
+                cancelText: '',
+              },
             })
             this.refreshCard()
           })
@@ -615,8 +615,8 @@ export default {
           cancelText: '아니요',
           confirmCallback: () => {
             this.compRecruit()
-          }
-        }
+          },
+        },
       })
       this.compRecruitId = id
     },
@@ -625,14 +625,14 @@ export default {
         .post(
           `${process.env.apiUrl}/v2/posts/own/${this.compRecruitId}`,
           {
-            isRecruit: false
+            isRecruit: false,
           },
           {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
+              Authorization: this.$store.state.userInfo.token,
+            },
           }
         )
         .then((res) => {
@@ -645,8 +645,8 @@ export default {
               content: '모집이 마감되었습니다.',
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
         })
         .catch((error) => {
@@ -656,8 +656,8 @@ export default {
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
         })
     },
@@ -682,8 +682,8 @@ export default {
     goToAuthPage() {
       this.cmn_getUserInfo(this.$store.state.userInfo.token)
       this.$router.push(`/auth`)
-    }
-  }
+    },
+  },
 }
 </script>
 
