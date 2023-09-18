@@ -104,7 +104,10 @@
       </div>
     </div>
     <div class="middle">🗓️ 이번주는 한동 <strong>4주차</strong></div>
-    <div v-if="isRevealMatchingResult && isMainPage" class="matching-banner">
+    <div
+      v-if="isRevealMatchingResult === true && isMainPageComp === true"
+      class="matching-banner"
+    >
       <div>📢 매칭이 완료되었어요!</div>
       <div @click="isOpenMatchingPopup = true">결과보기</div>
     </div>
@@ -183,18 +186,39 @@ export default {
       isMainPage: false,
     }
   },
+  computed: {
+    isMainPageComp() {
+      return this.isMainPage
+    },
+  },
+  watch: {
+    // main 페이지인 경우만 매칭 배너 띄우기
+    $route: {
+      handler(to, from) {
+        console.log(to.name, from.name)
+        if (to.name === 'gather-category') {
+          this.isMainPage = true
+        } else {
+          this.isMainPage = false
+        }
+      },
+      deep: true,
+    },
+  },
   created() {
     this.$bus.$off('checkLogin')
-    this.$bus.$off('isMainPage')
-
     this.$bus.$on('checkLogin', () => {
       this.checkLogin('card')
     })
-    this.$bus.$on('isMainPage', () => {
-      this.isMainPage = true
-    })
   },
   mounted() {
+    // main 페이지인 경우만 매칭 배너 띄우기
+    if (this.$route.name === 'gather-category') {
+      this.isMainPage = true
+    } else {
+      this.isMainPage = false
+    }
+
     this.profileImg = this.$store.state.userInfo.detail.profileImg
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
     this.blindDateParticipation()
@@ -221,7 +245,7 @@ export default {
             // blind-date 참여한 사람
             this.isRevealMatchingResult = true
           } else {
-            this.isRevealMatchingResult = false
+            this.isRevealMatchingResult = true
           }
         })
     },

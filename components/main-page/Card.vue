@@ -303,8 +303,6 @@ export default {
     ) {
       this.isNeedAuthRequest = true
     }
-
-    this.$bus.$emit('isMainPage', {})
   },
   destroyed() {
     this.$store.commit('listHistory/setScrollHeight', {
