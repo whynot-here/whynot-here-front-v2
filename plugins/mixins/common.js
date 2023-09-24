@@ -238,7 +238,7 @@ const common = {
       const minutesDiff =
         (today.getTime() - createdDate.getTime()) / (1000 * 60)
       const day = {
-        month: createdDate.getMonth().toString().padStart(2, '0'),
+        month: (parseInt(createdDate.getMonth())+1).toString().padStart(2, '0'),
         date: createdDate.getDate().toString().padStart(2, '0'),
         hour: createdDate.getHours().toString().padStart(2, '0'),
         minute: createdDate.getMinutes().toString().padStart(2, '0')
