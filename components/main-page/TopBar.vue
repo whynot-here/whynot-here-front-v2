@@ -104,13 +104,6 @@
       </div>
     </div>
     <div class="middle">🗓️ 이번주는 한동 <strong>4주차</strong></div>
-    <div
-      v-if="isRevealMatchingResult === true && isMainPageComp === true"
-      class="matching-banner"
-    >
-      <div>📢 매칭이 완료되었어요!</div>
-      <div @click="isOpenMatchingPopup = true">결과보기</div>
-    </div>
     <div class="bottom">
       <div class="category-wrp">
         <div>
@@ -181,28 +174,8 @@ export default {
       categoryTitle: '',
       subCategoryTitle: '',
       isOpenMatchingPopup: false,
-      isOpenNoticePopup: false,
-      isRevealMatchingResult: false,
-      isMainPage: false,
+      isOpenNoticePopup: false
     }
-  },
-  computed: {
-    isMainPageComp() {
-      return this.isMainPage
-    },
-  },
-  watch: {
-    // main 페이지인 경우만 매칭 배너 띄우기
-    $route: {
-      handler(to, from) {
-        if (to.name === 'gather-category') {
-          this.isMainPage = true
-        } else {
-          this.isMainPage = false
-        }
-      },
-      deep: true,
-    },
   },
   created() {
     this.$bus.$off('checkLogin')
@@ -211,13 +184,6 @@ export default {
     })
   },
   mounted() {
-    // main 페이지인 경우만 매칭 배너 띄우기
-    if (this.$route.name === 'gather-category') {
-      this.isMainPage = true
-    } else {
-      this.isMainPage = false
-    }
-
     this.profileImg = this.$store.state.userInfo.detail.profileImg
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
     this.blindDateParticipation()
@@ -225,29 +191,8 @@ export default {
     this.isOpenNoticePopup = !this.cmn_getCookie('close-notice')
     // 공지 기간 끝났을 때
     // this.cmn_removeCookie('close-notice')
-
-    // 소개팅 결과 버튼 노출 여부
-    this.getMatchinReveal()
   },
   methods: {
-    async getMatchinReveal() {
-      await this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/reveal-result?season=1`, {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token,
-          },
-        })
-        .then((res) => {
-          if (res.data) {
-            // blind-date 참여한 사람
-            this.isRevealMatchingResult = true
-          } else {
-            this.isRevealMatchingResult = false
-          }
-        })
-    },
     closeNoticePopup() {
       this.isOpenNoticePopup = false
     },
