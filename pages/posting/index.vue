@@ -224,6 +224,7 @@
             <div class="line">
               <div class="form-wrp">
                 <textarea
+                  id="TextareaContent"
                   v-model="postingRegisterParams.content"
                   class="content"
                   name="introduce"
@@ -389,14 +390,14 @@ export default {
   name: 'PostingPage',
   components: {
     TopBarOnly,
-    DropdownCategory
+    DropdownCategory,
   },
   asyncData({ params, query }) {
     return {
       category: params.category,
       mode: query.m,
       id: query.id,
-      type: query.type
+      type: query.type,
     }
   },
   data() {
@@ -404,30 +405,30 @@ export default {
       callList: [
         {
           text: '이메일',
-          value: 'EMAIL'
+          value: 'EMAIL',
         },
         {
           text: '카카오톡 오픈채팅',
-          value: 'KAKAO_OPEN_CHAT'
+          value: 'KAKAO_OPEN_CHAT',
         },
         {
           text: '구글폼',
-          value: 'GOOGLE_FORM'
+          value: 'GOOGLE_FORM',
         },
         {
           text: '전화번호',
-          value: 'PHONE'
-        }
+          value: 'PHONE',
+        },
       ],
       processList: [
         {
           text: '만나서',
-          value: 'OFFLINE'
+          value: 'OFFLINE',
         },
         {
           text: '줌으로',
-          value: 'ONLINE'
-        }
+          value: 'ONLINE',
+        },
       ],
       d_day: '',
       postingRegisterParams: {
@@ -439,17 +440,17 @@ export default {
         category: {
           code: '',
           id: 0,
-          name: ''
+          name: '',
         },
         closedDt: '',
         recruitTotalCnt: 0,
-        recruitCurrentCnt: 0
+        recruitCurrentCnt: 0,
       },
       inputImg: [],
       files: [],
       dir: '',
       useDday: false,
-      selectedDate: ''
+      selectedDate: '',
     }
   },
   computed: {
@@ -458,7 +459,7 @@ export default {
     },
     selectedCode() {
       return this.postingRegisterParams.category.code
-    }
+    },
   },
   mounted() {
     if (this.id !== undefined) {
@@ -489,7 +490,7 @@ export default {
                 id: category.parentId,
                 name: category.parentName,
                 code: category.parentCode,
-                parentCode: category.parentCode
+                parentCode: category.parentCode,
               }
               this.$refs.DropdownCategory.selectOptionMain(categoryItem)
             } else {
@@ -499,14 +500,14 @@ export default {
                     id: child.id,
                     name: child.name,
                     code: child.code,
-                    parentCode: child.parentCode
+                    parentCode: child.parentCode,
                   }
                   this.$refs.DropdownCategory.selectOptionSub(categoryItem)
                   categoryItem = {
                     id: category.parentId,
                     name: category.parentName,
                     code: category.parentCode,
-                    parentCode: category.parentCode
+                    parentCode: category.parentCode,
                   }
                   this.$refs.DropdownCategory.selectOptionMain(categoryItem)
                 }
@@ -517,7 +518,7 @@ export default {
           res.data.imageLinks.map((imageLink) => {
             const img = {
               prev_url: imageLink.link,
-              isNew: false
+              isNew: false,
             }
             return this.inputImg.push(img)
           })
@@ -600,8 +601,8 @@ export default {
           withCredentials: true,
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: this.$store.state.userInfo.token
-          }
+            Authorization: this.$store.state.userInfo.token,
+          },
         })
         .then((res) => {
           this.postingRegisterParams.imageLinks.push(res.data.url)
@@ -616,8 +617,8 @@ export default {
               content: error,
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
           return false
         })
@@ -630,8 +631,8 @@ export default {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
+            Authorization: this.$store.state.userInfo.token,
+          },
         })
         .then((res) => {
           this.cmn_openAlertPopup({
@@ -640,8 +641,8 @@ export default {
               content: '공고 생성 성공',
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
           this.$router.push(`/gather/posts/${res.data.id}`)
         })
@@ -652,8 +653,8 @@ export default {
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
         })
     },
@@ -667,8 +668,8 @@ export default {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
+              Authorization: this.$store.state.userInfo.token,
+            },
           }
         )
         .then((res) => {
@@ -678,8 +679,8 @@ export default {
               content: '공고 수정 성공',
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
           this.$router.push(`/gather/posts/${this.id}`)
         })
@@ -690,8 +691,8 @@ export default {
               content: error.response.data.message,
               type: 'alert',
               confirmText: '확인',
-              cancelText: ''
-            }
+              cancelText: '',
+            },
           })
         })
     },
@@ -705,6 +706,7 @@ export default {
         delete this.postingRegisterParams.locationUrl
       }
     },
+
     // 사진 선택
     onFileChange(event) {
       const input = event.target.files
@@ -714,7 +716,7 @@ export default {
           fileReader.onload = (e) => {
             this.inputImg.push({
               prev_url: e.target.result,
-              isNew: true
+              isNew: true,
             })
           }
           fileReader.readAsDataURL(input[i])
@@ -736,8 +738,8 @@ export default {
             content: '제목을 입력해주세요.',
             type: 'alert',
             confirmText: '확인',
-            cancelText: ''
-          }
+            cancelText: '',
+          },
         })
         return false
       }
@@ -748,8 +750,8 @@ export default {
             content: '내용을 입력해주세요.',
             type: 'alert',
             confirmText: '확인',
-            cancelText: ''
-          }
+            cancelText: '',
+          },
         })
         return false
       }
@@ -763,14 +765,14 @@ export default {
             content: '위치 url은 https로 시작해야합니다.',
             type: 'alert',
             confirmText: '확인',
-            cancelText: ''
-          }
+            cancelText: '',
+          },
         })
         return false
       }
       return true
-    }
-  }
+    },
+  },
 }
 </script>
 

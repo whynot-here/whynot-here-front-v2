@@ -193,9 +193,9 @@
               </a>
               <br />
               <div
+                v-dompurify-html="postComp.content"
                 class="content"
                 style="white-space: pre-line; word-wrap: break-word"
-                v-text="postComp.content"
               ></div>
               <br />
               <div class="m-content-img">
@@ -508,6 +508,7 @@ export default {
       if (this.post.locationUrl !== undefined) {
         result.locationUrl = this.post.locationUrl
       }
+      result.content = this.autolink(result.content)
       return result
     },
     commentComp() {
@@ -520,6 +521,15 @@ export default {
     this.checkBookmark()
   },
   methods: {
+    autolink(content) {
+      const regURL =
+        /(http|https|ftp|telnet|news|irc):\/\/([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)/gi
+      return content.replace(
+        regURL,
+        "<a href='$1://$2' target='_blank'>$1://$2</a>"
+      )
+    },
+
     getPost() {
       this.$axios
         .get(`${process.env.apiUrl}/v2/posts/${this.id}`)
