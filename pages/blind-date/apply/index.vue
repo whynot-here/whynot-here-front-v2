@@ -11,7 +11,7 @@
           v-model="applyParams.name"
           class="input-long"
           type="text"
-          @keydown="checkIsNextActive(1)"
+          @keyup="checkIsNextActive(1)"
         />
       </div>
       <div class="content_01">
@@ -52,7 +52,7 @@
           class="input-long"
           type="text"
           oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
-          @keydown="checkIsNextActive(2)"
+          @keyup="checkIsNextActive(2)"
         />
       </div>
       <div class="content_01">
@@ -353,7 +353,7 @@
         <textarea
           v-model="applyParams.comment"
           class="send-to"
-          @keydown="checkIsNextActive(1)"
+          @keyup="checkIsNextActive(1)"
         />
       </div>
     </section>
@@ -369,7 +369,7 @@
           class="input-long"
           type="text"
           placeholder="url"
-          @keydown="checkIsNextActive(7)"
+          @keyup="checkIsNextActive(7)"
         />
       </div>
     </section>
