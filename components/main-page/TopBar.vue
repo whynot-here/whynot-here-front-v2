@@ -103,7 +103,7 @@
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
     </div>
-    <div class="middle">🗓️ 이번주는 한동 <strong>6주차</strong></div>
+    <div class="middle">🗓️ 이번주는 한동 <strong>7주차</strong></div>
     <div class="bottom">
       <div class="category-wrp">
         <div>
@@ -159,12 +159,12 @@ export default {
   props: {
     categoryTitleProps: {
       type: String,
-      default: '',
+      default: ''
     },
     subCategoryTitleProps: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
   data() {
     return {
@@ -174,7 +174,7 @@ export default {
       categoryTitle: '',
       subCategoryTitle: '',
       isOpenMatchingPopup: false,
-      isOpenNoticePopup: false,
+      isOpenNoticePopup: false
     }
   },
   created() {
@@ -205,8 +205,8 @@ export default {
         .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token,
-          },
+            Authorization: this.$store.state.userInfo.token
+          }
         })
         .then((res) => {})
     },
@@ -216,7 +216,7 @@ export default {
     mainPage() {
       // 모바일 상단 logo를 눌렀을 때 저장된 스크롤 높이 초기화
       this.$store.commit('listHistory/setScrollHeight', {
-        height: 0,
+        height: 0
       })
 
       this.$router.push('/')
@@ -248,8 +248,8 @@ export default {
     logout() {
       this.cmn_logout()
       this.initLoginDone = false
-    },
-  },
+    }
+  }
 }
 </script>
 
