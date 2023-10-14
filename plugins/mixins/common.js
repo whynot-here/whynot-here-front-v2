@@ -330,6 +330,66 @@ const common = {
         position: 'bottom-right',
         duration: 1500
       })
+    },
+
+    cmn_getNumOfWeek() {
+      const today = new Date();
+      const week1 = new Date('2023-08-27');
+      const week2 = new Date('2023-09-03');
+      const week3 = new Date('2023-09-10');
+      const week4 = new Date('2023-09-17');
+      const week5 = new Date('2023-09-24');
+      const week6 = new Date('2023-10-01');
+      const week7 = new Date('2023-10-08');
+      const week8 = new Date('2023-10-15');
+      const week9 = new Date('2023-10-22');
+      const week10 = new Date('2023-10-29');
+      const week11 = new Date('2023-11-05');
+      const week12 = new Date('2023-11-12');
+      const week13 = new Date('2023-11-19');
+      const week14 = new Date('2023-11-26');
+      const week15 = new Date('2023-12-03');
+      const week16 = new Date('2023-12-10');
+      const vacation = new Date('2023-12-17');
+
+      let numOfWeek;
+      if (week1<=today && today<week2) {
+        numOfWeek = 1;
+      } else if (week2<=today && today<week3) {
+        numOfWeek = 2;
+      } else if (week3<=today && today<week4) {
+        numOfWeek = 3;
+      } else if (week4<=today && today<week5) {
+        numOfWeek = 4;
+      } else if (week5<=today && today<week6) {
+        numOfWeek = 5;
+      } else if (week6<=today && today<week7) {
+        numOfWeek = 6;
+      } else if (week7<=today && today<week8) {
+        numOfWeek = 7;
+      } else if (week8<=today && today<week9) {
+        numOfWeek = 8;
+      } else if (week9<=today && today<week10) {
+        numOfWeek = 9;
+      } else if (week10<=today && today<week11) {
+        numOfWeek = 10;
+      } else if (week11<=today && today<week12) {
+        numOfWeek = 11;
+      } else if (week12<=today && today<week13) {
+        numOfWeek = 12;
+      } else if (week13<=today && today<week14) {
+        numOfWeek = 13;
+      } else if (week14<=today && today<week15) {
+        numOfWeek = 14;
+      } else if (week15<=today && today<week16) {
+        numOfWeek = 15;
+      } else if (week16<=today && today<vacation) {
+        numOfWeek = 16;
+      } else {
+        numOfWeek = 0;
+      }
+
+      return numOfWeek;
     }
   }
 }

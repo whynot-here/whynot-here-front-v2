@@ -103,7 +103,7 @@
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
     </div>
-    <div class="middle">🗓️ 이번주는 한동 <strong>7주차</strong></div>
+    <div class="middle">🗓️ 이번주는 한동 <strong>{{ numOfWeekStr }}</strong></div>
     <div class="bottom">
       <div class="category-wrp">
         <div>
@@ -174,7 +174,9 @@ export default {
       categoryTitle: '',
       subCategoryTitle: '',
       isOpenMatchingPopup: false,
-      isOpenNoticePopup: false
+      isOpenNoticePopup: false,
+      numOfWeek: 0,
+      numOfWeekStr: ''
     }
   },
   created() {
@@ -191,6 +193,12 @@ export default {
     this.isOpenNoticePopup = !this.cmn_getCookie('close-notice')
     // 공지 기간 끝났을 때
     // this.cmn_removeCookie('close-notice')
+
+    this.numOfWeek = this.cmn_getNumOfWeek();
+    this.numOfWeekStr = this.numOfWeek + '주차';
+    if (this.numOfWeek === 0) {
+      this.numOfWeekStr = '방학중';
+    }
   },
   methods: {
     closeNoticePopup() {
