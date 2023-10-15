@@ -415,74 +415,74 @@ export default {
             isShow: true,
             name: '',
             department: '',
-            studentId: '',
+            studentId: ''
           },
           {
             isShow: false,
             name: '',
             department: '',
-            studentId: '',
+            studentId: ''
           },
           {
             isShow: false,
             name: '',
             department: '',
-            studentId: '',
-          },
-        ],
+            studentId: ''
+          }
+        ]
       },
       dateStyle: [
         {
           id: 'CAFE',
           name: '카페 데이트',
-          url: require('@/assets/img/blind-date/cafe.png'),
+          url: require('@/assets/img/blind-date/cafe.png')
         },
         {
           id: 'HEALTH',
           name: '방탈출, 헬스장 데이트',
-          url: require('@/assets/img/blind-date/exercise.png'),
+          url: require('@/assets/img/blind-date/exercise.png')
         },
         {
           id: 'WALK',
           name: '산책, 걷기 데이트',
-          url: require('@/assets/img/blind-date/jogging.png'),
-        },
+          url: require('@/assets/img/blind-date/jogging.png')
+        }
       ],
       hobby: [
         {
           id: 'HOME',
           name: '나는 집이 좋은 집돌이, 집순이',
-          url: require('@/assets/img/blind-date/home.png'),
+          url: require('@/assets/img/blind-date/home.png')
         },
         {
           id: 'OUTSIDE',
           name: '주말 바깥 공기 필수!',
-          url: require('@/assets/img/blind-date/exercise.png'),
-        },
+          url: require('@/assets/img/blind-date/exercise.png')
+        }
       ],
       faith: [
         {
           id: 'NO_MATTER',
           name: '상관없어요',
-          url: require('@/assets/img/blind-date/heart.png'),
+          url: require('@/assets/img/blind-date/heart.png')
         },
         {
           id: 'CHRISTIAN',
           name: '기독교이신 분과만 매칭을 원해요',
-          url: require('@/assets/img/blind-date/christian.png'),
-        },
+          url: require('@/assets/img/blind-date/christian.png')
+        }
       ],
       isAddBtnActive: true,
       isNextActive: false,
-      isShow: false,
+      isShow: false
     }
   },
   watch: {},
   mounted() {
     // 한대소 시즌 기간인 경우
-    // this.getAuthState()
+    this.getAuthState()
     // 한대소 시즌 마감인 경우
-    this.cmn_goMainPage()
+    // this.cmn_goMainPage()
   },
   methods: {
     // 학생증 인증 여부
@@ -502,8 +502,8 @@ export default {
         .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token,
-          },
+            Authorization: this.$store.state.userInfo.token
+          }
         })
         .then((res) => {
           if (res.data) {
@@ -527,7 +527,7 @@ export default {
       }
     },
     changeStage(addNum) {
-      if (this.curStage === 7) {
+      if (this.curStage === 7 && addNum === 1) {
         this.submit()
       }
 
@@ -542,8 +542,8 @@ export default {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token,
-          },
+            Authorization: this.$store.state.userInfo.token
+          }
         })
         .then((res) => {
           this.$router.push('/blind-date/proceeding')
@@ -582,8 +582,8 @@ export default {
       if (idx === 2) {
         this.isAddBtnActive = false
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
