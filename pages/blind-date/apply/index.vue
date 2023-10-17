@@ -529,14 +529,17 @@ export default {
     changeStage(addNum) {
       if (this.curStage === 7 && addNum === 1) {
         this.submit()
+      } else {
+        this.curStage += addNum
+        this.isNextActive = false
+        this.checkIsNextActive(this.curStage)
       }
-
-      this.curStage += addNum
-      this.isNextActive = false
-      this.checkIsNextActive(this.curStage)
     },
     submit() {
-      this.setSubmitParams()
+      if (!this.setSubmitParams()) {
+        return false
+      }
+
       this.$axios
         .post(`${process.env.apiUrl}/v2/blind-date`, this.applyParams, {
           withCredentials: true,
@@ -553,6 +556,10 @@ export default {
         })
     },
     setSubmitParams() {
+      if (!this.cmn_httpsCheck(this.applyParams.kakaoLink)) {
+        return false
+      }
+
       this.applyParams.mbti =
         this.applyParams.mbti_01 +
         this.applyParams.mbti_02 +
@@ -572,6 +579,7 @@ export default {
         this.applyParams.excludeCondList.filter((item) => {
           return item.name !== ''
         })
+      return true
     },
     addAvoid() {
       const idx = this.applyParams.excludeCondList.findIndex((item) => {
