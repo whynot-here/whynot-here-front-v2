@@ -261,6 +261,11 @@
               <div class="m-comment-content">
                 {{ comment.content }}
               </div>
+
+              <div class="m-comment-time">
+                {{ cmn_getPassedDay(comment.createdDt) }}
+              </div>
+
             </div>
           </div>
 
