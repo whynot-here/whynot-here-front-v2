@@ -135,6 +135,16 @@
     <main>
       <div v-if="activeComponent === 'DetailView'">
         <div class="m-detail-container">
+          <div class="m-detail-header">
+            <div class="left-arrow" @click="cmn_goMainPage">
+              <img src="@/assets/img/common/left-arrow2.png" alt="" />
+            </div>
+            <div class="title">
+              글상세
+            </div>
+            <div class="sized-box"></div>
+          </div>
+
           <div class="m-detail-content">
             <div class="m-detail-content-header">
               <div v-if="postComp.dDay !== ''">
