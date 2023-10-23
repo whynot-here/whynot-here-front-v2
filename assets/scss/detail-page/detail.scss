@@ -224,19 +224,33 @@
 
 #m-PostingPage {
   main {
-    height: calc(100vh - 185px);
+    height: calc(100vh - 97px);
     font-size: 5vmin;
     .m-detail-header {
-      height: 7vmax;
-      display: grid;
-      background-color: #fafafa;
-      grid-template: 'arrow title' 1fr / 1fr 5fr;
-      .m-close {
-        width: 3vw;
-        padding-left: 5vw;
-        grid-area: arrow;
-        display: flex;
-        align-self: center;
+      width: 100%;
+      // height: 48px;
+      padding: 12px 0px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+
+      .left-arrow {
+        img {
+          width: 16px;
+          height: 14px;
+        }
+        padding-left: 15px;
+      }
+
+      .title {
+        font-size: 18px;
+      }
+
+      .sized-box {
+        width: 16px;
+        height: 14px;
+        padding-right: 15px;
       }
     }
 
@@ -245,7 +259,7 @@
     }
 
     .m-detail-container {
-      height: calc(100vh - 253px);
+      height: calc(100vh - 165px);
       overflow: scroll;
       background-color: #f3f3f3;
       display: flex;
@@ -507,6 +521,7 @@
           // justify-content: space-around;
           align-items: center;
           width: 100%;
+          font-size: 14px;
 
           .comment-img {
             width: 24px;
@@ -556,7 +571,7 @@
     }
 
     .m-comment-container {
-      height: calc(100vh - 253px);
+      height: calc(100vh - 165px);
       overflow: scroll;
       .m-detail-transition {
         display: grid;
@@ -618,7 +633,8 @@
         }
 
         .m-close-img {
-          width: 6vmin;
+          width: 20px;
+          height: 20px;
         }
       }
 
@@ -627,6 +643,12 @@
         color: #454545;
         font-size: 1rem;
         line-height: 1.4;
+      }
+
+      .m-comment-time {
+        padding-top: 11px;
+        font-size: 13px;
+        color: #a3a3a3;
       }
 
       .m-comment-wrp {

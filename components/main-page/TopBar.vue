@@ -103,8 +103,8 @@
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
     </div>
-    <div class="middle">🗓️ 이번주는 한동 <strong>{{ numOfWeekStr }}</strong></div>
-    <div class="bottom">
+    <div v-if="isMainPageComp" class="middle">🗓️ 이번주는 한동 <strong>{{ numOfWeekStr }}</strong></div>
+    <div v-if="isMainPageComp" class="bottom">
       <div class="category-wrp">
         <div>
           {{ categoryTitleProps }}
@@ -176,8 +176,28 @@ export default {
       isOpenMatchingPopup: false,
       isOpenNoticePopup: false,
       numOfWeek: 0,
-      numOfWeekStr: ''
+      numOfWeekStr: '',
+      isMainPage: false,
     }
+  },
+  computed: {
+    isMainPageComp() {
+      return this.isMainPage
+    },
+  },
+  watch: {
+    // main 페이지인 경우만 배너 띄우기
+    $route: {
+      handler(to, from) {
+        console.log(to.name, from.name)
+        if (to.name === 'gather-category') {
+          this.isMainPage = true
+        } else {
+          this.isMainPage = false
+        }
+      },
+      deep: true,
+    },
   },
   created() {
     this.$bus.$off('checkLogin')
@@ -198,6 +218,13 @@ export default {
     this.numOfWeekStr = this.numOfWeek + '주차';
     if (this.numOfWeek === 0) {
       this.numOfWeekStr = '방학중';
+    }
+
+    // main 페이지인 경우만 배너 띄우기
+    if (this.$route.name === 'gather-category') {
+      this.isMainPage = true
+    } else {
+      this.isMainPage = false
     }
   },
   methods: {
