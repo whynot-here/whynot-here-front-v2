@@ -14,7 +14,8 @@ export default function ({ params, query, route, store, redirect }) {
     '/posting',
     '/mypage',
     '/blind-date',
-    '/blind-date/apply'
+    '/blind-date/apply',
+    '/blind-date/selection'
   ]
 
   if (
