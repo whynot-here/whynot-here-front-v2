@@ -408,7 +408,42 @@ const common = {
       }
 
       return numOfWeek
-    }
+    },
+
+    async cmn_getBlindOrFriendParticipation() {
+      return await Promise.all([this.cmn_getIsBlindParticipation(), this.cmn_getIsFriendParticipation()]).then(function(values) {
+        console.log("⭐️")
+        console.log(values);
+        return values.includes(true);
+      });
+    },
+
+    // 연애 탭 지원 여부 확인
+    async cmn_getIsBlindParticipation() {
+      return await this.$axios
+        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=2`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          return res.data;
+        })
+    },
+    // 친구 탭 지원 여부 확인
+    async cmn_getIsFriendParticipation() {
+      return await this.$axios
+        .get(`${process.env.apiUrl}/v2/friend-meeting/participation?season=2`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          return res.data;
+        })
+    },
   }
 }
 

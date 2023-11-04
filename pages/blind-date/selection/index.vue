@@ -1,12 +1,12 @@
 <template>
-  <div v-if="getIsShow" id="SelectionPage">
+  <div v-if="isShow" id="SelectionPage">
     <section class="top">
       <div v-if="! isOpenBlindPopup" class="m-close">
         <img
           class="m-back-btn"
           src="@/assets/img/common/close-btn2.png"
           alt=""
-          @click="$router.go(-1)"
+          @click="$router.push('/')"
         />
       </div>
       <div class="title">
@@ -205,6 +205,7 @@ export default {
   components: {},
   data() {
     return {
+      isShow: true,
       isEnabledBlind: false,
       isEnabledFriend: false,
       isSelected: false,
@@ -217,9 +218,6 @@ export default {
     }
   },
   computed: {
-    getIsShow() {
-      return this.isEnabledBlind && this.isEnabledFriend;
-    },
     getIsBlindCheckedContract() {
       return this.isBlindCheckedContract
     },
@@ -229,45 +227,16 @@ export default {
   },
   watch: {},
   mounted() {
-    // 진입 시점 참여여부 체크
-    this.getIsBlindParticipation();
-    this.getIsFriendParticipation();
+    // 진입 시점 (연애탭 or 친구탭)참여여부 체크
+    this.cmn_getBlindOrFriendParticipation().then((res) => {
+      if (res) {
+        this.$router.push('/blind-date/proceeding')
+      } else {
+        this.isShow = res;
+      }
+    })
   },
   methods: {
-    // 연애 탭 지원 여부 확인
-    getIsBlindParticipation() {
-      this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=2`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {
-          if (res) {
-            this.$router.push('/blind-date/proceeding')
-          } else {
-            this.isEnabledBlind = true
-          }
-        })
-    },
-    // 친구 탭 지원 여부 확인
-    getIsFriendParticipation() {
-      this.$axios
-        .get(`${process.env.apiUrl}/v2/friend-meeting/participation?season=2`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {
-          if (res) {
-            this.$router.push('/blind-date/proceeding')
-          } else {
-            this.isEnabledFriend = true
-          }
-        })
-    },
     // 연애 탭 선택
     selectBlindDate() {
       if (! this.isFriendActive) {
