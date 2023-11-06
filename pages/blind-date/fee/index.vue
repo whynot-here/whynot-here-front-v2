@@ -1,0 +1,122 @@
+<template>
+  <div id="FeePage">
+    <section class="top">
+      <div class="title">보증금 입금</div>
+      <div class="container">
+        <div class="desc">
+          <div class="block1">
+            위 보증금은, 일부 비매너 사용자를 거르기 윙한 용도입니다.
+          </div>
+          
+          <div class="block2">
+            <p>﹒실제 만남이 이뤄진팀 (앱 내 인증)</p>
+            <p>﹒비매너 상대를 만난 분</p>
+          </div>
+
+          <div class="block3">
+            <p>차후 반환 예정이며 이와 반대로</p>
+            <p>실제 만남이 이뤄지지 않거나, 비매너 행동을 한 경우</p>
+            <p>보증금은 돌려받지 못합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <section class="middle">
+      <div class="whynot">
+        <div class="whynot-number-title">입금 계좌</div>
+        <div class="whynot-number-box">
+          <div class="text">
+            <div class="line1">카카오&nbsp;&nbsp;&nbsp;&nbsp;<span>3333-28-6978370</span></div>
+            <div class="line2">예금주&nbsp; 오상진&nbsp; |&nbsp; 보증금&nbsp; 5,000원</div>
+          </div>
+          <div class="copy-icon">
+            복사
+          </div>
+        </div>
+      </div>
+      
+      <div class="my-name">
+        <div class="my-name-title">송금자명 입력 <span>*</span></div>
+        <div>
+          <input
+            v-model="feeRequest.name"
+            class="my-name-input"
+            placeholder="본인의 이름을 입력 해주세요"
+            type="text"
+          />
+        </div>
+      </div>
+
+      <div class="student-id">
+        <div class="student-id-title">학번 입력 <span>*</span></div>
+        <div>
+          <input
+            v-model="feeRequest.studentId"
+            class="student-id-input"
+            placeholder="학번을 입력 해주세요"
+            type="number"
+          />
+        </div>
+      </div>
+
+      <div class="bank">
+        <div class="bank-name">계좌번호 입력 <span>*</span></div>
+        <DropdownBankName
+          ref="DropdownBankName"
+          :label-first="'은행명'"
+          @get-label="selectBankName" />
+        <div>
+          <input
+            v-model="feeRequest.bankNumber"
+            class="bank-number-input"
+            placeholder="계좌를 입력 해주세요"
+            type="number"
+          />
+        </div>
+      </div>
+
+      <div class="submit-btn">
+        <div class="title">
+          입금 확인 요청
+        </div>
+        <div class="desc">
+          입금 확인까지 2-3시간 정도 소요됩니다.
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+
+<script>
+import DropdownBankName from '@/components/blind-date/dropdownBankName'
+
+export default {
+  name: 'FeePage',
+  components: { DropdownBankName },
+  data() {
+    return {
+      isShow: true,
+      feeRequest: {
+        name: '',
+        studentId: null,
+        bankName: '',
+        bankNumber: ''
+      }
+    }
+  },
+  computed: {},
+  watch: {},
+  mounted() {
+  },
+  methods: {
+    selectBankName(item) {}
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/blind-date/fee.scss';
+</style>

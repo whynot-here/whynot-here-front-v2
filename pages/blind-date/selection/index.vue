@@ -227,14 +227,18 @@ export default {
   },
   watch: {},
   mounted() {
-    // 진입 시점 (연애탭 or 친구탭)참여여부 체크
-    this.cmn_getBlindOrFriendParticipation().then((res) => {
-      if (res) {
-        this.$router.push('/blind-date/proceeding')
-      } else {
-        this.isShow = res;
-      }
-    })
+    // 진입 시점 (연애탭 or 친구탭)참여여부 체크  
+    // todo: 테스트 후 추가
+    // this.cmn_getBlindOrFriendParticipation().then((res) => {
+    //   if (res) {
+    //     this.$router.push('/blind-date/proceeding')
+    //   } else {
+    //     this.isShow = res;
+    //   }
+    // })
+
+    // todo: 테스트 후 제거
+    this.isShow = true;
   },
   methods: {
     // 연애 탭 선택
@@ -285,6 +289,7 @@ export default {
     aggreeBlindContract() {
       if (this.isBlindCheckedContract) {
         console.log("계좌번호 제출 페이지 이동");
+        this.$router.push('/blind-date/fee')
       }
     },
     // 친구 탭 약관 제출

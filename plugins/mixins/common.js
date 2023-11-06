@@ -154,6 +154,60 @@ const common = {
             // { id: 35, code: 'ETC-FAITH', name: '그 외', parentCode: 'FAITH' }
           ]
         }
+      ],
+      bankNameList: [
+        {
+          bankId: 1,
+          bankName: '카카오뱅크'
+        },
+        {
+          bankId: 2,
+          bankName: '토스뱅크'
+        },
+        {
+          bankId: 3,
+          bankName: 'IBK기업은행'
+        },
+        {
+          bankId: 4,
+          bankName: 'KB국민은행'
+        },
+        {
+          bankId: 5,
+          bankName: '신한은행'
+        },
+        {
+          bankId: 6,
+          bankName: '하나은행'
+        },
+        {
+          bankId: 7,
+          bankName: 'NH농협'
+        },
+        {
+          bankId: 8,
+          bankName: '우리은행'
+        },
+        {
+          bankId: 9,
+          bankName: 'SC제일은행'
+        },
+        {
+          bankId: 10,
+          bankName: '케이뱅크'
+        },
+        {
+          bankId: 11,
+          bankName: '대구은행'
+        },
+        {
+          bankId: 12,
+          bankName: '부산은행'
+        },
+        {
+          bankId: 13,
+          bankName: '우체국'
+        }
       ]
     }
   },
