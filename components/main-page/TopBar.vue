@@ -103,7 +103,8 @@
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
     </div>
-    <div v-if="isMainPageComp" class="middle">🗓️ 이번주는 한동 <strong>{{ numOfWeekStr }}</strong></div>
+    <div v-if="isMainPageComp" class="middle">🗓️ 이번주는 한동 <strong>{{ numOfWeekStr }}</strong>
+      <button @click.prevent="$router.push('/blind-date/selection')">한대소 시즌2</button></div>
     <div v-if="isMainPageComp" class="bottom">
       <div class="category-wrp">
         <div>

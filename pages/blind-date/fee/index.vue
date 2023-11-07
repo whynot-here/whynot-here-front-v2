@@ -32,7 +32,7 @@
             <div class="line1">카카오&nbsp;&nbsp;&nbsp;&nbsp;<span>3333-28-6978370</span></div>
             <div class="line2">예금주&nbsp; 오상진&nbsp; |&nbsp; 보증금&nbsp; 5,000원</div>
           </div>
-          <div class="copy-icon">
+          <div class="copy-icon" @click.prevent="copyWhynotBankNumber">
             복사
           </div>
         </div>
@@ -78,12 +78,31 @@
         </div>
       </div>
 
-      <div class="submit-btn">
+      <div class="submit-btn" @click.prevent="submitBankInfo">
         <div class="title">
           입금 확인 요청
         </div>
         <div class="desc">
           입금 확인까지 2-3시간 정도 소요됩니다.
+        </div>
+      </div>
+
+      <div
+        v-if="isOpenAskPopup"
+        class="ask-popup"
+        @click.self="isOpenAskPopup = false"
+      >
+        <div class="content-wrp">
+          <div class="top">
+            <div>입금 확인 요청 완료</div>
+            <div>확인이 완료되면 푸시알림으로 알려드려요</div>
+            <div>혹시 다른 문제가 있나요?</div>
+          </div>
+          <div class="btn" @click="$router.push('/')">
+            <div class="btn-content-wrp">
+              <div>닫기</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -103,8 +122,9 @@ export default {
         name: '',
         studentId: null,
         bankName: '',
-        bankNumber: ''
-      }
+        bankNumber: '',
+      },
+      isOpenAskPopup: false
     }
   },
   computed: {},
@@ -112,7 +132,14 @@ export default {
   mounted() {
   },
   methods: {
-    selectBankName(item) {}
+    selectBankName(item) {},
+    copyWhynotBankNumber() {
+      this.copySomething('3333286978370')
+      this.toastPopup('계좌가 복사되었습니다')
+    },
+    submitBankInfo() {
+      this.isOpenAskPopup = true
+    }
   }
 }
 </script>
