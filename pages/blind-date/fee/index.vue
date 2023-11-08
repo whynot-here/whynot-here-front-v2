@@ -73,12 +73,15 @@
             v-model="feeRequest.bankNumber"
             class="bank-number-input"
             placeholder="계좌를 입력 해주세요"
-            type="number"
+            type="text"
           />
         </div>
       </div>
 
-      <div class="submit-btn" @click.prevent="submitBankInfo">
+      <div 
+        :class = "{'active': getIsBtnActive}"
+        class="submit-btn" 
+        @click.prevent="submitBankInfo">
         <div class="title">
           입금 확인 요청
         </div>
@@ -124,21 +127,51 @@ export default {
         bankName: '',
         bankNumber: '',
       },
-      isOpenAskPopup: false
+      isOpenAskPopup: false,
+      isBtnActive: false
     }
   },
-  computed: {},
-  watch: {},
+  computed: {
+    getIsBtnActive() {
+      return this.isBtnActive;
+    }
+  },
+  watch: {
+    feeRequest: {
+      handler() {
+        this.isBtnActive = this.feeRequest.name !== '' &&
+             this.feeRequest.studentId !== null &&
+             this.feeRequest.studentId.toString().length === 8 &&
+             this.feeRequest.bankName !== '' &&
+             this.feeRequest.bankNumber.toString().length > 9;
+      },
+      deep: true
+    }
+  },
   mounted() {
   },
   methods: {
-    selectBankName(item) {},
+    selectBankName(item) {
+      this.feeRequest.bankName = item.name;
+    },
     copyWhynotBankNumber() {
       this.copySomething('3333286978370')
       this.toastPopup('계좌가 복사되었습니다')
     },
     submitBankInfo() {
-      this.isOpenAskPopup = true
+      if (this.isBtnActive) {
+        this.$axios
+        .post(`${process.env.apiUrl}/v2/blind-date/fee`, this.feeRequest, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.isOpenAskPopup = true
+        })
+      }
     }
   }
 }

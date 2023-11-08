@@ -222,8 +222,8 @@
     .submit-btn {
       padding: 12px;
       border-radius: 9999px;
-      border: 1px solid rgba(62, 130, 241, 1);
-      box-shadow: 0px 4px 8px 0px rgba(0, 52, 138, 0.06);
+      border: 1px solid rgb(239, 239, 239);
+      background: rgba(220, 220, 220, 1);
 
       display: flex;
       flex-direction: column;
@@ -236,7 +236,7 @@
         line-height: 12px;
         letter-spacing: 0em;
         text-align: left;
-        color: rgba(62, 130, 241, 1);
+        color: grey;
         padding-bottom: 5px;
       }
 
@@ -248,6 +248,16 @@
         letter-spacing: 0em;
         text-align: left;
         color: rgba(100, 100, 100, 1);
+      }
+    }
+
+    .active {
+      border: 1px solid rgba(62, 130, 241, 1);
+      background: white;
+      box-shadow: 0px 4px 8px 0px rgba(0, 52, 138, 0.06);
+
+      .title {
+        color: rgba(62, 130, 241, 1);
       }
     }
 
