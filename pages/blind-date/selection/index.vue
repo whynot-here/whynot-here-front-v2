@@ -24,7 +24,7 @@
     </section>
     <section class="middle">
       <div 
-        :class="{'active' : isBlindActive, 'disabled' : isFriendActive && isSelected }"
+        :class="{'active' : isBlindActive}"
         class="box"
         @click.prevent="selectBlindDate">
           <div>
@@ -34,7 +34,7 @@
       </div>
 
       <div 
-      :class="{'active' : isFriendActive, 'disabled' : isBlindActive && isSelected }"
+      :class="{'active' : isFriendActive}"
         class="box" 
         @click.prevent="selectFriendMeeting">
           <div>
@@ -243,27 +243,15 @@ export default {
   methods: {
     // 연애 탭 선택
     selectBlindDate() {
-      if (! this.isFriendActive) {
-        this.isBlindActive = !this.isBlindActive;
-        this.isFriendActive = false;
-        if (this.isBlindActive) {
-          this.isSelected = true;  
-        } else {
-          this.isSelected = false;
-        }
-      }
+      this.isBlindActive = true;
+      this.isFriendActive = false;
+      this.isSelected = true;
     },
     // 친구 탭 선택
     selectFriendMeeting() {
-      if (! this.isBlindActive) {
-        this.isBlindActive = false;
-        this.isFriendActive = !this.isFriendActive;
-        if (this.isFriendActive) {
-          this.isSelected = true;  
-        } else {
-          this.isSelected = false;
-        }
-      }
+      this.isBlindActive = false;
+      this.isFriendActive = true;
+      this.isSelected = true;
     },
     // 선택한 탭 진행
     commit() {
