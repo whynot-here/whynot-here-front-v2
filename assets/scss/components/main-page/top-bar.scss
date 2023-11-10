@@ -129,6 +129,29 @@
       font-weight: 600;
     }
   }
+  .menu {
+    height: 80px;
+    line-height: 80px;
+    display: flex;
+    border: 1px solid #000;
+    background: #fff;
+    color: #414141;
+    font-family: GmarketSans;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    .left {
+      flex-grow: 1;
+      margin-left: 22px;
+    }
+    div:nth-child(2) {
+      img {
+        width: 5.5px;
+        height: 11px;
+        margin-right: 18px;
+      }
+    }
+  }
   .matching-banner {
     display: flex;
     height: 56px;

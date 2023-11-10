@@ -103,8 +103,18 @@
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
     </div>
-    <div v-if="isMainPageComp" class="middle">🗓️ 이번주는 한동 <strong>{{ numOfWeekStr }}</strong>
-      <button @click.prevent="$router.push('/blind-date/selection')">한대소 시즌2</button></div>
+    <div v-if="isMainPageComp" class="middle">
+      🗓️ 이번주는 한동 <strong>{{ numOfWeekStr }}</strong>
+      <button @click.prevent="$router.push('/blind-date/selection')">
+        한대소 시즌2
+      </button>
+    </div>
+    <div v-if="isPaymentUser === true" class="menu">
+      <div class="left">📢 한대소 정보 입력 진행하기</div>
+      <div>
+        <img src="@/assets/img/common/right-arrow-black.png" alt="" />
+      </div>
+    </div>
     <div v-if="isMainPageComp" class="bottom">
       <div class="category-wrp">
         <div>
@@ -179,12 +189,13 @@ export default {
       numOfWeek: 0,
       numOfWeekStr: '',
       isMainPage: false,
+      isPaymentUser: true
     }
   },
   computed: {
     isMainPageComp() {
       return this.isMainPage
-    },
+    }
   },
   watch: {
     // main 페이지인 경우만 배너 띄우기
@@ -197,8 +208,8 @@ export default {
           this.isMainPage = false
         }
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
   created() {
     this.$bus.$off('checkLogin')
@@ -215,10 +226,10 @@ export default {
     // 공지 기간 끝났을 때
     // this.cmn_removeCookie('close-notice')
 
-    this.numOfWeek = this.cmn_getNumOfWeek();
-    this.numOfWeekStr = this.numOfWeek + '주차';
+    this.numOfWeek = this.cmn_getNumOfWeek()
+    this.numOfWeekStr = this.numOfWeek + '주차'
     if (this.numOfWeek === 0) {
-      this.numOfWeekStr = '방학중';
+      this.numOfWeekStr = '방학중'
     }
 
     // main 페이지인 경우만 배너 띄우기

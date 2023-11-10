@@ -1,3 +1,4 @@
+<!-- 한대소 시즌 1 신청 양식 -->
 <template>
   <div v-if="isShow" id="ApplyPage">
     <section v-show="curStage === 1">
