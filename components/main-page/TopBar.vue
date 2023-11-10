@@ -109,7 +109,11 @@
         한대소 시즌2
       </button>
     </div>
-    <div v-if="isPaymentUser === true" class="menu">
+    <div
+      v-if="isPaymentUser === true"
+      class="menu"
+      @click="$router.push('/blind-date/apply/intro')"
+    >
       <div class="left">📢 한대소 정보 입력 진행하기</div>
       <div>
         <img src="@/assets/img/common/right-arrow-black.png" alt="" />

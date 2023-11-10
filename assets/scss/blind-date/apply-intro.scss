@@ -1,0 +1,133 @@
+@import '@/assets/scss/util.scss';
+
+#ApplyIntroPage {
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+
+  .wrp {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    .top {
+      height: 135px;
+      padding-top: 100px;
+      padding-left: 20px;
+
+      @include tablet {
+        padding-top: 110px;
+        padding-left: 40px;
+      }
+
+      .m-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 24px;
+        img {
+          width: 24px;
+          height: 24px;
+        }
+
+        @include tablet {
+          top: 40px;
+          right: 40px;
+
+          img {
+            width: 35px;
+            height: 35px;
+          }
+        }
+      }
+
+      .title {
+        color: rgba(24, 24, 24, 1);
+        font-family: Pretendard;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 12px;
+        letter-spacing: 0em;
+        text-align: left;
+      }
+    }
+
+    .middle {
+      flex-grow: 1;
+      padding-top: 44px;
+      height: 144px;
+      width: 335px;
+      margin: 0 auto;
+      .form-btn {
+        display: flex;
+        margin-bottom: 20px;
+        width: 335px;
+        height: 62px;
+        border-radius: 10px;
+        border: 1px solid var(--bg, rgba(235, 238, 241, 0.92));
+        background: #fff;
+
+        /* 기본 */
+        box-shadow: 0px 4px 8px 0px rgba(0, 52, 138, 0.06),
+          0px 0px 4px 0px rgba(0, 52, 138, 0.04);
+
+        .left {
+          flex-grow: 1;
+          line-height: 62px;
+          color: var(--gray-80, #454545);
+          font-family: Pretendard;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 600;
+          padding-left: 16px;
+        }
+        .right {
+          width: 56px;
+          height: 32px;
+          line-height: 32px;
+          margin-right: 16px;
+          margin-top: 15px;
+          border-radius: 6px;
+          border: 1px solid #5d50e1;
+          background: #ecebff;
+          color: #5d50e1;
+          text-align: center;
+
+          font-family: Pretendard;
+          font-size: 17px;
+          font-style: normal;
+          font-weight: 600;
+          &.done {
+            background: var(--gray-30, #efefef);
+            border: none;
+            color: #5d50e1;
+
+            font-family: Pretendard;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+
+    .bottom {
+      padding-bottom: 20px;
+      .complete-btn {
+        width: 343px;
+        height: 48px;
+        line-height: 48px;
+        margin: 0 auto;
+        border-radius: 6px;
+        background: #5d50e1;
+        color: #fff;
+
+        font-family: Pretendard;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        text-align: center;
+      }
+    }
+  }
+}
