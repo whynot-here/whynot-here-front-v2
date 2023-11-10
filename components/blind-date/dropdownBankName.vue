@@ -7,7 +7,7 @@
         </button>
         <ul class="option-list main">
           <li
-            v-for="(item, idx) in getBankNameList"
+            v-for="(item, idx) in getList"
             :key="idx"
             :class="
               item.id === parentId ? 'option-item selected' : 'option-item'
@@ -17,7 +17,6 @@
             {{ item.name }}
             <div class="hr"></div>
           </li>
-          
         </ul>
       </div>
     </div>
@@ -40,18 +39,31 @@ export default {
     }
   },
   computed: {
-    getBankNameList() {
+    getList() {
       const result = []
-
-      this.bankNameList.forEach((it) => {
-        const item = {
-          id: it.bankId,
-          name: it.bankName
-        }
-        result.push(item)
-      })
+      console.log(this.labelFirst)
+      switch (this.labelFirst) {
+        case '은행명':
+          this.bankNameList.forEach((it) => {
+            const item = {
+              id: it.bankId,
+              name: it.bankName
+            }
+            result.push(item)
+          })
+          return result
+        case '학부':
+          this.majorList.forEach((it) => {
+            const item = {
+              id: it.majorId,
+              name: it.majorName
+            }
+            result.push(item)
+          })
+          return result
+      }
       return result
-    },
+    }
   },
   mounted() {},
   methods: {
@@ -76,8 +88,8 @@ export default {
       this.selectedBankNameId = item.id
       this.parentId = item.id
       document
-          .querySelector(`.${this.labelFirst}`)
-          .parentNode.classList.remove('active')
+        .querySelector(`.${this.labelFirst}`)
+        .parentNode.classList.remove('active')
       this.$emit('get-label', item)
     }
   }

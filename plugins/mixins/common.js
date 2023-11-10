@@ -208,6 +208,32 @@ const common = {
           bankId: 13,
           bankName: '우체국'
         }
+      ],
+      majorList: [
+        {
+          majorId: 1,
+          majorName: '전산전자공학부'
+        },
+        {
+          majorId: 2,
+          majorName: '기계공학부'
+        },
+        {
+          majorId: 3,
+          majorName: '경영경제학부'
+        },
+        {
+          majorId: 4,
+          majorName: '상담심리학부'
+        },
+        {
+          majorId: 5,
+          majorName: '공간환경시스템공학부'
+        },
+        {
+          majorId: 6,
+          majorName: 'ICT 창업학부'
+        }
       ]
     }
   },
@@ -465,11 +491,14 @@ const common = {
     },
 
     async cmn_getBlindOrFriendParticipation() {
-      return await Promise.all([this.cmn_getIsBlindParticipation(), this.cmn_getIsFriendParticipation()]).then(function(values) {
-        console.log("⭐️")
-        console.log(values);
-        return values.includes(true);
-      });
+      return await Promise.all([
+        this.cmn_getIsBlindParticipation(),
+        this.cmn_getIsFriendParticipation()
+      ]).then(function (values) {
+        console.log('⭐️')
+        console.log(values)
+        return values.includes(true)
+      })
     },
 
     // 연애 탭 지원 여부 확인
@@ -482,7 +511,7 @@ const common = {
           }
         })
         .then((res) => {
-          return res.data;
+          return res.data
         })
     },
     // 친구 탭 지원 여부 확인
@@ -495,9 +524,9 @@ const common = {
           }
         })
         .then((res) => {
-          return res.data;
+          return res.data
         })
-    },
+    }
   }
 }
 
