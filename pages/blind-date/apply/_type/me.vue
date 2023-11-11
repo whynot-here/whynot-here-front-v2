@@ -7,13 +7,22 @@
       <div class="title">본인 정보 입력</div>
       <div class="side" />
     </div>
-    <div class="proceed">
+    <div v-if="type === 'date'" class="proceed">
       <div class="info">
         <div class="stage-text">{{ curStage }}/5</div>
-        <div class="title">{{ curStageInfo[curStage - 1].title }}</div>
+        <div class="title">{{ curStageInfoDate[curStage - 1].title }}</div>
       </div>
       <div class="stage-img">
-        <img :src="curStageInfo[curStage - 1].imgUrl" alt="" />
+        <img :src="curStageInfoDate[curStage - 1].imgUrl" alt="" />
+      </div>
+    </div>
+    <div v-if="type === 'friend'" class="proceed">
+      <div class="info">
+        <div class="stage-text">{{ curStage }}/3</div>
+        <div class="title">{{ curStageInfoFriend[curStage - 1].title }}</div>
+      </div>
+      <div class="stage-img">
+        <img :src="curStageInfoFriend[curStage - 1].imgUrl" alt="" />
       </div>
     </div>
     <section v-if="type === 'date'" class="content">
@@ -452,7 +461,7 @@
                     type="text"
                   />
                   <div class="input-half-wrp">
-                    <div style="width: 95%">
+                    <div style="width: 100%">
                       <input
                         v-model="item.department"
                         class="input-half"
@@ -460,7 +469,7 @@
                         type="text"
                       />
                     </div>
-                    <div style="width: 95%">
+                    <div style="width: 100%">
                       <input
                         v-model="item.studentId"
                         class="input-half"
@@ -482,19 +491,88 @@
           </div>
         </div>
       </section>
-      <section v-show="curStage >= 1 || curStage <= 5" class="btn-wrp">
-        <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
-          이전
+    </section>
+    <section v-if="type === 'friend'" class="content">
+      <section v-if="curStage === 1" class="form">
+        <div class="stage_01_top">
+          <div class="content_01">
+            <div class="sub-title">이름을 적어주세요 <strong>*</strong></div>
+            <input
+              v-model="applyParams.name"
+              class="input-long"
+              type="text"
+              placeholder="ex) 김와이낫"
+              @keyup="checkIsNextActive(1)"
+            />
+          </div>
+          <div class="content_01">
+            <div class="sub-title">
+              나이를 적어주세요 <strong class="gray">(숫자만)</strong>
+              <strong>*</strong>
+            </div>
+            <input
+              v-model="applyParams.myAge"
+              class="input-long"
+              type="text"
+              oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
+              placeholder="ex) 25"
+              @keyup="checkIsNextActive(1)"
+            />
+          </div>
+          <div class="content_01">
+            <div class="sub-title">
+              당신의 성별은 무엇인가요? <strong>*</strong>
+            </div>
+            <div class="btn-select-wrp">
+              <div
+                :class="
+                  applyParams.gender === 'M'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.gender = 'M'"
+              >
+                남성
+              </div>
+              <div
+                :class="
+                  applyParams.gender === 'F'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.gender = 'F'"
+              >
+                여성
+              </div>
+            </div>
+          </div>
         </div>
-        <div
-          :class="isNextActive ? 'next active' : 'next'"
-          @click="isNextActive ? changeStage(1) : ''"
-        >
-          {{ curStage === 5 ? '저장' : '다음' }}
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">
+              본인 학부 선택
+              <strong>*</strong>
+            </div>
+            <DropdownBankName
+              ref="DropdownBankName"
+              :label-first="'학부'"
+              @get-label="selectBankName"
+            />
+          </div>
         </div>
       </section>
     </section>
-    <section v-if="type === 'friend'"></section>
+    <section v-show="curStage >= 1 || curStage <= 5" class="btn-wrp">
+      <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
+        이전
+      </div>
+      <div
+        :class="isNextActive ? 'next active' : 'next'"
+        @click="isNextActive ? changeStage(1) : ''"
+      >
+        {{ curStage === 5 ? '저장' : '다음' }}
+      </div>
+    </section>
   </div>
 </template>
 
@@ -505,14 +583,15 @@ export default {
   name: 'ApplyMyInfoPage',
   components: { DropdownBankName },
   asyncData({ params, route, query, redirect }) {
+    console.log(route.params.type)
     return {
       type: route.params.type
     }
   },
   data() {
     return {
-      curStage: 5,
-      curStageInfo: [
+      curStage: 2,
+      curStageInfoDate: [
         {
           id: 1,
           title: '본인 기본 정보 입력',
@@ -537,6 +616,23 @@ export default {
           id: 5,
           title: '아는 사람은 싫어요',
           imgUrl: require('@/assets/img/blind-date/stage_5.png')
+        }
+      ],
+      curStageInfoFriend: [
+        {
+          id: 1,
+          title: '본인 기본 정보 입력',
+          imgUrl: require('@/assets/img/blind-date/stage_1.png')
+        },
+        {
+          id: 2,
+          title: '본인 상세 정보 입력',
+          imgUrl: require('@/assets/img/blind-date/stage_3.png')
+        },
+        {
+          id: 3,
+          title: '본인 연애 스타일 입력',
+          imgUrl: require('@/assets/img/blind-date/stage_4.png')
         }
       ],
       applyParams: {
