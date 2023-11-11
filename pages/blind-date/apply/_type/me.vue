@@ -302,7 +302,8 @@
                             return data !== item.id
                           }
                         ))
-                      : applyParams.hobby.push(item.id)
+                      : applyParams.hobby.push(item.id),
+                    checkIsNextActive(3)
                   ]
                 "
               >
@@ -321,6 +322,7 @@
                 v-model="applyParams.hobbyEtc"
                 class="input-long"
                 type="text"
+                @keyup="checkIsNextActive(3)"
               />
             </div>
           </div>
@@ -511,7 +513,14 @@ export default {
       } else if (stage === 2) {
         // this.isNextActive = this.applyParams.height > 0
         this.isNextActive = this.isImgUploadEnough
-      } else if (stage === 3 || stage === 4 || stage === 5 || stage === 6) {
+      } else if (stage === 3) {
+        this.isNextActive =
+          this.applyParams.smoke.length > 0 &&
+          this.applyParams.faith.length > 0 &&
+          this.applyParams.alcohol > 0 &&
+          this.applyParams.address.length > 0 &&
+          this.applyParams.hobby.length > 2
+      } else if (stage === 4 || stage === 5 || stage === 6) {
         this.isNextActive = true
       } else if (stage === 7) {
         this.isNextActive = this.applyParams.kakaoLink.length > 0
