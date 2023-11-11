@@ -1155,7 +1155,13 @@ export default {
       }
     },
     changeStage(addNum) {
-      if (this.curStage === 6 && addNum === 1) {
+      if (this.curStage === 5 && addNum === 1 && this.type === 'date') {
+        this.submit()
+      } else if (
+        this.curStage === 3 &&
+        addNum === 1 &&
+        this.type === 'friend'
+      ) {
         this.submit()
       } else {
         this.curStage += addNum
@@ -1204,6 +1210,53 @@ export default {
       if (idx === 9) {
         this.isAddBtnActive = false
       }
+    },
+    submit() {
+      // if (!this.setSubmitParams()) {
+      //   return false
+      // }
+      this.$router.push('/blind-date/apply/intro')
+
+      // this.$axios
+      //   .post(`${process.env.apiUrl}/v2/blind-date`, this.applyParams, {
+      //     withCredentials: true,
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       Authorization: this.$store.state.userInfo.token
+      //     }
+      //   })
+      //   .then((res) => {
+      //     this.$router.push('/blind-date/proceeding')
+      //   })
+      //   .catch((error) => {
+      //     window.alert(error.response.data.message)
+      //   })
+    },
+    setSubmitParams() {
+      if (!this.cmn_httpsCheck(this.applyParams.kakaoLink)) {
+        return false
+      }
+
+      this.applyParams.mbti =
+        this.applyParams.mbti_01 +
+        this.applyParams.mbti_02 +
+        this.applyParams.mbti_03 +
+        this.applyParams.mbti_04
+
+      delete this.applyParams.mbti_01
+      delete this.applyParams.mbti_02
+      delete this.applyParams.mbti_03
+      delete this.applyParams.mbti_04
+
+      this.applyParams.excludeCondList.map((item) => {
+        return delete item.isShow
+      })
+
+      this.applyParams.excludeCondList =
+        this.applyParams.excludeCondList.filter((item) => {
+          return item.name !== ''
+        })
+      return true
     }
   }
 }

@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       isFormTypeComplete: false,
-      type: 'friend' // 'date' | 'friend'
+      type: 'date' // 'date' | 'friend'
     }
   },
   mounted() {},
