@@ -561,8 +561,225 @@
           </div>
         </div>
       </section>
+      <section v-if="curStage === 2" class="form">
+        <div class="stage_01_top">
+          <div class="content_01">
+            <div class="sub-title">흡연 여부 <strong>*</strong></div>
+            <div class="btn-select-wrp">
+              <div
+                :class="
+                  applyParams.smoke === 'N'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.smoke = 'N'"
+              >
+                비흡연
+              </div>
+              <div
+                :class="
+                  applyParams.smoke === 'Y'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.smoke = 'Y'"
+              >
+                흡연
+              </div>
+            </div>
+          </div>
+          <div class="content_01">
+            <div class="sub-title">종교 <strong>*</strong></div>
+            <div class="btn-select-wrp">
+              <div
+                :class="
+                  applyParams.faith === 'NO_MATTER'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.faith = 'NO_MATTER'"
+              >
+                안 믿음
+              </div>
+              <div
+                :class="
+                  applyParams.faith === 'CHRISTIAN'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.faith = 'CHRISTIAN'"
+              >
+                기독교
+              </div>
+              <div
+                :class="
+                  applyParams.faith === 'ETC'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.faith = 'ETC'"
+              >
+                그 외
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">음주 여부 <strong>*</strong></div>
+            <div class="round-btn-select-wrp">
+              <div
+                v-for="(item, key) in alcohol"
+                :key="key"
+                :class="
+                  applyParams.alcohol === item.id ? 'button selected' : 'button'
+                "
+                @click="applyParams.alcohol = item.id"
+              >
+                {{ item.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="background">
+          <br />
+        </div>
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">현 거주지 <strong>*</strong></div>
+            <div class="btn-select-wrp">
+              <div
+                :class="
+                  applyParams.address === 'DORMITORY'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.address = 'DORMITORY'"
+              >
+                기숙사
+              </div>
+              <div
+                :class="
+                  applyParams.address === 'POHANG'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.address = 'POHANG'"
+              >
+                포항
+              </div>
+              <div
+                :class="
+                  applyParams.address === 'ETC'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.address = 'ETC'"
+              >
+                타지역
+              </div>
+            </div>
+            <div v-if="applyParams.address !== 'POHANG'" class="content_02">
+              <div class="sub-question-title">
+                {{
+                  applyParams.address === 'DORMITORY'
+                    ? '기숙사명 입력'
+                    : '지역명 입력'
+                }}
+              </div>
+              <input
+                v-model="applyParams.addressDetail"
+                class="input-long"
+                type="text"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="background">
+          <br />
+        </div>
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">
+              취미 <strong class="purple">최대 3개</strong><strong>*</strong>
+            </div>
+            <div class="round-btn-select-wrp">
+              <div
+                v-for="(item, key) in hobby"
+                :key="key"
+                :class="
+                  applyParams.hobby.includes(item.id)
+                    ? 'button selected'
+                    : 'button'
+                "
+                @click="
+                  ;[
+                    applyParams.hobby.includes(item.id)
+                      ? (applyParams.hobby = applyParams.hobby.filter(
+                          (data) => {
+                            return data !== item.id
+                          }
+                        ))
+                      : applyParams.hobby.push(item.id),
+                    checkIsNextActive(3)
+                  ]
+                "
+              >
+                <img
+                  v-if="applyParams.hobby.includes(item.id)"
+                  src="@/assets/img/common/check-purple.png"
+                  alt=""
+                  style="width: 16px; margin-right: 4px"
+                />
+                {{ item.name }}
+              </div>
+            </div>
+            <div class="content_02">
+              <div class="sub-question-title">이외 추가적인 취미</div>
+              <input
+                v-model="applyParams.hobbyEtc"
+                class="input-long"
+                type="text"
+                @keyup="checkIsNextActive(3)"
+              />
+            </div>
+          </div>
+          <div class="content_01">
+            <div class="sub-title">상대에게 하고싶은 말이 있다면?</div>
+            <textarea
+              v-model="applyParams.comment"
+              class="input-long textarea"
+              placeholder="상대에게 하고싶은 말을 적어주세요"
+            />
+          </div>
+        </div>
+      </section>
+      <section v-if="curStage === 3" class="form">
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">오픈 카카오 링크 <strong>*</strong></div>
+            <input
+              v-model="applyParams.kakaoLink"
+              class="input-long"
+              type="text"
+              placeholder="ex) URL"
+              @keyup="checkIsNextActive(3)"
+            />
+            <div class="sub-title">운영진에게 하고싶은 말이 있다면?</div>
+            <textarea
+              v-model="applyParams.inquiry"
+              class="input-long textarea"
+              placeholder="개선사항이나 문의하고 싶은 내용 작성"
+            />
+          </div>
+        </div>
+      </section>
     </section>
-    <section v-show="curStage >= 1 || curStage <= 5" class="btn-wrp">
+    <section
+      v-if="type === 'date'"
+      v-show="curStage >= 1 || curStage <= 5"
+      class="btn-wrp"
+    >
       <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
         이전
       </div>
@@ -571,6 +788,21 @@
         @click="isNextActive ? changeStage(1) : ''"
       >
         {{ curStage === 5 ? '저장' : '다음' }}
+      </div>
+    </section>
+    <section
+      v-if="type === 'friend'"
+      v-show="curStage >= 1 || curStage <= 3"
+      class="btn-wrp"
+    >
+      <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
+        이전
+      </div>
+      <div
+        :class="isNextActive ? 'next active' : 'next'"
+        @click="isNextActive ? changeStage(1) : ''"
+      >
+        {{ curStage === 3 ? '저장' : '다음' }}
       </div>
     </section>
   </div>
@@ -590,7 +822,7 @@ export default {
   },
   data() {
     return {
-      curStage: 2,
+      curStage: 3,
       curStageInfoDate: [
         {
           id: 1,
@@ -631,8 +863,8 @@ export default {
         },
         {
           id: 3,
-          title: '본인 연애 스타일 입력',
-          imgUrl: require('@/assets/img/blind-date/stage_4.png')
+          title: '마지막으로, 오픈 카카오 링크 입력',
+          imgUrl: require('@/assets/img/blind-date/stage_5.png')
         }
       ],
       applyParams: {
@@ -658,6 +890,7 @@ export default {
         mbti_04: 'J',
         comment: '',
         kakaoLink: '',
+        inquiry: '',
         excludeCondList: [
           {
             isShow: true,
@@ -876,8 +1109,8 @@ export default {
     }
   },
   mounted() {
-    if (this.curStage === 5) {
-      this.isNextActive = true
+    if (this.type === 'date') {
+      this.isNextActive = this.curStage === 5
     }
   },
   methods: {
@@ -895,12 +1128,16 @@ export default {
         // this.isNextActive = this.applyParams.height > 0
         this.isNextActive = this.isImgUploadEnough
       } else if (stage === 3) {
-        this.isNextActive =
-          this.applyParams.smoke.length > 0 &&
-          this.applyParams.faith.length > 0 &&
-          this.applyParams.alcohol > 0 &&
-          this.applyParams.address.length > 0 &&
-          this.applyParams.hobby.length > 2
+        if (this.type === 'date') {
+          this.isNextActive =
+            this.applyParams.smoke.length > 0 &&
+            this.applyParams.faith.length > 0 &&
+            this.applyParams.alcohol > 0 &&
+            this.applyParams.address.length > 0 &&
+            this.applyParams.hobby.length > 0
+        } else {
+          this.isNextActive = this.applyParams.kakaoLink.length > 0
+        }
       } else if (stage === 4) {
         this.isNextActive =
           this.applyParams.personality.length > 0 &&

@@ -172,6 +172,10 @@
             font-style: normal;
             font-weight: 500;
             line-height: normal;
+            &.textarea {
+              padding: 16px;
+              height: 146px;
+            }
           }
 
           .input-long:focus {
