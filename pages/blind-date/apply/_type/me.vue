@@ -107,7 +107,7 @@
                 관리자 확인 후 한대소 명단에서 제외할 수 있습니다.
               </div>
             </div>
-            <div class="btn-select-wrp" style="padding-top: 20px">
+            <div class="btn-select-wrp" style="padding-top: 10px">
               <div class="file-select-btn">
                 <div>+ 파일선택</div>
               </div>
@@ -143,6 +143,189 @@
           </div>
         </div>
       </section>
+      <section v-if="curStage === 3" class="form">
+        <div class="stage_01_top">
+          <div class="content_01">
+            <div class="sub-title">흡연 여부 <strong>*</strong></div>
+            <div class="btn-select-wrp">
+              <div
+                :class="
+                  applyParams.smoke === 'N'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.smoke = 'N'"
+              >
+                비흡연
+              </div>
+              <div
+                :class="
+                  applyParams.smoke === 'Y'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.smoke = 'Y'"
+              >
+                흡연
+              </div>
+            </div>
+          </div>
+          <div class="content_01">
+            <div class="sub-title">종교 <strong>*</strong></div>
+            <div class="btn-select-wrp">
+              <div
+                :class="
+                  applyParams.faith === 'NO_MATTER'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.faith = 'NO_MATTER'"
+              >
+                안 믿음
+              </div>
+              <div
+                :class="
+                  applyParams.faith === 'CHRISTIAN'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.faith = 'CHRISTIAN'"
+              >
+                기독교
+              </div>
+              <div
+                :class="
+                  applyParams.faith === 'ETC'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.faith = 'ETC'"
+              >
+                그 외
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">음주 여부 <strong>*</strong></div>
+            <div class="round-btn-select-wrp">
+              <div
+                v-for="(item, key) in alcohol"
+                :key="key"
+                :class="
+                  applyParams.alcohol === item.id ? 'button selected' : 'button'
+                "
+                @click="applyParams.alcohol = item.id"
+              >
+                {{ item.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="background">
+          <br />
+        </div>
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">현 거주지 <strong>*</strong></div>
+            <div class="btn-select-wrp">
+              <div
+                :class="
+                  applyParams.address === 'DORMITORY'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.address = 'DORMITORY'"
+              >
+                기숙사
+              </div>
+              <div
+                :class="
+                  applyParams.address === 'POHANG'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.address = 'POHANG'"
+              >
+                포항
+              </div>
+              <div
+                :class="
+                  applyParams.address === 'ETC'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.address = 'ETC'"
+              >
+                타지역
+              </div>
+            </div>
+            <div v-if="applyParams.address !== 'POHANG'" class="content_02">
+              <div class="sub-question-title">
+                {{
+                  applyParams.address === 'DORMITORY'
+                    ? '기숙사명 입력'
+                    : '지역명 입력'
+                }}
+              </div>
+              <input
+                v-model="applyParams.addressDetail"
+                class="input-long"
+                type="text"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="background">
+          <br />
+        </div>
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">
+              취미 <strong class="purple">최대 3개</strong><strong>*</strong>
+            </div>
+            <div class="round-btn-select-wrp">
+              <div
+                v-for="(item, key) in hobby"
+                :key="key"
+                :class="
+                  applyParams.hobby.includes(item.id)
+                    ? 'button selected'
+                    : 'button'
+                "
+                @click="
+                  ;[
+                    applyParams.hobby.includes(item.id)
+                      ? (applyParams.hobby = applyParams.hobby.filter(
+                          (data) => {
+                            return data !== item.id
+                          }
+                        ))
+                      : applyParams.hobby.push(item.id)
+                  ]
+                "
+              >
+                <img
+                  v-if="applyParams.hobby.includes(item.id)"
+                  src="@/assets/img/common/check-purple.png"
+                  alt=""
+                  style="width: 16px; margin-right: 4px"
+                />
+                {{ item.name }}
+              </div>
+            </div>
+            <div class="content_02">
+              <div class="sub-question-title">이외 추가적인 취미</div>
+              <input
+                v-model="applyParams.hobbyEtc"
+                class="input-long"
+                type="text"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
       <section v-show="curStage >= 1 || curStage <= 7" class="btn-wrp">
         <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
           이전
@@ -172,7 +355,7 @@ export default {
   },
   data() {
     return {
-      curStage: 2,
+      curStage: 3,
       curStageInfo: [
         {
           id: 1,
@@ -183,6 +366,11 @@ export default {
           id: 2,
           title: '본인 외형 정보 입력',
           imgUrl: require('@/assets/img/blind-date/stage_2.png')
+        },
+        {
+          id: 3,
+          title: '본인 상세 정보 입력',
+          imgUrl: require('@/assets/img/blind-date/stage_3.png')
         }
       ],
       applyParams: {
@@ -194,9 +382,12 @@ export default {
         height: '',
         favoriteAge: 'NO_MATTER',
         dateStyle: 'CAFE',
-        hobby: 'HOME',
+        hobby: [],
+        hobbyEtc: '',
         faith: 'NO_MATTER',
         smoke: 'N',
+        alcohol: 1,
+        address: 'DORMITORY',
         mbti_01: 'E',
         mbti_02: 'S',
         mbti_03: 'T',
@@ -243,27 +434,59 @@ export default {
       ],
       hobby: [
         {
-          id: 'HOME',
-          name: '나는 집이 좋은 집돌이, 집순이',
-          url: require('@/assets/img/blind-date/home.png')
+          id: 1,
+          name: '독서'
         },
         {
-          id: 'OUTSIDE',
-          name: '주말 바깥 공기 필수!',
-          url: require('@/assets/img/blind-date/exercise.png')
+          id: 2,
+          name: '음악'
+        },
+        {
+          id: 3,
+          name: '요리'
+        },
+        {
+          id: 4,
+          name: '게임'
+        },
+        {
+          id: 5,
+          name: '스포츠'
+        },
+        {
+          id: 6,
+          name: '헬스'
+        },
+        {
+          id: 7,
+          name: '여행'
+        },
+        {
+          id: 8,
+          name: '댄스'
+        },
+        {
+          id: 9,
+          name: '그림'
+        },
+        {
+          id: 10,
+          name: '보드게임'
+        },
+        {
+          id: 11,
+          name: '러닝'
+        },
+        {
+          id: 12,
+          name: '없음'
         }
       ],
-      faith: [
-        {
-          id: 'NO_MATTER',
-          name: '상관없어요',
-          url: require('@/assets/img/blind-date/heart.png')
-        },
-        {
-          id: 'CHRISTIAN',
-          name: '기독교이신 분과만 매칭을 원해요',
-          url: require('@/assets/img/blind-date/christian.png')
-        }
+      alcohol: [
+        { id: 1, name: '안 마심' },
+        { id: 2, name: '가끔' },
+        { id: 3, name: '일주일에 1~2번' },
+        { id: 4, name: '일주일에 5번 이상' }
       ],
       isAddBtnActive: true,
       isNextActive: false,
@@ -334,6 +557,13 @@ export default {
         this.isImgUploadEnough = false
       }
       this.checkIsNextActive(2)
+    },
+    toggleMultipleBtn(list, id) {
+      if (list.includes(id)) {
+        list.push(id)
+      } else {
+        // this.files.splice(id, 1)
+      }
     }
   }
 }

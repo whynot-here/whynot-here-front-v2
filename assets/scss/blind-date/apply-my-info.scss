@@ -95,6 +95,13 @@
           flex-direction: column;
           justify-content: center;
           gap: 20px;
+          .content_02 {
+            width: 100%;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 8px;
+          }
           .sub-title {
             padding: 0px 20px;
             color: var(--sub-t, #2e3348);
@@ -118,6 +125,23 @@
               font-style: normal;
               font-weight: 500;
             }
+            .purple {
+              color: #5d50e1;
+
+              font-family: Pretendard;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 500;
+            }
+          }
+          .sub-question-title {
+            padding: 0px 20px;
+            color: #061832;
+
+            font-family: Pretendard;
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 400;
           }
           .sub-desc {
             margin-top: 12.5px;
@@ -242,6 +266,40 @@
               }
             }
           }
+          .round-btn-select-wrp {
+            margin: 0px 20px;
+            // display: inline-block;
+            // gap: 12px;
+            .button {
+              // float: left;
+              display: inline-flex;
+              height: 40px;
+              padding: 0px 24px;
+              margin-bottom: 10px;
+              margin-right: 12px;
+              justify-content: center;
+              align-items: center;
+              flex-shrink: 0;
+              border-radius: 9999px;
+              background: #fff;
+              color: #7a7a7a;
+              font-family: Pretendard;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 500;
+              border: 1px solid #eee;
+            }
+            .selected {
+              border-radius: 9999px;
+              border: 1px solid #6254f0;
+              background: #fff;
+              color: var(--gray-100, #181818);
+              font-family: Pretendard;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 500;
+            }
+          }
           .complete-notice {
             display: flex;
             border-radius: 8px;
@@ -266,7 +324,12 @@
           }
         }
       }
+      .background {
+        background: #e8e9ef;
+        height: 8px;
+      }
     }
+
     .btn-wrp {
       display: flex;
       justify-content: center;
