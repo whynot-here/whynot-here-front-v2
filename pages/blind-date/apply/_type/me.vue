@@ -431,6 +431,57 @@
           </div>
         </div>
       </section>
+      <section v-if="curStage === 5" class="form">
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">
+              3. 혹시 정말 만나고 싶지 않은 사람이 있다면?
+              <strong class="purple">최대 10명</strong>
+            </div>
+            <div>
+              <div
+                v-for="(item, idx) in applyParams.excludeCondList"
+                :key="idx"
+                style="margin-bottom: 20px"
+              >
+                <div v-if="item.isShow === true" class="input-multiple-wrp">
+                  <input
+                    v-model="item.name"
+                    class="input-long-01"
+                    placeholder="이름"
+                    type="text"
+                  />
+                  <div class="input-half-wrp">
+                    <div style="width: 95%">
+                      <input
+                        v-model="item.department"
+                        class="input-half"
+                        placeholder="학과"
+                        type="text"
+                      />
+                    </div>
+                    <div style="width: 95%">
+                      <input
+                        v-model="item.studentId"
+                        class="input-half"
+                        placeholder="학번"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-if="isAddBtnActive" class="add-btn">
+              <img
+                src="@/assets/img/blind-date/add-btn.png"
+                alt=""
+                @click="addAvoid()"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
       <section v-show="curStage >= 1 || curStage <= 5" class="btn-wrp">
         <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
           이전
@@ -439,7 +490,7 @@
           :class="isNextActive ? 'next active' : 'next'"
           @click="isNextActive ? changeStage(1) : ''"
         >
-          {{ curStage === 5 ? '제출' : '다음' }}
+          {{ curStage === 5 ? '저장' : '다음' }}
         </div>
       </section>
     </section>
@@ -460,7 +511,7 @@ export default {
   },
   data() {
     return {
-      curStage: 4,
+      curStage: 5,
       curStageInfo: [
         {
           id: 1,
@@ -479,8 +530,13 @@ export default {
         },
         {
           id: 4,
-          title: '본인 연애 스타일  입력',
+          title: '본인 연애 스타일 입력',
           imgUrl: require('@/assets/img/blind-date/stage_4.png')
+        },
+        {
+          id: 5,
+          title: '아는 사람은 싫어요',
+          imgUrl: require('@/assets/img/blind-date/stage_5.png')
         }
       ],
       applyParams: {
@@ -509,6 +565,48 @@ export default {
         excludeCondList: [
           {
             isShow: true,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
             name: '',
             department: '',
             studentId: ''
@@ -681,7 +779,11 @@ export default {
       isImgUploadEnough: false
     }
   },
-  mounted() {},
+  mounted() {
+    if (this.curStage === 5) {
+      this.isNextActive = true
+    }
+  },
   methods: {
     selectBankName(item) {
       this.applyParams.major = item.name
@@ -707,16 +809,14 @@ export default {
         this.isNextActive =
           this.applyParams.personality.length > 0 &&
           this.applyParams.dateStyle.length > 0
-      } else if (stage === 7) {
-        this.isNextActive = this.applyParams.kakaoLink.length > 0
       }
     },
     changeStage(addNum) {
-      if (this.curStage === 7 && addNum === 1) {
+      if (this.curStage === 6 && addNum === 1) {
         this.submit()
       } else {
         this.curStage += addNum
-        this.isNextActive = false
+        this.isNextActive = this.curStage === 5
         this.checkIsNextActive(this.curStage)
       }
     },
@@ -752,11 +852,14 @@ export default {
       }
       this.checkIsNextActive(2)
     },
-    toggleMultipleBtn(list, id) {
-      if (list.includes(id)) {
-        list.push(id)
-      } else {
-        // this.files.splice(id, 1)
+    addAvoid() {
+      const idx = this.applyParams.excludeCondList.findIndex((item) => {
+        return item.isShow === false
+      })
+      this.applyParams.excludeCondList[idx].isShow = true
+
+      if (idx === 9) {
+        this.isAddBtnActive = false
       }
     }
   }
