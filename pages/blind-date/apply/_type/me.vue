@@ -822,7 +822,7 @@ export default {
   },
   data() {
     return {
-      curStage: 3,
+      curStage: 1,
       curStageInfoDate: [
         {
           id: 1,
