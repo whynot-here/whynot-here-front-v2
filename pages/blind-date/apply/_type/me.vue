@@ -491,6 +491,21 @@
           </div>
         </div>
       </section>
+      <section
+        v-if="type === 'date'"
+        v-show="curStage >= 1 || curStage <= 5"
+        class="btn-wrp"
+      >
+        <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
+          이전
+        </div>
+        <div
+          :class="isNextActive ? 'next active' : 'next'"
+          @click="isNextActive ? changeStage(1) : ''"
+        >
+          {{ curStage === 5 ? '저장' : '다음' }}
+        </div>
+      </section>
     </section>
     <section v-if="type === 'friend'" class="content">
       <section v-if="curStage === 1" class="form">
@@ -721,7 +736,7 @@
                           }
                         ))
                       : applyParams.hobby.push(item.id),
-                    checkIsNextActive(3)
+                    checkIsNextActive(2)
                   ]
                 "
               >
@@ -740,7 +755,7 @@
                 v-model="applyParams.hobbyEtc"
                 class="input-long"
                 type="text"
-                @keyup="checkIsNextActive(3)"
+                @keyup="checkIsNextActive(2)"
               />
             </div>
           </div>
@@ -774,36 +789,22 @@
           </div>
         </div>
       </section>
-    </section>
-    <section
-      v-if="type === 'date'"
-      v-show="curStage >= 1 || curStage <= 5"
-      class="btn-wrp"
-    >
-      <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
-        이전
-      </div>
-      <div
-        :class="isNextActive ? 'next active' : 'next'"
-        @click="isNextActive ? changeStage(1) : ''"
+
+      <section
+        v-if="type === 'friend'"
+        v-show="curStage >= 1 || curStage <= 3"
+        class="btn-wrp"
       >
-        {{ curStage === 5 ? '저장' : '다음' }}
-      </div>
-    </section>
-    <section
-      v-if="type === 'friend'"
-      v-show="curStage >= 1 || curStage <= 3"
-      class="btn-wrp"
-    >
-      <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
-        이전
-      </div>
-      <div
-        :class="isNextActive ? 'next active' : 'next'"
-        @click="isNextActive ? changeStage(1) : ''"
-      >
-        {{ curStage === 3 ? '저장' : '다음' }}
-      </div>
+        <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
+          이전
+        </div>
+        <div
+          :class="isNextActive ? 'next active' : 'next'"
+          @click="isNextActive ? changeStage(1) : ''"
+        >
+          {{ curStage === 3 ? '저장' : '다음' }}
+        </div>
+      </section>
     </section>
   </div>
 </template>
@@ -1126,7 +1127,16 @@ export default {
           this.applyParams.major.length > 0
       } else if (stage === 2) {
         // this.isNextActive = this.applyParams.height > 0
-        this.isNextActive = this.isImgUploadEnough
+        if (this.type === 'date') {
+          this.isNextActive = this.isImgUploadEnough
+        } else {
+          this.isNextActive =
+            this.applyParams.smoke.length > 0 &&
+            this.applyParams.faith.length > 0 &&
+            this.applyParams.alcohol > 0 &&
+            this.applyParams.address.length > 0 &&
+            this.applyParams.hobby.length > 0
+        }
       } else if (stage === 3) {
         if (this.type === 'date') {
           this.isNextActive =
