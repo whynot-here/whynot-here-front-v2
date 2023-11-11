@@ -328,7 +328,110 @@
           </div>
         </div>
       </section>
-      <section v-show="curStage >= 1 || curStage <= 7" class="btn-wrp">
+      <section v-if="curStage === 4" class="form">
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">연락 스타일 <strong>*</strong></div>
+            <div class="round-btn-select-wrp">
+              <div
+                v-for="(item, key) in contactStyle"
+                :key="key"
+                :class="
+                  applyParams.contactStyle === item.id
+                    ? 'button selected'
+                    : 'button'
+                "
+                @click="applyParams.contactStyle = item.id"
+              >
+                {{ item.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="background">
+          <br />
+        </div>
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">
+              성격 <strong class="purple">최대 2개</strong> <strong>*</strong>
+            </div>
+            <div class="round-btn-select-wrp">
+              <div
+                v-for="(item, key) in personality"
+                :key="key"
+                :class="
+                  applyParams.personality.includes(item.id)
+                    ? 'button selected'
+                    : 'button'
+                "
+                @click="
+                  ;[
+                    applyParams.personality.includes(item.id)
+                      ? (applyParams.personality =
+                          applyParams.personality.filter((data) => {
+                            return data !== item.id
+                          }))
+                      : applyParams.personality.push(item.id),
+                    checkIsNextActive(4)
+                  ]
+                "
+              >
+                <img
+                  v-if="applyParams.personality.includes(item.id)"
+                  src="@/assets/img/common/check-purple.png"
+                  alt=""
+                  style="width: 16px; margin-right: 4px"
+                />
+                {{ item.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="background">
+          <br />
+        </div>
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">
+              데이트 스타일 <strong class="purple">최대 3개</strong
+              ><strong>*</strong>
+            </div>
+            <div class="round-btn-select-wrp">
+              <div
+                v-for="(item, key) in dateStyle"
+                :key="key"
+                :class="
+                  applyParams.dateStyle.includes(item.id)
+                    ? 'button selected'
+                    : 'button'
+                "
+                @click="
+                  ;[
+                    applyParams.dateStyle.includes(item.id)
+                      ? (applyParams.dateStyle = applyParams.dateStyle.filter(
+                          (data) => {
+                            return data !== item.id
+                          }
+                        ))
+                      : applyParams.dateStyle.push(item.id),
+                    checkIsNextActive(4)
+                  ]
+                "
+              >
+                <img
+                  v-if="applyParams.dateStyle.includes(item.id)"
+                  src="@/assets/img/common/check-purple.png"
+                  alt=""
+                  style="width: 16px; margin-right: 4px"
+                />
+                {{ item.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section v-show="curStage >= 1 || curStage <= 5" class="btn-wrp">
         <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
           이전
         </div>
@@ -336,7 +439,7 @@
           :class="isNextActive ? 'next active' : 'next'"
           @click="isNextActive ? changeStage(1) : ''"
         >
-          {{ curStage === 7 ? '제출' : '다음' }}
+          {{ curStage === 5 ? '제출' : '다음' }}
         </div>
       </section>
     </section>
@@ -357,7 +460,7 @@ export default {
   },
   data() {
     return {
-      curStage: 3,
+      curStage: 4,
       curStageInfo: [
         {
           id: 1,
@@ -373,6 +476,11 @@ export default {
           id: 3,
           title: '본인 상세 정보 입력',
           imgUrl: require('@/assets/img/blind-date/stage_3.png')
+        },
+        {
+          id: 4,
+          title: '본인 연애 스타일  입력',
+          imgUrl: require('@/assets/img/blind-date/stage_4.png')
         }
       ],
       applyParams: {
@@ -383,13 +491,15 @@ export default {
         major: '',
         height: '',
         favoriteAge: 'NO_MATTER',
-        dateStyle: 'CAFE',
+        dateStyle: [],
         hobby: [],
         hobbyEtc: '',
         faith: 'NO_MATTER',
         smoke: 'N',
         alcohol: 1,
         address: 'DORMITORY',
+        contactStyle: 1,
+        personality: [],
         mbti_01: 'E',
         mbti_02: 'S',
         mbti_03: 'T',
@@ -419,19 +529,92 @@ export default {
       },
       dateStyle: [
         {
-          id: 'CAFE',
-          name: '카페 데이트',
-          url: require('@/assets/img/blind-date/cafe.png')
+          id: 1,
+          name: '카페'
         },
         {
-          id: 'HEALTH',
-          name: '방탈출, 헬스장 데이트',
-          url: require('@/assets/img/blind-date/exercise.png')
+          id: 2,
+          name: 'PC방'
         },
         {
-          id: 'WALK',
-          name: '산책, 걷기 데이트',
-          url: require('@/assets/img/blind-date/jogging.png')
+          id: 3,
+          name: '맛집 탐방'
+        },
+        {
+          id: 4,
+          name: '전시회 구경'
+        },
+        {
+          id: 5,
+          name: '헬스장 데이트'
+        },
+        {
+          id: 6,
+          name: '방탈출'
+        },
+        {
+          id: 7,
+          name: '공원 산책'
+        },
+        {
+          id: 8,
+          name: '드라이브'
+        },
+        {
+          id: 9,
+          name: '실내'
+        },
+        {
+          id: 10,
+          name: '실외'
+        }
+      ],
+      contactStyle: [
+        {
+          id: 1,
+          name: '카톡 자주 하는 편'
+        },
+        {
+          id: 2,
+          name: '카톡 잘 못하는 편'
+        },
+        {
+          id: 3,
+          name: '직접 만나는 것을 선호'
+        },
+        {
+          id: 4,
+          name: '전화 선호'
+        }
+      ],
+      personality: [
+        {
+          id: 1,
+          name: '말을 예쁘게 하는'
+        },
+        {
+          id: 2,
+          name: '유머러스 한'
+        },
+        {
+          id: 3,
+          name: '장난기 많은'
+        },
+        {
+          id: 4,
+          name: '예의 바른'
+        },
+        {
+          id: 5,
+          name: '진중한'
+        },
+        {
+          id: 6,
+          name: '상대에게 잘 맞추는'
+        },
+        {
+          id: 7,
+          name: '배려심 깊은'
         }
       ],
       hobby: [
@@ -520,8 +703,10 @@ export default {
           this.applyParams.alcohol > 0 &&
           this.applyParams.address.length > 0 &&
           this.applyParams.hobby.length > 2
-      } else if (stage === 4 || stage === 5 || stage === 6) {
-        this.isNextActive = true
+      } else if (stage === 4) {
+        this.isNextActive =
+          this.applyParams.personality.length > 0 &&
+          this.applyParams.dateStyle.length > 0
       } else if (stage === 7) {
         this.isNextActive = this.applyParams.kakaoLink.length > 0
       }
