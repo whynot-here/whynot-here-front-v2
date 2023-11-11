@@ -9,15 +9,15 @@
     </div>
     <div class="proceed">
       <div class="info">
-        <div class="stage-text">1/5</div>
-        <div class="title">본인 기본 정보 입력</div>
+        <div class="stage-text">{{ curStage }}/5</div>
+        <div class="title">{{ curStageInfo[curStage - 1].title }}</div>
       </div>
       <div class="stage-img">
-        <img src="@/assets/img/blind-date/stage_1.png" alt="" />
+        <img :src="curStageInfo[curStage - 1].imgUrl" alt="" />
       </div>
     </div>
     <section v-if="type === 'date'" class="content">
-      <section class="form">
+      <section v-if="curStage === 1" class="form">
         <div class="stage_01_top">
           <div class="content_01">
             <div class="sub-title">이름을 적어주세요 <strong>*</strong></div>
@@ -85,6 +85,64 @@
           </div>
         </div>
       </section>
+      <section v-if="curStage === 2" class="form">
+        <div class="stage_01_top">
+          <div class="content_01">
+            <div class="sub-title">
+              본인의 키를 입력해 주세요 <strong class="gray">(숫자만)</strong>
+            </div>
+            <input
+              v-model="applyParams.height"
+              class="input-long"
+              type="text"
+              placeholder="ex) 160"
+            />
+          </div>
+          <div class="content_01">
+            <div class="sub-title">
+              본인을 나타낼 수 있는 사진 최소 2장 이상을 올려주세요
+              <strong>*</strong>
+              <div class="sub-desc">
+                상대방에게 수치심을 주거나 불쾌감을 줄 수 있는 사진 업로드 시
+                관리자 확인 후 한대소 명단에서 제외할 수 있습니다.
+              </div>
+            </div>
+            <div class="btn-select-wrp" style="padding-top: 20px">
+              <div class="file-select-btn">
+                <div>+ 파일선택</div>
+              </div>
+              <b-form-group id="fileInput" class="dragdrop blind-date">
+                <b-form-file
+                  multiple
+                  accept="image/jpeg, image/png, image/gif"
+                  @change="onFileChange"
+                ></b-form-file>
+              </b-form-group>
+              <div v-if="inputImg && inputImg.length > 0" class="img-grp">
+                <div id="postingImages">
+                  <div v-for="(image, idx) in inputImg" :key="idx">
+                    <b-img thumbnail :src="image.prev_url" class="obj" />
+                    <div class="img-btn-grp">
+                      <img
+                        class="del"
+                        src="@/assets/img/blind-date/img-del-black.png"
+                        alt=""
+                        @click="cancelPhoto(idx)"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-if="isImgUploadEnough" class="complete-notice">
+              <div class="check-img-wrp">
+                <img src="@/assets/img/common/check-purple.png" alt="" />
+              </div>
+              <div>조건 충족 완료</div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section v-show="curStage >= 1 || curStage <= 7" class="btn-wrp">
         <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
           이전
@@ -114,13 +172,26 @@ export default {
   },
   data() {
     return {
-      curStage: 1,
+      curStage: 2,
+      curStageInfo: [
+        {
+          id: 1,
+          title: '본인 기본 정보 입력',
+          imgUrl: require('@/assets/img/blind-date/stage_1.png')
+        },
+        {
+          id: 2,
+          title: '본인 외형 정보 입력',
+          imgUrl: require('@/assets/img/blind-date/stage_2.png')
+        }
+      ],
       applyParams: {
         season: 1,
         name: '',
         gender: 'M',
         myAge: '',
         major: '',
+        height: '',
         favoriteAge: 'NO_MATTER',
         dateStyle: 'CAFE',
         hobby: 'HOME',
@@ -196,7 +267,10 @@ export default {
       ],
       isAddBtnActive: true,
       isNextActive: false,
-      isShow: false
+      isShow: false,
+      inputImg: [],
+      files: [],
+      isImgUploadEnough: false
     }
   },
   mounted() {},
@@ -212,12 +286,54 @@ export default {
           this.applyParams.myAge.length > 0 &&
           this.applyParams.major.length > 0
       } else if (stage === 2) {
-        this.isNextActive = this.applyParams.myAge.length > 0
+        // this.isNextActive = this.applyParams.height > 0
+        this.isNextActive = this.isImgUploadEnough
       } else if (stage === 3 || stage === 4 || stage === 5 || stage === 6) {
         this.isNextActive = true
       } else if (stage === 7) {
         this.isNextActive = this.applyParams.kakaoLink.length > 0
       }
+    },
+    changeStage(addNum) {
+      if (this.curStage === 7 && addNum === 1) {
+        this.submit()
+      } else {
+        this.curStage += addNum
+        this.isNextActive = false
+        this.checkIsNextActive(this.curStage)
+      }
+    },
+    // 사진 선택
+    onFileChange(event) {
+      const input = event.target.files
+      if (input.length > 0) {
+        for (let i = 0; i < input.length; i++) {
+          const fileReader = new FileReader()
+          fileReader.onload = (e) => {
+            this.inputImg.push({
+              prev_url: e.target.result,
+              isNew: true
+            })
+          }
+          fileReader.readAsDataURL(input[i])
+          this.files.push(input[i])
+        }
+        event.target.value = ''
+      }
+      if (this.files.length > 1) {
+        this.isImgUploadEnough = true
+      }
+
+      this.checkIsNextActive(2)
+    },
+    // 사진 선택 취소
+    cancelPhoto(idx) {
+      this.inputImg.splice(idx, 1)
+      this.files.splice(idx, 1)
+      if (this.files.length < 2) {
+        this.isImgUploadEnough = false
+      }
+      this.checkIsNextActive(2)
     }
   }
 }

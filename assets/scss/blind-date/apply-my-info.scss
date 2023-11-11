@@ -119,6 +119,12 @@
               font-weight: 500;
             }
           }
+          .sub-desc {
+            margin-top: 12.5px;
+            font-size: 13px;
+            color: #7a7a7a;
+            padding-right: 5px;
+          }
           .input-long {
             display: flex;
             margin: 0px 20px;
@@ -175,27 +181,122 @@
               font-style: normal;
               font-weight: 500;
             }
+            .file-select-btn {
+              width: 102px;
+              height: 100px;
+              line-height: 100px;
+              text-align: center;
+              border-radius: 8px;
+              border: 1px solid var(--color-warm-gray-wg-200, #e7e7e7);
+              background: linear-gradient(0deg, #fff 0%, #fff 100%), #d9d9d9;
+
+              div {
+                display: inline-flex;
+                padding: 6px 12px;
+                justify-content: center;
+                align-items: center;
+                gap: 4px;
+                border-radius: 99999px;
+                background: #f3f3f3;
+                color: #6254f0;
+
+                font-family: Pretendard;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 16px;
+              }
+            }
+            .img-grp {
+              width: calc(100% - 120px);
+              overflow-x: scroll;
+              overflow-y: hidden;
+              #postingImages {
+                display: flex;
+                gap: 12px;
+                div {
+                  // margin-left: 10px;
+                  // margin-top: 10px;
+                  width: 102px;
+                  height: 100px;
+                  .obj {
+                    width: 102px;
+                    height: 100px;
+                    border-radius: 12px;
+                    object-fit: cover;
+                  }
+                  .img-btn-grp {
+                    height: 30px;
+                    // display: flex;
+                    // padding: 5px 10px 0px 60px;
+                    margin-top: -120px;
+                    .del {
+                      margin-left: 85px;
+                      margin-top: 15px;
+                      width: 24px;
+                      height: 24px;
+                      z-index: 1;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .complete-notice {
+            display: flex;
+            border-radius: 8px;
+            border: 1px solid #d2ceff;
+            margin: 0px 20px;
+            height: 36px;
+            line-height: 36px;
+            background: #f1f0ff;
+            padding-left: 12px;
+            color: var(--gray-80, #454545);
+            font-family: Pretendard;
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 500;
+            .check-img-wrp {
+              padding-top: 3px;
+              img {
+                width: 16px;
+                margin-right: 6px;
+              }
+            }
           }
         }
       }
     }
     .btn-wrp {
-      .next {
-        display: flex;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0px 4px 12px 0px rgba(0, 52, 138, 0.16),
+        0px 0px 32px 0px rgba(54, 18, 155, 0.12);
+      .prev {
+        flex-grow: 1;
         height: 56px;
-        justify-content: center;
-        align-items: center;
-        background: var(--gray-50, #a3a3a3);
-        /* 하단 그림자 */
-        box-shadow: 0px 4px 12px 0px rgba(0, 52, 138, 0.16),
-          0px 0px 32px 0px rgba(54, 18, 155, 0.12);
-
-        color: #fff;
-
+        flex-shrink: 0;
+        background: #f3f5fb;
+        color: #5d50e1;
         font-family: Pretendard;
         font-size: 15px;
         font-style: normal;
         font-weight: 600;
+        line-height: 56px;
+        text-align: center;
+      }
+      .next {
+        flex-grow: 1;
+        height: 56px;
+        background: var(--gray-50, #a3a3a3);
+        color: #fff;
+        font-family: Pretendard;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 56px;
+        text-align: center;
         &.active {
           background: #5d50e1;
         }
