@@ -2,6 +2,14 @@
   <div id="FeePage">
     <section class="top">
       <div class="title">보증금 입금</div>
+      <div class="m-close">
+        <img
+          class="m-back-btn"
+          src="@/assets/img/common/close-btn2.png"
+          alt=""
+          @click="$router.go(-1)"
+        />
+      </div>
       <div class="container">
         <div class="desc">
           <div class="block1">
@@ -126,6 +134,7 @@ export default {
         studentId: null,
         bankName: '',
         bankNumber: '',
+        season: 2
       },
       isOpenAskPopup: false,
       isBtnActive: false

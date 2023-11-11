@@ -1,5 +1,28 @@
+@import '@/assets/scss/util.scss';
+
 #FeePage {
   .top {
+    .m-close {
+      position: absolute;
+      top: 30px;
+      right: 20px;
+      width: 24px;
+      img {
+        width: 24px;
+        height: 24px;
+      }
+
+      @include tablet {
+        top: 40px;
+        right: 40px;
+
+        img {
+          width: 35px;
+          height: 35px;
+        }
+      }
+    }
+
     .title {
       font-family: Pretendard;
       font-size: 24px;
