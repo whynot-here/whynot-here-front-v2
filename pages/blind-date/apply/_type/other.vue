@@ -27,6 +27,13 @@
         </div>
       </div>
     </div>
+    <div v-if="curStage === 4" class="notice-kakao">
+      <div>
+        카카오톡 오픈 채팅방을 개설해서 링크를 넣어주세요. 본 링크는 상대방만 볼
+        수 있습니다. <br />
+        <strong>비밀번호는 생성하지 말아주세요.</strong>
+      </div>
+    </div>
     <section class="content">
       <section v-if="curStage === 1" class="form">
         <div class="stage_01_top">

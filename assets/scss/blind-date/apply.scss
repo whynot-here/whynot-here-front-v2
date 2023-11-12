@@ -90,6 +90,24 @@
       }
     }
   }
+  .notice-kakao {
+    padding: 0 20px 20px 20px;
+    color: #7a7a7a;
+
+    font-family: Pretendard;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    strong {
+      color: var(--gray-80, #454545);
+      font-family: Pretendard;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 18px;
+    }
+  }
   .content {
     width: 100vw;
     height: calc(100vh - 188px);
