@@ -234,6 +234,32 @@ const common = {
           majorId: 6,
           majorName: 'ICT 창업학부'
         }
+      ],
+      heightList: [
+        {
+          heightId: 1,
+          heightName: '160cm 이하'
+        },
+        {
+          heightId: 2,
+          heightName: '160~165cm'
+        },
+        {
+          heightId: 3,
+          heightName: '165~170cm'
+        },
+        {
+          heightId: 4,
+          heightName: '170~175cm'
+        },
+        {
+          heightId: 5,
+          heightName: '175~180cm'
+        },
+        {
+          heightId: 6,
+          heightName: '180cm 이상'
+        }
       ]
     }
   },

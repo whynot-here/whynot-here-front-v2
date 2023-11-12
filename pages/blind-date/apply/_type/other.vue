@@ -98,6 +98,38 @@
           </div>
         </div>
       </section>
+      <section v-if="curStage === 2" class="form">
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">
+              선호하는 상대방의 신장을 알려주세요
+              <strong>*</strong>
+              <div class="must-matching-condition">
+                <div class="icon">
+                  <img
+                    v-if="applyParams.mustMatchingCondition[1].value === 'Y'"
+                    src="@/assets/img/common/check-box-purple-selected.png"
+                    alt=""
+                    @click="applyParams.mustMatchingCondition[1].value = 'N'"
+                  />
+                  <img
+                    v-else
+                    src="@/assets/img/common/check-box-purple-unselected.png"
+                    alt=""
+                    @click="applyParams.mustMatchingCondition[1].value = 'Y'"
+                  />
+                </div>
+                <div>매칭 필수 요소</div>
+              </div>
+            </div>
+            <DropdownBankName
+              ref="DropdownBankName"
+              :label-first="'신장'"
+              @get-label="selectOtherHeight"
+            />
+          </div>
+        </div>
+      </section>
       <section
         v-if="type === 'date'"
         v-show="curStage >= 1 || curStage <= 4"
@@ -118,9 +150,11 @@
 </template>
 
 <script>
+import DropdownBankName from '@/components/blind-date/dropdownBankName'
+
 export default {
   name: 'ApplyOtherInfoPage',
-  components: {},
+  components: { DropdownBankName },
   asyncData({ params, route, query, redirect }) {
     return {
       type: route.params.type
@@ -128,7 +162,7 @@ export default {
   },
   data() {
     return {
-      curStage: 1,
+      curStage: 2,
       curStageInfoDate: [
         {
           id: 1,
@@ -143,12 +177,12 @@ export default {
         {
           id: 3,
           title: '상대 필수 정보',
-          imgUrl: require('@/assets/img/blind-date/stage_3.png')
+          imgUrl: require('@/assets/img/blind-date/stage_4.png')
         },
         {
           id: 4,
           title: '마지막으로, 오픈 카카오 링크 입력',
-          imgUrl: require('@/assets/img/blind-date/stage_4.png')
+          imgUrl: require('@/assets/img/blind-date/stage_5.png')
         }
       ],
       applyParams: {
@@ -159,6 +193,7 @@ export default {
         otherAge: 'NO_MATTER',
         major: '',
         height: '',
+        otherHeight: '',
         favoriteAge: 'NO_MATTER',
         dateStyle: [],
         hobby: [],
@@ -277,11 +312,15 @@ export default {
     this.isNextActive = this.curStage === 1
   },
   methods: {
+    selectOtherHeight(item) {
+      this.applyParams.otherHeight = item.name
+      this.checkIsNextActive(2)
+    },
     checkIsNextActive(stage) {
       if (stage === 2) {
         // this.isNextActive = this.applyParams.height > 0
         if (this.type === 'date') {
-          this.isNextActive = this.isImgUploadEnough
+          this.isNextActive = this.applyParams.otherHeight.length > 0
         } else {
           this.isNextActive =
             this.applyParams.smoke.length > 0 &&

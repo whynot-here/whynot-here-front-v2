@@ -61,6 +61,15 @@ export default {
             result.push(item)
           })
           return result
+        case '신장':
+          this.heightList.forEach((it) => {
+            const item = {
+              id: it.heightId,
+              name: it.heightName
+            }
+            result.push(item)
+          })
+          return result
       }
       return result
     }
