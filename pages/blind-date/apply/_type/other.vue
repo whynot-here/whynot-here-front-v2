@@ -34,7 +34,7 @@
         <strong>비밀번호는 생성하지 말아주세요.</strong>
       </div>
     </div>
-    <section class="content">
+    <section class="content" style="height: calc(100vh - 265px)">
       <section v-if="curStage === 1" class="form">
         <div class="stage_01_top">
           <div class="content_01">
@@ -137,6 +137,140 @@
           </div>
         </div>
       </section>
+      <section v-if="curStage === 3" class="form">
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">
+              흡연 여부 <strong>*</strong>
+              <div class="must-matching-condition">
+                <div class="icon">
+                  <img
+                    v-if="applyParams.mustMatchingCondition[2].value === 'Y'"
+                    src="@/assets/img/common/check-box-purple-selected.png"
+                    alt=""
+                    @click="applyParams.mustMatchingCondition[2].value = 'N'"
+                  />
+                  <img
+                    v-else
+                    src="@/assets/img/common/check-box-purple-unselected.png"
+                    alt=""
+                    @click="applyParams.mustMatchingCondition[2].value = 'Y'"
+                  />
+                </div>
+                <div>매칭 필수 요소</div>
+              </div>
+            </div>
+            <div class="btn-select-wrp">
+              <div
+                :class="
+                  applyParams.otherSmoke === 'N'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.otherSmoke = 'N'"
+              >
+                비흡연
+              </div>
+              <div
+                :class="
+                  applyParams.otherSmoke === 'Y'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.otherSmoke = 'Y'"
+              >
+                흡연
+              </div>
+            </div>
+          </div>
+          <div class="content_01">
+            <div class="sub-title">
+              종교 <strong>*</strong>
+              <div class="must-matching-condition">
+                <div class="icon">
+                  <img
+                    v-if="applyParams.mustMatchingCondition[3].value === 'Y'"
+                    src="@/assets/img/common/check-box-purple-selected.png"
+                    alt=""
+                    @click="applyParams.mustMatchingCondition[3].value = 'N'"
+                  />
+                  <img
+                    v-else
+                    src="@/assets/img/common/check-box-purple-unselected.png"
+                    alt=""
+                    @click="applyParams.mustMatchingCondition[3].value = 'Y'"
+                  />
+                </div>
+                <div>매칭 필수 요소</div>
+              </div>
+            </div>
+            <div class="btn-select-wrp">
+              <div
+                :class="
+                  applyParams.otherFaith === 'NO_MATTER'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.otherFaith = 'NO_MATTER'"
+              >
+                상관없음
+              </div>
+              <div
+                :class="
+                  applyParams.otherFaith === 'CHRISTIAN'
+                    ? 'button-half selected'
+                    : 'button-half'
+                "
+                @click="applyParams.otherFaith = 'CHRISTIAN'"
+              >
+                기독교
+              </div>
+            </div>
+          </div>
+          <div class="content_01">
+            <div class="sub-title">음주 여부 <strong>*</strong></div>
+            <div class="round-btn-select-wrp">
+              <div
+                v-for="(item, key) in alcohol"
+                :key="key"
+                :class="
+                  applyParams.otherAlcohol === item.id
+                    ? 'button selected'
+                    : 'button'
+                "
+                @click="applyParams.otherAlcohol = item.id"
+              >
+                {{ item.name }}
+              </div>
+            </div>
+          </div>
+          <div class="content_01">
+            <div class="sub-title">장거리 <strong>*</strong></div>
+            <div class="round-btn-select-wrp">
+              <div
+                v-for="(item, key) in distance"
+                :key="key"
+                :class="
+                  applyParams.distance === item.id
+                    ? 'button selected'
+                    : 'button'
+                "
+                @click="applyParams.distance = item.id"
+              >
+                {{ item.name }}
+              </div>
+            </div>
+          </div>
+          <div class="content_01">
+            <div class="sub-title">상대에게 하고싶은 말이 있다면?</div>
+            <textarea
+              v-model="applyParams.comment"
+              class="input-long textarea"
+              placeholder="상대에게 하고싶은 말을 적어주세요"
+            />
+          </div>
+        </div>
+      </section>
       <section v-if="curStage === 4" class="form">
         <div class="stage_01_bottom">
           <div class="content_01">
@@ -189,7 +323,7 @@ export default {
   },
   data() {
     return {
-      curStage: 4,
+      curStage: 3,
       curStageInfoDate: [
         {
           id: 1,
@@ -226,8 +360,12 @@ export default {
         hobby: [],
         hobbyEtc: '',
         faith: 'NO_MATTER',
+        otherFaith: 'NO_MATTER',
         smoke: 'N',
+        otherSmoke: 'N',
         alcohol: 1,
+        otherAlcohol: 1,
+        distance: 1,
         address: 'DORMITORY',
         contactStyle: 1,
         personality: [],
@@ -327,6 +465,16 @@ export default {
           }
         ]
       },
+      alcohol: [
+        { id: 1, name: '안 마셨으면 좋겠어요' },
+        { id: 2, name: '가끔' },
+        { id: 3, name: '일주일에 1~2번' },
+        { id: 4, name: '일주일에 5번 이상' }
+      ],
+      distance: [
+        { id: 1, name: '괜찮아요' },
+        { id: 2, name: '싫어요' }
+      ],
       isAddBtnActive: true,
       isNextActive: false,
       isShow: false,
@@ -336,7 +484,7 @@ export default {
     }
   },
   mounted() {
-    this.isNextActive = this.curStage === 1
+    this.isNextActive = this.curStage === 1 || this.curStage === 3
   },
   methods: {
     selectOtherHeight(item) {
@@ -345,25 +493,22 @@ export default {
     },
     checkIsNextActive(stage) {
       if (stage === 2) {
-        // this.isNextActive = this.applyParams.height > 0
         if (this.type === 'date') {
           this.isNextActive = this.applyParams.otherHeight.length > 0
-        } else {
-          this.isNextActive =
-            this.applyParams.smoke.length > 0 &&
-            this.applyParams.faith.length > 0 &&
-            this.applyParams.alcohol > 0 &&
-            this.applyParams.address.length > 0 &&
-            this.applyParams.hobby.length > 0
         }
       } else if (stage === 3) {
         if (this.type === 'date') {
+          console.log(
+            this.applyParams.otherSmoke.length > 0 &&
+              this.applyParams.otherFaith.length > 0 &&
+              this.applyParams.otherAlcohol > 0 &&
+              this.applyParams.distance.length > 0
+          )
           this.isNextActive =
-            this.applyParams.smoke.length > 0 &&
-            this.applyParams.faith.length > 0 &&
-            this.applyParams.alcohol > 0 &&
-            this.applyParams.address.length > 0 &&
-            this.applyParams.hobby.length > 0
+            this.applyParams.otherSmoke.length > 0 &&
+            this.applyParams.otherFaith.length > 0 &&
+            this.applyParams.otherAlcohol > 0 &&
+            this.applyParams.distance > 0
         } else {
           this.isNextActive = this.applyParams.kakaoLink.length > 0
         }
