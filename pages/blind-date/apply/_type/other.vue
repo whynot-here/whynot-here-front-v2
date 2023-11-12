@@ -16,7 +16,7 @@
         <img :src="curStageInfoDate[curStage - 1].imgUrl" alt="" />
       </div>
     </div>
-    <div class="notice">
+    <div v-if="curStage !== 4" class="notice">
       <div class="notice-wrp">
         <div class="left">
           <img src="@/assets/img/common/notice-purple.png" alt="" />
@@ -130,6 +130,26 @@
           </div>
         </div>
       </section>
+      <section v-if="curStage === 4" class="form">
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">오픈 카카오 링크 <strong>*</strong></div>
+            <input
+              v-model="applyParams.kakaoLink"
+              class="input-long"
+              type="text"
+              placeholder="ex) URL"
+              @keyup="checkIsNextActive(4)"
+            />
+            <div class="sub-title">운영진에게 하고싶은 말이 있다면?</div>
+            <textarea
+              v-model="applyParams.inquiry"
+              class="input-long textarea"
+              placeholder="개선사항이나 문의하고 싶은 내용 작성"
+            />
+          </div>
+        </div>
+      </section>
       <section
         v-if="type === 'date'"
         v-show="curStage >= 1 || curStage <= 4"
@@ -142,7 +162,7 @@
           :class="isNextActive ? 'next active' : 'next'"
           @click="isNextActive ? changeStage(1) : ''"
         >
-          {{ curStage === 5 ? '저장' : '다음' }}
+          {{ curStage === 4 ? '저장' : '다음' }}
         </div>
       </section>
     </section>
@@ -162,7 +182,7 @@ export default {
   },
   data() {
     return {
-      curStage: 2,
+      curStage: 4,
       curStageInfoDate: [
         {
           id: 1,
@@ -341,9 +361,7 @@ export default {
           this.isNextActive = this.applyParams.kakaoLink.length > 0
         }
       } else if (stage === 4) {
-        this.isNextActive =
-          this.applyParams.personality.length > 0 &&
-          this.applyParams.dateStyle.length > 0
+        this.isNextActive = this.applyParams.kakaoLink.length > 0
       }
     },
     changeStage(addNum) {
