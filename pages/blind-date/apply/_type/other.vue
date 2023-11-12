@@ -323,7 +323,7 @@ export default {
   },
   data() {
     return {
-      curStage: 3,
+      curStage: 1,
       curStageInfoDate: [
         {
           id: 1,
@@ -498,12 +498,6 @@ export default {
         }
       } else if (stage === 3) {
         if (this.type === 'date') {
-          console.log(
-            this.applyParams.otherSmoke.length > 0 &&
-              this.applyParams.otherFaith.length > 0 &&
-              this.applyParams.otherAlcohol > 0 &&
-              this.applyParams.distance.length > 0
-          )
           this.isNextActive =
             this.applyParams.otherSmoke.length > 0 &&
             this.applyParams.otherFaith.length > 0 &&
