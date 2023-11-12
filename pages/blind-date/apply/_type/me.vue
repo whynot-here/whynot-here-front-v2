@@ -1,5 +1,5 @@
 <template>
-  <div id="ApplyMyInfoPage">
+  <div id="ApplyPage">
     <div class="top">
       <div class="side" @click="$router.go(-1)">
         <img src="@/assets/img/common/left-arrow-black.png" alt="" />
@@ -816,7 +816,6 @@ export default {
   name: 'ApplyMyInfoPage',
   components: { DropdownBankName },
   asyncData({ params, route, query, redirect }) {
-    console.log(route.params.type)
     return {
       type: route.params.type
     }
@@ -1263,5 +1262,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/blind-date/apply-my-info.scss';
+@import '@/assets/scss/blind-date/apply.scss';
 </style>
