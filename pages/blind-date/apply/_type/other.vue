@@ -43,16 +43,16 @@
               <div class="must-matching-condition">
                 <div class="icon">
                   <img
-                    v-if="applyParams.mustMatchingCondition[0].value === 'Y'"
+                    v-if="applyParams.favoriteAgeImportant"
                     src="@/assets/img/common/check-box-purple-selected.png"
                     alt=""
-                    @click="applyParams.mustMatchingCondition[0].value = 'N'"
+                    @click="applyParams.favoriteAgeImportant = false"
                   />
                   <img
                     v-else
                     src="@/assets/img/common/check-box-purple-unselected.png"
                     alt=""
-                    @click="applyParams.mustMatchingCondition[0].value = 'Y'"
+                    @click="applyParams.favoriteAgeImportant = true"
                   />
                 </div>
                 <div>매칭 필수 요소</div>
@@ -61,21 +61,21 @@
             <div class="btn-select-wrp">
               <div
                 :class="
-                  applyParams.otherAge === 'NO_MATTER'
+                  applyParams.favoriteAge === 'NO_MATTER'
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.otherAge = 'NO_MATTER'"
+                @click="applyParams.favoriteAge = 'NO_MATTER'"
               >
                 상관없음
               </div>
               <div
                 :class="
-                  applyParams.otherAge === 'SAME'
+                  applyParams.favoriteAge === 'SAME'
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.otherAge = 'SAME'"
+                @click="applyParams.favoriteAge = 'SAME'"
               >
                 동갑
               </div>
@@ -83,21 +83,21 @@
             <div class="btn-select-wrp">
               <div
                 :class="
-                  applyParams.otherAge === 'UP'
+                  applyParams.favoriteAge === 'UP'
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.otherAge = 'UP'"
+                @click="applyParams.favoriteAge = 'UP'"
               >
                 연상
               </div>
               <div
                 :class="
-                  applyParams.otherAge === 'DOWN'
+                  applyParams.favoriteAge === 'DOWN'
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.otherAge = 'DOWN'"
+                @click="applyParams.favoriteAge = 'DOWN'"
               >
                 연하
               </div>
@@ -114,16 +114,16 @@
               <div class="must-matching-condition">
                 <div class="icon">
                   <img
-                    v-if="applyParams.mustMatchingCondition[1].value === 'Y'"
+                    v-if="applyParams.favoriteHeightImportant"
                     src="@/assets/img/common/check-box-purple-selected.png"
                     alt=""
-                    @click="applyParams.mustMatchingCondition[1].value = 'N'"
+                    @click="applyParams.favoriteHeightImportant = false"
                   />
                   <img
                     v-else
                     src="@/assets/img/common/check-box-purple-unselected.png"
                     alt=""
-                    @click="applyParams.mustMatchingCondition[1].value = 'Y'"
+                    @click="applyParams.favoriteHeightImportant = true"
                   />
                 </div>
                 <div>매칭 필수 요소</div>
@@ -145,16 +145,16 @@
               <div class="must-matching-condition">
                 <div class="icon">
                   <img
-                    v-if="applyParams.mustMatchingCondition[2].value === 'Y'"
+                    v-if="applyParams.favoriteSmokeImportant"
                     src="@/assets/img/common/check-box-purple-selected.png"
                     alt=""
-                    @click="applyParams.mustMatchingCondition[2].value = 'N'"
+                    @click="applyParams.favoriteSmokeImportant = false"
                   />
                   <img
                     v-else
                     src="@/assets/img/common/check-box-purple-unselected.png"
                     alt=""
-                    @click="applyParams.mustMatchingCondition[2].value = 'Y'"
+                    @click="applyParams.favoriteSmokeImportant = true"
                   />
                 </div>
                 <div>매칭 필수 요소</div>
@@ -163,21 +163,21 @@
             <div class="btn-select-wrp">
               <div
                 :class="
-                  applyParams.otherSmoke === 'N'
+                  applyParams.favoriteSmoke === 'N'
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.otherSmoke = 'N'"
+                @click="applyParams.favoriteSmoke = 'N'"
               >
                 비흡연
               </div>
               <div
                 :class="
-                  applyParams.otherSmoke === 'Y'
+                  applyParams.favoriteSmoke === 'Y'
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.otherSmoke = 'Y'"
+                @click="applyParams.favoriteSmoke = 'Y'"
               >
                 흡연
               </div>
@@ -189,16 +189,16 @@
               <div class="must-matching-condition">
                 <div class="icon">
                   <img
-                    v-if="applyParams.mustMatchingCondition[3].value === 'Y'"
+                    v-if="applyParams.favoriteDrinkImportant"
                     src="@/assets/img/common/check-box-purple-selected.png"
                     alt=""
-                    @click="applyParams.mustMatchingCondition[3].value = 'N'"
+                    @click="applyParams.favoriteDrinkImportant = false"
                   />
                   <img
                     v-else
                     src="@/assets/img/common/check-box-purple-unselected.png"
                     alt=""
-                    @click="applyParams.mustMatchingCondition[3].value = 'Y'"
+                    @click="applyParams.favoriteDrinkImportant = true"
                   />
                 </div>
                 <div>매칭 필수 요소</div>
@@ -207,21 +207,21 @@
             <div class="btn-select-wrp">
               <div
                 :class="
-                  applyParams.otherFaith === 'NO_MATTER'
+                  applyParams.favoriteFaith === 'NO_MATTER'
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.otherFaith = 'NO_MATTER'"
+                @click="applyParams.favoriteFaith = 'NO_MATTER'"
               >
                 상관없음
               </div>
               <div
                 :class="
-                  applyParams.otherFaith === 'CHRISTIAN'
+                  applyParams.favoriteFaith === 'CHRISTIAN'
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.otherFaith = 'CHRISTIAN'"
+                @click="applyParams.favoriteFaith = 'CHRISTIAN'"
               >
                 기독교
               </div>
@@ -234,11 +234,11 @@
                 v-for="(item, key) in alcohol"
                 :key="key"
                 :class="
-                  applyParams.otherAlcohol === item.id
+                  applyParams.favoriteDrink === item.code
                     ? 'button selected'
                     : 'button'
                 "
-                @click="applyParams.otherAlcohol = item.id"
+                @click="applyParams.favoriteDrink = item.code"
               >
                 {{ item.name }}
               </div>
@@ -251,11 +251,11 @@
                 v-for="(item, key) in distance"
                 :key="key"
                 :class="
-                  applyParams.distance === item.id
+                  applyParams.favoriteLocation === item.code
                     ? 'button selected'
                     : 'button'
                 "
-                @click="applyParams.distance = item.id"
+                @click="applyParams.favoriteLocation = item.code"
               >
                 {{ item.name }}
               </div>
@@ -324,6 +324,7 @@ export default {
   data() {
     return {
       curStage: 1,
+      addNum: 1,
       curStageInfoDate: [
         {
           id: 1,
@@ -346,134 +347,15 @@ export default {
           imgUrl: require('@/assets/img/blind-date/stage_5.png')
         }
       ],
-      applyParams: {
-        season: 1,
-        name: '',
-        gender: 'M',
-        myAge: '',
-        otherAge: 'NO_MATTER',
-        department: '',
-        height: '',
-        otherHeight: '',
-        favoriteAge: 'NO_MATTER',
-        dateStyle: [],
-        hobby: [],
-        hobbyEtc: '',
-        faith: 'NO_MATTER',
-        otherFaith: 'NO_MATTER',
-        smoke: 'N',
-        otherSmoke: 'N',
-        alcohol: 1,
-        otherAlcohol: 1,
-        distance: 1,
-        address: 'DORMITORY',
-        contactStyle: 1,
-        personality: [],
-        mbti_01: 'E',
-        mbti_02: 'S',
-        mbti_03: 'T',
-        mbti_04: 'J',
-        comment: '',
-        kakaoLink: '',
-        inquiry: '',
-        excludeCondList: [
-          {
-            isShow: true,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          }
-        ],
-        mustMatchingCondition: [
-          {
-            id: 1,
-            value: 'Y'
-          },
-          {
-            id: 2,
-            value: 'Y'
-          },
-          {
-            id: 3,
-            value: 'Y'
-          },
-          {
-            id: 4,
-            value: 'Y'
-          },
-          {
-            id: 5,
-            value: 'Y'
-          },
-          {
-            id: 6,
-            value: 'Y'
-          }
-        ]
-      },
       alcohol: [
-        { id: 1, name: '안 마셨으면 좋겠어요' },
-        { id: 2, name: '가끔' },
-        { id: 3, name: '일주일에 1~2번' },
-        { id: 4, name: '일주일에 5번 이상' }
+        { id: 1, name: '안 마셨으면 좋겠어요', code: 'NEVER' },
+        { id: 2, name: '가끔', code: 'SOMETIMES' },
+        { id: 3, name: '일주일에 1~2번', code: 'ONETWO_OF_WEEK' },
+        { id: 4, name: '일주일에 5번 이상', code: 'FIVE_OF_WEEK' }
       ],
       distance: [
-        { id: 1, name: '괜찮아요' },
-        { id: 2, name: '싫어요' }
+        { id: 1, name: '괜찮아요', code: 'LONG_OK' },
+        { id: 2, name: '싫어요', code: 'LONG_NO' }
       ],
       isAddBtnActive: true,
       isNextActive: false,
@@ -488,21 +370,21 @@ export default {
   },
   methods: {
     selectOtherHeight(item) {
-      this.applyParams.otherHeight = item.name
+      this.applyParams.favoriteHeight = item.name
       this.checkIsNextActive(2)
     },
     checkIsNextActive(stage) {
       if (stage === 2) {
         if (this.type === 'date') {
-          this.isNextActive = this.applyParams.otherHeight.length > 0
+          this.isNextActive = this.applyParams.favoriteHeight.length > 0
         }
       } else if (stage === 3) {
         if (this.type === 'date') {
           this.isNextActive =
-            this.applyParams.otherSmoke.length > 0 &&
-            this.applyParams.otherFaith.length > 0 &&
-            this.applyParams.otherAlcohol > 0 &&
-            this.applyParams.distance > 0
+            this.applyParams.favoriteSmoke.length > 0 &&
+            this.applyParams.favoriteFaith.length > 0 &&
+            this.applyParams.favoriteDrink.length > 0 &&
+            this.applyParams.favoriteLocation.length > 0
         } else {
           this.isNextActive = this.applyParams.kakaoLink.length > 0
         }
@@ -511,19 +393,42 @@ export default {
       }
     },
     changeStage(addNum) {
-      if (this.curStage === 5 && addNum === 1 && this.type === 'date') {
+      // if (this.curStage === 5 && addNum === 1 && this.type === 'date') {
+      //   this.submit()
+      // } else if (
+      //   this.curStage === 3 &&
+      //   addNum === 1 &&
+      //   this.type === 'friend'
+      // ) {
+      //   this.submit()
+      // } else {
+      //   this.curStage += addNum
+      //   this.isNextActive = this.curStage === 5
+      //   this.checkIsNextActive(this.curStage)
+      // }
+      if (this.addNum === 1) {
         this.submit()
-      } else if (
-        this.curStage === 3 &&
-        addNum === 1 &&
-        this.type === 'friend'
-      ) {
-        this.submit()
-      } else {
-        this.curStage += addNum
-        this.isNextActive = this.curStage === 5
-        this.checkIsNextActive(this.curStage)
       }
+      if (this.curStage < 4) {
+        this.curStage += addNum
+        this.checkIsNextActive(this.curStage)
+      } else {
+        this.$router.push('/blind-date/proceeding')
+      }
+    },
+    submit() {
+      this.$axios
+        .put(`${process.env.apiUrl}/v2/blind-date`, this.applyParams, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {})
+        .catch((error) => {
+          window.alert(error.response.data.message)
+        })
     }
   }
 }

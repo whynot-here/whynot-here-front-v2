@@ -1131,7 +1131,7 @@ export default {
         if (addNum === 1 && this.curStage === 2) {
           this.submitAndPicture()
           this.addNum--
-        } else {
+        } else if (addNum === 1) {
           this.submit()
           this.addNum--
         }
@@ -1140,7 +1140,7 @@ export default {
           this.$router.push('/blind-date/proceeding')
         }
       } else if (this.type === 'friend') {
-        if (this.curStage === 3) {
+        if (this.curStage === 3 && this.addNum === 1) {
           this.submit()
           this.addNum--
         }
