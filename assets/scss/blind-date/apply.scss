@@ -263,6 +263,21 @@
               line-height: 44px;
               text-align: center;
             }
+            .button-30-percent {
+              flex-basis: calc(33% - 8px);
+              height: 44px;
+              border-radius: 6px;
+              border: 1px solid #eee;
+              background: #fff;
+              flex-shrink: 0;
+              color: var(--gray-80, #454545);
+              font-family: Pretendard;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: 44px;
+              text-align: center;
+            }
             .selected {
               border-radius: 6px;
               border: 1px solid #6254f0;

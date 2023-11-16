@@ -1,15 +1,9 @@
 export const state = () => ({
-  counter: 0
+  sharedData: null
 })
 
-export const getters = {
-  getCounter(state) {
-    return state.counter
-  }
-}
-
 export const mutations = {
-  increment(state) {
-    state.counter++
+  updateSharedData(state, newData) {
+    state.sharedData = newData
   }
 }

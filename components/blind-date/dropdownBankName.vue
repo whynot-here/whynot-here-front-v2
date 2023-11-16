@@ -30,6 +30,10 @@ export default {
     labelFirst: {
       type: String,
       default: ''
+    },
+    params: {
+      type: Object,
+      default: null
     }
   },
   data() {
@@ -41,7 +45,6 @@ export default {
   computed: {
     getList() {
       const result = []
-      console.log(this.labelFirst)
       switch (this.labelFirst) {
         case '은행명':
           this.bankNameList.forEach((it) => {
@@ -74,8 +77,17 @@ export default {
       return result
     }
   },
+  watch: {
+    sharedData: {
+      handler() {},
+      deep: true
+    }
+  },
   mounted() {},
   methods: {
+    print() {
+      console.log('ref!')
+    },
     openOptions() {
       if (
         document

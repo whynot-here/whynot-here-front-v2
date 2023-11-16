@@ -112,7 +112,7 @@
     <div
       v-if="isPaymentUser === true"
       class="menu"
-      @click="$router.push('/blind-date/apply/intro')"
+      @click.prevent="$router.push('/blind-date/apply/intro')"
     >
       <div class="left">📢 한대소 정보 입력 진행하기</div>
       <div>

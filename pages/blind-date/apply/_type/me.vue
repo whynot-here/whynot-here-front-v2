@@ -101,7 +101,7 @@
               본인의 키를 입력해 주세요 <strong class="gray">(숫자만)</strong>
             </div>
             <input
-              v-model="applyParams.height"
+              v-model="applyParams.myHeight"
               class="input-long"
               type="text"
               placeholder="ex) 160"
@@ -184,19 +184,19 @@
             <div class="btn-select-wrp">
               <div
                 :class="
-                  applyParams.faith === 'NO_MATTER'
-                    ? 'button-half selected'
-                    : 'button-half'
+                  applyParams.faith === 'NOTHING'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
                 "
-                @click="applyParams.faith = 'NO_MATTER'"
+                @click="applyParams.faith = 'NOTHING'"
               >
                 안 믿음
               </div>
               <div
                 :class="
                   applyParams.faith === 'CHRISTIAN'
-                    ? 'button-half selected'
-                    : 'button-half'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
                 "
                 @click="applyParams.faith = 'CHRISTIAN'"
               >
@@ -205,8 +205,8 @@
               <div
                 :class="
                   applyParams.faith === 'ETC'
-                    ? 'button-half selected'
-                    : 'button-half'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
                 "
                 @click="applyParams.faith = 'ETC'"
               >
@@ -223,9 +223,11 @@
                 v-for="(item, key) in alcohol"
                 :key="key"
                 :class="
-                  applyParams.alcohol === item.id ? 'button selected' : 'button'
+                  applyParams.myDrink === item.code
+                    ? 'button selected'
+                    : 'button'
                 "
-                @click="applyParams.alcohol = item.id"
+                @click="applyParams.myDrink = item.code"
               >
                 {{ item.name }}
               </div>
@@ -241,45 +243,45 @@
             <div class="btn-select-wrp">
               <div
                 :class="
-                  applyParams.address === 'DORMITORY'
-                    ? 'button-half selected'
-                    : 'button-half'
+                  applyParams.myLocation === 'DORMITORY'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
                 "
-                @click="applyParams.address = 'DORMITORY'"
+                @click="applyParams.myLocation = 'DORMITORY'"
               >
                 기숙사
               </div>
               <div
                 :class="
-                  applyParams.address === 'POHANG'
-                    ? 'button-half selected'
-                    : 'button-half'
+                  applyParams.myLocation === 'POHANG'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
                 "
-                @click="applyParams.address = 'POHANG'"
+                @click="applyParams.myLocation = 'POHANG'"
               >
                 포항
               </div>
               <div
                 :class="
-                  applyParams.address === 'ETC'
-                    ? 'button-half selected'
-                    : 'button-half'
+                  applyParams.myLocation === 'ETC'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
                 "
-                @click="applyParams.address = 'ETC'"
+                @click="applyParams.myLocation = 'ETC'"
               >
                 타지역
               </div>
             </div>
-            <div v-if="applyParams.address !== 'POHANG'" class="content_02">
+            <div v-if="applyParams.myLocation !== 'POHANG'" class="content_02">
               <div class="sub-question-title">
                 {{
-                  applyParams.address === 'DORMITORY'
+                  applyParams.myLocation === 'DORMITORY'
                     ? '기숙사명 입력'
                     : '지역명 입력'
                 }}
               </div>
               <input
-                v-model="applyParams.addressDetail"
+                v-model="applyParams.myLocationDesc"
                 class="input-long"
                 type="text"
               />
@@ -299,25 +301,31 @@
                 v-for="(item, key) in hobby"
                 :key="key"
                 :class="
-                  applyParams.hobby.includes(item.id)
+                  applyParams.hobby.split(';').includes(item.code)
                     ? 'button selected'
                     : 'button'
                 "
                 @click="
                   ;[
-                    applyParams.hobby.includes(item.id)
-                      ? (applyParams.hobby = applyParams.hobby.filter(
-                          (data) => {
-                            return data !== item.id
-                          }
+                    applyParams.hobby.split(';').includes(item.code)
+                      ? (applyParams.hobby = applyParams.hobby
+                          .split(';')
+                          .filter((data) => {
+                            return data !== item.code
+                          })
+                          .join(';'))
+                      : applyParams.hobby.split(';').length <= 3
+                      ? (applyParams.hobby = applyParams.hobby.concat(
+                          item.code,
+                          ';'
                         ))
-                      : applyParams.hobby.push(item.id),
+                      : '',
                     checkIsNextActive(3)
                   ]
                 "
               >
                 <img
-                  v-if="applyParams.hobby.includes(item.id)"
+                  v-if="applyParams.hobby.split(';').includes(item.code)"
                   src="@/assets/img/common/check-purple.png"
                   alt=""
                   style="width: 16px; margin-right: 4px"
@@ -328,7 +336,7 @@
             <div class="content_02">
               <div class="sub-question-title">이외 추가적인 취미</div>
               <input
-                v-model="applyParams.hobbyEtc"
+                v-model="applyParams.hobbyDesc"
                 class="input-long"
                 type="text"
                 @keyup="checkIsNextActive(3)"
@@ -343,14 +351,14 @@
             <div class="sub-title">연락 스타일 <strong>*</strong></div>
             <div class="round-btn-select-wrp">
               <div
-                v-for="(item, key) in contactStyle"
+                v-for="(item, key) in myContactStyle"
                 :key="key"
                 :class="
-                  applyParams.contactStyle === item.id
+                  applyParams.myContactStyle === item.code
                     ? 'button selected'
                     : 'button'
                 "
-                @click="applyParams.contactStyle = item.id"
+                @click="applyParams.myContactStyle = item.code"
               >
                 {{ item.name }}
               </div>
@@ -367,27 +375,32 @@
             </div>
             <div class="round-btn-select-wrp">
               <div
-                v-for="(item, key) in personality"
+                v-for="(item, key) in myCharacter"
                 :key="key"
                 :class="
-                  applyParams.personality.includes(item.id)
+                  applyParams.myCharacter.split(';').includes(item.code)
                     ? 'button selected'
                     : 'button'
                 "
                 @click="
                   ;[
-                    applyParams.personality.includes(item.id)
-                      ? (applyParams.personality =
-                          applyParams.personality.filter((data) => {
-                            return data !== item.id
-                          }))
-                      : applyParams.personality.push(item.id),
+                    applyParams.myCharacter.split(';').includes(item.code)
+                      ? (applyParams.myCharacter = applyParams.myCharacter
+                          .split(';')
+                          .filter((data) => {
+                            return data !== item.code
+                          })
+                          .join(';'))
+                      : applyParams.myCharacter.split(';').length <= 2
+                      ? (applyParams.myCharacter =
+                          applyParams.myCharacter.concat(item.code, ';'))
+                      : '',
                     checkIsNextActive(4)
                   ]
                 "
               >
                 <img
-                  v-if="applyParams.personality.includes(item.id)"
+                  v-if="applyParams.myCharacter.split(';').includes(item.code)"
                   src="@/assets/img/common/check-purple.png"
                   alt=""
                   style="width: 16px; margin-right: 4px"
@@ -411,25 +424,31 @@
                 v-for="(item, key) in dateStyle"
                 :key="key"
                 :class="
-                  applyParams.dateStyle.includes(item.id)
+                  applyParams.dateStyle.split(';').includes(item.code)
                     ? 'button selected'
                     : 'button'
                 "
                 @click="
                   ;[
-                    applyParams.dateStyle.includes(item.id)
-                      ? (applyParams.dateStyle = applyParams.dateStyle.filter(
-                          (data) => {
-                            return data !== item.id
-                          }
+                    applyParams.dateStyle.split(';').includes(item.code)
+                      ? (applyParams.dateStyle = applyParams.dateStyle
+                          .split(';')
+                          .filter((data) => {
+                            return data !== item.code
+                          })
+                          .join(';'))
+                      : applyParams.dateStyle.split(';').length <= 3
+                      ? (applyParams.dateStyle = applyParams.dateStyle.concat(
+                          item.code,
+                          ';'
                         ))
-                      : applyParams.dateStyle.push(item.id),
+                      : '',
                     checkIsNextActive(4)
                   ]
                 "
               >
                 <img
-                  v-if="applyParams.dateStyle.includes(item.id)"
+                  v-if="applyParams.dateStyle.split(';').includes(item.code)"
                   src="@/assets/img/common/check-purple.png"
                   alt=""
                   style="width: 16px; margin-right: 4px"
@@ -569,8 +588,8 @@
               <strong>*</strong>
             </div>
             <DropdownBankName
-              ref="DropdownBankName"
-              :label-first="'학부'"
+              ref="dropdown"
+              :label-first="dropdownLabel"
               @get-label="selectBankName"
             />
           </div>
@@ -608,19 +627,19 @@
             <div class="btn-select-wrp">
               <div
                 :class="
-                  applyParams.faith === 'NO_MATTER'
-                    ? 'button-half selected'
-                    : 'button-half'
+                  applyParams.faith === 'NOTHING'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
                 "
-                @click="applyParams.faith = 'NO_MATTER'"
+                @click="applyParams.faith = 'NOTHING'"
               >
                 안 믿음
               </div>
               <div
                 :class="
                   applyParams.faith === 'CHRISTIAN'
-                    ? 'button-half selected'
-                    : 'button-half'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
                 "
                 @click="applyParams.faith = 'CHRISTIAN'"
               >
@@ -629,8 +648,8 @@
               <div
                 :class="
                   applyParams.faith === 'ETC'
-                    ? 'button-half selected'
-                    : 'button-half'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
                 "
                 @click="applyParams.faith = 'ETC'"
               >
@@ -647,9 +666,11 @@
                 v-for="(item, key) in alcohol"
                 :key="key"
                 :class="
-                  applyParams.alcohol === item.id ? 'button selected' : 'button'
+                  applyParams.myDrink === item.code
+                    ? 'button selected'
+                    : 'button'
                 "
-                @click="applyParams.alcohol = item.id"
+                @click="applyParams.myDrink = item.code"
               >
                 {{ item.name }}
               </div>
@@ -665,45 +686,45 @@
             <div class="btn-select-wrp">
               <div
                 :class="
-                  applyParams.address === 'DORMITORY'
-                    ? 'button-half selected'
-                    : 'button-half'
+                  applyParams.myLocation === 'DORMITORY'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
                 "
-                @click="applyParams.address = 'DORMITORY'"
+                @click="applyParams.myLocation = 'DORMITORY'"
               >
                 기숙사
               </div>
               <div
                 :class="
-                  applyParams.address === 'POHANG'
-                    ? 'button-half selected'
-                    : 'button-half'
+                  applyParams.myLocation === 'POHANG'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
                 "
-                @click="applyParams.address = 'POHANG'"
+                @click="applyParams.myLocation = 'POHANG'"
               >
                 포항
               </div>
               <div
                 :class="
-                  applyParams.address === 'ETC'
-                    ? 'button-half selected'
-                    : 'button-half'
+                  applyParams.myLocation === 'ETC'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
                 "
-                @click="applyParams.address = 'ETC'"
+                @click="applyParams.myLocation = 'ETC'"
               >
                 타지역
               </div>
             </div>
-            <div v-if="applyParams.address !== 'POHANG'" class="content_02">
+            <div v-if="applyParams.myLocation !== 'POHANG'" class="content_02">
               <div class="sub-question-title">
                 {{
-                  applyParams.address === 'DORMITORY'
+                  applyParams.myLocation === 'DORMITORY'
                     ? '기숙사명 입력'
                     : '지역명 입력'
                 }}
               </div>
               <input
-                v-model="applyParams.addressDetail"
+                v-model="applyParams.myLocationDesc"
                 class="input-long"
                 type="text"
               />
@@ -723,19 +744,25 @@
                 v-for="(item, key) in hobby"
                 :key="key"
                 :class="
-                  applyParams.hobby.includes(item.id)
+                  applyParams.hobby.split(';').includes(item.code)
                     ? 'button selected'
                     : 'button'
                 "
                 @click="
                   ;[
-                    applyParams.hobby.includes(item.id)
-                      ? (applyParams.hobby = applyParams.hobby.filter(
-                          (data) => {
-                            return data !== item.id
-                          }
+                    applyParams.hobby.split(';').includes(item.code)
+                      ? (applyParams.hobby = applyParams.hobby
+                          .split(';')
+                          .filter((data) => {
+                            return data !== item.code
+                          })
+                          .join(';'))
+                      : applyParams.hobby.split(';').length <= 3
+                      ? (applyParams.hobby = applyParams.hobby.concat(
+                          item.code,
+                          ';'
                         ))
-                      : applyParams.hobby.push(item.id),
+                      : '',
                     checkIsNextActive(2)
                   ]
                 "
@@ -752,7 +779,7 @@
             <div class="content_02">
               <div class="sub-question-title">이외 추가적인 취미</div>
               <input
-                v-model="applyParams.hobbyEtc"
+                v-model="applyParams.hobbyDesc"
                 class="input-long"
                 type="text"
                 @keyup="checkIsNextActive(2)"
@@ -762,7 +789,7 @@
           <div class="content_01">
             <div class="sub-title">상대에게 하고싶은 말이 있다면?</div>
             <textarea
-              v-model="applyParams.comment"
+              v-model="applyParams.commentForMate"
               class="input-long textarea"
               placeholder="상대에게 하고싶은 말을 적어주세요"
             />
@@ -867,245 +894,192 @@ export default {
           imgUrl: require('@/assets/img/blind-date/stage_5.png')
         }
       ],
-      applyParams: {
-        season: 1,
-        name: '',
-        gender: 'M',
-        myAge: '',
-        major: '',
-        height: '',
-        favoriteAge: 'NO_MATTER',
-        dateStyle: [],
-        hobby: [],
-        hobbyEtc: '',
-        faith: 'NO_MATTER',
-        smoke: 'N',
-        alcohol: 1,
-        address: 'DORMITORY',
-        contactStyle: 1,
-        personality: [],
-        mbti_01: 'E',
-        mbti_02: 'S',
-        mbti_03: 'T',
-        mbti_04: 'J',
-        comment: '',
-        kakaoLink: '',
-        inquiry: '',
-        excludeCondList: [
-          {
-            isShow: true,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          }
-        ]
-      },
       dateStyle: [
         {
           id: 1,
-          name: '카페'
+          name: '카페',
+          code: 'CAFE'
         },
         {
           id: 2,
-          name: 'PC방'
+          name: 'PC방',
+          code: 'PC'
         },
         {
           id: 3,
-          name: '맛집 탐방'
+          name: '맛집 탐방',
+          code: 'FOOD'
         },
         {
           id: 4,
-          name: '전시회 구경'
+          name: '전시회 구경',
+          code: 'EXHIBITION'
         },
         {
           id: 5,
-          name: '헬스장 데이트'
+          name: '헬스장 데이트',
+          code: 'HEALTH'
         },
         {
           id: 6,
-          name: '방탈출'
+          name: '방탈출',
+          code: 'ESCAPE_ROOM'
         },
         {
           id: 7,
-          name: '공원 산책'
+          name: '공원 산책',
+          code: 'WALK'
         },
         {
           id: 8,
-          name: '드라이브'
+          name: '드라이브',
+          code: 'DRIVE'
         },
         {
           id: 9,
-          name: '실내'
+          name: '실내',
+          code: 'INSIDE'
         },
         {
           id: 10,
-          name: '실외'
+          name: '실외',
+          code: 'OUTSIDE'
         }
       ],
-      contactStyle: [
+      myContactStyle: [
         {
           id: 1,
-          name: '카톡 자주 하는 편'
+          name: '카톡 자주 하는 편',
+          code: 'KAKAO_OFTEN'
         },
         {
           id: 2,
-          name: '카톡 잘 못하는 편'
+          name: '카톡 잘 못하는 편',
+          code: 'KAKAO_RARELY'
         },
         {
           id: 3,
-          name: '직접 만나는 것을 선호'
+          name: '직접 만나는 것을 선호',
+          code: 'MEET'
         },
         {
           id: 4,
-          name: '전화 선호'
+          name: '전화 선호',
+          code: 'CALL'
         }
       ],
-      personality: [
+      myCharacter: [
         {
           id: 1,
-          name: '말을 예쁘게 하는'
+          name: '말을 예쁘게 하는',
+          code: 'PRETTY_TALKING'
         },
         {
           id: 2,
-          name: '유머러스 한'
+          name: '유머러스 한',
+          code: 'HUMOROUS'
         },
         {
           id: 3,
-          name: '장난기 많은'
+          name: '장난기 많은',
+          code: 'PLAYFUL'
         },
         {
           id: 4,
-          name: '예의 바른'
+          name: '예의 바른',
+          code: 'POLITE'
         },
         {
           id: 5,
-          name: '진중한'
+          name: '진중한',
+          code: 'CAREFUL'
         },
         {
           id: 6,
-          name: '상대에게 잘 맞추는'
+          name: '상대에게 잘 맞추는',
+          code: 'GOOD_MATCH'
         },
         {
           id: 7,
-          name: '배려심 깊은'
+          name: '배려심 깊은',
+          code: 'THOUGHTFUL'
         }
       ],
       hobby: [
         {
           id: 1,
-          name: '독서'
+          name: '독서',
+          code: 'READING_BOOKS'
         },
         {
           id: 2,
-          name: '음악'
+          name: '음악',
+          code: 'MUSIC'
         },
         {
           id: 3,
-          name: '요리'
+          name: '요리',
+          code: 'COOKING'
         },
         {
           id: 4,
-          name: '게임'
+          name: '게임',
+          code: 'GAME'
         },
         {
           id: 5,
-          name: '스포츠'
+          name: '스포츠',
+          code: 'SPORTS'
         },
         {
           id: 6,
-          name: '헬스'
+          name: '헬스',
+          code: 'HEALTH'
         },
         {
           id: 7,
-          name: '여행'
+          name: '여행',
+          code: 'TRAVELING'
         },
         {
           id: 8,
-          name: '댄스'
+          name: '댄스',
+          code: 'DANCE'
         },
         {
           id: 9,
-          name: '그림'
+          name: '그림',
+          code: 'DRAWING'
         },
         {
           id: 10,
-          name: '보드게임'
+          name: '보드게임',
+          code: 'BOARD_GAME'
         },
         {
           id: 11,
-          name: '러닝'
+          name: '러닝',
+          code: 'RUNNING'
         },
         {
           id: 12,
-          name: '없음'
+          name: '없음',
+          code: 'NO'
         }
       ],
       alcohol: [
-        { id: 1, name: '안 마심' },
-        { id: 2, name: '가끔' },
-        { id: 3, name: '일주일에 1~2번' },
-        { id: 4, name: '일주일에 5번 이상' }
+        { id: 1, name: '안 마심', code: 'NEVER' },
+        { id: 2, name: '가끔', code: 'SOMETIMES' },
+        { id: 3, name: '일주일에 1~2번', code: 'ONETWO_OF_WEEK' },
+        { id: 4, name: '일주일에 5번 이상', code: 'FIVE_OF_WEEK' }
       ],
       isAddBtnActive: true,
       isNextActive: false,
       isShow: false,
       inputImg: [],
       files: [],
-      isImgUploadEnough: false
+      isImgUploadEnough: false,
+      dropdownLabel: '학부'
     }
   },
   mounted() {
@@ -1115,7 +1089,7 @@ export default {
   },
   methods: {
     selectBankName(item) {
-      this.applyParams.major = item.name
+      this.applyParams.department = item.name
       this.checkIsNextActive(1)
     },
     checkIsNextActive(stage) {
@@ -1123,17 +1097,17 @@ export default {
         this.isNextActive =
           this.applyParams.name.length > 0 &&
           this.applyParams.myAge.length > 0 &&
-          this.applyParams.major.length > 0
+          this.applyParams.department.length > 0
       } else if (stage === 2) {
-        // this.isNextActive = this.applyParams.height > 0
+        // this.isNextActive = this.applyParams.myHeight > 0
         if (this.type === 'date') {
           this.isNextActive = this.isImgUploadEnough
         } else {
           this.isNextActive =
             this.applyParams.smoke.length > 0 &&
             this.applyParams.faith.length > 0 &&
-            this.applyParams.alcohol > 0 &&
-            this.applyParams.address.length > 0 &&
+            this.applyParams.myDrink.length > 0 &&
+            this.applyParams.myLocation.length > 0 &&
             this.applyParams.hobby.length > 0
         }
       } else if (stage === 3) {
@@ -1141,27 +1115,54 @@ export default {
           this.isNextActive =
             this.applyParams.smoke.length > 0 &&
             this.applyParams.faith.length > 0 &&
-            this.applyParams.alcohol > 0 &&
-            this.applyParams.address.length > 0 &&
+            this.applyParams.myDrink.length > 0 &&
+            this.applyParams.myLocation.length > 0 &&
             this.applyParams.hobby.length > 0
         } else {
           this.isNextActive = this.applyParams.kakaoLink.length > 0
         }
       } else if (stage === 4) {
         this.isNextActive =
-          this.applyParams.personality.length > 0 &&
+          this.applyParams.myCharacter.length > 0 &&
           this.applyParams.dateStyle.length > 0
       }
     },
     changeStage(addNum) {
-      if (this.curStage === 5 && addNum === 1 && this.type === 'date') {
+      if (addNum === 1 && this.curStage === 2) {
+        this.submitAndPicture()
+        // this.updateSharedData(this.applyParams)
+      } else {
         this.submit()
-      } else if (
-        this.curStage === 3 &&
-        addNum === 1 &&
-        this.type === 'friend'
-      ) {
-        this.submit()
+      }
+
+      if (this.curStage === 5 && this.type === 'date') {
+        this.$router.push('/blind-date/proceeding')
+      }
+
+      if (this.curStage === 2 && addNum === -1 && this.type === 'date') {
+        this.dropdownLabel = this.$store.state.sharedData.department
+        // if (
+        //   this.$store.state.sharedData !== null &&
+        //   this.$store.state.sharedData.department !== ''
+        // ) {
+        //   const item = {
+        //     id: 0,
+        //     name: ''
+        //   }
+        //   const majorItem = this.majorList.filter((item) => {
+        //     return item.majorName === this.$store.state.sharedData.department
+        //   })[0]
+        //   item.id = majorItem.majorId
+        //   item.name = majorItem.majorName
+
+        //   setTimeout(() => {
+        //     console.log(this.$refs.dropdown.print())
+        //     this.$refs.dropdown.parentId = item.id
+        //   }, 1000)
+        // }
+      }
+      if (this.curStage === 3 && addNum === 1 && this.type === 'friend') {
+        // this.submit() 최종제출
       } else {
         this.curStage += addNum
         this.isNextActive = this.curStage === 5
@@ -1210,26 +1211,72 @@ export default {
         this.isAddBtnActive = false
       }
     },
+    submitAndPicture() {
+      if (this.files.length > 1) {
+        this.files.forEach((file, idx) => {
+          const formData = new FormData()
+          formData.append('images', file)
+
+          const cur = new Date()
+          const year = (cur.getFullYear() + '').substring(2)
+          const month = cur.getMonth() + 1 + ''
+          this.dir = year + '-' + month
+
+          this.uploadPicture({ formData, idx, callback: this.submit })
+        })
+      } else {
+        this.submit()
+      }
+    },
     submit() {
       // if (!this.setSubmitParams()) {
       //   return false
       // }
-      this.$router.push('/blind-date/apply/intro')
+      // this.$router.push('/blind-date/apply/intro')
+      this.$axios
+        .put(`${process.env.apiUrl}/v2/blind-date`, this.applyParams, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          // this.$router.push('/blind-date/proceeding')
+        })
+        .catch((error) => {
+          window.alert(error.response.data.message)
+          this.addNum--
+        })
+    },
 
-      // this.$axios
-      //   .post(`${process.env.apiUrl}/v2/blind-date`, this.applyParams, {
-      //     withCredentials: true,
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //       Authorization: this.$store.state.userInfo.token
-      //     }
-      //   })
-      //   .then((res) => {
-      //     this.$router.push('/blind-date/proceeding')
-      //   })
-      //   .catch((error) => {
-      //     window.alert(error.response.data.message)
-      //   })
+    uploadPicture({ formData, idx, callback }) {
+      this.$axios
+        .post(`${process.env.apiUrl}/images/${this.dir}`, formData, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.applyParams.imageLinks.push(res.data.url)
+          if (this.files.length === this.applyParams.imageLinks.length) {
+            callback()
+          }
+        })
+        .catch((error) => {
+          this.cmn_openAlertPopup({
+            option: {
+              title: '📣 알림',
+              content: error,
+              type: 'alert',
+              confirmText: '확인',
+              cancelText: ''
+            }
+          })
+          return false
+        })
     },
     setSubmitParams() {
       if (!this.cmn_httpsCheck(this.applyParams.kakaoLink)) {

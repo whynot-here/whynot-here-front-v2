@@ -352,7 +352,7 @@ export default {
         gender: 'M',
         myAge: '',
         otherAge: 'NO_MATTER',
-        major: '',
+        department: '',
         height: '',
         otherHeight: '',
         favoriteAge: 'NO_MATTER',

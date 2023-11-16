@@ -212,27 +212,78 @@ const common = {
       majorList: [
         {
           majorId: 1,
-          majorName: '전산전자공학부'
+          majorName: '글로벌리더쉽',
+          code: 'GLOBAL'
         },
         {
           majorId: 2,
-          majorName: '기계공학부'
+          majorName: '국제어문',
+          code: 'INTERNATIONAL'
         },
         {
           majorId: 3,
-          majorName: '경영경제학부'
+          majorName: '경영경제',
+          code: 'ECONOMICS'
         },
         {
           majorId: 4,
-          majorName: '상담심리학부'
+          majorName: '법학부',
+          code: 'LAW'
         },
         {
           majorId: 5,
-          majorName: '공간환경시스템공학부'
+          majorName: '커뮤니케이션',
+          code: 'COMMUNICATION'
         },
         {
           majorId: 6,
-          majorName: 'ICT 창업학부'
+          majorName: '상담복지',
+          code: 'PSYCHOLOGY'
+        },
+        {
+          majorId: 7,
+          majorName: '생명과학',
+          code: 'BIO'
+        },
+        {
+          majorId: 8,
+          majorName: '공간환경시스템',
+          code: 'ENVIRONMENT'
+        },
+        {
+          majorId: 9,
+          majorName: '전산전자',
+          code: 'COMPUTER'
+        },
+        {
+          majorId: 10,
+          majorName: '콘텐츠융합디자인',
+          code: 'CONTENTS'
+        },
+        {
+          majorId: 11,
+          majorName: '기계제어',
+          code: 'MECHANICS'
+        },
+        {
+          majorId: 12,
+          majorName: 'ICT창업학부',
+          code: 'ICT'
+        },
+        {
+          majorId: 13,
+          majorName: '언어교육원',
+          code: 'LANGUAGE'
+        },
+        {
+          majorId: 14,
+          majorName: '창의융합교육원',
+          code: 'CREATIVE'
+        },
+        {
+          majorId: 15,
+          majorName: 'AI융합교육원',
+          code: 'AI'
         }
       ],
       heightList: [
@@ -260,7 +311,96 @@ const common = {
           heightId: 6,
           heightName: '180cm 이상'
         }
-      ]
+      ],
+      applyParams: {
+        season: 2,
+        name: '',
+        gender: 'M',
+        myAge: '',
+        department: '',
+        myHeight: '',
+        myDrink: 'NEVER',
+        myLocation: 'DORMITORY',
+        myLocationDesc: '',
+        hobby: '',
+        hobbyDesc: '',
+        myContactStyle: 'KAKAO_OFTEN',
+        myCharacter: '',
+        favoriteAge: 'NO_MATTER',
+        dateStyle: '',
+        faith: 'NOTHING',
+        smoke: 'N',
+        mbti_01: 'E',
+        mbti_02: 'S',
+        mbti_03: 'T',
+        mbti_04: 'J',
+        commentForMate: '',
+        kakaoLink: '',
+        inquiry: '',
+        excludeCondList: [
+          {
+            isShow: true,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          },
+          {
+            isShow: false,
+            name: '',
+            department: '',
+            studentId: ''
+          }
+        ],
+        imageLinks: []
+      }
     }
   },
   computed: {
@@ -552,6 +692,10 @@ const common = {
         .then((res) => {
           return res.data
         })
+    },
+
+    updateSharedData(newData) {
+      this.$store.commit('updateSharedData', newData)
     }
   }
 }
