@@ -602,21 +602,21 @@
             <div class="btn-select-wrp">
               <div
                 :class="
-                  applyParams.smoke === 'N'
+                  applyParams.mySmoke === 'N'
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.smoke = 'N'"
+                @click="applyParams.mySmoke = 'N'"
               >
                 비흡연
               </div>
               <div
                 :class="
-                  applyParams.smoke === 'Y'
+                  applyParams.mySmoke === 'Y'
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.smoke = 'Y'"
+                @click="applyParams.mySmoke = 'Y'"
               >
                 흡연
               </div>
@@ -744,21 +744,21 @@
                 v-for="(item, key) in hobby"
                 :key="key"
                 :class="
-                  applyParams.hobby.split(';').includes(item.code)
+                  applyParams.myHobby.split(';').includes(item.code)
                     ? 'button selected'
                     : 'button'
                 "
                 @click="
                   ;[
-                    applyParams.hobby.split(';').includes(item.code)
-                      ? (applyParams.hobby = applyParams.hobby
+                    applyParams.myHobby.split(';').includes(item.code)
+                      ? (applyParams.myHobby = applyParams.myHobby
                           .split(';')
                           .filter((data) => {
                             return data !== item.code
                           })
                           .join(';'))
-                      : applyParams.hobby.split(';').length <= 3
-                      ? (applyParams.hobby = applyParams.hobby.concat(
+                      : applyParams.myHobby.split(';').length <= 3
+                      ? (applyParams.myHobby = applyParams.myHobby.concat(
                           item.code,
                           ';'
                         ))
@@ -768,7 +768,7 @@
                 "
               >
                 <img
-                  v-if="applyParams.hobby.includes(item.id)"
+                  v-if="applyParams.myHobby.includes(item.id)"
                   src="@/assets/img/common/check-purple.png"
                   alt=""
                   style="width: 16px; margin-right: 4px"
@@ -779,7 +779,7 @@
             <div class="content_02">
               <div class="sub-question-title">이외 추가적인 취미</div>
               <input
-                v-model="applyParams.hobbyDesc"
+                v-model="applyParams.myHobbyDesc"
                 class="input-long"
                 type="text"
                 @keyup="checkIsNextActive(2)"
@@ -1089,7 +1089,7 @@ export default {
   },
   methods: {
     selectBankName(item) {
-      this.applyParams.department = item.name
+      this.applyParams.department = item.code
       this.checkIsNextActive(1)
     },
     checkIsNextActive(stage) {
@@ -1099,16 +1099,15 @@ export default {
           this.applyParams.myAge.length > 0 &&
           this.applyParams.department.length > 0
       } else if (stage === 2) {
-        // this.isNextActive = this.applyParams.myHeight > 0
         if (this.type === 'date') {
           this.isNextActive = this.isImgUploadEnough
         } else {
           this.isNextActive =
-            this.applyParams.smoke.length > 0 &&
+            this.applyParams.mySmoke.length > 0 &&
             this.applyParams.faith.length > 0 &&
             this.applyParams.myDrink.length > 0 &&
             this.applyParams.myLocation.length > 0 &&
-            this.applyParams.hobby.length > 0
+            this.applyParams.myHobby.length > 0
         }
       } else if (stage === 3) {
         if (this.type === 'date') {
@@ -1128,17 +1127,34 @@ export default {
       }
     },
     changeStage(addNum) {
-      if (addNum === 1 && this.curStage === 2) {
-        this.submitAndPicture()
-        // this.updateSharedData(this.applyParams)
-      } else {
-        this.submit()
+      if (this.type === 'date') {
+        if (addNum === 1 && this.curStage === 2) {
+          this.submitAndPicture()
+          this.addNum--
+        } else {
+          this.submit()
+          this.addNum--
+        }
+
+        if (this.curStage === 5) {
+          this.$router.push('/blind-date/proceeding')
+        }
+      } else if (this.type === 'friend') {
+        if (this.curStage === 3) {
+          this.submit()
+          this.addNum--
+        }
+
+        if (this.curStage === 3) {
+          this.$router.push('/blind-date/proceeding')
+        }
       }
 
-      if (this.curStage === 5 && this.type === 'date') {
-        this.$router.push('/blind-date/proceeding')
-      }
+      this.curStage += addNum
+      // this.isNextActive = this.curStage === 5
+      this.checkIsNextActive(this.curStage)
 
+      // 드롭다운 이전으로 갈 때 에러 수정하는 부분
       if (this.curStage === 2 && addNum === -1 && this.type === 'date') {
         this.dropdownLabel = this.$store.state.sharedData.department
         // if (
@@ -1160,13 +1176,6 @@ export default {
         //     this.$refs.dropdown.parentId = item.id
         //   }, 1000)
         // }
-      }
-      if (this.curStage === 3 && addNum === 1 && this.type === 'friend') {
-        // this.submit() 최종제출
-      } else {
-        this.curStage += addNum
-        this.isNextActive = this.curStage === 5
-        this.checkIsNextActive(this.curStage)
       }
     },
     // 사진 선택
@@ -1229,25 +1238,33 @@ export default {
       }
     },
     submit() {
-      // if (!this.setSubmitParams()) {
-      //   return false
-      // }
-      // this.$router.push('/blind-date/apply/intro')
-      this.$axios
-        .put(`${process.env.apiUrl}/v2/blind-date`, this.applyParams, {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {
-          // this.$router.push('/blind-date/proceeding')
-        })
-        .catch((error) => {
-          window.alert(error.response.data.message)
-          this.addNum--
-        })
+      if (this.type === 'date') {
+        this.$axios
+          .put(`${process.env.apiUrl}/v2/blind-date`, this.applyParams, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          })
+          .then((res) => {})
+          .catch((error) => {
+            window.alert(error.response.data.message)
+          })
+      } else if (this.type === 'friend') {
+        this.$axios
+          .post(`${process.env.apiUrl}/v2/friend-meeting`, this.applyParams, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          })
+          .then((res) => {})
+          .catch((error) => {
+            window.alert(error.response.data.message)
+          })
+      }
     },
 
     uploadPicture({ formData, idx, callback }) {

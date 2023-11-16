@@ -59,7 +59,8 @@ export default {
           this.majorList.forEach((it) => {
             const item = {
               id: it.majorId,
-              name: it.majorName
+              name: it.majorName,
+              code: it.code
             }
             result.push(item)
           })
