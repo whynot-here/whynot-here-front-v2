@@ -193,7 +193,7 @@ export default {
       numOfWeek: 0,
       numOfWeekStr: '',
       isMainPage: false,
-      isPaymentUser: true
+      isPaymentUser: false
     }
   },
   computed: {
@@ -241,6 +241,22 @@ export default {
       this.isMainPage = true
     } else {
       this.isMainPage = false
+    }
+
+    // 한대소 보증금 입금한 유저인지 판별
+    if (this.$store.state.userInfo.token) {
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/blind-date/fee/confirm?season=2`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.isPaymentUser = res.data
+        })
+    } else {
+      this.isPaymentUser = false
     }
   },
   methods: {
