@@ -57,7 +57,7 @@ export default {
       type: 'date',
       myStep: 0,
       favoriteStep: 0,
-      isBeforeFinalSubmit: true
+      isBeforeFinalSubmit: false
     }
   },
   mounted() {
@@ -73,12 +73,12 @@ export default {
         this.myStep = res.data.myStep
         this.favoriteStep = res.data.favoriteStep
 
-        // if (this.type === 'date') {
-        //   this.isBeforeFinalSubmit =
-        //     this.myStep === 5 && this.favoriteStep === 4
-        // } else if (this.type === 'friend') {
-        //   this.isBeforeFinalSubmit = this.myStep === 3
-        // }
+        if (this.type === 'date') {
+          this.isBeforeFinalSubmit =
+            this.myStep === 5 && this.favoriteStep === 4
+        } else if (this.type === 'friend') {
+          this.isBeforeFinalSubmit = this.myStep === 3
+        }
       })
   },
   methods: {

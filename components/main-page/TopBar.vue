@@ -112,7 +112,7 @@
     <div
       v-if="isPaymentUser === true"
       class="menu"
-      @click.prevent="$router.push('/blind-date/apply/intro')"
+      @click.prevent="moveApplyOrProceedingPage()"
     >
       <div class="left">📢 한대소 정보 입력 진행하기</div>
       <div>
@@ -193,7 +193,9 @@ export default {
       numOfWeek: 0,
       numOfWeekStr: '',
       isMainPage: false,
-      isPaymentUser: false
+      // 한대소 시즌2 관련
+      isPaymentUser: false,
+      isApplyFinishUser: false
     }
   },
   computed: {
@@ -255,6 +257,16 @@ export default {
         .then((res) => {
           this.isPaymentUser = res.data
         })
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/blind-date/finish?season=2`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.isApplyFinishUser = res.data
+        })
     } else {
       this.isPaymentUser = false
     }
@@ -311,6 +323,13 @@ export default {
     moveMatchingPage() {
       this.isOpenMatchingPopup = false
       this.$router.push(`/blind-date/matching`)
+    },
+    moveApplyOrProceedingPage() {
+      if (this.isApplyFinishUser) {
+        this.$router.push('/blind-date/proceeding')
+      } else {
+        this.$router.push('/blind-date/apply/intro')
+      }
     },
     logout() {
       this.cmn_logout()
