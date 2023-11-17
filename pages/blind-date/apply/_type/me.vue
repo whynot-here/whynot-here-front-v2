@@ -1086,6 +1086,19 @@ export default {
     if (this.type === 'date') {
       this.isNextActive = this.curStage === 5
     }
+
+    // 지원서 작성 중간에 수정하는 경우
+    this.$axios
+      .get(`${process.env.apiUrl}/v2/blind-date/my-apply?season=2`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: this.$store.state.userInfo.token
+        }
+      })
+      .then((res) => {
+        this.curStage = res.data.myStep + 1
+        this.cmn_setApplyParams(res.data)
+      })
   },
   methods: {
     selectBankName(item) {
@@ -1156,28 +1169,28 @@ export default {
       this.checkIsNextActive(this.curStage)
 
       // 드롭다운 이전으로 갈 때 에러 수정하는 부분
-      if (this.curStage === 2 && addNum === -1 && this.type === 'date') {
-        this.dropdownLabel = this.$store.state.sharedData.department
-        // if (
-        //   this.$store.state.sharedData !== null &&
-        //   this.$store.state.sharedData.department !== ''
-        // ) {
-        //   const item = {
-        //     id: 0,
-        //     name: ''
-        //   }
-        //   const majorItem = this.majorList.filter((item) => {
-        //     return item.majorName === this.$store.state.sharedData.department
-        //   })[0]
-        //   item.id = majorItem.majorId
-        //   item.name = majorItem.majorName
+      // if (this.curStage === 2 && addNum === -1 && this.type === 'date') {
+      //   this.dropdownLabel = this.$store.state.sharedData.department
+      // if (
+      //   this.$store.state.sharedData !== null &&
+      //   this.$store.state.sharedData.department !== ''
+      // ) {
+      //   const item = {
+      //     id: 0,
+      //     name: ''
+      //   }
+      //   const majorItem = this.majorList.filter((item) => {
+      //     return item.majorName === this.$store.state.sharedData.department
+      //   })[0]
+      //   item.id = majorItem.majorId
+      //   item.name = majorItem.majorName
 
-        //   setTimeout(() => {
-        //     console.log(this.$refs.dropdown.print())
-        //     this.$refs.dropdown.parentId = item.id
-        //   }, 1000)
-        // }
-      }
+      //   setTimeout(() => {
+      //     console.log(this.$refs.dropdown.print())
+      //     this.$refs.dropdown.parentId = item.id
+      //   }, 1000)
+      // }
+      // }
     },
     // 사진 선택
     onFileChange(event) {

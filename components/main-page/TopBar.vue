@@ -313,7 +313,6 @@ export default {
       if (!this.$store.state.userInfo.initLoginDone) {
         this.$router.push('/login')
       }
-      // this.movePostingPage({ type })
     },
     movePostingPage({ type }) {
       if (this.$store.state.userInfo.initLoginDone && type !== 'card') {
@@ -325,11 +324,12 @@ export default {
       this.$router.push(`/blind-date/matching`)
     },
     moveApplyOrProceedingPage() {
-      if (this.isApplyFinishUser) {
-        this.$router.push('/blind-date/proceeding')
-      } else {
-        this.$router.push('/blind-date/apply/intro')
-      }
+      // if (this.isApplyFinishUser) {
+      //   this.$router.push('/blind-date/proceeding')
+      // } else {
+      //   this.$router.push('/blind-date/apply/intro')
+      // }
+      this.$router.push('/blind-date/apply/intro')
     },
     logout() {
       this.cmn_logout()

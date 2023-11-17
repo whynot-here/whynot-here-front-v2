@@ -324,7 +324,6 @@ export default {
   data() {
     return {
       curStage: 1,
-      addNum: 1,
       curStageInfoDate: [
         {
           id: 1,
@@ -367,6 +366,19 @@ export default {
   },
   mounted() {
     this.isNextActive = this.curStage === 1 || this.curStage === 3
+
+    // 지원서 작성 중간에 수정하는 경우
+    this.$axios
+      .get(`${process.env.apiUrl}/v2/blind-date/my-apply?season=2`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: this.$store.state.userInfo.token
+        }
+      })
+      .then((res) => {
+        this.curStage = res.data.favoriteStep + 1
+        this.cmn_setApplyParams(res.data)
+      })
   },
   methods: {
     selectOtherHeight(item) {
@@ -408,7 +420,7 @@ export default {
       // }
       this.applyParams.favoriteStep = this.curStage // 지금 단계 저장
 
-      if (this.addNum === 1) {
+      if (addNum === 1) {
         this.submit()
       }
       if (this.curStage < 4) {
