@@ -415,7 +415,7 @@ export default {
         this.curStage += addNum
         this.checkIsNextActive(this.curStage)
       } else {
-        this.$router.push('/blind-date/proceeding')
+        this.$router.push('/blind-date/apply/intro')
       }
     },
     submit() {
