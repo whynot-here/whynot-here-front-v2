@@ -21,14 +21,14 @@
           @click="$router.push(`/blind-date/apply/${type}/me`)"
         >
           <div class="left">본인 정보 입력</div>
-          <div class="right">0/5</div>
+          <div class="right">{{ myStep }}/5</div>
         </div>
         <div
           class="form-btn"
           @click="$router.push(`/blind-date/apply/${type}/other`)"
         >
           <div class="left">상대 정보 입력</div>
-          <div class="right">0/5</div>
+          <div class="right">{{ favoriteStep }}/5</div>
         </div>
       </section>
     </div>
@@ -76,10 +76,25 @@ export default {
   data() {
     return {
       isFormTypeComplete: false,
-      type: 'friend' // 'date' | 'friend'
+      type: 'friend',
+      myStep: 0,
+      favoriteStep: 0
     }
   },
-  mounted() {},
+  mounted() {
+    this.$axios
+      .get(`${process.env.apiUrl}/v2/blind-date/steps?season=2`, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: this.$store.state.userInfo.token
+        }
+      })
+      .then((res) => {
+        this.myStep = res.data.myStep
+        this.favoriteStep = res.data.favoriteStep
+      })
+  },
   methods: {}
 }
 </script>
