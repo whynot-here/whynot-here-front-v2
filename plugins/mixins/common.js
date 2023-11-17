@@ -314,6 +314,8 @@ const common = {
       ],
       applyParams: {
         season: 2,
+        myStep: 0,
+        favoriteStep: 0,
         name: '',
         gender: 'M',
         myAge: '',

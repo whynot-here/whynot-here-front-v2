@@ -24,6 +24,7 @@
           <div class="right">{{ myStep }}/5</div>
         </div>
         <div
+          v-if="type === 'date'"
           class="form-btn"
           @click="$router.push(`/blind-date/apply/${type}/other`)"
         >
@@ -76,7 +77,7 @@ export default {
   data() {
     return {
       isFormTypeComplete: false,
-      type: 'friend',
+      type: 'date',
       myStep: 0,
       favoriteStep: 0
     }

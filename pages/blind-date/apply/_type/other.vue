@@ -406,6 +406,8 @@ export default {
       //   this.isNextActive = this.curStage === 5
       //   this.checkIsNextActive(this.curStage)
       // }
+      this.applyParams.favoriteStep = this.curStage // 지금 단계 저장
+
       if (this.addNum === 1) {
         this.submit()
       }

@@ -1127,6 +1127,7 @@ export default {
       }
     },
     changeStage(addNum) {
+      this.applyParams.myStep = this.curStage // 지금 단계 저장
       if (this.type === 'date') {
         if (addNum === 1 && this.curStage === 2) {
           this.submitAndPicture()
