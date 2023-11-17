@@ -713,9 +713,6 @@ const common = {
     cmn_setApplyParams(curApplyParams) {
       for (const [key] of Object.entries(curApplyParams)) {
         this.applyParams[key] = curApplyParams[key]
-        // if (this.applyParams[key]) {
-
-        // }
       }
     },
 

@@ -1096,7 +1096,17 @@ export default {
         }
       })
       .then((res) => {
-        this.curStage = res.data.myStep + 1
+        if (this.type === 'date') {
+          this.curStage =
+            this.curStageInfoDate.length > res.data.myStep + 1
+              ? res.data.myStep + 1
+              : res.data.myStep
+        } else {
+          this.curStage =
+            this.curStageInfoFriend.length > res.data.myStep + 1
+              ? res.data.myStep + 1
+              : res.data.myStep
+        }
         this.cmn_setApplyParams(res.data)
       })
   },
@@ -1150,8 +1160,8 @@ export default {
           this.addNum--
         }
 
-        if (this.curStage === 5) {
-          this.$router.push('/blind-date/proceeding')
+        if (this.curStage === 5 && addNum === 1) {
+          this.$router.push('/blind-date/apply/intro')
         }
       } else if (this.type === 'friend') {
         if (this.curStage === 3 && this.addNum === 1) {
@@ -1159,8 +1169,8 @@ export default {
           this.addNum--
         }
 
-        if (this.curStage === 3) {
-          this.$router.push('/blind-date/proceeding')
+        if (this.curStage === 3 && addNum === 1) {
+          this.$router.push('/blind-date/apply/intro')
         }
       }
 

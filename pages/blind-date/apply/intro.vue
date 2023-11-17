@@ -25,8 +25,8 @@
           @click="$router.push(`/blind-date/apply/${type}/me`)"
         >
           <div class="left">본인 정보 입력</div>
-          <div v-if="isBeforeFinalSubmit" class="right">완료</div>
-          <div v-else class="right">
+          <div v-if="myStep === 5 && type === 'date'" class="right">완료</div>
+          <div v-else-if="!(myStep === 5) && type === 'date'" class="right">
             {{ myStep }}/{{ type === 'date' ? '5' : '3' }}
           </div>
         </div>
@@ -36,7 +36,7 @@
           @click="$router.push(`/blind-date/apply/${type}/other`)"
         >
           <div class="left">상대 정보 입력</div>
-          <div v-if="isBeforeFinalSubmit" class="right">완료</div>
+          <div v-if="favoriteStep === 4" class="right">완료</div>
           <div v-else class="right">{{ favoriteStep }}/4</div>
         </div>
       </section>

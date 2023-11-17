@@ -376,7 +376,12 @@ export default {
         }
       })
       .then((res) => {
-        this.curStage = res.data.favoriteStep + 1
+        if (this.type === 'date') {
+          this.curStage =
+            this.curStageInfoDate.length > res.data.favoriteStep + 1
+              ? res.data.favoriteStep + 1
+              : res.data.favoriteStep
+        }
         this.cmn_setApplyParams(res.data)
       })
   },
@@ -423,11 +428,14 @@ export default {
       if (addNum === 1) {
         this.submit()
       }
+
       if (this.curStage < 4) {
         this.curStage += addNum
         this.checkIsNextActive(this.curStage)
-      } else {
+      } else if (this.curStage === 4 && addNum === 1) {
         this.$router.push('/blind-date/apply/intro')
+      } else if (this.curStage === 4 && addNum === -1) {
+        this.curStage += addNum
       }
     },
     submit() {
