@@ -105,12 +105,12 @@
     </div>
     <div v-if="isMainPageComp" class="middle">
       🗓️ 이번주는 한동 <strong>{{ numOfWeekStr }}</strong>
-      <button @click.prevent="$router.push('/blind-date/selection')">
+      <!-- <button @click.prevent="$router.push('/blind-date/selection')">
         한대소 시즌2
-      </button>
+      </button> -->
     </div>
     <div
-      v-if="isPaymentUser === true"
+      v-if="isPaymentUser === true && !isApplyFinishUser"
       class="menu"
       @click.prevent="moveApplyOrProceedingPage()"
     >
@@ -194,7 +194,8 @@ export default {
       numOfWeekStr: '',
       isMainPage: false,
       // 한대소 시즌2 관련
-      isPaymentUser: false,
+      isPaymentUser: false, // 한대소 참가 (= 보증금 제출)
+      applyType: '', // 'frend' | 'date'
       isApplyFinishUser: false
     }
   },
@@ -226,7 +227,10 @@ export default {
   mounted() {
     this.profileImg = this.$store.state.userInfo.detail.profileImg
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
-    this.blindDateParticipation()
+
+    // 한대소 시즌1
+    // this.blindDateParticipation()
+
     // 공지사항을 띄우는 경우
     this.isOpenNoticePopup = !this.cmn_getCookie('close-notice')
     // 공지 기간 끝났을 때
@@ -245,8 +249,17 @@ export default {
       this.isMainPage = false
     }
 
-    // 한대소 보증금 입금한 유저인지 판별
+    // 한대소 관련 판별
+    // 1. 한대소를 지원 O
+    //    1-1. 친구탭인지
+    //      1-1-1. 정보 입력 아직 ---> 정보 입력 버튼 O
+    //      1-1-2. 정보 입력 완료 ---> 정보 입력 버튼 X
+    //    1-2. 연애탭인지
+    //      1-1-1. 정보 입력 아직 ---> 정보 입력 버튼 O
+    //      1-1-2. 정보 입력 완료 ---> 정보 입력 버튼 X
+    // 2. 한대소 지원 X --> 정보 입력 버튼 X
     if (this.$store.state.userInfo.token) {
+      // 1. 한대소를 지원했는지?
       this.$axios
         .get(`${process.env.apiUrl}/v2/blind-date/fee/confirm?season=2`, {
           headers: {
@@ -256,16 +269,44 @@ export default {
         })
         .then((res) => {
           this.isPaymentUser = res.data
-        })
-      this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/finish?season=2`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {
-          this.isApplyFinishUser = res.data
+          // 1-1. 친구탭인지
+          // this.$axios
+          //   .get(
+          //     `${process.env.apiUrl}/v2/friend-meeting/participation?season=2`,
+          //     {
+          //       headers: {
+          //         'Content-Type': 'application/json',
+          //         Authorization: this.$store.state.userInfo.token
+          //       }
+          //     }
+          //   )
+          //   .then((res) => {
+          //     this.applyType = res.data ? 'friend' : ''
+          //   })
+
+          // 1-2. 연애탭인지
+          this.$axios
+            .get(`${process.env.apiUrl}/v2/blind-date/participation?season=2`, {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: this.$store.state.userInfo.token
+              }
+            })
+            .then((res) => {
+              this.applyType = res.data ? 'date' : ''
+              if (res.data) {
+                this.$axios
+                  .get(`${process.env.apiUrl}/v2/blind-date/finish?season=2`, {
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: this.$store.state.userInfo.token
+                    }
+                  })
+                  .then((res) => {
+                    this.isApplyFinishUser = res.data
+                  })
+              }
+            })
         })
     } else {
       this.isPaymentUser = false
@@ -329,7 +370,10 @@ export default {
       // } else {
       //   this.$router.push('/blind-date/apply/intro')
       // }
-      this.$router.push('/blind-date/apply/intro')
+      this.$router.push({
+        name: 'blind-date-apply-intro',
+        params: { type: this.applyType }
+      })
     },
     logout() {
       this.cmn_logout()

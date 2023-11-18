@@ -52,9 +52,13 @@
 export default {
   name: 'ApplyIntroPage',
   components: {},
+  asyncData({ params, route, query, redirect }) {
+    return {
+      type: params.type
+    }
+  },
   data() {
     return {
-      type: 'date',
       myStep: 0,
       favoriteStep: 0,
       isBeforeFinalSubmit: false
