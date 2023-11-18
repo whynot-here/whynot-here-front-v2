@@ -24,7 +24,7 @@
             </div>
             <div class="desc _01">본 이벤트는,</div>
             <div class="desc _02">
-              <div class="left">09.11 ~ 09.15 (5일간)</div>
+              <div class="left">11.20 ~ 11.22 (3일간)</div>
               <div class="right">진행되고,</div>
             </div>
             <div class="desc _03">
@@ -49,9 +49,17 @@
             <div v-else class="desc _04">
               학생증 인증이 완료되어 한대소에 참여할 수 있어요
             </div>
-            <div class="auth-btn">시즌1 신청 마감!</div>
-            <!-- <div v-if="!isAuthComplete" class="auth-btn" @click.prevent="goToAuthPage">학생증 인증하기</div>
-            <div v-else class="start auth-btn" @click.prevent="goToApplyPage">다음</div> -->
+            <!-- <div class="auth-btn">시즌1 신청 마감!</div> -->
+            <div
+              v-if="!isAuthComplete"
+              class="auth-btn"
+              @click.prevent="goToAuthPage"
+            >
+              학생증 인증하기
+            </div>
+            <div v-else class="start auth-btn" @click.prevent="goToApplyPage">
+              다음
+            </div>
             <div></div>
           </section>
         </div>
@@ -189,7 +197,7 @@ export default {
       this.$router.push(`/auth`)
     },
     goToApplyPage() {
-      this.$router.push(`/blind-date/apply`)
+      this.$router.push(`/blind-date/fee`)
     }
   }
 }
