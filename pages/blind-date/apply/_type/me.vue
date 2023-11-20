@@ -1,7 +1,7 @@
 <template>
   <div id="ApplyPage">
     <div class="top">
-      <div class="side" @click="$router.go(-1)">
+      <div class="side" @click="moveApplyIntroPage(type)">
         <img src="@/assets/img/common/left-arrow-black.png" alt="" />
       </div>
       <div class="title">본인 정보 입력</div>
@@ -247,7 +247,13 @@
                     ? 'button-30-percent selected'
                     : 'button-30-percent'
                 "
-                @click="applyParams.myLocation = 'DORMITORY'"
+                @click="
+                  ;[
+                    (applyParams.myLocation = 'DORMITORY'),
+                    checkIsNextActive(3),
+                    (applyParams.myLocationDesc = '')
+                  ]
+                "
               >
                 기숙사
               </div>
@@ -257,7 +263,13 @@
                     ? 'button-30-percent selected'
                     : 'button-30-percent'
                 "
-                @click="applyParams.myLocation = 'POHANG'"
+                @click="
+                  ;[
+                    (applyParams.myLocation = 'POHANG'),
+                    checkIsNextActive(3),
+                    (applyParams.myLocationDesc = '')
+                  ]
+                "
               >
                 포항
               </div>
@@ -267,7 +279,13 @@
                     ? 'button-30-percent selected'
                     : 'button-30-percent'
                 "
-                @click="applyParams.myLocation = 'ETC'"
+                @click="
+                  ;[
+                    (applyParams.myLocation = 'ETC'),
+                    checkIsNextActive(3),
+                    (applyParams.myLocationDesc = '')
+                  ]
+                "
               >
                 타지역
               </div>
@@ -284,6 +302,7 @@
                 v-model="applyParams.myLocationDesc"
                 class="input-long"
                 type="text"
+                @keyup="checkIsNextActive(3)"
               />
             </div>
           </div>
@@ -690,7 +709,12 @@
                     ? 'button-30-percent selected'
                     : 'button-30-percent'
                 "
-                @click="applyParams.myLocation = 'DORMITORY'"
+                @click="
+                  ;[
+                    (applyParams.myLocation = 'DORMITORY'),
+                    checkIsNextActive(2)
+                  ]
+                "
               >
                 기숙사
               </div>
@@ -700,7 +724,9 @@
                     ? 'button-30-percent selected'
                     : 'button-30-percent'
                 "
-                @click="applyParams.myLocation = 'POHANG'"
+                @click="
+                  ;[(applyParams.myLocation = 'POHANG'), checkIsNextActive(2)]
+                "
               >
                 포항
               </div>
@@ -710,7 +736,9 @@
                     ? 'button-30-percent selected'
                     : 'button-30-percent'
                 "
-                @click="applyParams.myLocation = 'ETC'"
+                @click="
+                  ;[(applyParams.myLocation = 'ETC'), checkIsNextActive(2)]
+                "
               >
                 타지역
               </div>
@@ -727,6 +755,7 @@
                 v-model="applyParams.myLocationDesc"
                 class="input-long"
                 type="text"
+                @keyup="checkIsNextActive(2)"
               />
             </div>
           </div>
@@ -1083,10 +1112,6 @@ export default {
     }
   },
   mounted() {
-    if (this.type === 'date') {
-      this.isNextActive = this.curStage === 5
-    }
-
     // 지원서 작성 중간에 수정하는 경우
     this.$axios
       .get(`${process.env.apiUrl}/v2/blind-date/my-apply?season=2`, {
@@ -1101,6 +1126,8 @@ export default {
             this.curStageInfoDate.length > res.data.myStep + 1
               ? res.data.myStep + 1
               : res.data.myStep
+
+          this.isNextActive = this.curStage === 5
         } else {
           this.curStage =
             this.curStageInfoFriend.length > res.data.myStep + 1
@@ -1118,6 +1145,9 @@ export default {
     checkIsNextActive(stage) {
       if (stage === 1) {
         this.isNextActive =
+          this.nullCheck(this.applyParams.name) &&
+          this.nullCheck(this.applyParams.myAge) &&
+          this.nullCheck(this.applyParams.department) &&
           this.applyParams.name.length > 0 &&
           this.applyParams.myAge.length > 0 &&
           this.applyParams.department.length > 0
@@ -1126,6 +1156,11 @@ export default {
           this.isNextActive = this.isImgUploadEnough
         } else {
           this.isNextActive =
+            this.nullCheck(this.applyParams.mySmoke) &&
+            this.nullCheck(this.applyParams.faith) &&
+            this.nullCheck(this.applyParams.myDrink) &&
+            this.nullCheck(this.applyParams.myLocation) &&
+            this.nullCheck(this.applyParams.myHobby) &&
             this.applyParams.mySmoke.length > 0 &&
             this.applyParams.faith.length > 0 &&
             this.applyParams.myDrink.length > 0 &&
@@ -1135,16 +1170,29 @@ export default {
       } else if (stage === 3) {
         if (this.type === 'date') {
           this.isNextActive =
+            this.nullCheck(this.applyParams.smoke) &&
+            this.nullCheck(this.applyParams.faith) &&
+            this.nullCheck(this.applyParams.myDrink) &&
+            this.nullCheck(this.applyParams.myLocation) &&
+            this.nullCheck(this.applyParams.hobby) &&
             this.applyParams.smoke.length > 0 &&
             this.applyParams.faith.length > 0 &&
             this.applyParams.myDrink.length > 0 &&
             this.applyParams.myLocation.length > 0 &&
+            (this.applyParams.myLocation === 'DORMITORY' ||
+            this.applyParams.myLocation === 'ETC'
+              ? this.applyParams.myLocationDesc.length > 0
+              : true) &&
             this.applyParams.hobby.length > 0
         } else {
-          this.isNextActive = this.applyParams.kakaoLink.length > 0
+          this.isNextActive =
+            this.nullCheck(this.applyParams.kakaoLink) &&
+            this.applyParams.kakaoLink.length > 0
         }
       } else if (stage === 4) {
         this.isNextActive =
+          this.nullCheck(this.applyParams.myCharacter) &&
+          this.nullCheck(this.applyParams.dateStyle) &&
           this.applyParams.myCharacter.length > 0 &&
           this.applyParams.dateStyle.length > 0
       }
@@ -1161,7 +1209,7 @@ export default {
         }
 
         if (this.curStage === 5 && addNum === 1) {
-          this.$router.push('/blind-date/apply/intro')
+          this.moveApplyIntroPage(this.type)
         }
       } else if (this.type === 'friend') {
         if (this.curStage === 3 && this.addNum === 1) {
@@ -1170,7 +1218,7 @@ export default {
         }
 
         if (this.curStage === 3 && addNum === 1) {
-          this.$router.push('/blind-date/apply/intro')
+          this.moveApplyIntroPage(this.type)
         }
       }
 

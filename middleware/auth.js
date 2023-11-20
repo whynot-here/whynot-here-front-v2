@@ -17,7 +17,13 @@ export default function ({ params, query, route, store, redirect }) {
     '/mypage',
     '/blind-date',
     '/blind-date/apply',
-    // '/blind-date/selection'
+    '/blind-date/selection',
+    '/blind-date/fee',
+    '/blind-date/apply',
+    '/blind-date/apply/intro',
+    '/blind-date/matching',
+    '/blind-date/proceeding',
+    '/blind-date/certification'
   ]
 
   if (

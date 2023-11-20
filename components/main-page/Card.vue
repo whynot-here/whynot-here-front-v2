@@ -12,7 +12,7 @@
         <img
           class="banner-img banner-admin-tab-hanchelin"
           src="@/assets/img/ads/admin-blind-date.png"
-          @click="moveBlindDateStartOrProceeding()"
+          @click="$router.push('/blind-date')"
         />
         <a
           class="banner-admin-insta"
@@ -211,11 +211,7 @@ export default {
       hanchelinCategoryId: categoryConst.hanchelinCategoryId,
       scrollYHeight: 0,
       isLoading: true,
-      isNeedAuthRequest: false,
-      // 한대소 시즌2 관련
-      applyBlindDate: false,
-      applyFriendMeeting: false,
-      isApplyFinishUser: false
+      isNeedAuthRequest: false
     }
   },
   computed: {
@@ -686,53 +682,6 @@ export default {
     goToAuthPage() {
       this.cmn_getUserInfo(this.$store.state.userInfo.token)
       this.$router.push(`/auth`)
-    },
-    moveBlindDateStartOrProceeding() {
-      // 1-1. 친구탭인지
-      this.$axios
-        .get(`${process.env.apiUrl}/v2/friend-meeting/participation?season=2`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {
-          this.applyFriendMeeting = res.data
-
-          // 1-2. 연애탭인지
-          this.$axios
-            .get(`${process.env.apiUrl}/v2/blind-date/participation?season=2`, {
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: this.$store.state.userInfo.token
-              }
-            })
-            .then((res) => {
-              this.applyBlindDate = res.data
-
-              this.$axios
-                .get(`${process.env.apiUrl}/v2/blind-date/finish?season=2`, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: this.$store.state.userInfo.token
-                  }
-                })
-                .then((res) => {
-                  this.isApplyFinishUser = res.data
-
-                  if (!this.applyBlindDate && !this.applyFriendMeeting) {
-                    this.$router.push('/blind-date') // 처음 시작 페이지
-                  } else if (
-                    this.applyFriendMeeting ||
-                    (this.applyBlindDate && this.isApplyFinishUser)
-                  ) {
-                    this.$router.push('/blind-date/proceeding') // 완료 후 매칭중 페이지
-                  } else if (this.applyBlindDate && !this.isApplyFinishUser) {
-                    this.$router.push('/blind-date/apply/intro') // 작성중 페이지
-                  }
-                })
-            })
-        })
     }
   }
 }

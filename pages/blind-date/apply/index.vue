@@ -481,22 +481,11 @@ export default {
   watch: {},
   mounted() {
     // 한대소 시즌 기간인 경우
-    this.getAuthState()
+    // this.getAuthState()
     // 한대소 시즌 마감인 경우
     // this.cmn_goMainPage()
   },
   methods: {
-    // 학생증 인증 여부
-    async getAuthState() {
-      await this.cmn_getUserInfo(this.$store.state.userInfo.token)
-      if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
-        // 학생증 인증 O
-        this.blindDateParticipation()
-      } else {
-        // 학생증 인증 X
-        this.$router.push('/blind-date')
-      }
-    },
     // 신청 여부 확인
     blindDateParticipation() {
       this.$axios

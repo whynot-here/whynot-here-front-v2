@@ -1,7 +1,7 @@
 <template>
   <div v-if="isShow" id="SelectionPage">
     <section class="top">
-      <div v-if="! isOpenBlindPopup" class="m-close">
+      <div v-if="!isOpenBlindPopup" class="m-close">
         <img
           class="m-back-btn"
           src="@/assets/img/common/close-btn2.png"
@@ -14,33 +14,31 @@
         <p>만나고 싶은 상대는?</p>
       </div>
       <div class="description">
-        <div v-if="isSelected">
-          중복참여 불가, 둘 중 하나만 참여 가능
-        </div>
-        <div v-else>
-          중복참여 불가
-        </div>
+        <div v-if="isSelected">중복참여 불가, 둘 중 하나만 참여 가능</div>
+        <div v-else>중복참여 불가</div>
       </div>
     </section>
     <section class="middle">
-      <div 
-        :class="{'active' : isBlindActive}"
+      <div
+        :class="{ active: isBlindActive }"
         class="box"
-        @click.prevent="selectBlindDate">
-          <div>
-            <p class="sub-text">두근두근</p>
-            <p class="main-text">연애</p>
-          </div>
+        @click.prevent="selectBlindDate"
+      >
+        <div>
+          <p class="sub-text">두근두근</p>
+          <p class="main-text">연애</p>
+        </div>
       </div>
 
-      <div 
-      :class="{'active' : isFriendActive}"
-        class="box" 
-        @click.prevent="selectFriendMeeting">
-          <div>
-            <p class="sub-text">우리 친구 할래요?</p>
-            <p class="main-text">친구사이</p>
-          </div>
+      <div
+        :class="{ active: isFriendActive }"
+        class="box"
+        @click.prevent="selectFriendMeeting"
+      >
+        <div>
+          <p class="sub-text">우리 친구 할래요?</p>
+          <p class="main-text">친구사이</p>
+        </div>
       </div>
     </section>
     <section class="bottom">
@@ -50,7 +48,7 @@
           class="home-btn"
           target="_blank"
           style="text-decoration: none"
-          @click.prevent = "commit"
+          @click.prevent="commit"
         >
           확인
         </a>
@@ -79,13 +77,16 @@
             <p class="line2">약관동의</p>
           </div>
         </section>
-        
+
         <div class="popup-middle">
           <div class="desc">
             <div class="block1">
-              <p>이번 한대소에서는 저번 시즌 후 진행된 설문조사 내용에 따라 아래의 내용을 모두 확인 후 동의합니다.</p>
+              <p>
+                이번 한대소에서는 저번 시즌 후 진행된 설문조사 내용에 따라
+                아래의 내용을 모두 확인 후 동의합니다.
+              </p>
             </div>
-            
+
             <div class="block2">
               <p>﹒양측 카카오 링크 오픈</p>
               <p>﹒재매칭 제도</p>
@@ -96,7 +97,6 @@
             </div>
           </div>
         </div>
-        
 
         <div class="popup-bottom">
           <div class="check-box">
@@ -104,30 +104,31 @@
               <img
                 :class="getIsBlindCheckedContract ? '' : 'disabled'"
                 class="check-box-img"
-                src='@/assets/img/blind-date/check-box-selected.png'
+                src="@/assets/img/blind-date/check-box-selected.png"
                 alt=""
-                />
+              />
               <img
-              :class="getIsBlindCheckedContract ? 'disabled' : ''"
+                :class="getIsBlindCheckedContract ? 'disabled' : ''"
                 class="check-box-img"
-                src='@/assets/img/blind-date/check-box.png'
+                src="@/assets/img/blind-date/check-box.png"
                 alt=""
               />
             </div>
             <div class="text">
-              매너 있는 한대소를 위한 약관을 잘 읽고 보았고, 동의합니다. <span class="red">(필수)</span>
+              매너 있는 한대소를 위한 약관을 잘 읽고 보았고, 동의합니다.
+              <span class="red">(필수)</span>
             </div>
           </div>
-          <div 
+          <div
             :class="getIsBlindCheckedContract ? 'isChecked' : ''"
-            class="btn" 
-            @click.prevent="aggreeBlindContract">
+            class="btn"
+            @click.prevent="aggreeBlindContract"
+          >
             동의
           </div>
         </div>
       </div>
     </div>
-
 
     <div
       v-if="isOpenFriendPopup"
@@ -150,13 +151,16 @@
             <p class="line2">약관동의</p>
           </div>
         </section>
-        
+
         <div class="popup-middle">
           <div class="desc">
             <div class="block1">
-              <p>이번 한대소에서는 저번 시즌 후 진행된 설문조사 내용에 따라 아래의 내용을 모두 확인 후 동의합니다.</p>
+              <p>
+                이번 한대소에서는 저번 시즌 후 진행된 설문조사 내용에 따라
+                아래의 내용을 모두 확인 후 동의합니다.
+              </p>
             </div>
-            
+
             <div class="block2">
               <p>﹒양측 카카오 링크 오픈</p>
               <p>﹒재매칭 제도</p>
@@ -165,7 +169,6 @@
             </div>
           </div>
         </div>
-        
 
         <div class="popup-bottom">
           <div class="check-box">
@@ -173,24 +176,26 @@
               <img
                 :class="getIsFriendCheckedContract ? '' : 'disabled'"
                 class="check-box-img"
-                src='@/assets/img/blind-date/check-box-selected.png'
+                src="@/assets/img/blind-date/check-box-selected.png"
                 alt=""
-                />
+              />
               <img
-              :class="getIsFriendCheckedContract ? 'disabled' : ''"
+                :class="getIsFriendCheckedContract ? 'disabled' : ''"
                 class="check-box-img"
-                src='@/assets/img/blind-date/check-box.png'
+                src="@/assets/img/blind-date/check-box.png"
                 alt=""
               />
             </div>
             <div class="text">
-              매너 있는 한대소를 위한 약관을 잘 읽고 보았고, 동의합니다. <span class="red">(필수)</span>
+              매너 있는 한대소를 위한 약관을 잘 읽고 보았고, 동의합니다.
+              <span class="red">(필수)</span>
             </div>
           </div>
-          <div 
+          <div
             :class="getIsFriendCheckedContract ? 'isChecked' : ''"
-            class="btn" 
-            @click.prevent="aggreeFriendContract">
+            class="btn"
+            @click.prevent="aggreeFriendContract"
+          >
             동의
           </div>
         </div>
@@ -205,7 +210,7 @@ export default {
   components: {},
   data() {
     return {
-      isShow: true,
+      isShow: false,
       isEnabledBlind: false,
       isEnabledFriend: false,
       isSelected: false,
@@ -223,11 +228,26 @@ export default {
     },
     getIsFriendCheckedContract() {
       return this.isFriendCheckedContract
-    },
+    }
   },
   watch: {},
-  mounted() {
-    // 진입 시점 (연애탭 or 친구탭)참여여부 체크  
+  async mounted() {
+    await this.getParticipationType().then((res) => {
+      if (res === 'NO') {
+        this.isShow = true // 처음 시작하는 사용자 페이지
+      } else if (res === 'FRIEND' || res === 'BLIND_DONE') {
+        this.$router.push('/blind-date/proceeding') // 완료 후 매칭중 페이지
+      } else if (res === 'BLIND_ING') {
+        this.$router.push({
+          name: 'blind-date-apply-intro',
+          params: { type: 'date' }
+        }) // 작성중 페이지
+      } else if (res === 'FAIL') {
+        this.$router.push('/auth')
+      }
+    })
+
+    // 진입 시점 (연애탭 or 친구탭)참여여부 체크
     // todo: 테스트 후 추가
     // this.cmn_getBlindOrFriendParticipation().then((res) => {
     //   if (res) {
@@ -238,52 +258,56 @@ export default {
     // })
 
     // todo: 테스트 후 제거
-    this.isShow = true;
+    this.isShow = true
   },
   methods: {
     // 연애 탭 선택
     selectBlindDate() {
-      this.isBlindActive = true;
-      this.isFriendActive = false;
-      this.isSelected = true;
+      this.isBlindActive = true
+      this.isFriendActive = false
+      this.isSelected = true
     },
     // 친구 탭 선택
     selectFriendMeeting() {
-      this.isBlindActive = false;
-      this.isFriendActive = true;
-      this.isSelected = true;
+      this.isBlindActive = false
+      this.isFriendActive = true
+      this.isSelected = true
     },
     // 선택한 탭 진행
     commit() {
       if (this.isSelected) {
         if (this.isBlindActive) {
-          this.isOpenBlindPopup = true;
-          this.isBlindCheckedContract = false;
+          this.isOpenBlindPopup = true
+          this.isBlindCheckedContract = false
         } else if (this.isFriendActive) {
-          this.isOpenFriendPopup = true;
-          this.isFriendCheckedContract = false;
+          this.isOpenFriendPopup = true
+          this.isFriendCheckedContract = false
         }
       }
     },
     // 연애 탭 약관 체크
     clickBlindCheckBox() {
-      this.isBlindCheckedContract = !this.isBlindCheckedContract;
+      this.isBlindCheckedContract = !this.isBlindCheckedContract
     },
     // 친구 탭 약관 체크
     clickFriendCheckBox() {
-      this.isFriendCheckedContract = !this.isFriendCheckedContract;
+      this.isFriendCheckedContract = !this.isFriendCheckedContract
     },
     // 연애 탭 약관 제출
     aggreeBlindContract() {
       if (this.isBlindCheckedContract) {
-        console.log("계좌번호 제출 페이지 이동");
+        console.log('계좌번호 제출 페이지 이동')
         this.$router.push('/blind-date/fee')
       }
     },
     // 친구 탭 약관 제출
     aggreeFriendContract() {
       if (this.isFriendCheckedContract) {
-        console.log("친구 만남 신청 페이지 이동");
+        console.log('친구 만남 신청 페이지 이동')
+        this.$router.push({
+          name: 'blind-date-apply-intro',
+          params: { type: 'friend' }
+        }) // 작성중 페이지
       }
     }
   }

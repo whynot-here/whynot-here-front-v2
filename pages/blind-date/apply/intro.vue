@@ -64,28 +64,49 @@ export default {
       isBeforeFinalSubmit: false
     }
   },
-  mounted() {
-    this.$axios
-      .get(`${process.env.apiUrl}/v2/blind-date/steps?season=2`, {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: this.$store.state.userInfo.token
-        }
-      })
-      .then((res) => {
-        this.myStep = res.data.myStep
-        this.favoriteStep = res.data.favoriteStep
+  async mounted() {
+    await this.getParticipationType().then((res) => {
+      if (res === 'NO') {
+        this.isShow = true // 처음 시작하는 사용자 페이지
+      } else if (res === 'FRIEND' || res === 'BLIND_DONE') {
+        this.$router.push('/blind-date/proceeding') // 완료 후 매칭중 페이지
+      } else if (res === 'BLIND_ING') {
+        this.$router.push({
+          name: 'blind-date-apply-intro',
+          params: { type: 'date' }
+        }) // 작성중 페이지
+      } else if (res === 'FAIL') {
+        this.$router.push('/auth')
+      }
+    })
 
-        if (this.type === 'date') {
-          this.isBeforeFinalSubmit =
-            this.myStep === 5 && this.favoriteStep === 4
-        } else if (this.type === 'friend') {
-          this.isBeforeFinalSubmit = this.myStep === 3
-        }
-      })
+    if (this.type === 'date') {
+      this.getSteps()
+    }
   },
   methods: {
+    getSteps() {
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/blind-date/steps?season=2`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.myStep = res.data.myStep
+          this.favoriteStep = res.data.favoriteStep
+
+          if (this.type === 'date') {
+            this.isBeforeFinalSubmit =
+              this.myStep === 5 && this.favoriteStep === 4
+          } else if (this.type === 'friend') {
+            this.isBeforeFinalSubmit = this.myStep === 3
+          }
+        })
+    },
+
     submitFinal() {
       this.$axios
         .put(`${process.env.apiUrl}/v2/blind-date/finish?season=2`, '', {

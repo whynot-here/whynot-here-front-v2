@@ -1,7 +1,7 @@
 <template>
   <div id="ApplyPage">
     <div class="top">
-      <div class="side" @click="$router.go(-1)">
+      <div class="side" @click="moveApplyIntroPage(type)">
         <img src="@/assets/img/common/left-arrow-black.png" alt="" />
       </div>
       <div class="title">상대 정보 입력</div>

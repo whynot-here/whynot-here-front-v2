@@ -712,8 +712,132 @@ const common = {
 
     cmn_setApplyParams(curApplyParams) {
       for (const [key] of Object.entries(curApplyParams)) {
-        this.applyParams[key] = curApplyParams[key]
+        this.applyParams[key] =
+          curApplyParams[key] === null ? '' : curApplyParams[key]
       }
+    },
+
+    // async getParticipationType() {
+    //   // 1-1. 친구탭인지
+    //   return await this.$axios
+    //     .get(`${process.env.apiUrl}/v2/friend-meeting/participation?season=2`, {
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         Authorization: this.$store.state.userInfo.token
+    //       }
+    //     })
+    //     .then((res) => {
+    //       if (res.data) {
+    //         return 'FRIEND'
+    //       }
+
+    //       // 1-2. 연애탭인지
+    //       this.$axios
+    //         .get(`${process.env.apiUrl}/v2/blind-date/participation?season=2`, {
+    //           headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: this.$store.state.userInfo.token
+    //           }
+    //         })
+    //         .then((res) => {
+    //           console.log(res.data)
+    //           if (!res.data) {
+    //             console.log('daj;fkdja;kf;ld')
+    //             return 'NO'
+    //           }
+
+    //           this.$axios
+    //             .get(`${process.env.apiUrl}/v2/blind-date/finish?season=2`, {
+    //               headers: {
+    //                 'Content-Type': 'application/json',
+    //                 Authorization: this.$store.state.userInfo.token
+    //               }
+    //             })
+    //             .then((res) => {
+    //               if (res.data) {
+    //                 return 'BLIND_DONE'
+    //               } else {
+    //                 return 'BLIND_ING'
+    //               }
+    //             })
+    //         })
+    //     })
+    // },
+
+    getParticipationType() {
+      this.cmn_getUserInfo(this.$store.state.userInfo.token)
+      return new Promise((resolve, reject) => {
+        if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
+          // 학생증 인증 O
+          // 1-1. 친구탭인지
+          this.$axios
+            .get(
+              `${process.env.apiUrl}/v2/friend-meeting/participation?season=2`,
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: this.$store.state.userInfo.token
+                }
+              }
+            )
+            .then((res) => {
+              if (res.data) {
+                resolve('FRIEND')
+              }
+
+              // 1-2. 연애탭인지
+              this.$axios
+                .get(
+                  `${process.env.apiUrl}/v2/blind-date/participation?season=2`,
+                  {
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: this.$store.state.userInfo.token
+                    }
+                  }
+                )
+                .then((res) => {
+                  console.log(res.data)
+                  if (!res.data) {
+                    resolve('NO')
+                  }
+
+                  this.$axios
+                    .get(
+                      `${process.env.apiUrl}/v2/blind-date/finish?season=2`,
+                      {
+                        headers: {
+                          'Content-Type': 'application/json',
+                          Authorization: this.$store.state.userInfo.token
+                        }
+                      }
+                    )
+                    .then((res) => {
+                      if (res.data) {
+                        resolve('BLIND_DONE')
+                      } else {
+                        resolve('BLIND_ING')
+                      }
+                    })
+                })
+            })
+        } else {
+          // 학생증 인증 X
+          // this.$router.push('/blind-date')
+          resolve('FAIL')
+        }
+      })
+    },
+
+    nullCheck(params) {
+      return params !== null
+    },
+
+    moveApplyIntroPage(type) {
+      this.$router.push({
+        name: 'blind-date-apply-intro',
+        params: { type }
+      }) // 작성중 페이지
     },
 
     updateSharedData(newData) {

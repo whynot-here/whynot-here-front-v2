@@ -26,29 +26,23 @@ export default {
     }
   },
   watch: {},
-  mounted() {
-    this.getAuthState()
-  },
-  methods: {
-    // 학생증 인증 여부
-    async getAuthState() {
-      await this.cmn_getUserInfo(this.$store.state.userInfo.token)
-      if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
-        // 학생증 인증 O
-        // 진입 시점 (연애탭 or 친구탭)참여여부 체크
-        this.cmn_getBlindOrFriendParticipation().then((res) => {
-          if (!res) {
-            this.$router.push('/blind-date/')
-          } else {
-            this.isShow = res
-          }
-        })
-      } else {
-        // 학생증 인증 X
-        this.$router.push('/')
+  async mounted() {
+    await this.getParticipationType().then((res) => {
+      if (res === 'NO') {
+        this.$router.push('/blind-date') // 처음 시작하는 사용자 페이지
+      } else if (res === 'FRIEND' || res === 'BLIND_DONE') {
+        this.isShow = true // 완료 후 매칭중 페이지
+      } else if (res === 'BLIND_ING') {
+        this.$router.push({
+          name: 'blind-date-apply-intro',
+          params: { type: 'date' }
+        }) // 작성중 페이지
+      } else if (res === 'FAIL') {
+        this.$router.push('/auth')
       }
-    }
-  }
+    })
+  },
+  methods: {}
 }
 </script>
 
