@@ -1,5 +1,5 @@
 <template>
-  <div id="ApplyIntroPage">
+  <div v-show="isShow" id="ApplyIntroPage">
     <div class="wrp">
       <section class="top">
         <div class="m-close">
@@ -59,6 +59,7 @@ export default {
   },
   data() {
     return {
+      isShow: false,
       myStep: 0,
       favoriteStep: 0,
       isBeforeFinalSubmit: false
@@ -71,10 +72,7 @@ export default {
       } else if (res === 'FRIEND' || res === 'BLIND_DONE') {
         this.$router.push('/blind-date/proceeding') // 완료 후 매칭중 페이지
       } else if (res === 'BLIND_ING') {
-        this.$router.push({
-          name: 'blind-date-apply-intro',
-          params: { type: 'date' }
-        }) // 작성중 페이지
+        this.isShow = true
       } else if (res === 'FAIL') {
         this.$router.push('/auth')
       }

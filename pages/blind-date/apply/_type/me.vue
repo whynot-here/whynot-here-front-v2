@@ -98,13 +98,16 @@
         <div class="stage_01_top">
           <div class="content_01">
             <div class="sub-title">
-              본인의 키를 입력해 주세요 <strong class="gray">(숫자만)</strong>
+              본인의 키를 입력해 주세요
+              <strong class="gray">(숫자만)</strong>
+              <strong>*</strong>
             </div>
             <input
               v-model="applyParams.myHeight"
               class="input-long"
               type="text"
               placeholder="ex) 160"
+              @keyup="checkIsNextActive(2)"
             />
           </div>
           <div class="content_01">
@@ -297,11 +300,13 @@
                     ? '기숙사명 입력'
                     : '지역명 입력'
                 }}
+                <strong class="gray">(20자 이내)</strong>
               </div>
               <input
                 v-model="applyParams.myLocationDesc"
                 class="input-long"
                 type="text"
+                maxlength="32"
                 @keyup="checkIsNextActive(3)"
               />
             </div>
@@ -353,11 +358,15 @@
               </div>
             </div>
             <div class="content_02">
-              <div class="sub-question-title">이외 추가적인 취미</div>
+              <div class="sub-question-title">
+                이외 추가적인 취미
+                <strong class="gray">(20자 이내)</strong>
+              </div>
               <input
                 v-model="applyParams.hobbyDesc"
                 class="input-long"
                 type="text"
+                maxlength="32"
                 @keyup="checkIsNextActive(3)"
               />
             </div>
@@ -750,11 +759,13 @@
                     ? '기숙사명 입력'
                     : '지역명 입력'
                 }}
+                <strong class="gray">(200자 이내)</strong>
               </div>
               <input
                 v-model="applyParams.myLocationDesc"
                 class="input-long"
                 type="text"
+                maxlength="32"
                 @keyup="checkIsNextActive(2)"
               />
             </div>
@@ -806,21 +817,29 @@
               </div>
             </div>
             <div class="content_02">
-              <div class="sub-question-title">이외 추가적인 취미</div>
+              <div class="sub-question-title">
+                이외 추가적인 취미
+                <strong class="gray">(20자 이내)</strong>
+              </div>
               <input
                 v-model="applyParams.myHobbyDesc"
                 class="input-long"
                 type="text"
+                maxlength="32"
                 @keyup="checkIsNextActive(2)"
               />
             </div>
           </div>
           <div class="content_01">
-            <div class="sub-title">상대에게 하고싶은 말이 있다면?</div>
+            <div class="sub-title">
+              상대에게 하고싶은 말이 있다면?
+              <strong class="gray">(200자 이내)</strong>
+            </div>
             <textarea
               v-model="applyParams.commentForMate"
               class="input-long textarea"
               placeholder="상대에게 하고싶은 말을 적어주세요"
+              maxlength="255"
             />
           </div>
         </div>
@@ -828,7 +847,11 @@
       <section v-if="curStage === 3" class="form">
         <div class="stage_01_bottom">
           <div class="content_01">
-            <div class="sub-title">오픈 카카오 링크 <strong>*</strong></div>
+            <div class="sub-title">
+              오픈 카카오 링크
+              <strong class="gray">(ex) https://open.kakao.com/o/abcde</strong>
+              <strong>*</strong>
+            </div>
             <input
               v-model="applyParams.kakaoLink"
               class="input-long"
@@ -836,11 +859,15 @@
               placeholder="ex) URL"
               @keyup="checkIsNextActive(3)"
             />
-            <div class="sub-title">운영진에게 하고싶은 말이 있다면?</div>
+            <div class="sub-title">
+              운영진에게 하고싶은 말이 있다면?
+              <strong class="gray">(200자 이내)</strong>
+            </div>
             <textarea
-              v-model="applyParams.inquiry"
+              v-model="applyParams.commentForAdmin"
               class="input-long textarea"
               placeholder="개선사항이나 문의하고 싶은 내용 작성"
+              maxlength="255"
             />
           </div>
         </div>
@@ -1112,30 +1139,32 @@ export default {
     }
   },
   mounted() {
-    // 지원서 작성 중간에 수정하는 경우
-    this.$axios
-      .get(`${process.env.apiUrl}/v2/blind-date/my-apply?season=2`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: this.$store.state.userInfo.token
-        }
-      })
-      .then((res) => {
-        if (this.type === 'date') {
-          this.curStage =
-            this.curStageInfoDate.length > res.data.myStep + 1
-              ? res.data.myStep + 1
-              : res.data.myStep
+    // 지원서 작성 중간에 수정하는 경우 (연애탭일 경우만)
+    if (this.type === 'date') {
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/blind-date/my-apply?season=2`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          if (this.type === 'date') {
+            this.curStage =
+              this.curStageInfoDate.length > res.data.myStep + 1
+                ? res.data.myStep + 1
+                : res.data.myStep
 
-          this.isNextActive = this.curStage === 5
-        } else {
-          this.curStage =
-            this.curStageInfoFriend.length > res.data.myStep + 1
-              ? res.data.myStep + 1
-              : res.data.myStep
-        }
-        this.cmn_setApplyParams(res.data)
-      })
+            this.isNextActive = this.curStage === 5
+          } else {
+            this.curStage =
+              this.curStageInfoFriend.length > res.data.myStep + 1
+                ? res.data.myStep + 1
+                : res.data.myStep
+          }
+          this.cmn_setApplyParams(res.data)
+        })
+    }
   },
   methods: {
     selectBankName(item) {
@@ -1153,7 +1182,8 @@ export default {
           this.applyParams.department.length > 0
       } else if (stage === 2) {
         if (this.type === 'date') {
-          this.isNextActive = this.isImgUploadEnough
+          this.isNextActive =
+            this.isImgUploadEnough && this.applyParams.myHeight.length > 0
         } else {
           this.isNextActive =
             this.nullCheck(this.applyParams.mySmoke) &&
@@ -1187,7 +1217,8 @@ export default {
         } else {
           this.isNextActive =
             this.nullCheck(this.applyParams.kakaoLink) &&
-            this.applyParams.kakaoLink.length > 0
+            this.applyParams.kakaoLink.length > 5 &&
+            this.applyParams.kakaoLink.substring(0, 5) === 'https'
         }
       } else if (stage === 4) {
         this.isNextActive =
@@ -1202,28 +1233,23 @@ export default {
       if (this.type === 'date') {
         if (addNum === 1 && this.curStage === 2) {
           this.submitAndPicture()
-          this.addNum--
         } else if (addNum === 1) {
           this.submit()
-          this.addNum--
         }
 
         if (this.curStage === 5 && addNum === 1) {
           this.moveApplyIntroPage(this.type)
+        } else {
+          this.curStage += addNum
         }
       } else if (this.type === 'friend') {
-        if (this.curStage === 3 && this.addNum === 1) {
-          this.submit()
-          this.addNum--
-        }
-
         if (this.curStage === 3 && addNum === 1) {
-          this.moveApplyIntroPage(this.type)
+          this.submit()
+        } else {
+          this.curStage += addNum
         }
       }
 
-      this.curStage += addNum
-      // this.isNextActive = this.curStage === 5
       this.checkIsNextActive(this.curStage)
 
       // 드롭다운 이전으로 갈 때 에러 수정하는 부분
@@ -1332,7 +1358,10 @@ export default {
               Authorization: this.$store.state.userInfo.token
             }
           })
-          .then((res) => {})
+          .then((res) => {
+            console.log(res)
+            // this.$router.push('/blind-date/proceeding')
+          })
           .catch((error) => {
             window.alert(error.response.data.message)
           })

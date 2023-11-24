@@ -147,10 +147,6 @@ export default {
   watch: {},
   async mounted() {
     this.isNuxtReady = true
-    // this.getMyAuthImg().then((res) => {
-    //   this.blindDateParticipation()
-    // })
-    // this.getAuthState()
     await this.getParticipationType().then((res) => {
       if (res === 'NO') {
         this.getAuthState()
@@ -198,22 +194,6 @@ export default {
             }
           })
           return false
-        })
-    },
-    blindDateParticipation() {
-      this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {
-          if (res) {
-            this.$router.push('/blind-date/proceeding')
-          } else {
-            this.isShow = true
-          }
         })
     },
     goToAuthPage() {

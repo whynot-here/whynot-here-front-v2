@@ -174,7 +174,7 @@ export default {
   methods: {
     async getMatchinReveal() {
       await this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/reveal-result?season=1`, {
+        .get(`${process.env.apiUrl}/v2/blind-date/reveal-result?season=2`, {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
@@ -192,7 +192,7 @@ export default {
     },
     async getMatchingResult() {
       await this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/matching-result?season=1`, {
+        .get(`${process.env.apiUrl}/v2/blind-date/matching-result?season=2`, {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',

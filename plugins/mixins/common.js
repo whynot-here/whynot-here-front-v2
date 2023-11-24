@@ -339,8 +339,8 @@ const common = {
         mbti_03: 'T',
         mbti_04: 'J',
         commentForMate: '',
+        commentForAdmin: '',
         kakaoLink: '',
-        inquiry: '',
         excludeCondList: [
           {
             isShow: true,

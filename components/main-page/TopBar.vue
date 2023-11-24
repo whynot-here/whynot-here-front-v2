@@ -228,9 +228,6 @@ export default {
     this.profileImg = this.$store.state.userInfo.detail.profileImg
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
 
-    // 한대소 시즌1
-    // this.blindDateParticipation()
-
     // 공지사항을 띄우는 경우
     this.isOpenNoticePopup = !this.cmn_getCookie('close-notice')
     // 공지 기간 끝났을 때
@@ -315,20 +312,6 @@ export default {
   methods: {
     closeNoticePopup() {
       this.isOpenNoticePopup = false
-    },
-    blindDateParticipation() {
-      if (!this.$store.state.userInfo.token) {
-        return false
-      }
-
-      this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {})
     },
     toggleCategoryPanel() {
       this.$bus.$emit('toggleCategoryPanel', {})

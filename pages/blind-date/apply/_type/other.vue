@@ -148,13 +148,23 @@
                     v-if="applyParams.favoriteSmokeImportant"
                     src="@/assets/img/common/check-box-purple-selected.png"
                     alt=""
-                    @click="applyParams.favoriteSmokeImportant = false"
+                    @click="
+                      ;[
+                        (applyParams.favoriteSmokeImportant = false),
+                        checkIsNextActive(3)
+                      ]
+                    "
                   />
                   <img
                     v-else
                     src="@/assets/img/common/check-box-purple-unselected.png"
                     alt=""
-                    @click="applyParams.favoriteSmokeImportant = true"
+                    @click="
+                      ;[
+                        (applyParams.favoriteSmokeImportant = true),
+                        checkIsNextActive(3)
+                      ]
+                    "
                   />
                 </div>
                 <div>매칭 필수 요소</div>
@@ -167,7 +177,9 @@
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.favoriteSmoke = 'N'"
+                @click="
+                  ;[(applyParams.favoriteSmoke = 'N'), checkIsNextActive(3)]
+                "
               >
                 비흡연
               </div>
@@ -177,7 +189,9 @@
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.favoriteSmoke = 'Y'"
+                @click="
+                  ;[(applyParams.favoriteSmoke = 'Y'), checkIsNextActive(3)]
+                "
               >
                 흡연
               </div>
@@ -211,7 +225,12 @@
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.favoriteFaith = 'NO_MATTER'"
+                @click="
+                  ;[
+                    (applyParams.favoriteFaith = 'NO_MATTER'),
+                    checkIsNextActive(3)
+                  ]
+                "
               >
                 상관없음
               </div>
@@ -221,7 +240,12 @@
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.favoriteFaith = 'CHRISTIAN'"
+                @click="
+                  ;[
+                    (applyParams.favoriteFaith = 'CHRISTIAN'),
+                    checkIsNextActive(3)
+                  ]
+                "
               >
                 기독교
               </div>
@@ -238,7 +262,12 @@
                     ? 'button selected'
                     : 'button'
                 "
-                @click="applyParams.favoriteDrink = item.code"
+                @click="
+                  ;[
+                    (applyParams.favoriteDrink = item.code),
+                    checkIsNextActive(3)
+                  ]
+                "
               >
                 {{ item.name }}
               </div>
@@ -255,18 +284,27 @@
                     ? 'button selected'
                     : 'button'
                 "
-                @click="applyParams.favoriteLocation = item.code"
+                @click="
+                  ;[
+                    (applyParams.favoriteLocation = item.code),
+                    checkIsNextActive(3)
+                  ]
+                "
               >
                 {{ item.name }}
               </div>
             </div>
           </div>
           <div class="content_01">
-            <div class="sub-title">상대에게 하고싶은 말이 있다면?</div>
+            <div class="sub-title">
+              상대에게 하고싶은 말이 있다면?
+              <strong class="gray">(200자 이내)</strong>
+            </div>
             <textarea
               v-model="applyParams.comment"
               class="input-long textarea"
               placeholder="상대에게 하고싶은 말을 적어주세요"
+              maxlength="255"
             />
           </div>
         </div>
@@ -274,7 +312,11 @@
       <section v-if="curStage === 4" class="form">
         <div class="stage_01_bottom">
           <div class="content_01">
-            <div class="sub-title">오픈 카카오 링크 <strong>*</strong></div>
+            <div class="sub-title">
+              오픈 카카오 링크
+              <strong class="gray">(ex) https://open.kakao.com/o/abcde</strong>
+              <strong>*</strong>
+            </div>
             <input
               v-model="applyParams.kakaoLink"
               class="input-long"
@@ -282,11 +324,15 @@
               placeholder="ex) URL"
               @keyup="checkIsNextActive(4)"
             />
-            <div class="sub-title">운영진에게 하고싶은 말이 있다면?</div>
+            <div class="sub-title">
+              운영진에게 하고싶은 말이 있다면?
+              <strong class="gray">(200자 이내)</strong>
+            </div>
             <textarea
-              v-model="applyParams.inquiry"
+              v-model="applyParams.commentForAdmin"
               class="input-long textarea"
               placeholder="개선사항이나 문의하고 싶은 내용 작성"
+              maxlength="255"
             />
           </div>
         </div>
@@ -406,7 +452,9 @@ export default {
           this.isNextActive = this.applyParams.kakaoLink.length > 0
         }
       } else if (stage === 4) {
-        this.isNextActive = this.applyParams.kakaoLink.length > 0
+        this.isNextActive =
+          this.applyParams.kakaoLink.length > 5 &&
+          this.applyParams.kakaoLink.substring(0, 5) === 'https'
       }
     },
     changeStage(addNum) {
@@ -433,7 +481,7 @@ export default {
         this.curStage += addNum
         this.checkIsNextActive(this.curStage)
       } else if (this.curStage === 4 && addNum === 1) {
-        this.$router.push('/blind-date/apply/intro')
+        this.moveApplyIntroPage(this.type)
       } else if (this.curStage === 4 && addNum === -1) {
         this.curStage += addNum
       }
