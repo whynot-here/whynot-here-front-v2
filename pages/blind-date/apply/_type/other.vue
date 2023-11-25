@@ -409,7 +409,8 @@ export default {
       inputImg: [],
       files: [],
       isImgUploadEnough: false,
-      dropdownLabel: '신장'
+      dropdownLabel: '신장',
+      isFinalStepSubmit: false
     }
   },
   mounted() {
@@ -431,6 +432,12 @@ export default {
               : res.data.favoriteStep
         }
         this.cmn_setApplyParams(res.data)
+
+        this.checkIsNextActive(this.curStage)
+
+        if (this.applyParams.favoriteStep === 4) {
+          this.isFinalStepSubmit = true
+        }
       })
   },
   methods: {
@@ -460,7 +467,11 @@ export default {
       }
     },
     changeStage(addNum) {
-      this.applyParams.favoriteStep = this.curStage // 지금 단계 저장
+      if (!this.isFinalStepSubmit) {
+        this.applyParams.favoriteStep = this.curStage // 지금 단계 저장
+      } else {
+        this.applyParams.favoriteStep = 4
+      }
 
       if (addNum === 1) {
         this.submit()
@@ -495,7 +506,11 @@ export default {
             Authorization: this.$store.state.userInfo.token
           }
         })
-        .then((res) => {})
+        .then((res) => {
+          if (this.curStage === 4) {
+            this.isFinalStepSubmit = true
+          }
+        })
         .catch((error) => {
           window.alert(error.response.data.message)
         })

@@ -1138,7 +1138,8 @@ export default {
       files: [],
       isImgUploadEnough: false,
       dropdownLabel: '학부',
-      isNuxtReady: false
+      isNuxtReady: false,
+      isFinalStepSubmit: false
     }
   },
   mounted() {
@@ -1184,6 +1185,10 @@ export default {
           }
 
           this.checkIsNextActive(this.curStage)
+
+          if (this.applyParams.myStep === 5) {
+            this.isFinalStepSubmit = true
+          }
         })
     }
   },
@@ -1250,7 +1255,11 @@ export default {
       }
     },
     changeStage(addNum) {
-      this.applyParams.myStep = this.curStage // 지금 단계 저장
+      if (!this.isFinalStepSubmit) {
+        this.applyParams.myStep = this.curStage // 지금 단계 저장
+      } else {
+        this.applyParams.myStep = 5
+      }
       if (this.type === 'date') {
         if (addNum === 1 && this.curStage === 2) {
           this.submitAndPicture()
@@ -1353,7 +1362,11 @@ export default {
               Authorization: this.$store.state.userInfo.token
             }
           })
-          .then((res) => {})
+          .then((res) => {
+            if (this.curStage === 5) {
+              this.isFinalStepSubmit = true
+            }
+          })
           .catch((error) => {
             window.alert(error.response.data.message)
           })
