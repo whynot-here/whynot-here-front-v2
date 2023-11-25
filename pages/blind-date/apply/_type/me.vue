@@ -500,7 +500,7 @@
                 :key="idx"
                 style="margin-bottom: 20px"
               >
-                <div v-if="item.isShow === true" class="input-multiple-wrp">
+                <div class="input-multiple-wrp">
                   <input
                     v-model="item.name"
                     class="input-long-01"
@@ -1175,6 +1175,12 @@ export default {
           if (this.inputImg.length === 2) {
             this.isImgUploadEnough = true
           }
+
+          if (this.applyParams.excludeCondList.length === 0) {
+            this.addAvoid()
+          }
+
+          this.checkIsNextActive(this.curStage)
         })
     }
   },
@@ -1262,7 +1268,6 @@ export default {
         }
       }
 
-      console.log(this.curStage)
       this.checkIsNextActive(this.curStage)
 
       // 드롭다운 이전으로 갈 때 에러 수정하는 부분
@@ -1322,12 +1327,13 @@ export default {
       this.checkIsNextActive(2)
     },
     addAvoid() {
-      const idx = this.applyParams.excludeCondList.findIndex((item) => {
-        return item.isShow === false
+      this.applyParams.excludeCondList.push({
+        name: '',
+        department: '',
+        studentId: ''
       })
-      this.applyParams.excludeCondList[idx].isShow = true
 
-      if (idx === 9) {
+      if (this.applyParams.excludeCondList.length > 10) {
         this.isAddBtnActive = false
       }
     },

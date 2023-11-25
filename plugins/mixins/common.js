@@ -341,68 +341,7 @@ const common = {
         commentForMate: '',
         commentForAdmin: '',
         kakaoLink: '',
-        excludeCondList: [
-          {
-            isShow: true,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          },
-          {
-            isShow: false,
-            name: '',
-            department: '',
-            studentId: ''
-          }
-        ],
+        excludeCondList: [],
         imageLinks: [],
         favoriteAge: 'NO_MATTER', // UP, DOWN, SAME, NO_MATTER
         favoriteAgeImportant: true,
