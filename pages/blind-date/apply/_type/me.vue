@@ -759,7 +759,7 @@
                     ? '기숙사명 입력'
                     : '지역명 입력'
                 }}
-                <strong class="gray">(200자 이내)</strong>
+                <strong class="gray">(20자 이내)</strong>
               </div>
               <input
                 v-model="applyParams.myLocationDesc"
@@ -1163,6 +1163,18 @@ export default {
                 : res.data.myStep
           }
           this.cmn_setApplyParams(res.data)
+
+          res.data.imageLinks.map((imageLink) => {
+            const img = {
+              prev_url: imageLink,
+              isNew: false
+            }
+            return this.inputImg.push(img)
+          })
+
+          if (this.inputImg.length === 2) {
+            this.isImgUploadEnough = true
+          }
         })
     }
   },
@@ -1183,7 +1195,7 @@ export default {
       } else if (stage === 2) {
         if (this.type === 'date') {
           this.isNextActive =
-            this.isImgUploadEnough && this.applyParams.myHeight.length > 0
+            this.isImgUploadEnough && this.applyParams.myHeight > 0
         } else {
           this.isNextActive =
             this.nullCheck(this.applyParams.mySmoke) &&
@@ -1250,6 +1262,7 @@ export default {
         }
       }
 
+      console.log(this.curStage)
       this.checkIsNextActive(this.curStage)
 
       // 드롭다운 이전으로 갈 때 에러 수정하는 부분
@@ -1359,8 +1372,7 @@ export default {
             }
           })
           .then((res) => {
-            console.log(res)
-            // this.$router.push('/blind-date/proceeding')
+            this.$router.push('/blind-date/proceeding')
           })
           .catch((error) => {
             window.alert(error.response.data.message)

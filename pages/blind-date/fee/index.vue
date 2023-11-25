@@ -15,7 +15,7 @@
           <div class="block1">
             위 보증금은, 일부 비매너 사용자를 거르기 윙한 용도입니다.
           </div>
-          
+
           <div class="block2">
             <p>﹒실제 만남이 이뤄진팀 (앱 내 인증)</p>
             <p>﹒비매너 상대를 만난 분</p>
@@ -37,15 +37,20 @@
         <div class="whynot-number-title">입금 계좌</div>
         <div class="whynot-number-box">
           <div class="text">
-            <div class="line1">카카오&nbsp;&nbsp;&nbsp;&nbsp;<span>3333-28-6978370</span></div>
-            <div class="line2">예금주&nbsp; 오상진&nbsp; |&nbsp; 보증금&nbsp; 5,000원</div>
+            <div class="line1">
+              카카오뱅크&nbsp;&nbsp;<span>3333-28-8664788</span>
+            </div>
+            <div class="line2">
+              예금주:&nbsp; 오상진(와이낫히어(WNH))<br />
+              보증금:&nbsp; 5,000원
+            </div>
           </div>
           <div class="copy-icon" @click.prevent="copyWhynotBankNumber">
             복사
           </div>
         </div>
       </div>
-      
+
       <div class="my-name">
         <div class="my-name-title">송금자명 입력 <span>*</span></div>
         <div>
@@ -75,7 +80,8 @@
         <DropdownBankName
           ref="DropdownBankName"
           :label-first="'은행명'"
-          @get-label="selectBankName" />
+          @get-label="selectBankName"
+        />
         <div>
           <input
             v-model="feeRequest.bankNumber"
@@ -86,16 +92,13 @@
         </div>
       </div>
 
-      <div 
-        :class = "{'active': getIsBtnActive}"
-        class="submit-btn" 
-        @click.prevent="submitBankInfo">
-        <div class="title">
-          입금 확인 요청
-        </div>
-        <div class="desc">
-          입금 확인까지 2-3시간 정도 소요됩니다.
-        </div>
+      <div
+        :class="{ active: getIsBtnActive }"
+        class="submit-btn"
+        @click.prevent="submitBankInfo"
+      >
+        <div class="title">입금 확인 요청</div>
+        <div class="desc">입금 확인까지 2-3시간 정도 소요됩니다.</div>
       </div>
 
       <div
@@ -142,44 +145,44 @@ export default {
   },
   computed: {
     getIsBtnActive() {
-      return this.isBtnActive;
+      return this.isBtnActive
     }
   },
   watch: {
     feeRequest: {
       handler() {
-        this.isBtnActive = this.feeRequest.name !== '' &&
-             this.feeRequest.studentId !== null &&
-             this.feeRequest.studentId.toString().length === 8 &&
-             this.feeRequest.bankName !== '' &&
-             this.feeRequest.bankNumber.toString().length > 9;
+        this.isBtnActive =
+          this.feeRequest.name !== '' &&
+          this.feeRequest.studentId !== null &&
+          this.feeRequest.studentId.toString().length === 8 &&
+          this.feeRequest.bankName !== '' &&
+          this.feeRequest.bankNumber.toString().length > 9
       },
       deep: true
     }
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     selectBankName(item) {
-      this.feeRequest.bankName = item.name;
+      this.feeRequest.bankName = item.name
     },
     copyWhynotBankNumber() {
-      this.copySomething('3333286978370')
+      this.copySomething('3333288664788')
       this.toastPopup('계좌가 복사되었습니다')
     },
     submitBankInfo() {
       if (this.isBtnActive) {
         this.$axios
-        .post(`${process.env.apiUrl}/v2/blind-date/fee`, this.feeRequest, {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {
-          this.isOpenAskPopup = true
-        })
+          .post(`${process.env.apiUrl}/v2/blind-date/fee`, this.feeRequest, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          })
+          .then((res) => {
+            this.isOpenAskPopup = true
+          })
       }
     }
   }
