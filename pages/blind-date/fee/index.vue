@@ -80,6 +80,7 @@
         <DropdownBankName
           ref="DropdownBankName"
           :label-first="'은행명'"
+          :dropdown-type="'은행명'"
           @get-label="selectBankName"
         />
         <div>

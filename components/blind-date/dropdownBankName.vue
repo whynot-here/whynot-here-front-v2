@@ -31,6 +31,10 @@ export default {
       type: String,
       default: ''
     },
+    dropdownType: {
+      type: String,
+      default: ''
+    },
     params: {
       type: Object,
       default: null
@@ -45,7 +49,7 @@ export default {
   computed: {
     getList() {
       const result = []
-      switch (this.labelFirst) {
+      switch (this.dropdownType) {
         case '은행명':
           this.bankNameList.forEach((it) => {
             const item = {
@@ -86,9 +90,6 @@ export default {
   },
   mounted() {},
   methods: {
-    print() {
-      console.log('ref!')
-    },
     openOptions() {
       if (
         document
@@ -105,6 +106,7 @@ export default {
       }
     },
     selectOptionMain(item) {
+      console.log(item)
       document.querySelector(`.${this.labelFirst}`).innerHTML = item.name + ''
       document.querySelector(`.${this.labelFirst}`).style.color = '#000'
       this.selectedBankNameId = item.id

@@ -34,7 +34,7 @@
         <strong>비밀번호는 생성하지 말아주세요.</strong>
       </div>
     </div>
-    <section class="content" style="height: calc(100vh - 265px)">
+    <section class="content" style="height: calc(100vh - 260px)">
       <section v-if="curStage === 1" class="form">
         <div class="stage_01_top">
           <div class="content_01">
@@ -130,8 +130,9 @@
               </div>
             </div>
             <DropdownBankName
-              ref="DropdownBankName"
-              :label-first="'신장'"
+              ref="dropdown"
+              :label-first="dropdownLabel"
+              :dropdown-type="'신장'"
               @get-label="selectOtherHeight"
             />
           </div>
@@ -407,7 +408,8 @@ export default {
       isShow: false,
       inputImg: [],
       files: [],
-      isImgUploadEnough: false
+      isImgUploadEnough: false,
+      dropdownLabel: '신장'
     }
   },
   mounted() {
@@ -458,19 +460,6 @@ export default {
       }
     },
     changeStage(addNum) {
-      // if (this.curStage === 5 && addNum === 1 && this.type === 'date') {
-      //   this.submit()
-      // } else if (
-      //   this.curStage === 3 &&
-      //   addNum === 1 &&
-      //   this.type === 'friend'
-      // ) {
-      //   this.submit()
-      // } else {
-      //   this.curStage += addNum
-      //   this.isNextActive = this.curStage === 5
-      //   this.checkIsNextActive(this.curStage)
-      // }
       this.applyParams.favoriteStep = this.curStage // 지금 단계 저장
 
       if (addNum === 1) {
@@ -485,6 +474,17 @@ export default {
       } else if (this.curStage === 4 && addNum === -1) {
         this.curStage += addNum
       }
+
+      this.$nextTick(() => {
+        if (this.$refs.dropdown !== undefined) {
+          const heightItem = this.heightList.filter((item) => {
+            return item.heightName === this.applyParams.favoriteHeight
+          })[0]
+          this.$refs.dropdown.$el.querySelector(`.신장`).innerHTML =
+            heightItem.heightName + ''
+          this.$refs.dropdown.parentId = heightItem.heightId
+        }
+      })
     },
     submit() {
       this.$axios

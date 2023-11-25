@@ -87,8 +87,9 @@
               <strong>*</strong>
             </div>
             <DropdownBankName
-              ref="DropdownBankName"
-              :label-first="'학부'"
+              ref="dropdown"
+              :label-first="dropdownLabel"
+              :dropdown-type="'학부'"
               @get-label="selectBankName"
             />
           </div>
@@ -618,6 +619,7 @@
             <DropdownBankName
               ref="dropdown"
               :label-first="dropdownLabel"
+              :dropdown-type="'학부'"
               @get-label="selectBankName"
             />
           </div>
@@ -1135,7 +1137,8 @@ export default {
       inputImg: [],
       files: [],
       isImgUploadEnough: false,
-      dropdownLabel: '학부'
+      dropdownLabel: '학부',
+      isNuxtReady: false
     }
   },
   mounted() {
@@ -1196,7 +1199,7 @@ export default {
           this.nullCheck(this.applyParams.myAge) &&
           this.nullCheck(this.applyParams.department) &&
           this.applyParams.name.length > 0 &&
-          this.applyParams.myAge.length > 0 &&
+          this.applyParams.myAge > 0 &&
           this.applyParams.department.length > 0
       } else if (stage === 2) {
         if (this.type === 'date') {
@@ -1268,31 +1271,17 @@ export default {
         }
       }
 
+      this.$nextTick(() => {
+        if (this.$refs.dropdown !== undefined) {
+          const majorItem = this.majorList.filter((item) => {
+            return item.code === this.applyParams.department
+          })[0]
+          this.dropdownLabel = majorItem.majorName
+          this.$refs.dropdown.parentId = majorItem.majorId
+        }
+      })
+
       this.checkIsNextActive(this.curStage)
-
-      // 드롭다운 이전으로 갈 때 에러 수정하는 부분
-      // if (this.curStage === 2 && addNum === -1 && this.type === 'date') {
-      //   this.dropdownLabel = this.$store.state.sharedData.department
-      // if (
-      //   this.$store.state.sharedData !== null &&
-      //   this.$store.state.sharedData.department !== ''
-      // ) {
-      //   const item = {
-      //     id: 0,
-      //     name: ''
-      //   }
-      //   const majorItem = this.majorList.filter((item) => {
-      //     return item.majorName === this.$store.state.sharedData.department
-      //   })[0]
-      //   item.id = majorItem.majorId
-      //   item.name = majorItem.majorName
-
-      //   setTimeout(() => {
-      //     console.log(this.$refs.dropdown.print())
-      //     this.$refs.dropdown.parentId = item.id
-      //   }, 1000)
-      // }
-      // }
     },
     // 사진 선택
     onFileChange(event) {
