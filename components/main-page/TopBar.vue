@@ -246,16 +246,7 @@ export default {
       this.isMainPage = false
     }
 
-    // 한대소 관련 판별
-    // 1. 한대소를 지원 O
-    //    1-1. 친구탭인지
-    //      1-1-1. 정보 입력 아직 ---> 정보 입력 버튼 O
-    //      1-1-2. 정보 입력 완료 ---> 정보 입력 버튼 X
-    //    1-2. 연애탭인지
-    //      1-1-1. 정보 입력 아직 ---> 정보 입력 버튼 O
-    //      1-1-2. 정보 입력 완료 ---> 정보 입력 버튼 X
-    // 2. 한대소 지원 X --> 정보 입력 버튼 X
-    if (this.$store.state.userInfo.token) {
+    if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
       // 1. 한대소를 지원했는지?
       this.$axios
         .get(`${process.env.apiUrl}/v2/blind-date/fee/confirm?season=2`, {
@@ -266,22 +257,7 @@ export default {
         })
         .then((res) => {
           this.isPaymentUser = res.data
-          // 1-1. 친구탭인지
-          // this.$axios
-          //   .get(
-          //     `${process.env.apiUrl}/v2/friend-meeting/participation?season=2`,
-          //     {
-          //       headers: {
-          //         'Content-Type': 'application/json',
-          //         Authorization: this.$store.state.userInfo.token
-          //       }
-          //     }
-          //   )
-          //   .then((res) => {
-          //     this.applyType = res.data ? 'friend' : ''
-          //   })
 
-          // 1-2. 연애탭인지
           this.$axios
             .get(`${process.env.apiUrl}/v2/blind-date/participation?season=2`, {
               headers: {
@@ -348,11 +324,6 @@ export default {
       this.$router.push(`/blind-date/matching`)
     },
     moveApplyOrProceedingPage() {
-      // if (this.isApplyFinishUser) {
-      //   this.$router.push('/blind-date/proceeding')
-      // } else {
-      //   this.$router.push('/blind-date/apply/intro')
-      // }
       this.$router.push({
         name: 'blind-date-apply-intro',
         params: { type: this.applyType }

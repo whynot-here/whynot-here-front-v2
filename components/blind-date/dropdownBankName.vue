@@ -106,7 +106,6 @@ export default {
       }
     },
     selectOptionMain(item) {
-      console.log(item)
       document.querySelector(`.${this.labelFirst}`).innerHTML = item.name + ''
       document.querySelector(`.${this.labelFirst}`).style.color = '#000'
       this.selectedBankNameId = item.id

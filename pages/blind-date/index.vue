@@ -67,33 +67,6 @@
         </div>
       </div>
       <div class="swiper-pagination"></div>
-      <!-- <section class="middle">
-        <div class="middle-img">
-          <img class="img_01" src="@/assets/img/blind-date/notice_01.png" alt="" />
-        </div>
-        <div class="desc _01">본 이벤트는,</div>
-        <div class="desc _02">
-          <div class="left">09.11 ~ 09.15 (5일간)</div>
-          <div class="right">진행되고,</div>
-        </div>
-        <div class="desc _03">
-          <div class="left">한동대 학생들 (재학중)</div>
-          <div class="right">참여 가능합니다.</div>
-        </div>
-        <div></div>
-      </section> -->
-      <!-- <section class="middle">
-        <div class="middle-img">
-          <img
-            class="img_02"
-            src="@/assets/img/blind-date/notice_02.png"
-            alt=""
-          />
-        </div>
-        <div class="desc _04">시작하기 위해서 학생증 인증이 필요해요</div>
-        <div class="auth-btn">학생증 인증하기</div>
-        <div></div>
-      </section> -->
     </div>
     <div v-if="!isFeeConfirm">
       <EmptyPosting :blind-date="true" />
@@ -121,25 +94,7 @@ export default {
         pagination: {
           el: '.swiper-pagination',
           clickable: true
-          // dynamicBullets: true,
-          // dynamicMainBullets: 2
         }
-        // breakpoints: {
-        //   // when window width is >= 480px
-        //   480: {
-        //     slidesPerView: 2,
-        //     spaceBetween: 10
-        //   },
-        //   // when window width is >= 640px
-        //   640: {
-        //     slidesPerView: 3,
-        //     spaceBetween: 20
-        //   },
-        //   1264: {
-        //     slidesPerView: 4,
-        //     spaceBetween: 30
-        //   }
-        // }
       },
       isFeeConfirm: true
     }

@@ -736,7 +736,6 @@ const common = {
                   }
                 )
                 .then((res) => {
-                  console.log(res.data)
                   if (!res.data) {
                     resolve('NO')
                   }
