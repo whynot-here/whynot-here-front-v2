@@ -15,21 +15,22 @@
       </div>
       <div v-if="!isAuthComplete" class="m-authpage-middle">
         <div class="title">학교 인증</div>
-        <div class="description">
-          <strong>한동대학교 스마트캠퍼스 앱</strong>을 연 후
-          <strong>이름, 학번</strong>이 나오도록 사진을 찍어주세요
-        </div>
+        <div class="description">카카오톡 - 더보기 - 톡학생증 앞/뒤 캡쳐</div>
         <section class="img-upload">
           <div v-if="currentStep == 1" class="step1">
             <div class="upload-ex">
-              <img src="@/assets/img/auth/auth-example.png" alt="" />
+              <img
+                src="@/assets/img/auth/kakao-student-card-ex-01.png"
+                alt=""
+              />
             </div>
-            <div class="upload-desc">예시 사진</div>
+            <div class="upload-desc">예시 사진 앞/뒤</div>
           </div>
           <div v-if="currentStep == 2 || currentStep == 3" class="step2">
             <div class="upload-img">
-              <div>
+              <div class="upload-img-btn-wrp">
                 <img src="@/assets/img/auth/add-btn.png" alt="" />
+                <div class="upload-img-desc">(앞면)</div>
               </div>
             </div>
             <b-form-group id="fileInput" class="authpage">
@@ -42,6 +43,27 @@
               <div id="Images">
                 <div v-for="(image, idx) in inputImg" :key="idx">
                   <b-img thumbnail :src="inputImg[0].prev_url" class="obj" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="currentStep == 2 || currentStep == 3" class="step2">
+            <div class="upload-img">
+              <div class="upload-img-btn-wrp">
+                <img src="@/assets/img/auth/add-btn.png" alt="" />
+                <div class="upload-img-desc">(뒷면)</div>
+              </div>
+            </div>
+            <b-form-group id="fileInput" class="authpage">
+              <b-form-file
+                accept="image/jpeg, image/png, image/gif"
+                @change="onFileChange"
+              ></b-form-file>
+            </b-form-group>
+            <div v-if="inputImg && inputImg.length > 0" class="img-grp">
+              <div id="Images">
+                <div v-for="(image, idx) in inputImg" :key="idx">
+                  <b-img thumbnail :src="inputImg[1].prev_url" class="obj" />
                 </div>
               </div>
             </div>
@@ -158,9 +180,9 @@ export default {
     }
   },
   mounted() {
-    const token = this.$route.query.token;
+    const token = this.$route.query.token
     if (token != null) {
-      this.updateDeviceToken(token);
+      this.updateDeviceToken(token)
     }
 
     this.getMyAuthImg().then(() => {
@@ -170,7 +192,7 @@ export default {
   methods: {
     async getMyAuthImg() {
       await this.$axios
-        .get(`${process.env.apiUrl}/v2/student/img`, {
+        .get(`${process.env.apiUrl}/v2/student/img-kakao`, {
           withCredentials: true,
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -270,7 +292,7 @@ export default {
     registerAuthImgUrl() {
       this.$axios
         .post(
-          `${process.env.apiUrl}/v2/student/request-auth`,
+          `${process.env.apiUrl}/v2/student/request-auth-kakao`,
           {
             imgUrl: this.inputAuthImg
           },
@@ -303,7 +325,7 @@ export default {
     editAuthImgUrl() {
       this.$axios
         .put(
-          `${process.env.apiUrl}/v2/student/request-auth`,
+          `${process.env.apiUrl}/v2/student/request-auth-kakao`,
           {
             imgUrl: this.inputAuthImg
           },
@@ -335,19 +357,18 @@ export default {
         })
     },
     updateDeviceToken(token) {
-      this.$axios
-      .put(
+      this.$axios.put(
         `${process.env.apiUrl}/v2/account/device-token`,
-          {
-            token
-          },
-          {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: this.$store.state.userInfo.token
-            }
+        {
+          token
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
           }
+        }
       )
     }
   }
@@ -395,21 +416,19 @@ export default {
         }
       }
       .img-upload {
-        text-align: center;
+        height: max-content;
+        padding-bottom: 100px;
         .step1 {
           .upload-ex {
             margin-top: 40px;
-            background: rgba(252, 252, 252, 0.919);
-            border: 1px solid #e7e7e7;
-            box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
-              0px 8px 16px rgba(0, 52, 138, 0.08);
-            border-radius: 12px;
+            height: 340px;
+            text-align: center;
             img {
-              width: 205px;
-              height: 339px;
+              height: 340px;
             }
           }
           .upload-desc {
+            text-align: center;
             padding-top: 13px;
             color: #a3a3a3;
             font-weight: 500;
@@ -417,15 +436,16 @@ export default {
           }
         }
         .step2 {
-          height: 340px;
+          height: 320px;
           margin-top: 40px;
           background: rgba(252, 252, 252, 0.919);
           border: 1px solid #e7e7e7;
           box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
             0px 8px 16px rgba(0, 52, 138, 0.08);
           border-radius: 12px;
+          text-align: center;
           .upload-img {
-            div {
+            .upload-img-btn-wrp {
               padding-top: 152px;
               img {
                 width: 40px;
@@ -442,10 +462,10 @@ export default {
             }
           }
           #Images {
-            margin-top: -347px;
+            // margin-top: -347px;
             .obj {
               max-width: 340px;
-              height: 340px;
+              height: 300px;
               border-radius: 12px;
               object-fit: contain;
             }

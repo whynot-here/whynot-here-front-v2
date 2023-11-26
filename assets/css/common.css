@@ -67,7 +67,7 @@ body {
 #fileInput.authpage {
   width: calc(100% - 40px);
   height: 300px;
-  margin-top: -180px;
+  margin-top: -370px !important;
   margin-bottom: 10px;
   opacity: 0;
   position: relative;
