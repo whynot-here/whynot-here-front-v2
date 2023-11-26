@@ -30,7 +30,6 @@
             <div class="upload-img">
               <div class="upload-img-btn-wrp">
                 <img src="@/assets/img/auth/add-btn.png" alt="" />
-                <div class="upload-img-desc">(앞면)</div>
               </div>
             </div>
             <b-form-group id="fileInput" class="authpage">
@@ -47,11 +46,11 @@
               </div>
             </div>
           </div>
+          <div class="upload-img-desc">앞면</div>
           <div v-if="currentStep == 2 || currentStep == 3" class="step2">
             <div class="upload-img">
               <div class="upload-img-btn-wrp">
                 <img src="@/assets/img/auth/add-btn.png" alt="" />
-                <div class="upload-img-desc">(뒷면)</div>
               </div>
             </div>
             <b-form-group id="fileInput" class="authpage">
@@ -68,6 +67,7 @@
               </div>
             </div>
           </div>
+          <div class="upload-img-desc">뒷면</div>
         </section>
         <section class="reg-btn">
           <div v-if="currentStep == 1" class="step1" @click="currentStep = 2">
@@ -407,10 +407,16 @@ export default {
         font-weight: 600;
       }
       .description {
-        padding-top: 12px;
-        font-size: 0.88rem;
         color: #0c2958;
-        line-height: 1.4;
+
+        font-family: Pretendard;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%; /* 19.6px */
+        letter-spacing: -0.07px;
+
+        padding-top: 12px;
         strong {
           font-weight: 500;
         }
@@ -420,7 +426,7 @@ export default {
         padding-bottom: 100px;
         .step1 {
           .upload-ex {
-            margin-top: 40px;
+            margin-top: 32px;
             height: 340px;
             text-align: center;
             img {
@@ -428,21 +434,23 @@ export default {
             }
           }
           .upload-desc {
-            text-align: center;
-            padding-top: 13px;
-            color: #a3a3a3;
+            padding-top: 16px;
+            color: var(--gray-50, #a3a3a3);
+            font-family: Pretendard;
+            font-size: 16px;
+            font-style: normal;
             font-weight: 500;
-            font-size: 1rem;
+            line-height: 150%; /* 24px */
+            letter-spacing: -0.08px;
+            text-align: center;
           }
         }
         .step2 {
-          height: 320px;
-          margin-top: 40px;
-          background: rgba(252, 252, 252, 0.919);
-          border: 1px solid #e7e7e7;
-          box-shadow: 0px 0px 4px rgba(0, 52, 138, 0.04),
-            0px 8px 16px rgba(0, 52, 138, 0.08);
           border-radius: 12px;
+          border: 1px solid var(--gray-20, #e7e7e7);
+          background: #fafafa;
+          height: 340px;
+          margin-top: 32px;
           text-align: center;
           .upload-img {
             .upload-img-btn-wrp {
@@ -473,6 +481,19 @@ export default {
           .edit {
             margin-top: 0px !important;
           }
+        }
+        .upload-img-desc {
+          padding-top: 16px;
+          color: #454545;
+
+          font-family: Pretendard;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 150%; /* 24px */
+          letter-spacing: -0.08px;
+
+          text-align: center;
         }
       }
       .reg-btn {
