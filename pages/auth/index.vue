@@ -15,7 +15,10 @@
       </div>
       <div v-if="!isAuthComplete" class="m-authpage-middle">
         <div class="title">학교 인증</div>
-        <div class="description">카카오톡 - 더보기 - 톡학생증 앞/뒤 캡쳐</div>
+        <div class="description">
+          카카오톡 - 더보기 - 톡학생증 앞/뒤 캡쳐 <br />
+          (재학생일 경우 대학생카드 / 졸업생일 경우 졸업생 카드)
+        </div>
         <section class="img-upload">
           <div v-if="currentStep == 1" class="step1">
             <div class="upload-ex">
@@ -26,63 +29,104 @@
             </div>
             <div class="upload-desc">예시 사진 앞/뒤</div>
           </div>
-          <div v-if="currentStep == 2 || currentStep == 3" class="step2">
-            <div class="upload-img">
-              <div class="upload-img-btn-wrp">
-                <img src="@/assets/img/auth/add-btn.png" alt="" />
-              </div>
-            </div>
-            <b-form-group id="fileInput" class="authpage">
-              <b-form-file
-                accept="image/jpeg, image/png, image/gif"
-                @change="onFileChange"
-              ></b-form-file>
-            </b-form-group>
-            <div v-if="inputImg && inputImg.length > 0" class="img-grp">
-              <div id="Images">
-                <div v-for="(image, idx) in inputImg" :key="idx">
-                  <b-img thumbnail :src="inputImg[0].prev_url" class="obj" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="upload-img-desc">앞면</div>
-          <div v-if="currentStep == 2 || currentStep == 3" class="step2">
-            <div class="upload-img">
-              <div class="upload-img-btn-wrp">
-                <img src="@/assets/img/auth/add-btn.png" alt="" />
-              </div>
-            </div>
-            <b-form-group id="fileInput" class="authpage">
-              <b-form-file
-                accept="image/jpeg, image/png, image/gif"
-                @change="onFileChange"
-              ></b-form-file>
-            </b-form-group>
-            <div v-if="inputImg && inputImg.length > 0" class="img-grp">
-              <div id="Images">
-                <div v-for="(image, idx) in inputImg" :key="idx">
-                  <b-img thumbnail :src="inputImg[1].prev_url" class="obj" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="upload-img-desc">뒷면</div>
-        </section>
-        <section class="reg-btn">
-          <div v-if="currentStep == 1" class="step1" @click="currentStep = 2">
-            확인 했어요
-          </div>
-          <div v-if="currentStep == 2" class="step2">인증 완료하기</div>
           <div
-            v-if="currentStep == 3"
-            class="step3"
-            @click="authComplete({ type: 'register' })"
+            v-if="currentStep == 2 || currentStep == 3"
+            :class="inputImgFront.length > 0 ? 'step2 empty' : 'step2'"
           >
-            인증 완료하기
+            <div class="upload-img">
+              <div class="upload-img-btn-wrp">
+                <img src="@/assets/img/auth/add-btn.png" alt="" />
+              </div>
+            </div>
+            <b-form-group id="fileInput" class="authpage">
+              <b-form-file
+                accept="image/jpeg, image/png, image/gif"
+                @change="onFileChangeFront"
+              ></b-form-file>
+            </b-form-group>
+            <div
+              v-if="inputImgFront && inputImgFront.length > 0"
+              class="img-grp"
+            >
+              <div id="Images">
+                <div>
+                  <b-img
+                    thumbnail
+                    :src="inputImgFront[0].prev_url"
+                    class="obj"
+                  />
+                </div>
+                <div>
+                  <img
+                    src="@/assets/img/auth/auth-img-edit.png"
+                    alt=""
+                    class="edit-btn"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            v-if="currentStep == 2 || currentStep == 3"
+            class="upload-img-desc"
+          >
+            앞면
+          </div>
+          <div
+            v-if="currentStep == 2 || currentStep == 3"
+            :class="inputImgBack.length > 0 ? 'step2 empty' : 'step2'"
+          >
+            <div class="upload-img">
+              <div class="upload-img-btn-wrp">
+                <img src="@/assets/img/auth/add-btn.png" alt="" />
+              </div>
+            </div>
+            <b-form-group id="fileInput" class="authpage">
+              <b-form-file
+                accept="image/jpeg, image/png, image/gif"
+                @change="onFileChangeBack"
+              ></b-form-file>
+            </b-form-group>
+            <div v-if="inputImgBack && inputImgBack.length > 0" class="img-grp">
+              <div id="Images">
+                <div>
+                  <b-img
+                    thumbnail
+                    :src="inputImgBack[0].prev_url"
+                    class="obj"
+                  />
+                  <div>
+                    <img
+                      src="@/assets/img/auth/auth-img-edit.png"
+                      alt=""
+                      class="edit-btn"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            v-if="currentStep == 2 || currentStep == 3"
+            class="upload-img-desc"
+          >
+            뒷면
           </div>
         </section>
       </div>
+      <section v-if="!isAuthComplete" class="reg-btn">
+        <div v-if="currentStep == 1" class="step1" @click="currentStep = 2">
+          확인 했어요
+        </div>
+        <div v-if="currentStep == 2" class="step2">인증 완료하기</div>
+        <div
+          v-if="currentStep == 3"
+          class="step3"
+          @click="authComplete({ type: 'register' })"
+        >
+          인증 완료하기
+        </div>
+      </section>
       <div v-else-if="alreadyComplete" class="m-authpage-middle">
         <div class="title">학교 인증</div>
         <div v-if="!imgAuthenticated" class="description">
@@ -92,7 +136,7 @@
         <div v-else class="description">학교 인증이 완료되었습니다.</div>
         <section class="img-upload">
           <div class="step2">
-            <div v-if="inputImg.length === 0" class="uploaded-img">
+            <div v-if="inputImgFront.length === 0" class="uploaded-img">
               <div>
                 <img :src="inputAuthImg" alt="" />
               </div>
@@ -100,13 +144,20 @@
             <b-form-group id="fileInput" class="authpage authpage-edit">
               <b-form-file
                 accept="image/jpeg, image/png, image/gif"
-                @change="onFileChange"
+                @change="onFileChangeFront"
               ></b-form-file>
             </b-form-group>
-            <div v-if="inputImg && inputImg.length > 0" class="img-grp">
+            <div
+              v-if="inputImgFront && inputImgFront.length > 0"
+              class="img-grp"
+            >
               <div id="Images" class="edit">
-                <div v-for="(image, idx) in inputImg" :key="idx">
-                  <b-img thumbnail :src="inputImg[0].prev_url" class="obj" />
+                <div v-for="(image, idx) in inputImgFront" :key="idx">
+                  <b-img
+                    thumbnail
+                    :src="inputImgFront[0].prev_url"
+                    class="obj"
+                  />
                 </div>
               </div>
             </div>
@@ -161,9 +212,12 @@ export default {
       alreadyComplete: false,
       imgAuthenticated: false,
       currentStep: 1,
-      files: [],
-      inputImg: [],
-      inputAuthImg: '',
+      filesFront: [],
+      filesBack: [],
+      inputImgFront: [],
+      inputImgBack: [],
+      inputAuthImgFront: '',
+      inputAuthImgBack: '',
       dir: '',
       isLoading: true
     }
@@ -228,73 +282,141 @@ export default {
         })
     },
     // 사진 선택
-    onFileChange(event) {
+    onFileChangeFront(event) {
       const input = event.target.files
       if (input.length > 0) {
         for (let i = 0; i < input.length; i++) {
           const fileReader = new FileReader()
           fileReader.onload = (e) => {
-            this.inputImg.push({
+            this.inputImgFront = []
+            this.inputImgFront.push({
               prev_url: e.target.result,
               isNew: true
             })
+            if (this.inputImgFront.length > 0 && this.inputImgBack.length > 0) {
+              this.currentStep = 3
+            }
           }
           fileReader.readAsDataURL(input[i])
-          this.files.push(input[i])
+          this.filesFront = []
+          this.filesFront.push(input[i])
         }
         event.target.value = ''
       }
-      this.currentStep = 3
+    },
+    onFileChangeBack(event) {
+      const input = event.target.files
+      if (input.length > 0) {
+        for (let i = 0; i < input.length; i++) {
+          const fileReader = new FileReader()
+          fileReader.onload = (e) => {
+            this.inputImgBack = []
+            this.inputImgBack.push({
+              prev_url: e.target.result,
+              isNew: true
+            })
+            if (this.inputImgFront.length > 0 && this.inputImgBack.length > 0) {
+              this.currentStep = 3
+            }
+          }
+          fileReader.readAsDataURL(input[i])
+          this.filesBack = []
+          this.filesBack.push(input[i])
+        }
+        event.target.value = ''
+      }
     },
     authComplete({ type }) {
-      const formData = new FormData()
-      formData.append('images', this.files[0])
-
-      const cur = new Date()
-      const year = (cur.getFullYear() + '').substring(2)
-      const month = cur.getMonth() + 1 + ''
-      this.dir = 'auth-' + year + '-' + month
-
-      this.registerAuthImg({
-        formData,
-        callback:
-          type === 'register' ? this.registerAuthImgUrl : this.editAuthImgUrl
+      // api 서버에 url 저장
+      Promise.all([
+        this.registerAuthImgFront(),
+        this.registerAuthImgBack()
+      ]).then((result) => {
+        console.log(result)
+        this.registerAuthImgUrl()
       })
     },
-    registerAuthImg({ formData, callback }) {
-      this.$axios
-        .post(`${process.env.apiUrl}/images/${this.dir}`, formData, {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {
-          this.inputAuthImg = res.data.url
-          this.files = []
-          this.inputImg = []
-          callback()
-        })
-        .catch((error) => {
-          this.cmn_openAlertPopup({
-            option: {
-              title: '📣 알림',
-              content: error,
-              type: 'alert',
-              confirmText: '확인',
-              cancelText: ''
+    registerAuthImgFront() {
+      return new Promise((resolve, reject) => {
+        // 학생증 앞면 사진 저장
+        const formDataFront = new FormData()
+        formDataFront.append('images', this.filesFront[0])
+        const cur = new Date()
+        const year = (cur.getFullYear() + '').substring(2)
+        const month = cur.getMonth() + 1 + ''
+        this.dir = 'auth-' + year + '-' + month
+        this.$axios
+          .post(`${process.env.apiUrl}/images/${this.dir}`, formDataFront, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: this.$store.state.userInfo.token
             }
           })
-          return false
-        })
+          .then((res) => {
+            this.inputAuthImgFront = res.data.url
+            this.inputImgFront = []
+            this.filesFront = []
+            resolve('UPLOAD_COMPLETE')
+          })
+          .catch((error) => {
+            this.cmn_openAlertPopup({
+              option: {
+                title: '📣 알림',
+                content: error,
+                type: 'alert',
+                confirmText: '확인',
+                cancelText: ''
+              }
+            })
+            reject(error)
+          })
+      })
+    },
+    registerAuthImgBack() {
+      return new Promise((resolve, reject) => {
+        // 학생증 뒷면 사진 저장
+        const formDataBack = new FormData()
+        formDataBack.append('images', this.filesBack[0])
+        const cur = new Date()
+        const year = (cur.getFullYear() + '').substring(2)
+        const month = cur.getMonth() + 1 + ''
+        this.dir = 'auth-' + year + '-' + month
+        return this.$axios
+          .post(`${process.env.apiUrl}/images/${this.dir}`, formDataBack, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: this.$store.state.userInfo.token
+            }
+          })
+          .then((res) => {
+            this.inputAuthImgBack = res.data.url
+            this.inputImgBack = []
+            this.filesBack = []
+            resolve('UPLOAD_COMPLETE')
+          })
+          .catch((error) => {
+            this.cmn_openAlertPopup({
+              option: {
+                title: '📣 알림',
+                content: error,
+                type: 'alert',
+                confirmText: '확인',
+                cancelText: ''
+              }
+            })
+            reject(error)
+          })
+      })
     },
     registerAuthImgUrl() {
       this.$axios
         .post(
           `${process.env.apiUrl}/v2/student/request-auth-kakao`,
           {
-            imgUrl: this.inputAuthImg
+            imgUrl: this.inputAuthImgFront,
+            backImgUrl: this.inputAuthImgBack
           },
           {
             withCredentials: true,
@@ -313,8 +435,7 @@ export default {
           this.cmn_openAlertPopup({
             option: {
               title: '📣 알림',
-              content:
-                '기존에 신청한 인증을 처리 중입니다! 기존 인증 이후 24시간이 지나도 인증이 안되었을 경우 WHYNOT 이메일로 문의주세요!',
+              content: error,
               type: 'alert',
               confirmText: '확인',
               cancelText: ''
@@ -378,6 +499,9 @@ export default {
 <style lang="scss" scoped>
 #AuthPage {
   .m-authpage-wrp {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
     .m-authpage-header {
       height: 60px;
       line-height: 60px;
@@ -399,9 +523,12 @@ export default {
       }
     }
     .m-authpage-middle {
-      height: calc(100vh - 140px);
-      padding: 8px 20px 24px 20px;
+      // height: calc(100vh - 140px);
+
+      flex-grow: 1;
+      padding: 8px 0px 24px 0px;
       .title {
+        padding: 0 20px;
         color: #14428d;
         font-size: 1.5rem;
         font-weight: 600;
@@ -416,14 +543,14 @@ export default {
         line-height: 140%; /* 19.6px */
         letter-spacing: -0.07px;
 
-        padding-top: 12px;
+        padding: 12px 20px 0 20px;
         strong {
           font-weight: 500;
         }
       }
       .img-upload {
-        height: max-content;
-        padding-bottom: 100px;
+        // padding-bottom: 100px;
+        padding: 0 20px;
         .step1 {
           .upload-ex {
             margin-top: 32px;
@@ -449,12 +576,15 @@ export default {
           border-radius: 12px;
           border: 1px solid var(--gray-20, #e7e7e7);
           background: #fafafa;
-          height: 340px;
+          height: 360px;
           margin-top: 32px;
           text-align: center;
+          &.empty {
+            background-color: #1f1f1f;
+          }
           .upload-img {
             .upload-img-btn-wrp {
-              padding-top: 152px;
+              padding-top: 162px;
               img {
                 width: 40px;
                 height: 40px;
@@ -470,12 +600,15 @@ export default {
             }
           }
           #Images {
-            // margin-top: -347px;
+            margin-top: -347px;
             .obj {
               max-width: 340px;
               height: 300px;
               border-radius: 12px;
               object-fit: contain;
+            }
+            .edit-btn {
+              width: 127px;
             }
           }
           .edit {
@@ -496,28 +629,30 @@ export default {
           text-align: center;
         }
       }
-      .reg-btn {
-        position: fixed;
-        width: calc(100% - 40px);
-        height: 50px;
-        line-height: 50px;
-        font-size: 1rem;
-        font-weight: 500;
-        text-align: center;
-        bottom: 24px;
-        color: #fff;
-        .step1 {
-          background-color: #3e82f1;
-          border-radius: 8px;
-        }
-        .step2 {
-          background-color: #d9d9d9;
-          border-radius: 8px;
-        }
-        .step3 {
-          background-color: #f7a62c;
-          border-radius: 8px;
-        }
+    }
+    .reg-btn {
+      // position: fixed;
+      // width: calc(100% - 40px);
+      height: 50px;
+      margin-bottom: 20px;
+      padding: 0 20px;
+      line-height: 50px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: center;
+      // bottom: 24px;
+      color: #fff;
+      .step1 {
+        background-color: #3e82f1;
+        border-radius: 8px;
+      }
+      .step2 {
+        background-color: #d9d9d9;
+        border-radius: 8px;
+      }
+      .step3 {
+        background-color: #3e82f1;
+        border-radius: 8px;
       }
     }
     .m-authpage-complete {
