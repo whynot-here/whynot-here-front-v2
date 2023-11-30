@@ -181,10 +181,15 @@
       </div>
       <div v-else>
         <section class="m-authpage-complete">
-          <div class="notice">인증 검토 중이에요</div>
+          <div class="notice">
+            <div class="auth-complete-wrp">
+              <img src="@/assets/img/auth/auth-complete.png" alt="" />
+            </div>
+            학생증 인증 완료까지<br />
+            <strong style="color: #6254f0">한시간 정도</strong> 소요됩니다.
+          </div>
           <div class="notice-sub">
-            인증이 완료되고 나면 WHN 어플을 자유롭게<br />
-            사용할 수 있습니다.
+            인증이 완료되면 푸시알림으로 알려드려요 😀
           </div>
           <div class="go-main-btn" @click="cmn_goMainPage">홈화면으로 가기</div>
         </section>
@@ -660,10 +665,16 @@ export default {
 
       padding: 0 20px 0 20px;
       .notice {
-        padding-top: 278px;
+        padding-top: 120px;
         color: #14428d;
         font-size: 1.5rem;
         font-weight: 600;
+        .auth-complete-wrp {
+          img {
+            width: 120px;
+            margin-bottom: 30px;
+          }
+        }
       }
       .notice-sub {
         padding-top: 16px;
