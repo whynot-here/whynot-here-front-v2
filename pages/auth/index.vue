@@ -138,7 +138,7 @@
           <div class="step2">
             <div v-if="inputImgFront.length === 0" class="uploaded-img">
               <div>
-                <img :src="inputAuthImg" alt="" />
+                <img :src="inputAuthImgFront" alt="" />
               </div>
             </div>
             <b-form-group id="fileInput" class="authpage authpage-edit">
@@ -156,6 +156,30 @@
                   <b-img
                     thumbnail
                     :src="inputImgFront[0].prev_url"
+                    class="obj"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="step2">
+            <div v-if="inputImgBack.length === 0" class="uploaded-img">
+              <div>
+                <img :src="inputAuthImgBack" alt="" />
+              </div>
+            </div>
+            <b-form-group id="fileInput" class="authpage authpage-edit">
+              <b-form-file
+                accept="image/jpeg, image/png, image/gif"
+                @change="onFileChangeBack"
+              ></b-form-file>
+            </b-form-group>
+            <div v-if="inputImgBack && inputImgBack.length > 0" class="img-grp">
+              <div id="Images" class="edit">
+                <div v-for="(image, idx) in inputImgBack" :key="idx">
+                  <b-img
+                    thumbnail
+                    :src="inputImgBack[0].prev_url"
                     class="obj"
                   />
                 </div>
@@ -263,7 +287,8 @@ export default {
             if (res.data.imgUrl.length > 0) {
               this.alreadyComplete = true
               this.isAuthComplete = true
-              this.inputAuthImg = res.data.imgUrl
+              this.inputAuthImgFront = res.data.imgUrl
+              this.inputAuthImgBack = res.data.backImgUrl
               this.imgAuthenticated = res.data.authenticated
               if (!this.imgAuthenticated) {
                 this.currentStep = 2
@@ -298,8 +323,21 @@ export default {
               prev_url: e.target.result,
               isNew: true
             })
-            if (this.inputImgFront.length > 0 && this.inputImgBack.length > 0) {
-              this.currentStep = 3
+            if (!this.imgAuthenticated) {
+              if (
+                this.inputImgFront.length > 0 ||
+                this.inputImgBack.length > 0
+              ) {
+                this.currentStep = 3
+              }
+            } else {
+              console.log('hihi')
+              if (
+                this.inputImgFront.length > 0 &&
+                this.inputImgBack.length > 0
+              ) {
+                this.currentStep = 3
+              }
             }
           }
           fileReader.readAsDataURL(input[i])
@@ -320,8 +358,21 @@ export default {
               prev_url: e.target.result,
               isNew: true
             })
-            if (this.inputImgFront.length > 0 && this.inputImgBack.length > 0) {
-              this.currentStep = 3
+            if (!this.imgAuthenticated) {
+              if (
+                this.inputImgFront.length > 0 ||
+                this.inputImgBack.length > 0
+              ) {
+                this.currentStep = 3
+              }
+            } else {
+              console.log('hihi')
+              if (
+                this.inputImgFront.length > 0 &&
+                this.inputImgBack.length > 0
+              ) {
+                this.currentStep = 3
+              }
             }
           }
           fileReader.readAsDataURL(input[i])
