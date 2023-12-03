@@ -127,7 +127,7 @@
           인증 완료하기
         </div>
       </section>
-      <div v-else-if="alreadyComplete" class="m-authpage-middle">
+      <div v-else-if="isAuthEditPage" class="m-authpage-middle">
         <div class="title">학교 인증</div>
         <div v-if="!imgAuthenticated" class="description">
           빠른 시일 내로 학생증 인증을 완료해드리겠습니다. <br />
@@ -237,9 +237,10 @@ export default {
   },
   data() {
     return {
-      isAuthComplete: false,
-      alreadyComplete: false,
-      imgAuthenticated: false,
+      isAuthComplete: false, // 학교 인증 화면 내에서 사진 제출 여부
+      isAuthEditPage: false, // 학생증 수정 화면인지 여부
+      imgAuthenticated: false, // 관리자가 인증했는지 여부
+
       currentStep: 1,
       filesFront: [],
       filesBack: [],
@@ -285,7 +286,7 @@ export default {
         .then((res) => {
           if (res.data.imgUrl !== null) {
             if (res.data.imgUrl.length > 0) {
-              this.alreadyComplete = true
+              this.isAuthEditPage = true
               this.isAuthComplete = true
               this.inputAuthImgFront = res.data.imgUrl
               this.inputAuthImgBack = res.data.backImgUrl
@@ -323,15 +324,14 @@ export default {
               prev_url: e.target.result,
               isNew: true
             })
-            if (!this.imgAuthenticated) {
+            if (!this.imgAuthenticated && this.isAuthEditPage) {
               if (
                 this.inputImgFront.length > 0 ||
                 this.inputImgBack.length > 0
               ) {
                 this.currentStep = 3
               }
-            } else {
-              console.log('hihi')
+            } else if (!this.isAuthComplete && !this.isAuthEditPage) {
               if (
                 this.inputImgFront.length > 0 &&
                 this.inputImgBack.length > 0
@@ -358,15 +358,14 @@ export default {
               prev_url: e.target.result,
               isNew: true
             })
-            if (!this.imgAuthenticated) {
+            if (!this.imgAuthenticated && this.isAuthEditPage) {
               if (
                 this.inputImgFront.length > 0 ||
                 this.inputImgBack.length > 0
               ) {
                 this.currentStep = 3
               }
-            } else {
-              console.log('hihi')
+            } else if (!this.isAuthComplete && !this.isAuthEditPage) {
               if (
                 this.inputImgFront.length > 0 &&
                 this.inputImgBack.length > 0
@@ -383,14 +382,37 @@ export default {
       }
     },
     authComplete({ type }) {
-      // api 서버에 url 저장
-      Promise.all([
-        this.registerAuthImgFront(),
-        this.registerAuthImgBack()
-      ]).then((result) => {
-        console.log(result)
-        this.registerAuthImgUrl()
-      })
+      if (type === 'register') {
+        Promise.all([
+          this.registerAuthImgFront(),
+          this.registerAuthImgBack()
+        ]).then((result) => {
+          this.registerAuthImgUrl()
+        })
+      } else if (type === 'edit') {
+        if (this.inputImgFront.length > 0 && this.inputImgBack.length === 0) {
+          Promise.all([this.registerAuthImgFront()]).then((result) => {
+            this.editAuthImgUrl()
+          })
+        } else if (
+          this.inputImgFront.length === 0 &&
+          this.inputImgBack.length > 0
+        ) {
+          Promise.all([this.registerAuthImgBack()]).then((result) => {
+            this.editAuthImgUrl()
+          })
+        } else if (
+          this.inputImgFront.length > 0 &&
+          this.inputImgBack.length > 0
+        ) {
+          Promise.all([
+            this.registerAuthImgFront(),
+            this.registerAuthImgBack()
+          ]).then((result) => {
+            this.editAuthImgUrl()
+          })
+        }
+      }
     },
     registerAuthImgFront() {
       return new Promise((resolve, reject) => {
@@ -486,8 +508,6 @@ export default {
           this.isAuthComplete = true
         })
         .catch((error) => {
-          console.log(error)
-          // window.alert(error.response.data.message)
           this.cmn_openAlertPopup({
             option: {
               title: '📣 알림',
@@ -504,7 +524,8 @@ export default {
         .put(
           `${process.env.apiUrl}/v2/student/request-auth-kakao`,
           {
-            imgUrl: this.inputAuthImg
+            imgUrl: this.inputAuthImgFront,
+            backImgUrl: this.inputAuthImgBack
           },
           {
             withCredentials: true,
@@ -516,7 +537,7 @@ export default {
         )
         .then((res) => {
           this.isAuthComplete = true
-          this.alreadyComplete = false
+          this.isAuthEditPage = false
         })
         .catch((error) => {
           console.log(error)
