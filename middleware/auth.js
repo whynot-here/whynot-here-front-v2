@@ -7,7 +7,13 @@ export default function ({ params, query, route, store, redirect }) {
     '/login',
     '/blind-date/intro',
     '/blind-date/selection',
-    '/blind-date/fee'
+    '/blind-date/fee',
+    '/g-blind-date',
+    '/g-blind-date/intro',
+    '/g-blind-date/terms',
+    '/g-blind-date/fee',
+    '/g-blind-date/matching',
+    '/g-blind-date/proceeding',
   ]
 
   const isAuthenticatedPath = [
