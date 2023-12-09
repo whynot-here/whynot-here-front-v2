@@ -1,0 +1,428 @@
+@import '@/assets/scss/util.scss';
+
+#GIntroPage {
+  height: 100vh;
+
+  .top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 1);
+
+    .sized-box {
+      padding-left: 20px;
+      width: 24px;
+    }
+
+    .title {
+      font-family: Pretendard;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 18px;
+      letter-spacing: 0em;
+      text-align: center;
+      color: rgba(18, 22, 22, 1);
+    }
+
+    .m-close {
+      padding-right: 20px;
+      width: 24px;
+      img {
+        width: 24px;
+        height: 24px;
+      }
+
+      @include tablet {
+        top: 40px;
+        right: 40px;
+
+        img {
+          width: 35px;
+          height: 35px;
+        }
+      }
+    }
+  }
+
+  .status-board {
+    padding-top: 56px;  // top-bar 고정을 위한 top-bar height만큼 padding
+    height: 159px;
+    background-color: rgb(243, 244, 249);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+      margin: 0px 23px;
+      height: 63px;
+      padding: 24px 20px;
+      border-radius: 12px;
+      gap: 10px;
+      background-color: rgba(255, 255, 255, 1);
+      border: 1px solid rgba(231, 231, 231, 1);
+
+      .period {
+        width: max-content;
+        padding: 1px 8px;
+        background-color: rgba(44, 56, 73, 1);
+        border-radius: 5px;
+
+        font-family: Pretendard;
+        font-size: 14px;
+        line-height: 28px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: rgba(255, 255, 255, 1);
+
+        .bold {
+          font-weight: 600;
+        }
+      }
+
+      .apply-cnt {
+        color: var(--gray-80, #454545);
+        font-family: Pretendard;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        strong {
+          color: #296cdb;
+          font-family: Pretendard;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: normal;
+        }
+      }
+    }
+
+  }
+
+  .team-intro {
+    height: 153px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+    font-family: Pretendard;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: rgba(46, 51, 72, 1);
+
+    .blue {
+      color: rgba(98, 84, 240, 1);
+    }
+  }
+
+  .saying {
+    .saying-img {
+      width: 100%;
+    }
+  }
+
+  .paragraph1 {
+    height: 300px;
+
+    .container {
+      padding: 45px 20px;
+
+      .paragraph1-img {
+        width: 60px;
+      }
+  
+      .title {
+        font-family: Pretendard;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 14px;
+        letter-spacing: 0em;
+        text-align: left;
+        padding-top: 20px;
+        padding-bottom: 25px;
+  
+        .bold {
+          font-weight: 700;
+        }
+      }
+  
+      .desc {
+        font-family: Pretendard;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 22px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: rgba(69, 69, 69, 1);
+      }
+    }
+  }
+
+  .paragraph2 {
+    height: 300px;
+    background-color: rgb(243, 244, 249);
+
+    .container {
+      padding: 45px 20px;
+
+      .paragraph1-img {
+        width: 60px;
+      }
+  
+      .title {
+        font-family: Pretendard;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 14px;
+        letter-spacing: 0em;
+        text-align: left;
+        padding-top: 20px;
+        padding-bottom: 25px;
+  
+        .bold {
+          font-weight: 700;
+        }
+      }
+  
+      .desc {
+        font-family: Pretendard;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 22px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: rgba(69, 69, 69, 1);
+      }
+    }
+  }
+
+  .season1 {
+    height: 340px;
+
+    .container {
+      padding: 45px 25px;
+
+      .stats-box {
+        background-color: rgb(243, 244, 249);
+        padding: 15px 20px;
+
+        .line1 {
+          font-family: Pretendard;
+          font-size: 13px;
+          font-weight: 500;
+          line-height: 18px;
+          letter-spacing: 0em;
+          color: rgba(79, 79, 79, 1);
+        }
+
+        .line2 {
+          font-family: Pretendard;
+          font-size: 20px;
+          font-weight: 700;
+          line-height: 26px;
+          letter-spacing: 0em;
+          color: rgba(98, 84, 240, 1);
+        }
+      }
+
+      .title {
+        font-family: Pretendard;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0em;
+        text-align: left;
+        padding-top: 20px;
+        padding-bottom: 25px;
+  
+        .bold {
+          font-weight: 700;
+        }
+      }
+  
+      .desc {
+        font-family: Pretendard;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 22px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: rgba(69, 69, 69, 1);
+      }
+    }
+  }
+
+  .saying2 {
+    .saying2-img {
+      width: 100%;
+    }
+  }
+
+  .store {
+    height: 228px;
+    
+    .container {
+      padding: 30px 20px;
+
+      .bottom-wrp {
+        .btn {
+          display: flex;
+          width: calc(100% - 18px);
+          height: 52px;
+          line-height: 52px;
+          border-radius: 4px;
+          border: 1px solid #daeaff;
+          background: #fff;
+          padding-left: 18px;
+          margin-bottom: 12px;
+          color: #414c5b;
+          font-family: Pretendard;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 600;
+          .btn-title {
+            flex-grow: 1;
+          }
+          .img-wrp {
+            padding-right: 14px;
+            .playstore {
+              width: 40px;
+              height: 40px;
+              margin-top: 6px;
+            }
+            .appstore {
+              width: 24px;
+              height: 24px;
+              margin-right: 4px;
+              margin-top: 15px;
+            }
+          }
+        }
+        .link-wrp {
+          margin-top: 24px;
+          display: flex;
+          .left {
+            flex-grow: 1;
+            padding-left: 8px;
+            color: #737373;
+            font-family: Pretendard;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 24px;
+          }
+          .right {
+            a {
+              padding-right: 9px;
+              color: #3e82f1;
+              font-family: Pretendard;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: 24px;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+
+    
+  }
+
+  .caution {
+    height: 166px;
+    padding-bottom: 61px;  // footer 고정을 위한 footer height만큼 padding
+    background-color: rgb(243, 244, 249);
+
+    .container {
+      padding: 35px 20px;
+
+      .title {
+        font-family: Pretendard;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 14px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: rgba(0, 0, 0, 1);
+        padding-bottom: 10px;
+      }
+
+      .desc {
+        font-family: Pretendard;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: rgba(105, 107, 108, 1);
+
+        .line {
+          padding: 0px 20px;
+          text-indent: -20px;
+
+          .bold {
+            font-weight: 700;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    width: 100%;
+    
+    .btn {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      line-height: 52px;
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .btn-need-auth {
+      background-color: rgba(255, 255, 255, 1);
+      color: rgba(93, 80, 225, 1);
+      border: 1px solid rgba(93, 80, 225, 1);
+    }
+
+    .btn-comming-soon {
+      background-color: rgba(93, 80, 225, 0.35);
+      color: rgba(255, 255, 255, 1);
+
+      font-family: Pretendard;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 52px;
+      letter-spacing: 0em;
+      text-align: center;
+    }
+
+    .btn-apply {
+      background-color: rgba(93, 80, 225, 1);
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+}
