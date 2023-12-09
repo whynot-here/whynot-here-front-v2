@@ -16,15 +16,6 @@
         <img :src="curStageInfoDate[curStage - 1].imgUrl" alt="" />
       </div>
     </div>
-    <div v-if="type === 'friend'" class="proceed">
-      <div class="info">
-        <div class="stage-text">{{ curStage }}/3</div>
-        <div class="title">{{ curStageInfoFriend[curStage - 1].title }}</div>
-      </div>
-      <div class="stage-img">
-        <img :src="curStageInfoFriend[curStage - 1].imgUrl" alt="" />
-      </div>
-    </div>
     <section v-if="type === 'date'" class="content">
       <section v-if="curStage === 1" class="form">
         <div class="stage_01_top">
@@ -194,7 +185,7 @@
                 "
                 @click="applyParams.faith = 'NOTHING'"
               >
-                안 믿음
+                무교
               </div>
               <div
                 :class="
@@ -205,6 +196,28 @@
                 @click="applyParams.faith = 'CHRISTIAN'"
               >
                 기독교
+              </div>
+              <div
+                :class="
+                  applyParams.faith === 'CATHOLIC'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
+                "
+                @click="applyParams.faith = 'CATHOLIC'"
+              >
+                천주교
+              </div>
+            </div>
+            <div class="btn-select-wrp">
+              <div
+                :class="
+                  applyParams.faith === 'BUDDHISM'
+                    ? 'button-30-percent selected'
+                    : 'button-30-percent'
+                "
+                @click="applyParams.faith = 'BUDDHISM'"
+              >
+                불교
               </div>
               <div
                 :class="
@@ -244,70 +257,54 @@
         <div class="stage_01_bottom">
           <div class="content_01">
             <div class="sub-title">현 거주지 <strong>*</strong></div>
-            <div class="btn-select-wrp">
-              <div
-                :class="
-                  applyParams.myLocation === 'DORMITORY'
-                    ? 'button-30-percent selected'
-                    : 'button-30-percent'
-                "
-                @click="
-                  ;[
-                    (applyParams.myLocation = 'DORMITORY'),
-                    checkIsNextActive(3),
-                    (applyParams.myLocationDesc = '')
-                  ]
-                "
-              >
-                기숙사
-              </div>
-              <div
-                :class="
-                  applyParams.myLocation === 'POHANG'
-                    ? 'button-30-percent selected'
-                    : 'button-30-percent'
-                "
-                @click="
-                  ;[
-                    (applyParams.myLocation = 'POHANG'),
-                    checkIsNextActive(3),
-                    (applyParams.myLocationDesc = '')
-                  ]
-                "
-              >
-                포항
-              </div>
-              <div
-                :class="
-                  applyParams.myLocation === 'ETC'
-                    ? 'button-30-percent selected'
-                    : 'button-30-percent'
-                "
-                @click="
-                  ;[
-                    (applyParams.myLocation = 'ETC'),
-                    checkIsNextActive(3),
-                    (applyParams.myLocationDesc = '')
-                  ]
-                "
-              >
-                타지역
-              </div>
+            <div class="content_02">
+              <div class="sub-question-title">거주지 대분류 선택</div>
+              <DropdownBankName
+                ref="dropdown"
+                :label-first="'서울특별시'"
+                :dropdown-type="'시'"
+                @get-label="selectCityName"
+              />
             </div>
-            <div v-if="applyParams.myLocation !== 'POHANG'" class="content_02">
+            <div class="content_02">
               <div class="sub-question-title">
-                {{
-                  applyParams.myLocation === 'DORMITORY'
-                    ? '기숙사명 입력'
-                    : '지역명 입력'
-                }}
-                <strong class="gray">(20자 이내)</strong>
+                거주지 소분류 입력
+                <strong class="gray">(시/구)</strong>
               </div>
               <input
                 v-model="applyParams.myLocationDesc"
                 class="input-long"
                 type="text"
                 maxlength="32"
+                placeholder="ex) 서울특별시 강남구, 포항시 북구"
+                @keyup="checkIsNextActive(3)"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="background">
+          <br />
+        </div>
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">직업 선택 <strong>*</strong></div>
+            <div class="content_02">
+              <div class="sub-question-title">직업 선택</div>
+              <DropdownBankName
+                ref="dropdown"
+                :label-first="'직업선택'"
+                :dropdown-type="'직업'"
+                @get-label="selectJobName"
+              />
+            </div>
+            <div class="content_02">
+              <div class="sub-question-title">직업/직장 상세 정보 입력</div>
+              <input
+                v-model="applyParams.myJobDesc"
+                class="input-long"
+                type="text"
+                maxlength="32"
+                placeholder="ex) 간호사, 백엔드 개발자, OO회사 대표"
                 @keyup="checkIsNextActive(3)"
               />
             </div>
@@ -555,342 +552,6 @@
         </div>
       </section>
     </section>
-    <section v-if="type === 'friend'" class="content">
-      <section v-if="curStage === 1" class="form">
-        <div class="stage_01_top">
-          <div class="content_01">
-            <div class="sub-title">이름을 적어주세요 <strong>*</strong></div>
-            <input
-              v-model="applyParams.name"
-              class="input-long"
-              type="text"
-              placeholder="ex) 김와이낫"
-              @keyup="checkIsNextActive(1)"
-            />
-          </div>
-          <div class="content_01">
-            <div class="sub-title">
-              나이를 적어주세요 <strong class="gray">(숫자만)</strong>
-              <strong>*</strong>
-            </div>
-            <input
-              v-model="applyParams.myAge"
-              class="input-long"
-              type="text"
-              oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
-              placeholder="ex) 25"
-              @keyup="checkIsNextActive(1)"
-            />
-          </div>
-          <div class="content_01">
-            <div class="sub-title">
-              당신의 성별은 무엇인가요? <strong>*</strong>
-            </div>
-            <div class="btn-select-wrp">
-              <div
-                :class="
-                  applyParams.gender === 'M'
-                    ? 'button-half selected'
-                    : 'button-half'
-                "
-                @click="applyParams.gender = 'M'"
-              >
-                남성
-              </div>
-              <div
-                :class="
-                  applyParams.gender === 'F'
-                    ? 'button-half selected'
-                    : 'button-half'
-                "
-                @click="applyParams.gender = 'F'"
-              >
-                여성
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="stage_01_bottom">
-          <div class="content_01">
-            <div class="sub-title">
-              본인 학부 선택
-              <strong>*</strong>
-            </div>
-            <DropdownBankName
-              ref="dropdown"
-              :label-first="dropdownLabel"
-              :dropdown-type="'학부'"
-              @get-label="selectBankName"
-            />
-          </div>
-        </div>
-      </section>
-      <section v-if="curStage === 2" class="form">
-        <div class="stage_01_top">
-          <div class="content_01">
-            <div class="sub-title">흡연 여부 <strong>*</strong></div>
-            <div class="btn-select-wrp">
-              <div
-                :class="
-                  applyParams.mySmoke === 'N'
-                    ? 'button-half selected'
-                    : 'button-half'
-                "
-                @click="applyParams.mySmoke = 'N'"
-              >
-                비흡연
-              </div>
-              <div
-                :class="
-                  applyParams.mySmoke === 'Y'
-                    ? 'button-half selected'
-                    : 'button-half'
-                "
-                @click="applyParams.mySmoke = 'Y'"
-              >
-                흡연
-              </div>
-            </div>
-          </div>
-          <div class="content_01">
-            <div class="sub-title">종교 <strong>*</strong></div>
-            <div class="btn-select-wrp">
-              <div
-                :class="
-                  applyParams.faith === 'NOTHING'
-                    ? 'button-30-percent selected'
-                    : 'button-30-percent'
-                "
-                @click="applyParams.faith = 'NOTHING'"
-              >
-                안 믿음
-              </div>
-              <div
-                :class="
-                  applyParams.faith === 'CHRISTIAN'
-                    ? 'button-30-percent selected'
-                    : 'button-30-percent'
-                "
-                @click="applyParams.faith = 'CHRISTIAN'"
-              >
-                기독교
-              </div>
-              <div
-                :class="
-                  applyParams.faith === 'ETC'
-                    ? 'button-30-percent selected'
-                    : 'button-30-percent'
-                "
-                @click="applyParams.faith = 'ETC'"
-              >
-                그 외
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="stage_01_bottom">
-          <div class="content_01">
-            <div class="sub-title">음주 여부 <strong>*</strong></div>
-            <div class="round-btn-select-wrp">
-              <div
-                v-for="(item, key) in alcohol"
-                :key="key"
-                :class="
-                  applyParams.myDrink === item.code
-                    ? 'button selected'
-                    : 'button'
-                "
-                @click="applyParams.myDrink = item.code"
-              >
-                {{ item.name }}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="background">
-          <br />
-        </div>
-        <div class="stage_01_bottom">
-          <div class="content_01">
-            <div class="sub-title">현 거주지 <strong>*</strong></div>
-            <div class="btn-select-wrp">
-              <div
-                :class="
-                  applyParams.myLocation === 'DORMITORY'
-                    ? 'button-30-percent selected'
-                    : 'button-30-percent'
-                "
-                @click="
-                  ;[
-                    (applyParams.myLocation = 'DORMITORY'),
-                    checkIsNextActive(2)
-                  ]
-                "
-              >
-                기숙사
-              </div>
-              <div
-                :class="
-                  applyParams.myLocation === 'POHANG'
-                    ? 'button-30-percent selected'
-                    : 'button-30-percent'
-                "
-                @click="
-                  ;[(applyParams.myLocation = 'POHANG'), checkIsNextActive(2)]
-                "
-              >
-                포항
-              </div>
-              <div
-                :class="
-                  applyParams.myLocation === 'ETC'
-                    ? 'button-30-percent selected'
-                    : 'button-30-percent'
-                "
-                @click="
-                  ;[(applyParams.myLocation = 'ETC'), checkIsNextActive(2)]
-                "
-              >
-                타지역
-              </div>
-            </div>
-            <div v-if="applyParams.myLocation !== 'POHANG'" class="content_02">
-              <div class="sub-question-title">
-                {{
-                  applyParams.myLocation === 'DORMITORY'
-                    ? '기숙사명 입력'
-                    : '지역명 입력'
-                }}
-                <strong class="gray">(20자 이내)</strong>
-              </div>
-              <input
-                v-model="applyParams.myLocationDesc"
-                class="input-long"
-                type="text"
-                maxlength="32"
-                @keyup="checkIsNextActive(2)"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="background">
-          <br />
-        </div>
-        <div class="stage_01_bottom">
-          <div class="content_01">
-            <div class="sub-title">
-              취미 <strong class="purple">최대 3개</strong><strong>*</strong>
-            </div>
-            <div class="round-btn-select-wrp">
-              <div
-                v-for="(item, key) in hobby"
-                :key="key"
-                :class="
-                  applyParams.myHobby.split(';').includes(item.code)
-                    ? 'button selected'
-                    : 'button'
-                "
-                @click="
-                  ;[
-                    applyParams.myHobby.split(';').includes(item.code)
-                      ? (applyParams.myHobby = applyParams.myHobby
-                          .split(';')
-                          .filter((data) => {
-                            return data !== item.code
-                          })
-                          .join(';'))
-                      : applyParams.myHobby.split(';').length <= 3
-                      ? (applyParams.myHobby = applyParams.myHobby.concat(
-                          item.code,
-                          ';'
-                        ))
-                      : '',
-                    checkIsNextActive(2)
-                  ]
-                "
-              >
-                <img
-                  v-if="applyParams.myHobby.includes(item.id)"
-                  src="@/assets/img/common/check-purple.png"
-                  alt=""
-                  style="width: 16px; margin-right: 4px"
-                />
-                {{ item.name }}
-              </div>
-            </div>
-            <div class="content_02">
-              <div class="sub-question-title">
-                이외 추가적인 취미
-                <strong class="gray">(20자 이내)</strong>
-              </div>
-              <input
-                v-model="applyParams.myHobbyDesc"
-                class="input-long"
-                type="text"
-                maxlength="32"
-                @keyup="checkIsNextActive(2)"
-              />
-            </div>
-          </div>
-          <div class="content_01">
-            <div class="sub-title">
-              상대에게 하고싶은 말이 있다면?
-              <strong class="gray">(200자 이내)</strong>
-            </div>
-            <textarea
-              v-model="applyParams.commentForMate"
-              class="input-long textarea"
-              placeholder="상대에게 하고싶은 말을 적어주세요"
-              maxlength="255"
-            />
-          </div>
-        </div>
-      </section>
-      <section v-if="curStage === 3" class="form">
-        <div class="stage_01_bottom">
-          <div class="content_01">
-            <div class="sub-title">
-              오픈 카카오 링크
-              <strong class="gray">(ex) https://open.kakao.com/o/abcde</strong>
-              <strong>*</strong>
-            </div>
-            <input
-              v-model="applyParams.kakaoLink"
-              class="input-long"
-              type="text"
-              placeholder="ex) URL"
-              @keyup="checkIsNextActive(3)"
-            />
-            <div class="sub-title">
-              운영진에게 하고싶은 말이 있다면?
-              <strong class="gray">(200자 이내)</strong>
-            </div>
-            <textarea
-              v-model="applyParams.commentForAdmin"
-              class="input-long textarea"
-              placeholder="개선사항이나 문의하고 싶은 내용 작성"
-              maxlength="255"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section
-        v-if="type === 'friend'"
-        v-show="curStage >= 1 || curStage <= 3"
-        class="btn-wrp"
-      >
-        <div v-show="curStage !== 1" class="prev" @click="changeStage(-1)">
-          이전
-        </div>
-        <div
-          :class="isNextActive ? 'next active' : 'next'"
-          @click="isNextActive ? changeStage(1) : ''"
-        >
-          {{ curStage === 3 ? '저장' : '다음' }}
-        </div>
-      </section>
-    </section>
   </div>
 </template>
 
@@ -902,12 +563,13 @@ export default {
   components: { DropdownBankName },
   asyncData({ params, route, query, redirect }) {
     return {
-      type: route.params.type
+      // type: route.params.type
+      type: 'date'
     }
   },
   data() {
     return {
-      curStage: 1,
+      curStage: 3,
       curStageInfoDate: [
         {
           id: 1,
@@ -1196,6 +858,14 @@ export default {
     selectBankName(item) {
       this.applyParams.department = item.code
       this.checkIsNextActive(1)
+    },
+    selectCityName(item) {
+      this.applyParams.myLocation = item.code
+      this.checkIsNextActive(3)
+    },
+    selectJobName(item) {
+      this.applyParams.myJob = item.code
+      this.checkIsNextActive(3)
     },
     checkIsNextActive(stage) {
       if (stage === 1) {

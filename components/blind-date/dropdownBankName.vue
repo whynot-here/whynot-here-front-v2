@@ -78,6 +78,26 @@ export default {
             result.push(item)
           })
           return result
+        case '시':
+          this.cityList.forEach((it) => {
+            const item = {
+              id: it.cityId,
+              name: it.cityName,
+              code: it.code
+            }
+            result.push(item)
+          })
+          return result
+        case '직업':
+          this.jobList.forEach((it) => {
+            const item = {
+              id: it.jobId,
+              name: it.jobName,
+              code: it.code
+            }
+            result.push(item)
+          })
+          return result
       }
       return result
     }

@@ -312,6 +312,125 @@ const common = {
           heightName: '180cm 이상'
         }
       ],
+      cityList: [
+        {
+          cityId: 1,
+          cityName: '서울특별시',
+          code: 'SEOUL'
+        },
+        {
+          cityId: 2,
+          cityName: '인천',
+          code: 'INCHEON'
+        },
+        {
+          cityId: 3,
+          cityName: '경기 북부',
+          code: 'GYEONGGI_NORTH'
+        },
+        {
+          cityId: 4,
+          cityName: '경기 남부',
+          code: 'GYEONGGI_SOUTH'
+        },
+        {
+          cityId: 5,
+          cityName: '강원권',
+          code: 'GANGWON'
+        },
+        {
+          cityId: 6,
+          cityName: '충청권',
+          code: 'CHUNGCHEONG'
+        },
+        {
+          cityId: 7,
+          cityName: '대전',
+          code: 'DAEJEON'
+        },
+        {
+          cityId: 8,
+          cityName: '세종',
+          code: 'SEJONG'
+        },
+        {
+          cityId: 9,
+          cityName: '경상권',
+          code: 'GYEONGSANG'
+        },
+        {
+          cityId: 10,
+          cityName: '대구',
+          code: 'DAEGU'
+        },
+        {
+          cityId: 11,
+          cityName: '부산',
+          code: 'BUSAN'
+        },
+        {
+          cityId: 12,
+          cityName: '울산',
+          code: 'ULSAN'
+        },
+        {
+          cityId: 13,
+          cityName: '전라권',
+          code: 'JEONLA'
+        },
+        {
+          cityId: 14,
+          cityName: '광주',
+          code: 'GWANGJU'
+        },
+        {
+          cityId: 15,
+          cityName: '제주',
+          code: 'JEJU'
+        },
+        {
+          cityId: 16,
+          cityName: '기타',
+          code: 'ETC'
+        }
+      ],
+      jobList: [
+        {
+          jobId: 1,
+          jobName: '사기업 직장인',
+          code: 'PRIVATE'
+        },
+        {
+          jobId: 2,
+          jobName: '공무원/공공기관',
+          code: 'PUBLIC'
+        },
+        {
+          jobId: 3,
+          jobName: '특수직',
+          code: 'SPECIAL'
+        },
+        {
+          jobId: 4,
+          jobName: '전문직',
+          code: 'PROFESSIONAL'
+        },
+        {
+          jobId: 5,
+          jobName: '프리랜서',
+          code: 'FREE'
+        },
+        {
+          jobId: 6,
+          jobName: '사업자',
+          code: 'BUSINESS'
+        },
+        {
+          jobId: 7,
+          jobName: '기타',
+          code: 'ETC'
+        }
+      ],
       applyParams: {
         season: 2,
         myStep: 0,
@@ -324,6 +443,8 @@ const common = {
         myDrink: 'NEVER',
         myLocation: 'DORMITORY',
         myLocationDesc: '',
+        myJob: 'PRIVATE',
+        myJobDesc: '',
         hobby: '',
         hobbyDesc: '',
         myHobby: '',

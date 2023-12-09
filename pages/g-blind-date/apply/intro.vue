@@ -54,12 +54,14 @@ export default {
   components: {},
   asyncData({ params, route, query, redirect }) {
     return {
-      type: params.type
+      // type: params.type
+      type: 'date'
     }
   },
   data() {
     return {
-      isShow: false,
+      // isShow: false,
+      isShow: true,
       myStep: 0,
       favoriteStep: 0,
       isBeforeFinalSubmit: false
