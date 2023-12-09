@@ -62,8 +62,8 @@
       <div class="container">
         <div class="img">
           <img
-            class="paragraph1-img"
-            src="@/assets/img/blind-date/paragraph1.png"
+            class="paragraph2-img"
+            src="@/assets/img/blind-date/paragraph2.png"
             alt=""
           />
         </div>
