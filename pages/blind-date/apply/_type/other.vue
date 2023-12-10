@@ -1,7 +1,7 @@
 <template>
   <div id="ApplyPage">
     <div class="top">
-      <div class="side" @click="moveApplyIntroPage(type)">
+      <div class="side" @click="moveGraduateApplyIntroPage(type)">
         <img src="@/assets/img/common/left-arrow-black.png" alt="" />
       </div>
       <div class="title">상대 정보 입력</div>
@@ -275,7 +275,26 @@
             </div>
           </div>
           <div class="content_01">
-            <div class="sub-title">장거리 <strong>*</strong></div>
+            <div class="sub-title">
+              장거리 (시/도 기준)<strong>*</strong>
+              <div class="must-matching-condition">
+                <div class="icon">
+                  <img
+                    v-if="applyParams.favoriteDrinkImportant"
+                    src="@/assets/img/common/check-box-purple-selected.png"
+                    alt=""
+                    @click="applyParams.favoriteDrinkImportant = false"
+                  />
+                  <img
+                    v-else
+                    src="@/assets/img/common/check-box-purple-unselected.png"
+                    alt=""
+                    @click="applyParams.favoriteDrinkImportant = true"
+                  />
+                </div>
+                <div>매칭 필수 요소</div>
+              </div>
+            </div>
             <div class="round-btn-select-wrp">
               <div
                 v-for="(item, key) in distance"
@@ -365,7 +384,8 @@ export default {
   components: { DropdownBankName },
   asyncData({ params, route, query, redirect }) {
     return {
-      type: route.params.type
+      // type: route.params.type
+      type: 'date'
     }
   },
   data() {
@@ -481,7 +501,7 @@ export default {
         this.curStage += addNum
         this.checkIsNextActive(this.curStage)
       } else if (this.curStage === 4 && addNum === 1) {
-        this.moveApplyIntroPage(this.type)
+        this.moveGraduateApplyIntroPage(this.type)
       } else if (this.curStage === 4 && addNum === -1) {
         this.curStage += addNum
       }

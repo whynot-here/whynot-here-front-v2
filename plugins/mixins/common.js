@@ -293,23 +293,23 @@ const common = {
         },
         {
           heightId: 2,
-          heightName: '160~165cm'
+          heightName: '160~165'
         },
         {
           heightId: 3,
-          heightName: '165~170cm'
+          heightName: '165~170'
         },
         {
           heightId: 4,
-          heightName: '170~175cm'
+          heightName: '170~175'
         },
         {
           heightId: 5,
-          heightName: '175~180cm'
+          heightName: '175~180'
         },
         {
           heightId: 6,
-          heightName: '180cm 이상'
+          heightName: '180 이상'
         }
       ],
       cityList: [
@@ -895,6 +895,13 @@ const common = {
     moveApplyIntroPage(type) {
       this.$router.push({
         name: 'blind-date-apply-intro',
+        params: { type }
+      }) // 작성중 페이지
+    },
+
+    moveGraduateApplyIntroPage(type) {
+      this.$router.push({
+        name: 'g-blind-date-apply-intro',
         params: { type }
       }) // 작성중 페이지
     },

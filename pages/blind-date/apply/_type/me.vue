@@ -1,7 +1,7 @@
 <template>
   <div id="ApplyPage">
     <div class="top">
-      <div class="side" @click="moveApplyIntroPage(type)">
+      <div class="side" @click="moveGraduateApplyIntroPage(type)">
         <img src="@/assets/img/common/left-arrow-black.png" alt="" />
       </div>
       <div class="title">본인 정보 입력</div>
@@ -569,7 +569,7 @@ export default {
   },
   data() {
     return {
-      curStage: 3,
+      curStage: 4,
       curStageInfoDate: [
         {
           id: 1,
@@ -938,7 +938,7 @@ export default {
         }
 
         if (this.curStage === 5 && addNum === 1) {
-          this.moveApplyIntroPage(this.type)
+          this.moveGraduateApplyIntroPage(this.type)
         } else {
           this.curStage += addNum
         }
