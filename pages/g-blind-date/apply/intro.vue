@@ -40,10 +40,27 @@
           <div v-else class="right">{{ favoriteStep }}/4</div>
         </div>
       </section>
-
+      <div v-if="isBeforeFinalSubmit" class="cancel-wrp">
+        <div>
+          신청 철회를 하고 싶나요?
+          <strong @click="openBlindDateCancelPopup(true)">신청 철회</strong>
+        </div>
+      </div>
       <section v-if="isBeforeFinalSubmit && type === 'date'" class="bottom">
         <div class="complete-btn" @click="submitFinal()">확인</div>
       </section>
+    </div>
+    <div v-if="isCancelPopupOpen" class="popup">
+      <div class="content-wrp">
+        <div class="top">
+          <div>정말 신청 철회를 하시겠어요?</div>
+          <div>철회를 진행하시면, 지금까지의 정보가 삭제 됩니다.</div>
+        </div>
+        <div class="btn">
+          <div @click="openBlindDateCancelPopup(false)">아니요</div>
+          <div>네</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -64,7 +81,9 @@ export default {
       isShow: true,
       myStep: 0,
       favoriteStep: 0,
-      isBeforeFinalSubmit: false
+      // isBeforeFinalSubmit: false
+      isBeforeFinalSubmit: true,
+      isCancelPopupOpen: false
     }
   },
   async mounted() {
@@ -105,6 +124,10 @@ export default {
             this.isBeforeFinalSubmit = this.myStep === 3
           }
         })
+    },
+
+    openBlindDateCancelPopup(value) {
+      this.isCancelPopupOpen = value
     },
 
     submitFinal() {
