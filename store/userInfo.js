@@ -1,7 +1,14 @@
 export const state = () => ({
   initLoginDone: false,
   token: '',
-  detail: {}
+  detail: {
+    authType: '',
+    email: '',
+    id: '',
+    nickname: '',
+    profileImg: '',
+    roles: []
+  }
 })
 
 export const mutations = {
@@ -20,7 +27,8 @@ export const mutations = {
       email: '',
       id: '',
       nickname: '',
-      profileImg: ''
+      profileImg: '',
+      roles: []
     }
     if (info !== null) {
       Object.keys(info).forEach((key) => {

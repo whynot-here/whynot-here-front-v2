@@ -1,7 +1,7 @@
 <template>
   <div id="ApplyPage">
     <div class="top">
-      <div class="side" @click="moveApplyIntroPage(type)">
+      <div class="side" @click="moveGraduateApplyIntroPage(type)">
         <img src="@/assets/img/common/left-arrow-black.png" alt="" />
       </div>
       <div class="title">상대 정보 입력</div>
@@ -365,7 +365,8 @@ export default {
   components: { DropdownBankName },
   asyncData({ params, route, query, redirect }) {
     return {
-      type: route.params.type
+      // type: route.params.type
+      type: 'date'
     }
   },
   data() {
@@ -446,6 +447,9 @@ export default {
       this.checkIsNextActive(2)
     },
     checkIsNextActive(stage) {
+      if (stage === 1) {
+        this.isNextActive = this.applyParams.favoriteAge.length > 0
+      }
       if (stage === 2) {
         if (this.type === 'date') {
           this.isNextActive = this.applyParams.favoriteHeight.length > 0
@@ -491,9 +495,11 @@ export default {
           const heightItem = this.heightList.filter((item) => {
             return item.heightName === this.applyParams.favoriteHeight
           })[0]
-          this.$refs.dropdown.$el.querySelector(`.신장`).innerHTML =
-            heightItem.heightName + ''
-          this.$refs.dropdown.parentId = heightItem.heightId
+          if (heightItem !== undefined) {
+            this.$refs.dropdown.$el.querySelector(`.신장`).innerHTML =
+              heightItem.heightName + ''
+            this.$refs.dropdown.parentId = heightItem.heightId
+          }
         }
       })
     },

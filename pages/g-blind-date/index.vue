@@ -1,12 +1,5 @@
 <template>
-  <div>
-    졸업생판
-    <button @click.prevent="$router.push('/blind-date/selection')">
-      신청하기
-    </button>
-      
-      
-  </div>
+  <div></div>
 </template>
 
 <script>
@@ -30,86 +23,10 @@ export default {
     }
   },
   watch: {},
-  async mounted() {
-    this.isNuxtReady = true
-    await this.getParticipationType().then((res) => {
-      // if (res === 'NO') {
-      //   this.getAuthState()
-      //   this.isShow = true // 처음 시작하는 사용자 페이지
-      // } else if (res === 'FRIEND' || res === 'BLIND_DONE') {
-      //   this.$router.push('/blind-date/proceeding') // 완료 후 매칭중 페이지
-      // } else if (res === 'BLIND_ING') {
-      //   this.getFeeConfirm()
-      // } else if (res === 'FAIL') {
-      //   this.$router.push('/auth')
-      // }
-      this.isShow = true;
-    })
+  mounted() {
+    this.$router.push('/g-blind-date/intro')
   },
-  methods: {
-    async getAuthState() {
-      await this.cmn_getUserInfo(this.$store.state.userInfo.token)
-      if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
-        this.isAuthComplete = true
-      }
-    },
-    async getMyAuthImg() {
-      await this.$axios
-        .get(`${process.env.apiUrl}/v2/student/img`, {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {
-          if (res.data.imgUrl !== null) {
-            if (res.data.imgUrl.length > 0) {
-              this.isAuthComplete = true
-            }
-          }
-        })
-        .catch((error) => {
-          this.cmn_openAlertPopup({
-            option: {
-              title: '📣 알림',
-              content: error,
-              type: 'alert',
-              confirmText: '확인',
-              cancelText: ''
-            }
-          })
-          return false
-        })
-    },
-    goToAuthPage() {
-      this.$router.push(`/auth`)
-    },
-    goToApplyPage() {
-      this.$router.push(`/blind-date/selection`)
-    },
-    getFeeConfirm() {
-      this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/fee/confirm?season=2`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {
-          if (res.data) {
-            this.$router.push({
-              name: 'blind-date-apply-intro',
-              params: { type: 'date' }
-            }) // 작성중 페이지
-            this.isFeeConfirm = true
-          } else {
-            this.isFeeConfirm = false
-            this.isShow = false
-          }
-        })
-    }
-  }
+  methods: {}
 }
 </script>
 

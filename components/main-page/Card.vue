@@ -12,7 +12,7 @@
         <img
           class="banner-img banner-admin-tab-hanchelin"
           src="@/assets/img/ads/admin-blind-date-season2.png"
-          @click="$router.push('/g-blind-date')"
+          @click="$router.push('/g-blind-date/intro')"
         />
         <a
           class="banner-admin-insta"
@@ -299,7 +299,8 @@ export default {
 
     if (
       this.$store.state.userInfo.detail.roles !== undefined &&
-      !this.$store.state.userInfo.detail.roles.includes('ROLE_USER')
+      !this.$store.state.userInfo.detail.roles.includes('ROLE_USER') &&
+      this.$store.state.userInfo.token !== ''
     ) {
       this.isNeedAuthRequest = true
     }

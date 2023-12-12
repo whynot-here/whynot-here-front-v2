@@ -264,6 +264,8 @@ export default {
     }
   },
   mounted() {
+    // token 업데이트 API 추가
+
     const token = this.$route.query.token
     if (token != null) {
       this.updateDeviceToken(token)

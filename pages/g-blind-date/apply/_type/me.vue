@@ -1,7 +1,7 @@
 <template>
   <div id="ApplyPage">
     <div class="top">
-      <div class="side" @click="moveApplyIntroPage(type)">
+      <div class="side" @click="moveGraduateApplyIntroPage(type)">
         <img src="@/assets/img/common/left-arrow-black.png" alt="" />
       </div>
       <div class="title">본인 정보 입력</div>
@@ -254,7 +254,7 @@
         <div class="background">
           <br />
         </div>
-        <div class="stage_01_bottom">
+        <!-- <div class="stage_01_bottom">
           <div class="content_01">
             <div class="sub-title">현 거주지 <strong>*</strong></div>
             <div class="btn-select-wrp">
@@ -321,6 +321,63 @@
                 class="input-long"
                 type="text"
                 maxlength="32"
+                @keyup="checkIsNextActive(3)"
+              />
+            </div>
+          </div>
+        </div> -->
+
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">현 거주지 <strong>*</strong></div>
+            <div class="content_02">
+              <div class="sub-question-title">거주지 대분류 선택</div>
+              <DropdownBankName
+                ref="dropdownLocation"
+                :label-first="locationLabelFirst"
+                :dropdown-type="'시'"
+                @get-label="selectCityName"
+              />
+            </div>
+            <div class="content_02">
+              <div class="sub-question-title">
+                거주지 소분류 입력
+                <strong class="gray">(시/구)</strong>
+              </div>
+              <input
+                v-model="applyParams.myLocationDesc"
+                class="input-long"
+                type="text"
+                maxlength="32"
+                placeholder="ex) 서울특별시 강남구, 포항시 북구"
+                @keyup="checkIsNextActive(3)"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="background">
+          <br />
+        </div>
+        <div class="stage_01_bottom">
+          <div class="content_01">
+            <div class="sub-title">직업 선택 <strong>*</strong></div>
+            <div class="content_02">
+              <div class="sub-question-title">직업 선택</div>
+              <DropdownBankName
+                ref="dropdownJob"
+                :label-first="jobLabelFirst"
+                :dropdown-type="'직업'"
+                @get-label="selectJobName"
+              />
+            </div>
+            <div class="content_02">
+              <div class="sub-question-title">직업/직장 상세 정보 입력</div>
+              <input
+                v-model="applyParams.myJobDesc"
+                class="input-long"
+                type="text"
+                maxlength="32"
+                placeholder="ex) 간호사, 백엔드 개발자, OO회사 대표"
                 @keyup="checkIsNextActive(3)"
               />
             </div>
@@ -816,6 +873,8 @@ export default {
       files: [],
       isImgUploadEnough: false,
       dropdownLabel: '학부',
+      locationLabelFirst: '서울특별시',
+      jobLabelFirst: '직업선택',
       isNuxtReady: false,
       isFinalStepSubmit: false
     }
@@ -875,6 +934,14 @@ export default {
       this.applyParams.department = item.code
       this.checkIsNextActive(1)
     },
+    selectCityName(item) {
+      this.applyParams.myLocation = item.code
+      this.checkIsNextActive(3)
+    },
+    selectJobName(item) {
+      this.applyParams.myJob = item.code
+      this.checkIsNextActive(3)
+    },
     checkIsNextActive(stage) {
       if (stage === 1) {
         this.isNextActive =
@@ -908,15 +975,17 @@ export default {
             this.nullCheck(this.applyParams.faith) &&
             this.nullCheck(this.applyParams.myDrink) &&
             this.nullCheck(this.applyParams.myLocation) &&
+            this.nullCheck(this.applyParams.myLocationDesc) &&
+            this.nullCheck(this.applyParams.myJob) &&
+            this.nullCheck(this.applyParams.myJobDesc) &&
             this.nullCheck(this.applyParams.hobby) &&
             this.applyParams.smoke.length > 0 &&
             this.applyParams.faith.length > 0 &&
             this.applyParams.myDrink.length > 0 &&
             this.applyParams.myLocation.length > 0 &&
-            (this.applyParams.myLocation === 'DORMITORY' ||
-            this.applyParams.myLocation === 'ETC'
-              ? this.applyParams.myLocationDesc.length > 0
-              : true) &&
+            this.applyParams.myLocationDesc.length > 0 &&
+            this.applyParams.myJob.length > 0 &&
+            this.applyParams.myJobDesc.length > 0 &&
             this.applyParams.hobby.length > 0
         } else {
           this.isNextActive =
@@ -965,6 +1034,22 @@ export default {
           })[0]
           this.dropdownLabel = majorItem.majorName
           this.$refs.dropdown.parentId = majorItem.majorId
+        }
+
+        if (this.$refs.dropdownLocation !== undefined) {
+          const locationItem = this.cityList.filter((item) => {
+            return item.code === this.applyParams.myLocation
+          })[0]
+          this.locationLabelFirst = locationItem.cityName
+          this.$refs.dropdownLocation.parentId = locationItem.cityId
+        }
+
+        if (this.$refs.dropdownJob !== undefined) {
+          const jobItem = this.jobList.filter((item) => {
+            return item.code === this.applyParams.myJob
+          })[0]
+          this.jobLabelFirst = jobItem.jobName
+          this.$refs.dropdownJob.parentId = jobItem.jobId
         }
       })
 

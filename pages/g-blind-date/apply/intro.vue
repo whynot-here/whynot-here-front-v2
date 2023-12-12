@@ -22,7 +22,7 @@
       <section class="middle">
         <div
           class="form-btn"
-          @click="$router.push(`/blind-date/apply/${type}/me`)"
+          @click="$router.push(`/g-blind-date/apply/${type}/me`)"
         >
           <div class="left">본인 정보 입력</div>
           <div v-if="myStep === 5 && type === 'date'" class="right">완료</div>
@@ -33,7 +33,7 @@
         <div
           v-if="type === 'date'"
           class="form-btn"
-          @click="$router.push(`/blind-date/apply/${type}/other`)"
+          @click="$router.push(`/g-blind-date/apply/${type}/other`)"
         >
           <div class="left">상대 정보 입력</div>
           <div v-if="favoriteStep === 4" class="right">완료</div>
@@ -58,7 +58,7 @@
         </div>
         <div class="btn">
           <div @click="openBlindDateCancelPopup(false)">아니요</div>
-          <div>네</div>
+          <div @click="cancelBlindDate()">네</div>
         </div>
       </div>
     </div>
@@ -71,7 +71,6 @@ export default {
   components: {},
   asyncData({ params, route, query, redirect }) {
     return {
-      // type: params.type
       type: 'date'
     }
   },
@@ -87,10 +86,10 @@ export default {
     }
   },
   async mounted() {
-    await this.getParticipationType().then((res) => {
+    await this.getGraduateParticipationType().then((res) => {
       if (res === 'NO') {
         this.isShow = true // 처음 시작하는 사용자 페이지
-      } else if (res === 'FRIEND' || res === 'BLIND_DONE') {
+      } else if (res === 'BLIND_DONE') {
         this.$router.push('/blind-date/proceeding') // 완료 후 매칭중 페이지
       } else if (res === 'BLIND_ING') {
         this.isShow = true
@@ -104,6 +103,23 @@ export default {
     }
   },
   methods: {
+    cancelBlindDate() {
+      this.$axios
+        .delete(`${process.env.apiUrl}/v2/blind-date?season=2`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.$router.push('/')
+        })
+        .catch((error) => {
+          window.alert(error.response.data.message)
+        })
+    },
+
     getSteps() {
       this.$axios
         .get(`${process.env.apiUrl}/v2/blind-date/steps?season=2`, {
@@ -140,7 +156,7 @@ export default {
           }
         })
         .then((res) => {
-          this.$router.push('/blind-date/proceeding')
+          this.$router.push('/g-blind-date/proceeding-01')
         })
         .catch((error) => {
           window.alert(error.response.data.message)
