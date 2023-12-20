@@ -1,5 +1,5 @@
 <template>
-  <div id="ApplyPage">
+  <div v-if="isLoaded" id="ApplyPage">
     <div class="top">
       <div class="side" @click="moveGraduateApplyIntroPage(type)">
         <img src="@/assets/img/common/left-arrow-black.png" alt="" />
@@ -371,6 +371,7 @@ export default {
   },
   data() {
     return {
+      isLoaded: false,
       curStage: 1,
       curStageInfoDate: [
         {
@@ -439,6 +440,7 @@ export default {
         if (this.applyParams.favoriteStep === 4) {
           this.isFinalStepSubmit = true
         }
+        this.isLoaded = true
       })
   },
   methods: {
