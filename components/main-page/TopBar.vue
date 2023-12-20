@@ -325,8 +325,8 @@ export default {
     },
     moveApplyOrProceedingPage() {
       this.$router.push({
-        name: 'blind-date-apply-intro',
-        params: { type: this.applyType }
+        name: 'g-blind-date-apply-intro',
+        params: { type: 'date' }
       })
     },
     logout() {
