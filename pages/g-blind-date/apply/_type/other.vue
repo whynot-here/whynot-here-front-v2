@@ -65,7 +65,7 @@
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.favoriteAge = 'NO_MATTER'"
+                @click="[applyParams.favoriteAge = 'NO_MATTER', checkIsNextActive(1)]"
               >
                 상관없음
               </div>
@@ -75,7 +75,7 @@
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.favoriteAge = 'SAME'"
+                @click="[applyParams.favoriteAge = 'SAME', checkIsNextActive(1)]"
               >
                 동갑
               </div>
@@ -87,7 +87,7 @@
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.favoriteAge = 'UP'"
+                @click="[applyParams.favoriteAge = 'UP', checkIsNextActive(1)]"
               >
                 연상
               </div>
@@ -97,7 +97,7 @@
                     ? 'button-half selected'
                     : 'button-half'
                 "
-                @click="applyParams.favoriteAge = 'DOWN'"
+                @click="[applyParams.favoriteAge = 'DOWN', checkIsNextActive(1)]"
               >
                 연하
               </div>
