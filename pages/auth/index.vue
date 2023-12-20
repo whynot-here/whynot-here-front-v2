@@ -203,21 +203,6 @@
           </div>
         </section>
       </div>
-      <div v-else>
-        <section class="m-authpage-complete">
-          <div class="notice">
-            <div class="auth-complete-wrp">
-              <img src="@/assets/img/auth/auth-complete.png" alt="" />
-            </div>
-            학생증 인증 완료까지<br />
-            <strong style="color: #6254f0">한시간 정도</strong> 소요됩니다.
-          </div>
-          <div class="notice-sub">
-            인증이 완료되면 푸시알림으로 알려드려요 😀
-          </div>
-          <div class="go-main-btn" @click="cmn_goMainPage">홈화면으로 가기</div>
-        </section>
-      </div>
     </section>
   </div>
 </template>
@@ -508,6 +493,15 @@ export default {
         )
         .then((res) => {
           this.isAuthComplete = true
+          this.cmn_openCompleteModal({
+            option: {
+              imageUrl: require('@/assets/img/blind-date/auth-complete.png'),
+              title: '학생증 인증 완료까지',
+              time: '한시간',
+              isContactPopup: false,
+              confirmCallback: this.cmn_goMainPage
+            }
+          })
         })
         .catch((error) => {
           this.cmn_openAlertPopup({
@@ -540,6 +534,16 @@ export default {
         .then((res) => {
           this.isAuthComplete = true
           this.isAuthEditPage = false
+
+          this.cmn_openCompleteModal({
+            option: {
+              imageUrl: require('@/assets/img/blind-date/auth-complete.png'),
+              title: '학생증 인증 완료까지',
+              time: '한시간',
+              isContactPopup: false,
+              confirmCallback: this.cmn_goMainPage
+            }
+          })
         })
         .catch((error) => {
           console.log(error)
@@ -581,10 +585,11 @@ export default {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    justify-content: space-between;
     .m-authpage-header {
       height: 60px;
       line-height: 60px;
-      padding: 44px 20px 0 20px;
+      padding: 20px 20px 0 20px;
       display: flex;
       .m-title {
         font-size: 1.13rem;
@@ -713,8 +718,8 @@ export default {
       // position: fixed;
       // width: calc(100% - 40px);
       height: 50px;
-      margin-bottom: 20px;
-      padding: 0 20px;
+      // margin-bottom: 20px;
+      padding: 20px;
       line-height: 50px;
       font-size: 1rem;
       font-weight: 500;
@@ -732,45 +737,6 @@ export default {
       .step3 {
         background-color: #3e82f1;
         border-radius: 8px;
-      }
-    }
-    .m-authpage-complete {
-      text-align: center;
-
-      padding: 0 20px 0 20px;
-      .notice {
-        padding-top: 120px;
-        color: #14428d;
-        font-size: 1.5rem;
-        font-weight: 600;
-        .auth-complete-wrp {
-          img {
-            width: 120px;
-            margin-bottom: 30px;
-          }
-        }
-      }
-      .notice-sub {
-        padding-top: 16px;
-        font-size: 0.88rem;
-        color: #0c2958;
-        line-height: 1.4;
-        strong {
-          font-weight: 500;
-        }
-      }
-      .go-main-btn {
-        background-color: #3e82f1;
-        border-radius: 8px;
-        position: fixed;
-        width: calc(100% - 40px);
-        height: 50px;
-        line-height: 50px;
-        font-size: 1rem;
-        font-weight: 500;
-        text-align: center;
-        bottom: 24px;
-        color: #fff;
       }
     }
   }

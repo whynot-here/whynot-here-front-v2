@@ -1,0 +1,75 @@
+@import '@/assets/scss/util.scss';
+
+#CompleteModal {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  background-color: white;
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .m-close {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    width: 24px;
+    img {
+      width: 24px;
+      height: 24px;
+    }
+
+    @include tablet {
+      top: 40px;
+      right: 40px;
+
+      img {
+        width: 35px;
+        height: 35px;
+      }
+    }
+  }
+
+  .notice {
+    margin-top: -100px;
+    color: #14428d;
+    font-size: 1.5rem;
+    font-weight: 600;
+    .auth-complete-wrp {
+      img {
+        width: 120px;
+        margin-bottom: 30px;
+      }
+    }
+  }
+  .notice-sub {
+    padding-top: 16px;
+    font-size: 0.88rem;
+    color: #0c2958;
+    line-height: 1.4;
+    strong {
+      font-weight: 500;
+    }
+  }
+
+  .go-main-btn {
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    background-color: #3e82f1;
+    border-radius: 8px;
+    position: fixed;
+    width: calc(100% - 40px);
+    height: 50px;
+    line-height: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    bottom: 24px;
+    color: #fff;
+  }
+}

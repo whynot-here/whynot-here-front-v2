@@ -951,7 +951,23 @@ const common = {
 
     updateSharedData(newData) {
       this.$store.commit('updateSharedData', newData)
-    }
+    },
+
+    cmn_openCompleteModal({ option }) {
+      this.$CompleteModal.modalOption.isShow = true
+      this.$CompleteModal.modalOption.imageUrl = option.imageUrl
+      this.$CompleteModal.modalOption.title = option.title
+      this.$CompleteModal.modalOption.time = option.time
+      this.$CompleteModal.modalOption.isContactPopup = option.isContactPopup
+      this.$CompleteModal.modalOption.confirmCallback = option.confirmCallback
+
+      const instance = this.$CompleteModal
+      const mount = document.createElement('div')
+      mount.id = 'complete-' + Date.now()
+      document.body.appendChild(mount)
+
+      instance.$mount(mount)
+    },
   }
 }
 
