@@ -80,8 +80,7 @@ export default {
       isShow: true,
       myStep: 0,
       favoriteStep: 0,
-      // isBeforeFinalSubmit: false
-      isBeforeFinalSubmit: true,
+      isBeforeFinalSubmit: false,
       isCancelPopupOpen: false
     }
   },
@@ -90,7 +89,7 @@ export default {
       if (res === 'NO') {
         this.isShow = true // 처음 시작하는 사용자 페이지
       } else if (res === 'BLIND_DONE') {
-        this.$router.push('/blind-date/proceeding') // 완료 후 매칭중 페이지
+        this.$router.push('/g-blind-date/proceeding') // 완료 후 매칭중 페이지
       } else if (res === 'BLIND_ING') {
         this.isShow = true
       } else if (res === 'FAIL') {
