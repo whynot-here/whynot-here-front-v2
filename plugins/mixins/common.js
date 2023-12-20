@@ -832,7 +832,7 @@ const common = {
           // 학교 인증 O
           // 1-2. 연애탭인지
           this.$axios
-            .get(`${process.env.apiUrl}/v2/blind-date/participation?season=2`, {
+            .get(`${process.env.apiUrl}/v2/blind-date/g-participation?season=2`, {
               headers: {
                 'Content-Type': 'application/json',
                 Authorization: this.$store.state.userInfo.token
