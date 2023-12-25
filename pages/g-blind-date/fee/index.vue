@@ -1,5 +1,5 @@
 <template>
-  <div id="FeePage">
+  <div v-if="isShow" id="FeePage">
     <section class="top">
       <div class="title">보증금 입금</div>
       <div class="m-close">
@@ -132,7 +132,7 @@ export default {
   components: { DropdownBankName },
   data() {
     return {
-      isShow: true,
+      isShow: false,
       feeRequest: {
         name: '',
         studentId: null,
@@ -162,7 +162,17 @@ export default {
       deep: true
     }
   },
-  mounted() {},
+  async mounted() {
+    await this.getGraduateParticipationType().then((res) => {
+      if (res === 'FEE_ING') {
+        this.isShow = true
+      } else if (res === 'FAIL') {
+        this.$router.push('/auth')
+      } else {
+        this.$router.push('/g-blind-date/intro')
+      }
+    })
+  },
   methods: {
     selectBankName(item) {
       this.feeRequest.bankName = item.name

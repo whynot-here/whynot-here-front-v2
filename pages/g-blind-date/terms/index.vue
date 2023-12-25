@@ -98,15 +98,10 @@ export default {
     await this.getGraduateParticipationType().then((res) => {
       if (res === 'NO') {
         this.isShow = true // 처음 시작하는 사용자 페이지
-      } else if (res === 'FRIEND' || res === 'BLIND_DONE') {
-        this.$router.push('/g-blind-date/proceeding') // 완료 후 매칭중 페이지
-      } else if (res === 'BLIND_ING') {
-        this.$router.push({
-          name: 'g-blind-date-apply-intro',
-          params: { type: 'date' }
-        }) // 작성중 페이지
       } else if (res === 'FAIL') {
         this.$router.push('/auth')
+      } else {
+        this.$router.push('/g-blind-date/intro')
       }
     })
   },
@@ -118,8 +113,6 @@ export default {
     // 연애 탭 약관 제출
     aggreeBlindContract() {
       if (this.isBlindCheckedContract) {
-        console.log('계좌번호 제출 페이지 이동')
-        
         this.$axios
         .post(`${process.env.apiUrl}/v2/blind-date?season=2`, null, {
           withCredentials: true,
