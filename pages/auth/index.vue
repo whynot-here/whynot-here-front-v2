@@ -259,6 +259,8 @@ export default {
     this.getMyAuthImg().then(() => {
       this.isLoading = false
     })
+
+    this.cmn_updateAccessToken()
   },
   methods: {
     async getMyAuthImg() {

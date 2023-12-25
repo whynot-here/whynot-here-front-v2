@@ -949,6 +949,21 @@ const common = {
 
       instance.$mount(mount)
     },
+
+    cmn_updateAccessToken() {
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/account/access-token`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.$store.commit('userInfo/setToken', { token: res.data.accessToken })
+          this.cmn_setCookie('token', res.data.accessToken, 8760)
+        })
+    },
   }
 }
 
