@@ -206,23 +206,20 @@ export default {
   },
   async mounted() {
     this.isNuxtReady = true
-    await this.getParticipationType().then((res) => {
-      if (res === 'NO') {
-        this.$router.push('/blind-date') // 처음 시작하는 사용자 페이지
-      } else if (res === 'FRIEND' || res === 'BLIND_DONE') {
-        this.getMatchinReveal()
-        // 완료 후 매칭중 페이지
-      } else if (res === 'BLIND_ING') {
-        this.$router.push({
-          name: 'blind-date-apply-intro',
-          params: { type: 'date' }
-        }) // 작성중 페이지
+    
+    this.getMatchingResult()
+
+    await this.getGraduateParticipationType().then((res) => {
+      if (res === 'MATCH_OK' || res === 'MATCH_FAIL') {
+        this.isShow = true
+      } else if (res === 'MATCH_REJECTED') {
+        this.$router.push('/')  // todo: 상대방이 재매칭을 요구한 경우 페이지 필요
       } else if (res === 'FAIL') {
         this.$router.push('/auth')
+      } else {
+        this.$router.push('/g-blind-date/intro')
       }
     })
-
-    this.getMatchingResult()
   },
   methods: {
     async getMatchinReveal() {

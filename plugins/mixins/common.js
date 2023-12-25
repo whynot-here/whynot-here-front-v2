@@ -829,38 +829,19 @@ const common = {
       this.cmn_getUserInfo(this.$store.state.userInfo.token)
       return new Promise((resolve, reject) => {
         if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
-          // 학교 인증 O
-          // 1-2. 연애탭인지
+          // // 학교 인증 O
           this.$axios
-            .get(`${process.env.apiUrl}/v2/blind-date/participation?season=2`, {
+            .get(`${process.env.apiUrl}/v2/blind-date/g-state?season=2`, {
               headers: {
                 'Content-Type': 'application/json',
                 Authorization: this.$store.state.userInfo.token
               }
             })
             .then((res) => {
-              if (!res.data) {
-                resolve('NO')
-              }
-
-              this.$axios
-                .get(`${process.env.apiUrl}/v2/blind-date/finish?season=2`, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: this.$store.state.userInfo.token
-                  }
-                })
-                .then((res) => {
-                  if (res.data) {
-                    resolve('BLIND_DONE')
-                  } else {
-                    resolve('BLIND_ING')
-                  }
-                })
+              resolve(res.data)
             })
         } else {
           // 학생증 인증 X
-          // this.$router.push('/blind-date')
           resolve('FAIL')
         }
       })
@@ -951,7 +932,38 @@ const common = {
 
     updateSharedData(newData) {
       this.$store.commit('updateSharedData', newData)
-    }
+    },
+
+    cmn_openCompleteModal({ option }) {
+      this.$CompleteModal.modalOption.isShow = true
+      this.$CompleteModal.modalOption.imageUrl = option.imageUrl
+      this.$CompleteModal.modalOption.title = option.title
+      this.$CompleteModal.modalOption.time = option.time
+      this.$CompleteModal.modalOption.isContactPopup = option.isContactPopup
+      this.$CompleteModal.modalOption.confirmCallback = option.confirmCallback
+
+      const instance = this.$CompleteModal
+      const mount = document.createElement('div')
+      mount.id = 'complete-' + Date.now()
+      document.body.appendChild(mount)
+
+      instance.$mount(mount)
+    },
+
+    cmn_updateAccessToken() {
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/account/access-token`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.$store.commit('userInfo/setToken', { token: res.data.accessToken })
+          this.cmn_setCookie('token', res.data.accessToken, 8760)
+        })
+    },
   }
 }
 

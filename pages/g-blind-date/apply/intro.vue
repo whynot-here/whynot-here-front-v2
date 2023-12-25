@@ -47,7 +47,7 @@
         </div>
       </div>
       <section v-if="isBeforeFinalSubmit && type === 'date'" class="bottom">
-        <div class="complete-btn" @click="submitFinal()">확인</div>
+        <div class="complete-btn" @click.prevent="submitFinal()">확인</div>
       </section>
     </div>
     <div v-if="isCancelPopupOpen" class="popup">
@@ -76,25 +76,21 @@ export default {
   },
   data() {
     return {
-      // isShow: false,
-      isShow: true,
+      isShow: false,
       myStep: 0,
       favoriteStep: 0,
-      // isBeforeFinalSubmit: false
-      isBeforeFinalSubmit: true,
+      isBeforeFinalSubmit: false,
       isCancelPopupOpen: false
     }
   },
   async mounted() {
     await this.getGraduateParticipationType().then((res) => {
-      if (res === 'NO') {
-        this.isShow = true // 처음 시작하는 사용자 페이지
-      } else if (res === 'BLIND_DONE') {
-        this.$router.push('/blind-date/proceeding') // 완료 후 매칭중 페이지
-      } else if (res === 'BLIND_ING') {
+      if (res === 'BLIND_ING') {
         this.isShow = true
       } else if (res === 'FAIL') {
         this.$router.push('/auth')
+      } else {
+        this.$router.push('/g-blind-date/intro')
       }
     })
 
@@ -156,7 +152,15 @@ export default {
           }
         })
         .then((res) => {
-          this.$router.push('/g-blind-date/proceeding-01')
+          this.cmn_openCompleteModal({
+            option: {
+              imageUrl: require('@/assets/img/blind-date/apply-complete.png'),
+              title: '내부 검수 진행중입니다',
+              time: '하루',
+              isContactPopup: false,
+              confirmCallback: this.cmn_goMainPage
+            }
+          })
         })
         .catch((error) => {
           window.alert(error.response.data.message)
