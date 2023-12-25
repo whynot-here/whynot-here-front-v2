@@ -1,0 +1,342 @@
+@import '@/assets/scss/util.scss';
+
+#GFeePage {
+  .top {
+    .m-close {
+      position: absolute;
+      top: 30px;
+      right: 20px;
+      width: 24px;
+      img {
+        width: 24px;
+        height: 24px;
+      }
+
+      @include tablet {
+        top: 40px;
+        right: 40px;
+
+        img {
+          width: 35px;
+          height: 35px;
+        }
+      }
+    }
+
+    .title {
+      font-family: Pretendard;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 30px;
+      letter-spacing: 0em;
+      text-align: left;
+      padding: 55px 0px 20px 20px;
+    }
+
+    .container {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+
+      .desc {
+        background: rgba(245, 246, 247, 1);
+        width: calc(100vw - 70px);
+        padding: 12px 16px;
+        border-radius: 12px;
+
+        margin-top: 8px;
+        margin-bottom: 6px;
+        color: #8a8a8a;
+        font-family: Pretendard;
+        font-size: 13px;
+        font-style: normal;
+
+        .block1 {
+          color: rgba(69, 69, 69, 1);
+          font-weight: 400;
+          letter-spacing: 0em;
+          text-align: left;
+          padding: 12px 0px;
+        }
+
+        .block2 {
+          color: rgba(49, 49, 49, 1);
+          font-weight: 500;
+          line-height: 10px;
+          letter-spacing: 0em;
+          text-align: left;
+          padding-bottom: 2px;
+        }
+
+        .block3 {
+          color: rgba(49, 49, 49, 1);
+          font-family: Pretendard;
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 10px;
+          letter-spacing: 0em;
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  .hr {
+    width: 100vw;
+    height: 6px;
+    margin: 20px 0px;
+
+    background: rgba(239, 239, 239, 1);
+  }
+
+  .middle {
+    padding: 10px 20px;
+
+    .whynot {
+      width: 100%;
+
+      .whynot-number-title {
+        font-family: Pretendard;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: rgba(46, 51, 72, 1);
+        padding-bottom: 12px;
+      }
+
+      .whynot-number-box {
+        display: flex;
+        justify-content: space-between;
+        justify-self: center;
+
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid rgba(231, 231, 231, 1);
+        box-shadow: 0px 4px 8px 0px rgba(0, 52, 138, 0.06);
+
+        .text {
+          .line1 {
+            font-family: Pretendard;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 17px;
+            letter-spacing: 0em;
+            text-align: left;
+            color: rgba(69, 69, 69, 1);
+            padding-bottom: 8px;
+
+            span {
+              font-weight: 600;
+            }
+          }
+
+          .line2 {
+            font-family: Pretendard;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 16px;
+            letter-spacing: 0em;
+            text-align: left;
+            color: rgba(77, 77, 77, 1);
+          }
+        }
+
+        .copy-icon {
+          width: 23px;
+          height: 12px;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 10px 17px 10px 16px;
+          border-radius: 9999px;
+          border: 1px;
+          border: 1px solid rgba(217, 214, 255, 1);
+          color: rgba(98, 84, 240, 1);
+        }
+      }
+    }
+
+    .my-name {
+      .my-name-title {
+        font-family: Pretendard;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: rgba(46, 51, 72, 1);
+        padding-top: 30px;
+        padding-bottom: 12px;
+
+        span {
+          color: rgba(231, 65, 51, 1);
+        }
+      }
+
+      .my-name-input {
+        width: 95%;
+        height: 44px;
+        border-radius: 8px;
+        border: 1px;
+        border: 1px solid rgba(236, 236, 236, 1);
+        padding-left: 12px;
+      }
+    }
+
+    .bank {
+      .bank-name {
+        font-family: Pretendard;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: rgba(46, 51, 72, 1);
+        padding-top: 30px;
+        padding-bottom: 12px;
+
+        span {
+          color: rgba(231, 65, 51, 1);
+        }
+      }
+
+      .bank-number-input {
+        width: 95%;
+        height: 44px;
+        border-radius: 8px;
+        border: 1px;
+        border: 1px solid rgba(236, 236, 236, 1);
+        margin-top: 8px;
+        margin-bottom: 35px;
+        padding-left: 12px;
+        color: rgba(69, 69, 69, 1);
+      }
+    }
+
+    .submit-btn {
+      padding: 12px;
+      border-radius: 9999px;
+      border: 1px solid rgba(98, 84, 240, 0.6);
+      background: rgba(255, 255, 255, 1);
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .title {
+        font-family: Pretendard;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 12px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: rgba(98, 84, 240, 0.6);
+        padding-bottom: 5px;
+      }
+
+      .desc {
+        font-family: Pretendard;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: rgba(100, 100, 100, 0.6);
+      }
+    }
+
+    .active {
+      border: 1px solid rgba(98, 84, 240, 1);
+      background: rgba(98, 84, 240, 0.08);
+      box-shadow: 0px 4px 8px 0px rgba(0, 52, 138, 0.06);
+
+      .title {
+        color: rgba(98, 84, 240, 1);
+      }
+
+      .desc {
+        color: rgba(100, 100, 100, 1);
+      }
+    }
+
+    .ask-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+
+      .content-wrp {
+        width: 320px;
+        height: 185px;
+        border-radius: 12px;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .top {
+          display: flex;
+          width: 320px;
+          height: 100%;
+          flex-direction: column;
+          justify-content: center;
+          flex-direction: column;
+          align-items: center;
+          padding-top: 5px;
+
+          div:first-child {
+            color: rgba(6, 25, 53, 1);
+            font-family: Pretendard;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0em;
+            text-align: center;
+            padding-bottom: 8px;
+          }
+          div:nth-child(2) {
+            color: rgba(92, 108, 130, 1);
+            font-family: Pretendard;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 18px;
+            letter-spacing: 0em;
+            text-align: center;
+          }
+        }
+        .btn {
+          border-radius: 8px;
+          border: 1px solid #d9d9d9;
+          background: #fff;
+          height: 48px;
+          line-height: 48px;
+          margin: 0px 16px 16px 16px;
+          color: #454545;
+          font-family: Pretendard;
+          font-size: 15px;
+          font-weight: 500;
+          .btn-content-wrp {
+            width: max-content;
+            margin: 0 auto;
+            display: flex;
+            .copy {
+              margin-top: 3px;
+              img {
+                width: 20px;
+                margin-right: 8px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
