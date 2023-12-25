@@ -110,7 +110,7 @@
       </button> -->
     </div>
     <div
-      v-if="isPaymentUser === true && !isApplyFinishUser"
+      v-if="isBlindIng"
       class="menu"
       @click.prevent="moveApplyOrProceedingPage()"
     >
@@ -196,7 +196,8 @@ export default {
       // 한대소 시즌2 관련
       isPaymentUser: false, // 한대소 참가 (= 보증금 제출)
       applyType: '', // 'frend' | 'date'
-      isApplyFinishUser: false
+      // 졸업생 관련
+      isBlindIng: false,
     }
   },
   computed: {
@@ -246,44 +247,11 @@ export default {
       this.isMainPage = false
     }
 
-    if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
-      // 1. 한대소를 지원했는지?
-      this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/fee/confirm?season=2`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {
-          this.isPaymentUser = res.data
-
-          this.$axios
-            .get(`${process.env.apiUrl}/v2/blind-date/participation?season=2`, {
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: this.$store.state.userInfo.token
-              }
-            })
-            .then((res) => {
-              this.applyType = res.data ? 'date' : ''
-              if (res.data) {
-                this.$axios
-                  .get(`${process.env.apiUrl}/v2/blind-date/finish?season=2`, {
-                    headers: {
-                      'Content-Type': 'application/json',
-                      Authorization: this.$store.state.userInfo.token
-                    }
-                  })
-                  .then((res) => {
-                    this.isApplyFinishUser = res.data
-                  })
-              }
-            })
-        })
-    } else {
-      this.isPaymentUser = false
-    }
+    this.getGraduateParticipationType().then((res) => {
+      if (res === 'BLIND_ING') {
+        this.isBlindIng = true
+      }
+    })
   },
   methods: {
     closeNoticePopup() {

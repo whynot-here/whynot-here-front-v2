@@ -829,38 +829,19 @@ const common = {
       this.cmn_getUserInfo(this.$store.state.userInfo.token)
       return new Promise((resolve, reject) => {
         if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
-          // 학교 인증 O
-          // 1-2. 연애탭인지
+          // // 학교 인증 O
           this.$axios
-            .get(`${process.env.apiUrl}/v2/blind-date/g-participation?season=2`, {
+            .get(`${process.env.apiUrl}/v2/blind-date/g-state?season=2`, {
               headers: {
                 'Content-Type': 'application/json',
                 Authorization: this.$store.state.userInfo.token
               }
             })
             .then((res) => {
-              if (!res.data) {
-                resolve('NO')
-              }
-
-              this.$axios
-                .get(`${process.env.apiUrl}/v2/blind-date/finish?season=2`, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: this.$store.state.userInfo.token
-                  }
-                })
-                .then((res) => {
-                  if (res.data) {
-                    resolve('BLIND_DONE')
-                  } else {
-                    resolve('BLIND_ING')
-                  }
-                })
+              resolve(res.data)
             })
         } else {
           // 학생증 인증 X
-          // this.$router.push('/blind-date')
           resolve('FAIL')
         }
       })
