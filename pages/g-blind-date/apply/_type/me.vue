@@ -1043,16 +1043,26 @@ export default {
           const locationItem = this.cityList.filter((item) => {
             return item.code === this.applyParams.myLocation
           })[0]
-          this.locationLabelFirst = locationItem.cityName
-          this.$refs.dropdownLocation.parentId = locationItem.cityId
+          if (locationItem === undefined) {
+            this.locationLabelFirst = '서울특별시'
+            this.$refs.dropdownLocation.parentId = 1
+          } else {
+            this.locationLabelFirst = locationItem.cityName
+            this.$refs.dropdownLocation.parentId = locationItem.cityId
+          }
         }
 
         if (this.$refs.dropdownJob !== undefined) {
           const jobItem = this.jobList.filter((item) => {
             return item.code === this.applyParams.myJob
           })[0]
-          this.jobLabelFirst = jobItem.jobName
-          this.$refs.dropdownJob.parentId = jobItem.jobId
+          if (jobItem === undefined) {
+            this.jobLabelFirst = '사기업직장인'
+            this.$refs.dropdownJob.parentId = 1
+          } else {
+            this.jobLabelFirst = jobItem.jobName
+            this.$refs.dropdownJob.parentId = jobItem.jobId
+          }
         }
       })
 

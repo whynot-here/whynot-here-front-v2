@@ -397,7 +397,7 @@ const common = {
       jobList: [
         {
           jobId: 1,
-          jobName: '사기업 직장인',
+          jobName: '사기업직장인',
           code: 'PRIVATE'
         },
         {
@@ -441,7 +441,7 @@ const common = {
         department: '',
         myHeight: '',
         myDrink: 'NEVER',
-        myLocation: 'DORMITORY',
+        myLocation: 'SEOUL',
         myLocationDesc: '',
         myJob: 'PRIVATE',
         myJobDesc: '',
@@ -960,10 +960,12 @@ const common = {
           }
         })
         .then((res) => {
-          this.$store.commit('userInfo/setToken', { token: res.data.accessToken })
+          this.$store.commit('userInfo/setToken', {
+            token: res.data.accessToken
+          })
           this.cmn_setCookie('token', res.data.accessToken, 8760)
         })
-    },
+    }
   }
 }
 
