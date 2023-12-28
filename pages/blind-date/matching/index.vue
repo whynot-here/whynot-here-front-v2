@@ -205,6 +205,8 @@ export default {
     }
   },
   async mounted() {
+    this.cmn_goMainPage()
+    
     this.isNuxtReady = true
     await this.getParticipationType().then((res) => {
       if (res === 'NO') {

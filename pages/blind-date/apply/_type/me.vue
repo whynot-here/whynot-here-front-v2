@@ -805,6 +805,8 @@ export default {
     }
   },
   mounted() {
+    this.cmn_goMainPage()
+    
     // 지원서 작성 중간에 수정하는 경우 (연애탭일 경우만)
     if (this.type === 'date') {
       this.$axios

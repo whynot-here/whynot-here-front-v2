@@ -153,12 +153,12 @@
     </div>
 
     <div class="footer">
-      <div
+      <!-- <div
         class="btn btn-comming-soon"
       >
         comming soon
-      </div>
-      <!-- <div
+      </div> -->
+      <div
         v-if="!isAuthComplete"
         class="btn btn-need-auth"
       >
@@ -170,7 +170,7 @@
         @click="$router.push('/g-blind-date/terms')"
       >
         신청서 작성하기
-      </div> -->
+      </div>
     </div>
   </div>
 </template>

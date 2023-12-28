@@ -162,7 +162,9 @@ export default {
       deep: true
     }
   },
-  mounted() {},
+  mounted() {
+    this.cmn_goMainPage()
+  },
   methods: {
     selectBankName(item) {
       this.feeRequest.bankName = item.name

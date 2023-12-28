@@ -38,7 +38,7 @@ export default {
   },
   watch: {},
   async mounted() {
-    await this.getParticipationType().then((res) => {
+    await this.getGraduateParticipationType().then((res) => {
       if (res === 'MATCH') {
         this.isShow = true
       } else if (res === 'FAIL') {

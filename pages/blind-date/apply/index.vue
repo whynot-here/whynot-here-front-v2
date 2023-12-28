@@ -480,7 +480,7 @@ export default {
   },
   watch: {},
   mounted() {
-    this.$router.push('/')
+    this.cmn_goMainPage()
     // 한대소 시즌 기간인 경우
     // this.getAuthState()
     // 한대소 시즌 마감인 경우

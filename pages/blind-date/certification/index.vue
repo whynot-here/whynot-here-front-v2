@@ -54,7 +54,9 @@ export default {
       type: 'date' // 'date' | 'friend'
     }
   },
-  mounted() {},
+  mounted() {
+    this.cmn_goMainPage()
+  },
   methods: {}
 }
 </script>

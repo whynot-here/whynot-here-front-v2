@@ -487,7 +487,7 @@ export default {
         this.curStage += addNum
         this.checkIsNextActive(this.curStage)
       } else if (this.curStage === 4 && addNum === 1) {
-        this.moveApplyIntroPage(this.type)
+        this.moveGraduateApplyIntroPage(this.type)
       } else if (this.curStage === 4 && addNum === -1) {
         this.curStage += addNum
       }

@@ -27,6 +27,8 @@ export default {
   },
   watch: {},
   async mounted() {
+    this.cmn_goMainPage()
+    
     await this.getParticipationType().then((res) => {
       if (res === 'NO') {
         this.$router.push('/blind-date') // 처음 시작하는 사용자 페이지

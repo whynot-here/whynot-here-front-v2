@@ -434,6 +434,8 @@ export default {
     }
   },
   mounted() {
+    this.cmn_goMainPage()
+    
     this.isNextActive = this.curStage === 1 || this.curStage === 3
 
     // 지원서 작성 중간에 수정하는 경우

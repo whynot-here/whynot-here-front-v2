@@ -62,6 +62,8 @@ export default {
   },
   watch: {},
   mounted() {
+    this.cmn_goMainPage()
+    
     this.getApplicantTotalCnt()
   },
   methods: {

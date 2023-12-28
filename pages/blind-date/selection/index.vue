@@ -232,6 +232,8 @@ export default {
   },
   watch: {},
   async mounted() {
+    this.cmn_goMainPage()
+    
     await this.getParticipationType().then((res) => {
       if (res === 'NO') {
         this.isShow = true // 처음 시작하는 사용자 페이지
