@@ -840,6 +840,10 @@ const common = {
             .then((res) => {
               resolve(res.data)
             })
+            .catch((error) => {
+              console.log(error)
+              this.cmn_updateAccessToken()
+            })
         } else {
           // 학생증 인증 X
           resolve('FAIL')
