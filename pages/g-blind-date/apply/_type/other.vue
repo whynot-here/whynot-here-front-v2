@@ -427,6 +427,7 @@ export default {
     }
   },
   mounted() {
+    // this.submit()
     this.isNextActive = this.curStage === 1 || this.curStage === 3
 
     // 지원서 작성 중간에 수정하는 경우
@@ -526,9 +527,9 @@ export default {
           }
         })
         .then((res) => {
-          if (this.curStage === 4) {
-            this.isFinalStepSubmit = true
-          }
+          // if (this.curStage === 4) {
+          //   this.isFinalStepSubmit = true
+          // }
         })
         .catch((error) => {
           window.alert(error.response.data.message)

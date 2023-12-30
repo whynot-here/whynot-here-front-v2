@@ -464,17 +464,17 @@ const common = {
         kakaoLink: '',
         excludeCondList: [],
         imageLinks: [],
-        favoriteAge: 'NO_MATTER', // UP, DOWN, SAME, NO_MATTER
-        favoriteAgeImportant: true,
-        favoriteHeight: '170~175', // 160미만, 160~165, 165~170, 170~175, 175~180, 180이상
-        favoriteHeightImportant: true,
-        favoriteSmoke: 'N', // Y, N
-        favoriteSmokeImportant: true, // true, false
-        favoriteDrink: 'NEVER', // SOMETIMES, ONETWO_OF_WEEK, FIVE_OF_WEEK, NEVER
-        favoriteDrinkImportant: true, // true, false
-        favoriteFaith: 'NO_MATTER', // CHRISTIAN, NO_MATTER
-        favoriteFaithImportant: true, // true, false
-        favoriteLocation: 'LONG_OK', // LONG_OK, LONG_NO
+        favoriteAge: '', // UP, DOWN, SAME, NO_MATTER
+        favoriteAgeImportant: false,
+        favoriteHeight: '', // 160미만, 160~165, 165~170, 170~175, 175~180, 180이상
+        favoriteHeightImportant: false,
+        favoriteSmoke: '', // Y, N
+        favoriteSmokeImportant: false, // true, false
+        favoriteDrink: '', // SOMETIMES, ONETWO_OF_WEEK, FIVE_OF_WEEK, NEVER
+        favoriteDrinkImportant: false, // true, false
+        favoriteFaith: '', // CHRISTIAN, NO_MATTER
+        favoriteFaithImportant: false, // true, false
+        favoriteLocation: '', // LONG_OK, LONG_NO
         favoriteLocationImportant: false // true, false
       }
     }
