@@ -103,12 +103,12 @@
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
     </div>
-    <div v-if="isMainPageComp" class="middle">
+    <!-- <div v-if="isMainPageComp" class="middle">
       🗓️ 이번주는 한동 <strong>{{ numOfWeekStr }}</strong>
-      <!-- <button @click.prevent="$router.push('/blind-date/selection')">
+      <button @click.prevent="$router.push('/blind-date/selection')">
         한대소 시즌2
-      </button> -->
-    </div>
+      </button>
+    </div> -->
     <div
       v-if="isBlindIng"
       class="menu"
@@ -197,7 +197,7 @@ export default {
       isPaymentUser: false, // 한대소 참가 (= 보증금 제출)
       applyType: '', // 'frend' | 'date'
       // 졸업생 관련
-      isBlindIng: false,
+      isBlindIng: false
     }
   },
   computed: {
