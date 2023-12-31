@@ -1,6 +1,6 @@
 <template>
   <div id="Rematching">
-    <section class="top">
+    <section class="title-wrp">
       <div class="title">
         <div>아쉽지만</div>
         <div><strong>매칭상대를</strong> 찾지 못했어요😢</div>
@@ -26,9 +26,21 @@
     </section>
     <main class="content"></main>
     <section class="btn-wrp">
-      <div class="prev">매칭 포기</div>
+      <div class="prev" @click="openStopMatchingPopup(true)">매칭 포기</div>
       <div class="next active">재매칭 신청</div>
     </section>
+    <div v-if="isOpenStopMatchingPopup" class="popup">
+      <div class="content-wrp">
+        <div class="top">
+          <div>정말 신청 철회를 하시겠어요?</div>
+          <div>철회를 진행하시면, 지금까지의 정보가 삭제 됩니다.</div>
+        </div>
+        <div class="btn">
+          <div @click="openStopMatchingPopup(false)">아니요</div>
+          <div @click="cancelBlindDate()">네</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -38,7 +50,8 @@ export default {
   components: {},
   data() {
     return {
-      isShow: false
+      isShow: false,
+      isOpenStopMatchingPopup: false
     }
   },
   watch: {},
@@ -56,6 +69,25 @@ export default {
   methods: {
     go_home() {
       this.$router.push('/')
+    },
+    openStopMatchingPopup(value) {
+      this.isOpenStopMatchingPopup = value
+    },
+    cancelBlindDate() {
+      this.$axios
+        .delete(`${process.env.apiUrl}/v2/blind-date?season=2`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.$router.push('/')
+        })
+        .catch((error) => {
+          window.alert(error.response.data.message)
+        })
     }
   }
 }
@@ -76,7 +108,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  .top {
+  .title-wrp {
     display: flex;
     padding: 78px 20px 32px 20px;
     flex-direction: column;
@@ -180,6 +212,84 @@ export default {
       text-align: center;
       &.active {
         background: #5d50e1;
+      }
+    }
+  }
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    .content-wrp {
+      width: 355px;
+      height: 194px;
+      border-radius: 12px;
+      background: #fff;
+      .top {
+        display: flex;
+        padding: 40px 0px 24px 0px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        div:first-child {
+          color: #061935;
+          text-align: center;
+          font-family: Pretendard;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 24px;
+        }
+        div:nth-child(2) {
+          margin-top: 8px;
+          color: #5c6c82;
+          text-align: center;
+          font-family: Pretendard;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 400;
+        }
+      }
+      .btn {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        padding: 16px;
+        div {
+          width: 145px;
+          height: 48px;
+          line-height: 48px;
+          text-align: center;
+        }
+        div:first-child {
+          border-radius: 8px;
+          border: 1px solid #dedede;
+          background: #fff;
+          color: #404040;
+
+          font-family: Pretendard;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 500;
+        }
+        div:nth-child(2) {
+          border-radius: 8px;
+          border: 1px solid #dedede;
+          background: #fff;
+          color: #6254f0;
+          border: 1px solid #6254f0;
+
+          font-family: Pretendard;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 500;
+        }
       }
     }
   }
