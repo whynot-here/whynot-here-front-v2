@@ -150,16 +150,19 @@ export default {
           }
         )
         .then((res) => {
-          this.$store.commit('userInfo/setToken', {
-            token: res.data.accessToken
+          // 메인 페이지에서 프로필 이미지 못받아오는 경우가 있음
+          this.$nextTick(() => {
+            this.$store.commit('userInfo/setToken', {
+              token: res.data.accessToken
+            })
+            this.$store.commit('userInfo/setInitLoginDone', { loginDone: true })
+            this.$store.commit('userInfo/setDetail', {
+              info: res.data.accountResponseDTO
+            })
+            this.cmn_setCookie('token', res.data.accessToken, 8760)
+            this.$bus.$emit('refreshCard', {})
+            this.$router.push(`/gather/all`)
           })
-          this.$store.commit('userInfo/setInitLoginDone', { loginDone: true })
-          this.$store.commit('userInfo/setDetail', {
-            info: res.data.accountResponseDTO
-          })
-          this.cmn_setCookie('token', res.data.accessToken, 8760)
-          this.$bus.$emit('refreshCard', {})
-          this.$router.push(`/gather/all`)
         })
         .catch((error) => {
           this.cmn_openAlertPopup({

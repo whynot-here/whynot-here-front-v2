@@ -154,7 +154,329 @@ const common = {
             // { id: 35, code: 'ETC-FAITH', name: '그 외', parentCode: 'FAITH' }
           ]
         }
-      ]
+      ],
+      bankNameList: [
+        {
+          bankId: 1,
+          bankName: '카카오뱅크'
+        },
+        {
+          bankId: 2,
+          bankName: '토스뱅크'
+        },
+        {
+          bankId: 3,
+          bankName: 'IBK기업은행'
+        },
+        {
+          bankId: 4,
+          bankName: 'KB국민은행'
+        },
+        {
+          bankId: 5,
+          bankName: '신한은행'
+        },
+        {
+          bankId: 6,
+          bankName: '하나은행'
+        },
+        {
+          bankId: 7,
+          bankName: 'NH농협'
+        },
+        {
+          bankId: 8,
+          bankName: '우리은행'
+        },
+        {
+          bankId: 9,
+          bankName: 'SC제일은행'
+        },
+        {
+          bankId: 10,
+          bankName: '케이뱅크'
+        },
+        {
+          bankId: 11,
+          bankName: '대구은행'
+        },
+        {
+          bankId: 12,
+          bankName: '부산은행'
+        },
+        {
+          bankId: 13,
+          bankName: '우체국'
+        }
+      ],
+      majorList: [
+        {
+          majorId: 1,
+          majorName: '글로벌리더쉽',
+          code: 'GLOBAL'
+        },
+        {
+          majorId: 2,
+          majorName: '국제어문',
+          code: 'INTERNATIONAL'
+        },
+        {
+          majorId: 3,
+          majorName: '경영경제',
+          code: 'ECONOMICS'
+        },
+        {
+          majorId: 4,
+          majorName: '법학부',
+          code: 'LAW'
+        },
+        {
+          majorId: 5,
+          majorName: '커뮤니케이션',
+          code: 'COMMUNICATION'
+        },
+        {
+          majorId: 6,
+          majorName: '상담복지',
+          code: 'PSYCHOLOGY'
+        },
+        {
+          majorId: 7,
+          majorName: '생명과학',
+          code: 'BIO'
+        },
+        {
+          majorId: 8,
+          majorName: '공간환경시스템',
+          code: 'ENVIRONMENT'
+        },
+        {
+          majorId: 9,
+          majorName: '전산전자',
+          code: 'COMPUTER'
+        },
+        {
+          majorId: 10,
+          majorName: '콘텐츠융합디자인',
+          code: 'CONTENTS'
+        },
+        {
+          majorId: 11,
+          majorName: '기계제어',
+          code: 'MECHANICS'
+        },
+        {
+          majorId: 12,
+          majorName: 'ICT창업학부',
+          code: 'ICT'
+        },
+        {
+          majorId: 13,
+          majorName: '언어교육원',
+          code: 'LANGUAGE'
+        },
+        {
+          majorId: 14,
+          majorName: '창의융합교육원',
+          code: 'CREATIVE'
+        },
+        {
+          majorId: 15,
+          majorName: 'AI융합교육원',
+          code: 'AI'
+        }
+      ],
+      heightList: [
+        {
+          heightId: 1,
+          heightName: '160cm 이하'
+        },
+        {
+          heightId: 2,
+          heightName: '160~165'
+        },
+        {
+          heightId: 3,
+          heightName: '165~170'
+        },
+        {
+          heightId: 4,
+          heightName: '170~175'
+        },
+        {
+          heightId: 5,
+          heightName: '175~180'
+        },
+        {
+          heightId: 6,
+          heightName: '180 이상'
+        }
+      ],
+      cityList: [
+        {
+          cityId: 1,
+          cityName: '서울특별시',
+          code: 'SEOUL'
+        },
+        {
+          cityId: 2,
+          cityName: '인천',
+          code: 'INCHEON'
+        },
+        {
+          cityId: 3,
+          cityName: '경기 북부',
+          code: 'GYEONGGI_NORTH'
+        },
+        {
+          cityId: 4,
+          cityName: '경기 남부',
+          code: 'GYEONGGI_SOUTH'
+        },
+        {
+          cityId: 5,
+          cityName: '강원권',
+          code: 'GANGWON'
+        },
+        {
+          cityId: 6,
+          cityName: '충청권',
+          code: 'CHUNGCHEONG'
+        },
+        {
+          cityId: 7,
+          cityName: '대전',
+          code: 'DAEJEON'
+        },
+        {
+          cityId: 8,
+          cityName: '세종',
+          code: 'SEJONG'
+        },
+        {
+          cityId: 9,
+          cityName: '경상권',
+          code: 'GYEONGSANG'
+        },
+        {
+          cityId: 10,
+          cityName: '대구',
+          code: 'DAEGU'
+        },
+        {
+          cityId: 11,
+          cityName: '부산',
+          code: 'BUSAN'
+        },
+        {
+          cityId: 12,
+          cityName: '울산',
+          code: 'ULSAN'
+        },
+        {
+          cityId: 13,
+          cityName: '전라권',
+          code: 'JEONLA'
+        },
+        {
+          cityId: 14,
+          cityName: '광주',
+          code: 'GWANGJU'
+        },
+        {
+          cityId: 15,
+          cityName: '제주',
+          code: 'JEJU'
+        },
+        {
+          cityId: 16,
+          cityName: '기타',
+          code: 'ETC'
+        }
+      ],
+      jobList: [
+        {
+          jobId: 1,
+          jobName: '사기업직장인',
+          code: 'PRIVATE'
+        },
+        {
+          jobId: 2,
+          jobName: '공무원/공공기관',
+          code: 'PUBLIC'
+        },
+        {
+          jobId: 3,
+          jobName: '특수직',
+          code: 'SPECIAL'
+        },
+        {
+          jobId: 4,
+          jobName: '전문직',
+          code: 'PROFESSIONAL'
+        },
+        {
+          jobId: 5,
+          jobName: '프리랜서',
+          code: 'FREE'
+        },
+        {
+          jobId: 6,
+          jobName: '사업자',
+          code: 'BUSINESS'
+        },
+        {
+          jobId: 7,
+          jobName: '기타',
+          code: 'ETC'
+        }
+      ],
+      applyParams: {
+        season: 2,
+        myStep: 0,
+        favoriteStep: 0,
+        name: '',
+        gender: 'M',
+        myAge: '',
+        department: '',
+        myHeight: '',
+        myDrink: 'NEVER',
+        myLocation: 'SEOUL',
+        myLocationDesc: '',
+        myJob: 'PRIVATE',
+        myJobDesc: '',
+        hobby: '',
+        hobbyDesc: '',
+        myHobby: '',
+        myHobbyDesc: '',
+        myContactStyle: 'KAKAO_OFTEN',
+        myCharacter: '',
+        dateStyle: '',
+        faith: 'NOTHING',
+        smoke: 'N',
+        mySmoke: 'N',
+        mbti_01: 'E',
+        mbti_02: 'S',
+        mbti_03: 'T',
+        mbti_04: 'J',
+        commentForMate: '',
+        commentForAdmin: '',
+        kakaoLink: '',
+        excludeCondList: [],
+        imageLinks: [],
+        favoriteAge: '', // UP, DOWN, SAME, NO_MATTER
+        favoriteAgeImportant: false,
+        favoriteHeight: '', // 160미만, 160~165, 165~170, 170~175, 175~180, 180이상
+        favoriteHeightImportant: false,
+        favoriteSmoke: '', // Y, N
+        favoriteSmokeImportant: false, // true, false
+        favoriteDrink: '', // SOMETIMES, ONETWO_OF_WEEK, FIVE_OF_WEEK, NEVER
+        favoriteDrinkImportant: false, // true, false
+        favoriteFaith: '', // CHRISTIAN, NO_MATTER
+        favoriteFaithImportant: false, // true, false
+        favoriteLocation: '', // LONG_OK, LONG_NO
+        favoriteLocationImportant: false // true, false
+      }
     }
   },
   computed: {
@@ -238,7 +560,9 @@ const common = {
       const minutesDiff =
         (today.getTime() - createdDate.getTime()) / (1000 * 60)
       const day = {
-        month: (parseInt(createdDate.getMonth())+1).toString().padStart(2, '0'),
+        month: (parseInt(createdDate.getMonth()) + 1)
+          .toString()
+          .padStart(2, '0'),
         date: createdDate.getDate().toString().padStart(2, '0'),
         hour: createdDate.getHours().toString().padStart(2, '0'),
         minute: createdDate.getMinutes().toString().padStart(2, '0')
@@ -257,6 +581,22 @@ const common = {
       } else {
         return true
       }
+    },
+
+    cmn_httpsCheck(t) {
+      if (t.length > 0 && t.substring(0, 5) !== 'https') {
+        this.cmn_openAlertPopup({
+          option: {
+            title: '📣 알림',
+            content: '위치 url은 https로 시작해야합니다.',
+            type: 'alert',
+            confirmText: '확인',
+            cancelText: ''
+          }
+        })
+        return false
+      }
+      return true
     },
 
     cmn_goMainPage() {
@@ -333,63 +673,302 @@ const common = {
     },
 
     cmn_getNumOfWeek() {
-      const today = new Date();
-      const week1 = new Date('2023-08-27');
-      const week2 = new Date('2023-09-03');
-      const week3 = new Date('2023-09-10');
-      const week4 = new Date('2023-09-17');
-      const week5 = new Date('2023-09-24');
-      const week6 = new Date('2023-10-01');
-      const week7 = new Date('2023-10-08');
-      const week8 = new Date('2023-10-15');
-      const week9 = new Date('2023-10-22');
-      const week10 = new Date('2023-10-29');
-      const week11 = new Date('2023-11-05');
-      const week12 = new Date('2023-11-12');
-      const week13 = new Date('2023-11-19');
-      const week14 = new Date('2023-11-26');
-      const week15 = new Date('2023-12-03');
-      const week16 = new Date('2023-12-10');
-      const vacation = new Date('2023-12-17');
+      const today = new Date()
+      const week1 = new Date('2023-08-27')
+      const week2 = new Date('2023-09-03')
+      const week3 = new Date('2023-09-10')
+      const week4 = new Date('2023-09-17')
+      const week5 = new Date('2023-09-24')
+      const week6 = new Date('2023-10-01')
+      const week7 = new Date('2023-10-08')
+      const week8 = new Date('2023-10-15')
+      const week9 = new Date('2023-10-22')
+      const week10 = new Date('2023-10-29')
+      const week11 = new Date('2023-11-05')
+      const week12 = new Date('2023-11-12')
+      const week13 = new Date('2023-11-19')
+      const week14 = new Date('2023-11-26')
+      const week15 = new Date('2023-12-03')
+      const week16 = new Date('2023-12-10')
+      const vacation = new Date('2023-12-17')
 
-      let numOfWeek;
-      if (week1<=today && today<week2) {
-        numOfWeek = 1;
-      } else if (week2<=today && today<week3) {
-        numOfWeek = 2;
-      } else if (week3<=today && today<week4) {
-        numOfWeek = 3;
-      } else if (week4<=today && today<week5) {
-        numOfWeek = 4;
-      } else if (week5<=today && today<week6) {
-        numOfWeek = 5;
-      } else if (week6<=today && today<week7) {
-        numOfWeek = 6;
-      } else if (week7<=today && today<week8) {
-        numOfWeek = 7;
-      } else if (week8<=today && today<week9) {
-        numOfWeek = 8;
-      } else if (week9<=today && today<week10) {
-        numOfWeek = 9;
-      } else if (week10<=today && today<week11) {
-        numOfWeek = 10;
-      } else if (week11<=today && today<week12) {
-        numOfWeek = 11;
-      } else if (week12<=today && today<week13) {
-        numOfWeek = 12;
-      } else if (week13<=today && today<week14) {
-        numOfWeek = 13;
-      } else if (week14<=today && today<week15) {
-        numOfWeek = 14;
-      } else if (week15<=today && today<week16) {
-        numOfWeek = 15;
-      } else if (week16<=today && today<vacation) {
-        numOfWeek = 16;
+      let numOfWeek
+      if (week1 <= today && today < week2) {
+        numOfWeek = 1
+      } else if (week2 <= today && today < week3) {
+        numOfWeek = 2
+      } else if (week3 <= today && today < week4) {
+        numOfWeek = 3
+      } else if (week4 <= today && today < week5) {
+        numOfWeek = 4
+      } else if (week5 <= today && today < week6) {
+        numOfWeek = 5
+      } else if (week6 <= today && today < week7) {
+        numOfWeek = 6
+      } else if (week7 <= today && today < week8) {
+        numOfWeek = 7
+      } else if (week8 <= today && today < week9) {
+        numOfWeek = 8
+      } else if (week9 <= today && today < week10) {
+        numOfWeek = 9
+      } else if (week10 <= today && today < week11) {
+        numOfWeek = 10
+      } else if (week11 <= today && today < week12) {
+        numOfWeek = 11
+      } else if (week12 <= today && today < week13) {
+        numOfWeek = 12
+      } else if (week13 <= today && today < week14) {
+        numOfWeek = 13
+      } else if (week14 <= today && today < week15) {
+        numOfWeek = 14
+      } else if (week15 <= today && today < week16) {
+        numOfWeek = 15
+      } else if (week16 <= today && today < vacation) {
+        numOfWeek = 16
       } else {
-        numOfWeek = 0;
+        numOfWeek = 0
       }
 
-      return numOfWeek;
+      return numOfWeek
+    },
+
+    async cmn_getBlindOrFriendParticipation() {
+      return await Promise.all([
+        this.cmn_getIsBlindParticipation(),
+        this.cmn_getIsFriendParticipation()
+      ]).then(function (values) {
+        console.log('⭐️')
+        console.log(values)
+        return values.includes(true)
+      })
+    },
+
+    // 연애 탭 지원 여부 확인
+    async cmn_getIsBlindParticipation() {
+      return await this.$axios
+        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=2`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          return res.data
+        })
+    },
+    // 친구 탭 지원 여부 확인
+    async cmn_getIsFriendParticipation() {
+      return await this.$axios
+        .get(`${process.env.apiUrl}/v2/friend-meeting/participation?season=2`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          return res.data
+        })
+    },
+
+    cmn_setApplyParams(curApplyParams) {
+      for (const [key] of Object.entries(curApplyParams)) {
+        this.applyParams[key] =
+          curApplyParams[key] === null ? '' : curApplyParams[key]
+      }
+    },
+
+    // async getParticipationType() {
+    //   // 1-1. 친구탭인지
+    //   return await this.$axios
+    //     .get(`${process.env.apiUrl}/v2/friend-meeting/participation?season=2`, {
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         Authorization: this.$store.state.userInfo.token
+    //       }
+    //     })
+    //     .then((res) => {
+    //       if (res.data) {
+    //         return 'FRIEND'
+    //       }
+
+    //       // 1-2. 연애탭인지
+    //       this.$axios
+    //         .get(`${process.env.apiUrl}/v2/blind-date/participation?season=2`, {
+    //           headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: this.$store.state.userInfo.token
+    //           }
+    //         })
+    //         .then((res) => {
+    //           console.log(res.data)
+    //           if (!res.data) {
+    //             console.log('daj;fkdja;kf;ld')
+    //             return 'NO'
+    //           }
+
+    //           this.$axios
+    //             .get(`${process.env.apiUrl}/v2/blind-date/finish?season=2`, {
+    //               headers: {
+    //                 'Content-Type': 'application/json',
+    //                 Authorization: this.$store.state.userInfo.token
+    //               }
+    //             })
+    //             .then((res) => {
+    //               if (res.data) {
+    //                 return 'BLIND_DONE'
+    //               } else {
+    //                 return 'BLIND_ING'
+    //               }
+    //             })
+    //         })
+    //     })
+    // },
+
+    // 한대소 졸업생 신청일 때
+    getGraduateParticipationType() {
+      this.cmn_getUserInfo(this.$store.state.userInfo.token)
+      return new Promise((resolve, reject) => {
+        if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
+          // // 학교 인증 O
+          this.$axios
+            .get(`${process.env.apiUrl}/v2/blind-date/g-state?season=2`, {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: this.$store.state.userInfo.token
+              }
+            })
+            .then((res) => {
+              resolve(res.data)
+            })
+            .catch((error) => {
+              console.log(error)
+              this.cmn_updateAccessToken()
+            })
+        } else {
+          // 학생증 인증 X
+          resolve('FAIL')
+        }
+      })
+    },
+
+    // 한대소 재학생 신청일 때
+    getParticipationType() {
+      this.cmn_getUserInfo(this.$store.state.userInfo.token)
+      return new Promise((resolve, reject) => {
+        if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
+          // 학생증 인증 O
+          // 1-1. 친구탭인지
+          this.$axios
+            .get(
+              `${process.env.apiUrl}/v2/friend-meeting/participation?season=2`,
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: this.$store.state.userInfo.token
+                }
+              }
+            )
+            .then((res) => {
+              if (res.data) {
+                resolve('FRIEND')
+              }
+
+              // 1-2. 연애탭인지
+              this.$axios
+                .get(
+                  `${process.env.apiUrl}/v2/blind-date/participation?season=2`,
+                  {
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: this.$store.state.userInfo.token
+                    }
+                  }
+                )
+                .then((res) => {
+                  if (!res.data) {
+                    resolve('NO')
+                  }
+
+                  this.$axios
+                    .get(
+                      `${process.env.apiUrl}/v2/blind-date/finish?season=2`,
+                      {
+                        headers: {
+                          'Content-Type': 'application/json',
+                          Authorization: this.$store.state.userInfo.token
+                        }
+                      }
+                    )
+                    .then((res) => {
+                      if (res.data) {
+                        resolve('BLIND_DONE')
+                      } else {
+                        resolve('BLIND_ING')
+                      }
+                    })
+                })
+            })
+        } else {
+          // 학생증 인증 X
+          // this.$router.push('/blind-date')
+          resolve('FAIL')
+        }
+      })
+    },
+
+    nullCheck(params) {
+      return params !== null
+    },
+
+    moveApplyIntroPage(type) {
+      this.$router.push({
+        name: 'blind-date-apply-intro',
+        params: { type }
+      }) // 작성중 페이지
+    },
+
+    moveGraduateApplyIntroPage(type) {
+      this.$router.push({
+        name: 'g-blind-date-apply-intro',
+        params: { type }
+      }) // 작성중 페이지
+    },
+
+    updateSharedData(newData) {
+      this.$store.commit('updateSharedData', newData)
+    },
+
+    cmn_openCompleteModal({ option }) {
+      this.$CompleteModal.modalOption.isShow = true
+      this.$CompleteModal.modalOption.imageUrl = option.imageUrl
+      this.$CompleteModal.modalOption.title = option.title
+      this.$CompleteModal.modalOption.time = option.time
+      this.$CompleteModal.modalOption.isContactPopup = option.isContactPopup
+      this.$CompleteModal.modalOption.confirmCallback = option.confirmCallback
+
+      const instance = this.$CompleteModal
+      const mount = document.createElement('div')
+      mount.id = 'complete-' + Date.now()
+      document.body.appendChild(mount)
+
+      instance.$mount(mount)
+    },
+
+    cmn_updateAccessToken() {
+      this.$axios
+        .get(`${process.env.apiUrl}/v2/account/access-token`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then((res) => {
+          this.$store.commit('userInfo/setToken', {
+            token: res.data.accessToken
+          })
+          this.cmn_setCookie('token', res.data.accessToken, 8760)
+        })
     }
   }
 }

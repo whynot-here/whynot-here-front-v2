@@ -6,8 +6,12 @@
         <strong>두근두근</strong><br />
         한대소!
       </div>
-      <div class="apply-cnt">현재 <strong>{{ totalCount }}명</strong> 참여중!</div>
-      <div class="apply-ratio">(남여 비율 차이로 매칭이 되지 않을 수 있습니다.)</div>
+      <div class="apply-cnt">
+        현재 <strong>{{ totalCount }}명</strong> 참여중!
+      </div>
+      <div class="apply-ratio">
+        (남여 비율 차이로 매칭이 되지 않을 수 있습니다.)
+      </div>
     </section>
     <section class="bottom">
       <div class="point-img">
@@ -53,11 +57,13 @@ export default {
   components: {},
   data() {
     return {
-      totalCount: 0,
+      totalCount: 0
     }
   },
   watch: {},
   mounted() {
+    this.cmn_goMainPage()
+    
     this.getApplicantTotalCnt()
   },
   methods: {
@@ -73,15 +79,15 @@ export default {
 
     async getApplicantTotalCnt() {
       await this.$axios
-          .get(`${process.env.apiUrl}/v2/blind-date/total-cnt?season=1`, {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          })
-          .then((res) => {
-            this.totalCount = res.data
-          })
+        .get(`${process.env.apiUrl}/v2/blind-date/total-cnt?season=2`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then((res) => {
+          this.totalCount = res.data
+        })
     }
   }
 }

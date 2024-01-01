@@ -1,101 +1,92 @@
 <template>
-  <div v-show="isShow" id="BlindDate">
-    <section class="top">
-      <div class="title">
-        <strong>두근두근</strong><br />
-        한대소!
-      </div>
-    </section>
+  <div>
+    <div v-show="isShow" id="BlindDate">
+      <section class="top">
+        <div class="title">
+          <strong>두근두근</strong><br />
+          한대소!
+        </div>
+      </section>
 
-    <div
-      v-if="isNuxtReady"
-      v-swiper:mySwiper="swiperOption"
-      class="swiper-container"
-    >
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <section class="middle">
-            <div class="middle-img">
-              <img
-                class="img_01"
-                src="@/assets/img/blind-date/notice_01.png"
-                alt=""
-              />
-            </div>
-            <div class="desc _01">본 이벤트는,</div>
-            <div class="desc _02">
-              <div class="left">09.11 ~ 09.15 (5일간)</div>
-              <div class="right">진행되고,</div>
-            </div>
-            <div class="desc _03">
-              <div class="left">한동대 학생들 (재학중)</div>
-              <div class="right">참여 가능합니다.</div>
-            </div>
-            <div></div>
-          </section>
-        </div>
-        <div class="swiper-slide">
-          <section class="middle">
-            <div class="middle-img">
-              <img
-                class="img_02"
-                src="@/assets/img/blind-date/notice_02.png"
-                alt=""
-              />
-            </div>
-            <div v-if="!isAuthComplete" class="desc _04">
-              시작하기 위해서 학생증 인증이 필요해요
-            </div>
-            <div v-else class="desc _04">
-              학생증 인증이 완료되어 한대소에 참여할 수 있어요
-            </div>
-            <div class="auth-btn">시즌1 신청 마감!</div>
-            <!-- <div v-if="!isAuthComplete" class="auth-btn" @click.prevent="goToAuthPage">학생증 인증하기</div>
-            <div v-else class="start auth-btn" @click.prevent="goToApplyPage">다음</div> -->
-            <div></div>
-          </section>
+      <div
+        v-if="isNuxtReady"
+        v-swiper:mySwiper="swiperOption"
+        class="swiper-container"
+      >
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <section class="middle">
+              <div class="middle-img">
+                <img
+                  class="img_01"
+                  src="@/assets/img/blind-date/notice_01.png"
+                  alt=""
+                />
+              </div>
+              <div class="desc _01">본 이벤트는,</div>
+              <div class="desc _02">
+                <div class="left">11.20 ~ 11.22 (3일간)</div>
+                <div class="right">진행되고,</div>
+              </div>
+              <div class="desc _03">
+                <div class="left">한동대 학생들 (재학중)</div>
+                <div class="right">참여 가능합니다.</div>
+              </div>
+              <div></div>
+            </section>
+          </div>
+          <div class="swiper-slide">
+            <section class="middle">
+              <div class="middle-img">
+                <img
+                  class="img_02"
+                  src="@/assets/img/blind-date/notice_02.png"
+                  alt=""
+                />
+              </div>
+              <div v-if="!isAuthComplete" class="desc _04">
+                시작하기 위해서 학생증 인증이 필요해요
+              </div>
+              <div v-else class="desc _04">
+                학생증 인증이 완료되어 한대소에 참여할 수 있어요
+              </div>
+              <!-- <div class="auth-btn">시즌1 신청 마감!</div> -->
+              <div
+                v-if="!isAuthComplete"
+                class="auth-btn"
+                @click.prevent="goToAuthPage"
+              >
+                학생증 인증하기
+              </div>
+              <div v-else class="start auth-btn" @click.prevent="goToApplyPage">
+                다음
+              </div>
+              <div></div>
+            </section>
+          </div>
         </div>
       </div>
+      <div class="swiper-pagination"></div>
     </div>
-    <div class="swiper-pagination"></div>
-    <!-- <section class="middle">
-      <div class="middle-img">
-        <img class="img_01" src="@/assets/img/blind-date/notice_01.png" alt="" />
-      </div>
-      <div class="desc _01">본 이벤트는,</div>
-      <div class="desc _02">
-        <div class="left">09.11 ~ 09.15 (5일간)</div>
-        <div class="right">진행되고,</div>
-      </div>
-      <div class="desc _03">
-        <div class="left">한동대 학생들 (재학중)</div>
-        <div class="right">참여 가능합니다.</div>
-      </div>
-      <div></div>
-    </section> -->
-    <!-- <section class="middle">
-      <div class="middle-img">
-        <img
-          class="img_02"
-          src="@/assets/img/blind-date/notice_02.png"
-          alt=""
-        />
-      </div>
-      <div class="desc _04">시작하기 위해서 학생증 인증이 필요해요</div>
-      <div class="auth-btn">학생증 인증하기</div>
-      <div></div>
-    </section> -->
+    <div v-if="!isFeeConfirm">
+      <EmptyPosting :blind-date="true" />
+    </div>
   </div>
 </template>
 
 <script>
+import EmptyPosting from '@/components/common/EmptyPosting'
+
 export default {
   name: 'IndexPage',
+  components: {
+    EmptyPosting
+  },
   data() {
     return {
       isNuxtReady: false,
       isAuthComplete: false,
-      isShow: true,
+      isShow: false,
       swiperOption: {
         loop: false,
         slidesPerView: 1,
@@ -103,35 +94,28 @@ export default {
         pagination: {
           el: '.swiper-pagination',
           clickable: true
-          // dynamicBullets: true,
-          // dynamicMainBullets: 2
         }
-        // breakpoints: {
-        //   // when window width is >= 480px
-        //   480: {
-        //     slidesPerView: 2,
-        //     spaceBetween: 10
-        //   },
-        //   // when window width is >= 640px
-        //   640: {
-        //     slidesPerView: 3,
-        //     spaceBetween: 20
-        //   },
-        //   1264: {
-        //     slidesPerView: 4,
-        //     spaceBetween: 30
-        //   }
-        // }
-      }
+      },
+      isFeeConfirm: true
     }
   },
   watch: {},
-  mounted() {
+  async mounted() {
+    this.cmn_goMainPage()
+    
     this.isNuxtReady = true
-    // this.getMyAuthImg().then((res) => {
-    //   this.blindDateParticipation()
-    // })
-    this.getAuthState()
+    await this.getParticipationType().then((res) => {
+      if (res === 'NO') {
+        this.getAuthState()
+        this.isShow = true // 처음 시작하는 사용자 페이지
+      } else if (res === 'FRIEND' || res === 'BLIND_DONE') {
+        this.$router.push('/blind-date/proceeding') // 완료 후 매칭중 페이지
+      } else if (res === 'BLIND_ING') {
+        this.getFeeConfirm()
+      } else if (res === 'FAIL') {
+        this.$router.push('/auth')
+      }
+    })
   },
   methods: {
     async getAuthState() {
@@ -169,27 +153,32 @@ export default {
           return false
         })
     },
-    blindDateParticipation() {
+    goToAuthPage() {
+      this.$router.push(`/auth`)
+    },
+    goToApplyPage() {
+      this.$router.push(`/blind-date/selection`)
+    },
+    getFeeConfirm() {
       this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
+        .get(`${process.env.apiUrl}/v2/blind-date/fee/confirm?season=2`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: this.$store.state.userInfo.token
           }
         })
         .then((res) => {
-          if (res) {
-            this.$router.push('/blind-date/proceeding')
+          if (res.data) {
+            this.$router.push({
+              name: 'blind-date-apply-intro',
+              params: { type: 'date' }
+            }) // 작성중 페이지
+            this.isFeeConfirm = true
           } else {
-            this.isShow = true
+            this.isFeeConfirm = false
+            this.isShow = false
           }
         })
-    },
-    goToAuthPage() {
-      this.$router.push(`/auth`)
-    },
-    goToApplyPage() {
-      this.$router.push(`/blind-date/apply`)
     }
   }
 }
@@ -294,8 +283,8 @@ export default {
       border-radius: 4px;
       border: 1px solid #d9e5f4;
       background: #fff;
-      // color: #414c5b;
-      color: #b3b3b3;
+      color: #414c5b;
+      // color: #b3b3b3;
       font-family: Pretendard;
       font-size: 15px;
       font-style: normal;

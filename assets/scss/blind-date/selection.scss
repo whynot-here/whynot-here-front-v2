@@ -1,0 +1,338 @@
+
+@import '@/assets/scss/util.scss';
+
+#SelectionPage {
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+
+  .top {
+    padding-top: 70px;
+    padding-left: 30px;
+
+    @include tablet {
+      padding-top: 110px;
+      padding-left: 40px;
+    }
+
+    .m-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 24px;
+      img {
+        width: 24px;
+        height: 24px;
+      }
+
+      @include tablet {
+        top: 40px;
+        right: 40px;
+
+        img {
+          width: 35px;
+          height: 35px;
+        }
+      }
+    }
+
+    .title {
+      color: rgba(24, 24, 24, 1);
+      font-family: Pretendard;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 12px;
+      letter-spacing: 0em;
+      text-align: left;
+
+      @include tablet {
+        font-size: 36px;
+      }
+    }
+    
+    .description {
+      color: rgba(242, 83, 70, 1);
+      font-family: Pretendard;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 0em;
+      text-align: left;
+
+      @include tablet {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .middle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+      width: 130px;
+      height: 130px;
+      line-height: 6px;
+      border-radius: 12px;
+      border: 1px solid rgba(231, 231, 231, 1);
+      margin: 15px;
+      box-shadow: 0px 4px 8px 0px rgba(0, 52, 138, 0.06);
+
+      @include tablet {
+        width: 230px;
+        height: 230px;
+        margin: 25px;
+      }
+
+      .sub-text {
+        font-family: Pretendard;
+        font-size: 14px;
+        font-weight: 500;
+
+        @include tablet {
+          font-size: 18px;
+        }
+      }
+
+      .main-text {
+        font-family: Pretendard;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0em;
+        text-align: center;
+
+        @include tablet {
+          font-size: 32px;
+        }
+      }
+    }
+
+    .active {
+      background: rgba(247, 246, 255, 1);
+      border: 1px solid rgba(98, 84, 240, 1);
+      box-shadow: 0px 4px 8px 0px rgba(0, 52, 138, 0.06);
+    }
+
+    .disabled {
+      background-color: rgb(249,250,252);
+    }
+  }
+
+  .bottom {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+
+    .footer {
+      width: 100%;
+      padding: 20px 20px 40px 20px;
+      display: flex;
+      flex-direction: row;
+      gap: 13px;
+      align-items: center;
+
+      @include tablet {
+        padding: 40px;
+      }
+    
+      .title {
+        display: flex;
+        align-self: flex-end;
+      }
+      
+      .home-btn {
+        flex-grow: 1;
+        height: 48px;
+        flex-shrink: 0;
+        border-radius: 6px;
+        background: #d9d9d9;
+        color: #fff;
+        font-family: Pretendard;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 48px;
+        text-align: center;
+        background: rgba(200, 200, 200, 1);
+
+        @include tablet {
+          height: 70px;
+          font-size: 24px;
+          line-height: 68px;
+        }
+      }
+
+      .active {
+        background: #6254f0;
+      }
+    }
+  }
+
+  .blind-popup, .friend-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+
+    .content-wrp {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 85%;
+      display: grid;
+      grid-template-rows: 1fr 2fr 1fr;
+      align-items: flex-start;
+      border-radius: 12px 12px 0px 0px;
+      background: #fff;
+
+      .m-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 24px;
+        img {
+          width: 24px;
+          height: 24px;
+        }
+  
+        @include tablet {
+          top: 40px;
+          right: 40px;
+  
+          img {
+            width: 35px;
+            height: 35px;
+          }
+        }
+      }
+
+      .popup-top {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        padding-left: 20px;
+
+        .title {
+          width: 100%;
+          font-family: Pretendard;
+          font-size: 24px;
+          font-weight: 700;
+          line-height: 10px;
+          text-align: left;
+          padding-bottom: 10px;
+  
+          .line1 {
+            color: rgba(24, 24, 24, 1);
+          }
+          .line2 {
+            color: rgba(98, 84, 240, 1);
+          }
+        }
+      }
+      
+      .popup-middle {
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+
+        .desc {
+          background: rgba(244, 243, 249, 1);
+          width: calc(100vw - 70px);
+          padding: 16px;
+          gap: 10px;
+          border-radius: 12px;
+  
+          margin-top: 8px;
+          margin-bottom: 6px;
+          color: #8a8a8a;
+          font-family: Pretendard;
+          font-size: 13px;
+          font-style: normal;
+          
+          .block1 {
+            color: rgba(69, 69, 69, 1);
+            font-weight: 400;
+            line-height: 20px;
+            letter-spacing: 0em;
+            text-align: left;
+          }
+  
+          .block2 {
+            color: rgba(49, 49, 49, 1);
+            font-weight: 500;
+            line-height: 14px;
+            letter-spacing: 0em;
+            text-align: left;
+            padding-top: 10px;
+          }
+        }
+      }
+      
+      .popup-bottom {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .check-box {
+          display: flex;
+          padding: 20px;
+          font-family: Pretendard;
+          font-size: 15px;
+          font-weight: 400;
+          line-height: 22px;
+          letter-spacing: 0em;
+          text-align: left;
+
+          .icon {
+            padding-right: 10px;
+            img {
+              width: 20px;
+              height: 20px;
+            }
+
+            .disabled {
+              display: none;
+            }
+          }
+
+          .text {
+            .red {
+              color: rgba(231, 65, 51, 1);
+            }
+          }
+        }
+
+        .btn {
+          width: 100%;
+          height: 56px;
+          background: rgba(163, 163, 163, 1);
+          line-height: 52px;
+          text-align: center;
+          color: rgba(255, 255, 255, 1);
+          font-family: Pretendard;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 600;
+        }
+
+        .isChecked {
+          background: rgba(93, 80, 225, 1);
+        }
+      }
+    }
+  }
+}

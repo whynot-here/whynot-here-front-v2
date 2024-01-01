@@ -10,7 +10,7 @@
     </div>
     <div class="desc-bottom">
       푸쉬알림으로 알려드리니 알람 설정 필수! <br />
-      <strong>매칭 결과는 9월 17일에 확인할 수 있습니다.</strong>
+      <strong>매칭 결과는 11월 24일에 확인할 수 있습니다.</strong>
     </div>
     <div class="button" @click="cmn_goMainPage">그동안 앱 둘러보기</div>
   </div>
@@ -26,37 +26,25 @@ export default {
     }
   },
   watch: {},
-  mounted() {
-    this.getAuthState()
-  },
-  methods: {
-    // 학생증 인증 여부
-    async getAuthState() {
-      await this.cmn_getUserInfo(this.$store.state.userInfo.token)
-      if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {  // 학생증 인증 O
-        this.blindDateParticipation()
-      } else {                                                              // 학생증 인증 X
-        this.$router.push('/')
+  async mounted() {
+    this.cmn_goMainPage()
+    
+    await this.getParticipationType().then((res) => {
+      if (res === 'NO') {
+        this.$router.push('/blind-date') // 처음 시작하는 사용자 페이지
+      } else if (res === 'FRIEND' || res === 'BLIND_DONE') {
+        this.isShow = true // 완료 후 매칭중 페이지
+      } else if (res === 'BLIND_ING') {
+        this.$router.push({
+          name: 'blind-date-apply-intro',
+          params: { type: 'date' }
+        }) // 작성중 페이지
+      } else if (res === 'FAIL') {
+        this.$router.push('/auth')
       }
-    },
-    // 신청 여부 확인
-    blindDateParticipation() {
-      this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {
-          if (res.data) {             // 이미 참여한 경우 => 매칭 진행중 페이지
-            this.isShow = true;
-          } else {                    // 아직 참여 전인 경우 => 매칭 안내 페이지
-            this.$router.push('/blind-date')
-          }
-        })
-    },
-  }
+    })
+  },
+  methods: {}
 }
 </script>
 

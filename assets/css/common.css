@@ -24,6 +24,16 @@ body {
   position: relative;
 }
 
+#fileInput.blind-date {
+  width: 80px;
+  height: 80px;
+  margin-left: -115px;
+  margin-top: 1px;
+  margin-bottom: 10px;
+  opacity: 0;
+  position: relative;
+}
+
 #fileInput.dragdrop > div > .custom-file > input {
   cursor: pointer;
   z-index: 0 !important;
@@ -70,6 +80,7 @@ body {
 #fileInput.authpage > div > .custom-file > input {
   cursor: pointer;
   z-index: 0 !important;
+  margin-top: -370px !important;
   width: 100%;
   height: 300px;
   margin: 0 auto;

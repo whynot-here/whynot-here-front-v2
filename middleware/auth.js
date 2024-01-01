@@ -5,7 +5,15 @@ export default function ({ params, query, route, store, redirect }) {
     `/gather/posts/${params.id}`,
     '/aboutus',
     '/login',
-    '/blind-date/intro'
+    '/blind-date/intro',
+    '/blind-date/selection',
+    '/blind-date/fee',
+    '/g-blind-date',
+    '/g-blind-date/intro',
+    '/g-blind-date/terms',
+    '/g-blind-date/fee',
+    '/g-blind-date/matching',
+    '/g-blind-date/proceeding',
   ]
 
   const isAuthenticatedPath = [
@@ -14,7 +22,14 @@ export default function ({ params, query, route, store, redirect }) {
     '/posting',
     '/mypage',
     '/blind-date',
-    '/blind-date/apply'
+    '/blind-date/apply',
+    '/blind-date/selection',
+    '/blind-date/fee',
+    '/blind-date/apply',
+    '/blind-date/apply/intro',
+    '/blind-date/matching',
+    '/blind-date/proceeding',
+    '/blind-date/certification'
   ]
 
   if (

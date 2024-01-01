@@ -103,8 +103,23 @@
         <img src="@/assets/img/common/category-toggle.png" alt="" />
       </div>
     </div>
-    <div class="middle">🗓️ 이번주는 한동 <strong>{{ numOfWeekStr }}</strong></div>
-    <div class="bottom">
+    <!-- <div v-if="isMainPageComp" class="middle">
+      🗓️ 이번주는 한동 <strong>{{ numOfWeekStr }}</strong>
+      <button @click.prevent="$router.push('/blind-date/selection')">
+        한대소 시즌2
+      </button>
+    </div> -->
+    <div
+      v-if="isBlindIng"
+      class="menu"
+      @click.prevent="moveApplyOrProceedingPage()"
+    >
+      <div class="left">📢 한대소 정보 입력 진행하기</div>
+      <div>
+        <img src="@/assets/img/common/right-arrow-black.png" alt="" />
+      </div>
+    </div>
+    <div v-if="isMainPageComp" class="bottom">
       <div class="category-wrp">
         <div>
           {{ categoryTitleProps }}
@@ -176,7 +191,32 @@ export default {
       isOpenMatchingPopup: false,
       isOpenNoticePopup: false,
       numOfWeek: 0,
-      numOfWeekStr: ''
+      numOfWeekStr: '',
+      isMainPage: false,
+      // 한대소 시즌2 관련
+      isPaymentUser: false, // 한대소 참가 (= 보증금 제출)
+      applyType: '', // 'frend' | 'date'
+      // 졸업생 관련
+      isBlindIng: false
+    }
+  },
+  computed: {
+    isMainPageComp() {
+      return this.isMainPage
+    }
+  },
+  watch: {
+    // main 페이지인 경우만 배너 띄우기
+    $route: {
+      handler(to, from) {
+        console.log(to.name, from.name)
+        if (to.name === 'gather-category') {
+          this.isMainPage = true
+        } else {
+          this.isMainPage = false
+        }
+      },
+      deep: true
     }
   },
   created() {
@@ -188,35 +228,34 @@ export default {
   mounted() {
     this.profileImg = this.$store.state.userInfo.detail.profileImg
     this.initLoginDone = this.$store.state.userInfo.initLoginDone
-    this.blindDateParticipation()
+
     // 공지사항을 띄우는 경우
     this.isOpenNoticePopup = !this.cmn_getCookie('close-notice')
     // 공지 기간 끝났을 때
     // this.cmn_removeCookie('close-notice')
 
-    this.numOfWeek = this.cmn_getNumOfWeek();
-    this.numOfWeekStr = this.numOfWeek + '주차';
+    this.numOfWeek = this.cmn_getNumOfWeek()
+    this.numOfWeekStr = this.numOfWeek + '주차'
     if (this.numOfWeek === 0) {
-      this.numOfWeekStr = '방학중';
+      this.numOfWeekStr = '방학중'
     }
+
+    // main 페이지인 경우만 배너 띄우기
+    if (this.$route.name === 'gather-category') {
+      this.isMainPage = true
+    } else {
+      this.isMainPage = false
+    }
+
+    this.getGraduateParticipationType().then((res) => {
+      if (res === 'BLIND_ING') {
+        this.isBlindIng = true
+      }
+    })
   },
   methods: {
     closeNoticePopup() {
       this.isOpenNoticePopup = false
-    },
-    blindDateParticipation() {
-      if (!this.$store.state.userInfo.token) {
-        return false
-      }
-
-      this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/participation?season=1`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
-          }
-        })
-        .then((res) => {})
     },
     toggleCategoryPanel() {
       this.$bus.$emit('toggleCategoryPanel', {})
@@ -242,7 +281,6 @@ export default {
       if (!this.$store.state.userInfo.initLoginDone) {
         this.$router.push('/login')
       }
-      // this.movePostingPage({ type })
     },
     movePostingPage({ type }) {
       if (this.$store.state.userInfo.initLoginDone && type !== 'card') {
@@ -252,6 +290,12 @@ export default {
     moveMatchingPage() {
       this.isOpenMatchingPopup = false
       this.$router.push(`/blind-date/matching`)
+    },
+    moveApplyOrProceedingPage() {
+      this.$router.push({
+        name: 'g-blind-date-apply-intro',
+        params: { type: 'date' }
+      })
     },
     logout() {
       this.cmn_logout()
