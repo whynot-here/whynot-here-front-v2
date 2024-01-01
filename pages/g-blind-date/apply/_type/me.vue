@@ -1017,9 +1017,7 @@ export default {
           this.submit()
         }
 
-        if (this.curStage === 5 && addNum === 1) {
-          this.moveGraduateApplyIntroPage(this.type)
-        } else {
+        if (!(this.curStage === 5 && addNum === 1)) {
           this.curStage += addNum
         }
       } else if (this.type === 'friend') {
@@ -1141,6 +1139,7 @@ export default {
           .then((res) => {
             if (this.curStage === 5) {
               this.isFinalStepSubmit = true
+              this.moveGraduateApplyIntroPage(this.type)
             }
           })
           .catch((error) => {
