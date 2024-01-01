@@ -129,6 +129,16 @@
               <img src="@/assets/img/common/right-arrow.png" alt="" />
             </div>
           </div>
+          <div
+            v-if="$store.state.userInfo.detail.roles.includes('ROLE_ADMIN')"
+            class="m-mypage-bottom _02"
+            @click="$router.push('/g-blind-date/intro')"
+          >
+            <div class="title">관리자 Lab</div>
+            <div class="right-arrow">
+              <img src="@/assets/img/common/right-arrow.png" alt="" />
+            </div>
+          </div>
         </section>
 
         <div class="blank"></div>

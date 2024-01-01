@@ -16,7 +16,8 @@
     <div class="status-board">
       <div class="container">
         <div class="period">
-          <span class="bold">1.17 (수) / 00시</span> 부터&nbsp;&nbsp; <span class="bold">1.21 (일) / 21시</span> 까지
+          <span class="bold">1.17 (수) / 00시</span> 부터&nbsp;&nbsp;
+          <span class="bold">1.21 (일) / 21시</span> 까지
         </div>
         <div class="apply-cnt">
           현재 <strong>{{ totalCount }}명</strong> 참여중!
@@ -30,11 +31,7 @@
     </div>
 
     <div class="saying">
-      <img
-          class="saying-img"
-          src="@/assets/img/blind-date/saying.png"
-          alt=""
-        />
+      <img class="saying-img" src="@/assets/img/blind-date/saying.png" alt="" />
     </div>
 
     <div class="paragraph1">
@@ -72,7 +69,7 @@
         </div>
         <div class="desc">
           <div>나와 맞는 인연을 만나는 일은 쉬운 일이 아니었습니다.</div>
-          <div>뿐만 아니라, 각자 주변에 있는 좋은 한동인이 서로의 존재를 </div>
+          <div>뿐만 아니라, 각자 주변에 있는 좋은 한동인이 서로의 존재를</div>
           <div>몰라 인연을 만들지 못하는</div>
           <div>안타까운 모습을 보게 되었습니다.</div>
         </div>
@@ -90,7 +87,7 @@
           <div class="bold">'한동'을 중심으로</div>
         </div>
         <div class="desc">
-          <div>좋은 분들을 모시고자 합니다. </div>
+          <div>좋은 분들을 모시고자 합니다.</div>
           <div>저희 커뮤니티 운영팀은</div>
           <div>이미 결혼한 팀원들로 구성되어 있으며,</div>
           <div>시즌1에서는 재학생 기준 112쌍의 커플이 매칭되었습니다.</div>
@@ -100,12 +97,12 @@
 
     <div class="saying2">
       <img
-          class="saying2-img"
-          src="@/assets/img/blind-date/saying2.png"
-          alt=""
-        />
+        class="saying2-img"
+        src="@/assets/img/blind-date/saying2.png"
+        alt=""
+      />
     </div>
-
+    <!-- 
     <div class="store">
       <div class="container">
         <div class="bottom-wrp">
@@ -139,15 +136,21 @@
           </div>
         </div>
       </div>
-      
-    </div>
+    </div> -->
 
     <div class="caution">
       <div class="container">
         <div class="title">꼭 읽어주세요!</div>
         <div class="desc">
-          <div class="line"><span class="bold">﹒</span>졸업생 한대소는 참여비 30,000이 있습니다. 받은 보증금은 앞으로의 한대소 발전 목적으로 쓰여집니다.</div>
-          <div class="line"><span class="bold">﹒</span>신청서 작성 후 내부 검수 기간이 있습니다. 너무 꾸며내거나 불건전한 내용은 반려될 수 있으니 진중하게 작성해 주세요.</div>
+          <div class="line">
+            <span class="bold">﹒</span>졸업생 한대소는 참여비 30,000이
+            있습니다. 받은 보증금은 앞으로의 한대소 발전 목적으로 쓰여집니다.
+          </div>
+          <div class="line">
+            <span class="bold">﹒</span>신청서 작성 후 내부 검수 기간이
+            있습니다. 너무 꾸며내거나 불건전한 내용은 반려될 수 있으니 진중하게
+            작성해 주세요.
+          </div>
         </div>
       </div>
     </div>
@@ -158,13 +161,10 @@
       >
         comming soon
       </div> -->
-      <div
-        v-if="!isAuthComplete"
-        class="btn btn-need-auth"
-      >
+      <div v-if="!isAuthComplete" class="btn btn-need-auth">
         학생증 인증하기
       </div>
-      <div 
+      <div
         v-else
         class="btn btn-apply"
         @click="$router.push('/g-blind-date/terms')"
@@ -182,7 +182,7 @@ export default {
   data() {
     return {
       totalCount: 0,
-      isAuthComplete: false,
+      isAuthComplete: false
     }
   },
   watch: {},

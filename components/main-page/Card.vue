@@ -11,7 +11,7 @@
       >
         <img
           class="banner-img banner-admin-tab-hanchelin"
-          src="@/assets/img/ads/admin-blind-date-season2.png"
+          src="@/assets/img/ads/admin-blind-date.png"
           @click="$router.push('/g-blind-date/intro')"
         />
         <a
