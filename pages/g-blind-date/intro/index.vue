@@ -161,7 +161,11 @@
       >
         comming soon
       </div> -->
-      <div v-if="!isAuthComplete" class="btn btn-need-auth">
+      <div
+        v-if="!isAuthComplete"
+        class="btn btn-need-auth"
+        @click="$router.push('/auth')"
+      >
         학생증 인증하기
       </div>
       <div
