@@ -27,7 +27,7 @@
     <main class="content"></main>
     <section class="btn-wrp">
       <div class="prev" @click="openStopMatchingPopup(true)">매칭 포기</div>
-      <div class="next active">재매칭 신청</div>
+      <div class="next active" @click="openRematchingPopup()">재매칭 신청</div>
     </section>
     <div v-if="isOpenStopMatchingPopup" class="popup">
       <div class="content-wrp">
@@ -41,6 +41,20 @@
         </div>
       </div>
     </div>
+    <div v-if="isOpenRematchingPopup === true" class="complete-popup">
+      <div class="content-wrp">
+        <div class="img">
+          <img src="@/assets/img/common/matching.png" alt="" />
+        </div>
+        <div class="top">
+          <div>
+            24시간 뒤 매칭 재매칭<br />
+            결과를 알려드려요!
+          </div>
+        </div>
+        <div class="btn" @click.self="go_home()">그동안 앱 둘러보기</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -51,7 +65,8 @@ export default {
   data() {
     return {
       isShow: false,
-      isOpenStopMatchingPopup: false
+      isOpenStopMatchingPopup: false,
+      isOpenRematchingPopup: false
     }
   },
   watch: {},
@@ -88,6 +103,9 @@ export default {
         .catch((error) => {
           window.alert(error.response.data.message)
         })
+    },
+    openRematchingPopup() {
+      this.isOpenRematchingPopup = true
     }
   }
 }
@@ -290,6 +308,84 @@ export default {
           font-style: normal;
           font-weight: 500;
         }
+      }
+    }
+  }
+  .complete-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    .content-wrp {
+      width: 280px;
+      height: 280px;
+      border-radius: 12px;
+      background: #fff;
+      .close {
+        padding-top: 20px;
+        padding-right: 20px;
+        text-align: right;
+        img {
+          width: 24px;
+        }
+      }
+      .img {
+        text-align: center;
+        padding-top: 48px;
+        img {
+          width: 77px;
+        }
+      }
+      .top {
+        display: flex;
+        width: 280px;
+        height: 76px;
+        padding: 17px 0px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 17px;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        text-align: center;
+        div:first-child {
+          color: #061935;
+          font-family: Pretendard;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 24px; /* 133.333% */
+        }
+        div:nth-child(2) {
+          color: #5c6c82;
+          font-family: Pretendard;
+          font-size: 13px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          text-align: center;
+        }
+      }
+      .btn {
+        height: 48px;
+        line-height: 48px;
+        margin: 0px 16px 16px 16px;
+        font-family: Pretendard;
+        font-size: 15px;
+        font-weight: 500;
+        text-align: center;
+        border-radius: 8px;
+        border: 1px solid #6254f0;
+        color: #6254f0;
+        background: #f9faff;
       }
     }
   }
