@@ -28,7 +28,7 @@ export default {
       if (res === 'FAIL') {
         this.$router.push('/auth')
       } else if (res === 'NO') {
-        this.$router.push('/g-blind-date-intro')
+        this.$router.push('/g-blind-date/intro')
       } else if (res === 'BLIND_ING') {
         this.$router.push('/g-blind-date/apply/intro')
       } else if (res === 'SCREEN') {
