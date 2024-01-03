@@ -1137,7 +1137,7 @@ export default {
             }
           })
           .then((res) => {
-            if (this.curStage === 5) {
+            if (this.curStage === 5 && this.addNum === 1) {
               this.isFinalStepSubmit = true
               this.moveGraduateApplyIntroPage(this.type)
             }
