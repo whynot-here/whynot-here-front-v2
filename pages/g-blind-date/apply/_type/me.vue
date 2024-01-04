@@ -37,7 +37,7 @@
             <input
               v-model="applyParams.myAge"
               class="input-long"
-              type="text"
+              type="number"
               oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
               placeholder="ex) 25"
               @keyup="checkIsNextActive(1)"
