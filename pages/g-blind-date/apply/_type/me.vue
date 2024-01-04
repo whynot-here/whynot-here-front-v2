@@ -402,6 +402,7 @@
                 "
                 @click="
                   ;[
+                    item.code === 'NO' ? applyParams.hobby === '' : '',
                     applyParams.hobby.split(';').includes(item.code)
                       ? (applyParams.hobby = applyParams.hobby
                           .split(';')
