@@ -385,11 +385,29 @@ export default {
           this.registerAuthImgBack()
         ]).then((result) => {
           this.registerAuthImgUrl()
+          this.cmn_openCompleteModal({
+            option: {
+              imageUrl: require('@/assets/img/blind-date/auth-complete.png'),
+              title: '학생증 인증 완료까지',
+              time: '한시간',
+              isContactPopup: false,
+              confirmCallback: this.cmn_goMainPage
+            }
+          })
         })
       } else if (type === 'edit') {
         if (this.inputImgFront.length > 0 && this.inputImgBack.length === 0) {
           Promise.all([this.registerAuthImgFront()]).then((result) => {
             this.editAuthImgUrl()
+            this.cmn_openCompleteModal({
+              option: {
+                imageUrl: require('@/assets/img/blind-date/auth-complete.png'),
+                title: '학생증 인증 완료까지',
+                time: '한시간',
+                isContactPopup: false,
+                confirmCallback: this.cmn_goMainPage
+              }
+            })
           })
         } else if (
           this.inputImgFront.length === 0 &&
@@ -397,6 +415,15 @@ export default {
         ) {
           Promise.all([this.registerAuthImgBack()]).then((result) => {
             this.editAuthImgUrl()
+            this.cmn_openCompleteModal({
+              option: {
+                imageUrl: require('@/assets/img/blind-date/auth-complete.png'),
+                title: '학생증 인증 완료까지',
+                time: '한시간',
+                isContactPopup: false,
+                confirmCallback: this.cmn_goMainPage
+              }
+            })
           })
         } else if (
           this.inputImgFront.length > 0 &&
@@ -407,6 +434,15 @@ export default {
             this.registerAuthImgBack()
           ]).then((result) => {
             this.editAuthImgUrl()
+            this.cmn_openCompleteModal({
+              option: {
+                imageUrl: require('@/assets/img/blind-date/auth-complete.png'),
+                title: '학생증 인증 완료까지',
+                time: '한시간',
+                isContactPopup: false,
+                confirmCallback: this.cmn_goMainPage
+              }
+            })
           })
         }
       }
@@ -503,15 +539,6 @@ export default {
         )
         .then((res) => {
           this.isAuthComplete = true
-          this.cmn_openCompleteModal({
-            option: {
-              imageUrl: require('@/assets/img/blind-date/auth-complete.png'),
-              title: '학생증 인증 완료까지',
-              time: '한시간',
-              isContactPopup: false,
-              confirmCallback: this.cmn_goMainPage
-            }
-          })
         })
         .catch((error) => {
           this.cmn_openAlertPopup({
@@ -544,16 +571,6 @@ export default {
         .then((res) => {
           this.isAuthComplete = true
           this.isAuthEditPage = false
-
-          this.cmn_openCompleteModal({
-            option: {
-              imageUrl: require('@/assets/img/blind-date/auth-complete.png'),
-              title: '학생증 인증 완료까지',
-              time: '한시간',
-              isContactPopup: false,
-              confirmCallback: this.cmn_goMainPage
-            }
-          })
         })
         .catch((error) => {
           console.log(error)
