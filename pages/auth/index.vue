@@ -141,7 +141,11 @@
                 <img :src="inputAuthImgFront" alt="" />
               </div>
             </div>
-            <b-form-group id="fileInput" class="authpage authpage-edit">
+            <b-form-group
+              v-if="!imgAuthenticated"
+              id="fileInput"
+              class="authpage authpage-edit"
+            >
               <b-form-file
                 accept="image/jpeg, image/png, image/gif"
                 @change="onFileChangeFront"
@@ -168,7 +172,11 @@
                 <img :src="inputAuthImgBack" alt="" />
               </div>
             </div>
-            <b-form-group id="fileInput" class="authpage authpage-edit">
+            <b-form-group
+              v-if="!imgAuthenticated"
+              id="fileInput"
+              class="authpage authpage-edit"
+            >
               <b-form-file
                 accept="image/jpeg, image/png, image/gif"
                 @change="onFileChangeBack"
