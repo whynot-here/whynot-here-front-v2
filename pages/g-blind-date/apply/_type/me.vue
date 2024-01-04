@@ -402,7 +402,15 @@
                 "
                 @click="
                   ;[
-                    item.code === 'NO' ? applyParams.hobby === '' : '',
+                    consoleFunction(item.code),
+                    item.code === 'NO' && !applyParams.hobby.includes('NO')
+                      ? (applyParams.hobby = '')
+                      : (applyParams.hobby = applyParams.hobby
+                          .split(';')
+                          .filter((data) => {
+                            return data !== 'NO'
+                          })
+                          .join(';')),
                     applyParams.hobby.split(';').includes(item.code)
                       ? (applyParams.hobby = applyParams.hobby
                           .split(';')
@@ -934,6 +942,9 @@ export default {
     }
   },
   methods: {
+    consoleFunction(value) {
+      console.log(value)
+    },
     selectBankName(item) {
       this.applyParams.department = item.code
       this.checkIsNextActive(1)
