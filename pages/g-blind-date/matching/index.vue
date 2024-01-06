@@ -72,14 +72,23 @@
       </div>
 
       <div class="footer">
-        <a
-          class="kakao-btn"
-          :href="matchingInfo.kakaoLink"
-          target="_blank"
-          style="text-decoration: none"
-        >
-          채팅방 입장
-        </a>
+        <div class="desc">
+          <div class="">혹시 채팅방 입장 버튼 클릭이 안되시나요?</div>
+          <div class="popup" @click.prevent="isOpenAskPopup = true">(앱/ 카카오)</div>
+        </div>
+        <div class="btn-list">
+          <div class="rematch-btn">재매칭 신청</div>
+          <a
+            :href="matchingInfo.kakaoLink"
+            target="_blank"
+            style="text-decoration: none"
+          >
+            <div class="kakao-btn">채팅방 입장</div>
+          </a>
+          <div class="accusation-btn">
+            <img src="@/assets/img/blind-date/accusation-btn.png" alt="" />
+          </div>
+        </div>
       </div>
     </div>
 
@@ -174,6 +183,30 @@
         </a>
       </div>
     </div>
+
+    <div
+      v-if="isOpenAskPopup"
+      class="ask-popup"
+      @click.self="isOpenAskPopup = false"
+    >
+      <div class="content-wrp">
+        <div class="top">
+          <div>채팅방 입장이 안된다면,</div>
+          <div>인스타 @wnh.crew</div>
+          <div>DM으로 문의주세요!</div>
+        </div>
+        <div class="btn btn1" @click.prevent="goToInsta()">
+          <div class="btn-content-wrp">
+            <div>WNH 인스타로 이동</div>
+          </div>
+        </div>
+        <div class="btn btn2" @click.prevent="isOpenAskPopup = false">
+          <div class="btn-content-wrp">
+            <div>닫기</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -202,7 +235,8 @@ export default {
           clickable: true
         }
       },
-      block2List: []
+      block2List: [],
+      isOpenAskPopup: false
     }
   },
   async mounted() {
@@ -293,6 +327,9 @@ export default {
 
     updateModal() {
       this.openReviewModal = false
+    },
+    goToInsta() {
+      window.open('about:blank').location.href='https://instagram.com/wnh.crew?igshid=YmMyMTA2M2Y='
     }
   }
 }
