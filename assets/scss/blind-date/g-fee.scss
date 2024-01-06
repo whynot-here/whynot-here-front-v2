@@ -156,6 +156,34 @@
           color: rgba(98, 84, 240, 1);
         }
       }
+
+      .submit-checkbox {
+        display: flex;
+        align-items: center;
+        padding: 14px 16px 14px 16px;
+        margin-top: 15px;
+        border-radius: 8px;
+        background-color: rgba(248, 248, 248, 1);
+
+        .checkbox-img {
+          img {
+            height: 24px;
+          }
+        }
+
+        .desc {
+          padding-left: 10px;
+          padding-bottom: 5px;
+          font-family: Pretendard;
+          font-size: 15px;
+          font-weight: 500;
+          line-height: 18px;
+          letter-spacing: 0em;
+          text-align: center;
+        }
+      }
+
+
     }
 
     .my-name {
@@ -166,12 +194,12 @@
         line-height: 18px;
         letter-spacing: 0em;
         text-align: left;
-        color: rgba(46, 51, 72, 1);
+        color: rgba(46, 51, 72, 0.4);
         padding-top: 30px;
         padding-bottom: 12px;
 
         span {
-          color: rgba(231, 65, 51, 1);
+          color: rgba(231, 65, 51, 0.4);
         }
       }
 
@@ -182,6 +210,10 @@
         border: 1px;
         border: 1px solid rgba(236, 236, 236, 1);
         padding-left: 12px;
+
+        &::placeholder {
+          color: rgba(163, 163, 163, 0.4);
+        }
       }
     }
 
@@ -193,12 +225,12 @@
         line-height: 18px;
         letter-spacing: 0em;
         text-align: left;
-        color: rgba(46, 51, 72, 1);
+        color: rgba(46, 51, 72, 0.4);
         padding-top: 30px;
         padding-bottom: 12px;
 
         span {
-          color: rgba(231, 65, 51, 1);
+          color: rgba(231, 65, 51, 0.4);
         }
       }
 
@@ -211,7 +243,40 @@
         margin-top: 8px;
         margin-bottom: 35px;
         padding-left: 12px;
+        &::placeholder {
+          color: rgba(163, 163, 163, 0.4);
+        }
+      }
+    }
+
+    .active {
+      .my-name-title {
+        color: rgba(46, 51, 72, 1);
+      }
+
+      span {
+        color: rgba(231, 65, 51, 1);
+      }
+
+      .my-name-input {
+        &::placeholder {
+          color: rgba(163, 163, 163, 1);
+        }
+      }
+
+      .bank-name {
+        color: rgba(46, 51, 72, 1);
+
+        span {
+          color: rgba(231, 65, 51, 1);
+        }
+      }
+
+      .bank-number-input {
         color: rgba(69, 69, 69, 1);
+        &::placeholder {
+          color: rgba(163, 163, 163, 1);
+        }
       }
     }
 
@@ -247,7 +312,7 @@
       }
     }
 
-    .active {
+    .btnActive {
       border: 1px solid rgba(98, 84, 240, 1);
       background: rgba(98, 84, 240, 0.08);
       box-shadow: 0px 4px 8px 0px rgba(0, 52, 138, 0.06);
