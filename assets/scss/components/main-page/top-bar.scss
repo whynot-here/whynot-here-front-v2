@@ -132,14 +132,19 @@
   .menu {
     height: 80px;
     line-height: 80px;
-    display: flex;
-    border: 1px solid #000;
-    background: #fff;
-    color: #414141;
-    font-family: GmarketSans;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 400;
+    // display: flex;
+    // border: 1px solid #000;
+    // background: #fff;
+    // color: #414141;
+    // font-family: GmarketSans;
+    // font-size: 15px;
+    // font-style: normal;
+    // font-weight: 400;
+    .banner {
+      img {
+        width: 100%;
+      }
+    }
     .left {
       flex-grow: 1;
       margin-left: 22px;

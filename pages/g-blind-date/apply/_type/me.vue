@@ -37,7 +37,7 @@
             <input
               v-model="applyParams.myAge"
               class="input-long"
-              type="text"
+              type="number"
               oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
               placeholder="ex) 25"
               @keyup="checkIsNextActive(1)"
@@ -402,6 +402,15 @@
                 "
                 @click="
                   ;[
+                    consoleFunction(item.code),
+                    item.code === 'NO' && !applyParams.hobby.includes('NO')
+                      ? (applyParams.hobby = '')
+                      : (applyParams.hobby = applyParams.hobby
+                          .split(';')
+                          .filter((data) => {
+                            return data !== 'NO'
+                          })
+                          .join(';')),
                     applyParams.hobby.split(';').includes(item.code)
                       ? (applyParams.hobby = applyParams.hobby
                           .split(';')
@@ -933,6 +942,9 @@ export default {
     }
   },
   methods: {
+    consoleFunction(value) {
+      console.log(value)
+    },
     selectBankName(item) {
       this.applyParams.department = item.code
       this.checkIsNextActive(1)
@@ -1019,12 +1031,10 @@ export default {
 
         if (!(this.curStage === 5 && addNum === 1)) {
           this.curStage += addNum
-        }
-      } else if (this.type === 'friend') {
-        if (this.curStage === 3 && addNum === 1) {
-          this.submit()
         } else {
-          this.curStage += addNum
+          setTimeout(() => {
+            this.moveGraduateApplyIntroPage(this.type)
+          }, 200)
         }
       }
 
@@ -1139,7 +1149,6 @@ export default {
           .then((res) => {
             if (this.curStage === 5) {
               this.isFinalStepSubmit = true
-              this.moveGraduateApplyIntroPage(this.type)
             }
           })
           .catch((error) => {

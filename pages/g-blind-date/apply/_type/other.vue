@@ -485,6 +485,7 @@ export default {
       }
     },
     changeStage(addNum) {
+      console.log(this.curStage)
       if (!this.isFinalStepSubmit) {
         this.applyParams.favoriteStep = this.curStage // 지금 단계 저장
       } else {
@@ -499,9 +500,12 @@ export default {
         this.curStage += addNum
         this.checkIsNextActive(this.curStage)
       } else if (this.curStage === 4 && addNum === 1) {
-        this.moveGraduateApplyIntroPage(this.type)
+        setTimeout(() => {
+          this.moveGraduateApplyIntroPage(this.type)
+        }, 200)
       } else if (this.curStage === 4 && addNum === -1) {
         this.curStage += addNum
+        this.checkIsNextActive(this.curStage)
       }
 
       this.$nextTick(() => {

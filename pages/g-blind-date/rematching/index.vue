@@ -326,13 +326,32 @@ export default {
     },
     cancelBlindDate() {
       this.$axios
-        .delete(`${process.env.apiUrl}/v2/blind-date?season=2`, {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$store.state.userInfo.token
+        .put(
+          `${process.env.apiUrl}/v2/blind-date/g-rematch`,
+          {
+            season: 2,
+            isWantToRematch: false,
+            favoriteAge: this.applyParams.favoriteAge,
+            favoriteAgeImportant: true,
+            favoriteHeight: this.applyParams.favoriteHeight,
+            favoriteHeightImportant: true,
+            favoriteSmoke: this.applyParams.favoriteSmoke,
+            favoriteSmokeImportant: true,
+            favoriteDrink: this.applyParams.favoriteDrink,
+            favoriteDrinkImportant: true,
+            favoriteFaith: this.applyParams.favoriteFaith,
+            favoriteFaithImportant: true,
+            favoriteLocation: this.applyParams.favoriteLocation,
+            favoriteLocationImportant: true
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
           }
-        })
+        )
         .then((res) => {
           this.$router.push('/')
         })
@@ -341,7 +360,39 @@ export default {
         })
     },
     openRematchingPopup() {
-      this.isOpenRematchingPopup = true
+      this.$axios
+        .put(
+          `${process.env.apiUrl}/v2/blind-date/g-rematch`,
+          {
+            season: 2,
+            isWantToRematch: true,
+            favoriteAge: this.applyParams.favoriteAge,
+            favoriteAgeImportant: true,
+            favoriteHeight: this.applyParams.favoriteHeight,
+            favoriteHeightImportant: true,
+            favoriteSmoke: this.applyParams.favoriteSmoke,
+            favoriteSmokeImportant: true,
+            favoriteDrink: this.applyParams.favoriteDrink,
+            favoriteDrinkImportant: true,
+            favoriteFaith: this.applyParams.favoriteFaith,
+            favoriteFaithImportant: true,
+            favoriteLocation: this.applyParams.favoriteLocation,
+            favoriteLocationImportant: true
+          },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$store.state.userInfo.token
+            }
+          }
+        )
+        .then((res) => {
+          this.isOpenRematchingPopup = true
+        })
+        .catch((error) => {
+          window.alert(error.response.data.message)
+        })
     },
     selectOtherHeight(item) {
       this.applyParams.favoriteHeight = item.name

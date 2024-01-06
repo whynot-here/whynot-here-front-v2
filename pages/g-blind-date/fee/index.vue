@@ -13,11 +13,11 @@
       <div class="container">
         <div class="desc">
           <div class="block1">
-            위 보증금은, 일부 비매너 사용자를 거르기 윙한 용도입니다.
+            위 참여비는, 아래와 같은 내용의 사용자에 한해서 환불 가능합니다.
           </div>
 
           <div class="block2">
-            <p>﹒재매칭을 시도했으나 매칭 상대가 없는 경우</p>
+            <p>﹒매칭 상대가 없는 경우</p>
           </div>
 
           <div class="block3">
@@ -33,7 +33,7 @@
 
     <section class="middle">
       <div class="whynot">
-        <div class="whynot-number-title">입금 계좌</div>
+        <div class="whynot-number-title">참여비 입금</div>
         <div class="whynot-number-box">
           <div class="text">
             <div class="line1">
@@ -47,9 +47,18 @@
             복사
           </div>
         </div>
+        <div class="submit-checkbox">
+          <div v-if="isFeeSubmitted" class="checkbox-img" @click.prevent="isFeeSubmitted=false">
+            <img src="@/assets/img/blind-date/fee-checkbox-selected.png" alt="" />
+          </div>
+          <div v-else class="checkbox-img" @click.prevent="isFeeSubmitted=true">
+            <img src="@/assets/img/blind-date/fee-checkbox.png" alt="" />
+          </div>
+          <div class="desc">입금을 완료하셨나요?</div>
+        </div>
       </div>
 
-      <div class="my-name">
+      <div class="my-name" :class="{ active : isFeeSubmitted }">
         <div class="my-name-title">송금자명 입력 <span>*</span></div>
         <div>
           <input
@@ -57,16 +66,18 @@
             class="my-name-input"
             placeholder="본인의 이름을 입력 해주세요"
             type="text"
+            :disabled="! isFeeSubmitted"
           />
         </div>
       </div>
 
-      <div class="bank">
+      <div class="bank" :class="{ active : isFeeSubmitted }">
         <div class="bank-name">계좌번호 입력 <span>*</span></div>
         <DropdownBankName
           ref="DropdownBankName"
           :label-first="'은행명'"
           :dropdown-type="'은행명'"
+          :clickable="isFeeSubmitted"
           @get-label="selectBankName"
         />
         <div>
@@ -75,12 +86,13 @@
             class="bank-number-input"
             placeholder="- 제외 계좌 입력"
             type="text"
+            :disabled="! isFeeSubmitted"
           />
         </div>
       </div>
 
       <div
-        :class="{ active: getIsBtnActive }"
+        :class="{ btnActive: getIsBtnActive && isFeeSubmitted }"
         class="submit-btn"
         @click.prevent="submitBankInfo()"
       >
@@ -125,7 +137,8 @@ export default {
         season: 2
       },
       isOpenAskPopup: false,
-      isBtnActive: false
+      isBtnActive: false,
+      isFeeSubmitted: false
     }
   },
   computed: {
@@ -164,7 +177,7 @@ export default {
       this.toastPopup('계좌가 복사되었습니다')
     },
     submitBankInfo() {
-      if (this.isBtnActive) {
+      if (this.isBtnActive && this.isFeeSubmitted) {
         this.$axios
           .post(`${process.env.apiUrl}/v2/blind-date/g-fee`, this.feeRequest, {
             withCredentials: true,
