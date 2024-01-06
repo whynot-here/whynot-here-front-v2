@@ -250,6 +250,8 @@ export default {
           }
         })
         .then((res) => {
+          this.getMatchinReveal()
+
           // 매칭이 된 경우
           this.matchingInfo = res.data
           this.block2List = this.block2List.concat(this.matchingInfo.hobbyList) 
@@ -257,12 +259,11 @@ export default {
                                            .concat(this.matchingInfo.dateStyle) 
           this.block2List.push(this.matchingInfo.contactStyle)
 
-          console.log(this.matchingInfo.hobbyList)
-          console.log(this.block2List)
-
           this.isMatched = true
         })
         .catch((_error) => {
+          this.getMatchinReveal()
+          
           // 매칭이 안 된 경우
           this.isMatched = false
         })
