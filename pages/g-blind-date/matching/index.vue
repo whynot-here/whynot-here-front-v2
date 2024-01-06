@@ -52,6 +52,7 @@
               <div class="block purple">⛪️ {{ matchingInfo.faith }}</div>
               <div class="block purple">🍷 술 {{ matchingInfo.myDrink }}</div>
               <div class="block purple">🏠 {{ matchingInfo.location }} 거주</div>
+              <div class="block purple">💼 {{ matchingInfo.myJob }} ({{ matchingInfo.myJobDesc }})</div>
             </div>
 
             <div class="block2-wrap">
