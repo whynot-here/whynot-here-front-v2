@@ -77,7 +77,7 @@
           <div class="popup" @click.prevent="isOpenAskPopup = true">(앱/ 카카오)</div>
         </div>
         <div class="btn-list">
-          <div class="rematch-btn">재매칭 신청</div>
+          <div class="rematch-btn" @click.prevent="isOpenRematchAskPopup = true">재매칭 신청</div>
           <a
             :href="matchingInfo.kakaoLink"
             target="_blank"
@@ -207,6 +207,33 @@
         </div>
       </div>
     </div>
+
+    <div
+      v-if="isOpenRematchAskPopup"
+      class="rematch-ask-popup"
+      @click.self="isOpenRematchAskPopup = false"
+    >
+      <div class="content-wrp">
+        <div class="top">
+          <div>현재 참여자 중 본인과</div>
+          <div>가장 부합하는 참여자입니다.</div>
+          <div>재매칭 신청을 하더라도 조건 미충족 또는</div>
+          <div>인원 부족으로 <span style="color: rgba(231, 65, 51, 1);">매칭이 안될 수 있습니다.</span></div>
+        </div>
+        <div class="btn-list">
+          <div class="btn btn1" @click.prevent="isOpenRematchAskPopup = false">
+            <div class="btn-content-wrp">
+              <div>닫기</div>
+            </div>
+          </div>
+          <div class="btn btn2" >
+            <div class="btn-content-wrp">
+              <div>재매칭 신청 🥲</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -236,7 +263,8 @@ export default {
         }
       },
       block2List: [],
-      isOpenAskPopup: false
+      isOpenAskPopup: false,
+      isOpenRematchAskPopup: false
     }
   },
   async mounted() {
