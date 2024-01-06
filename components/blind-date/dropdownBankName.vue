@@ -38,6 +38,10 @@ export default {
     params: {
       type: Object,
       default: null
+    },
+    clickable: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -111,6 +115,8 @@ export default {
   mounted() {},
   methods: {
     openOptions() {
+      if (! this.clickable) return;
+
       if (
         document
           .querySelector(`.${this.labelFirst}`)

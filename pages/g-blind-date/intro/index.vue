@@ -155,7 +155,7 @@
       </div>
     </div>
 
-    <div class="footer">
+    <div v-if="isShow" class="footer">
       <!-- <div
         class="btn btn-comming-soon"
       >
@@ -167,6 +167,12 @@
         @click="$router.push('/auth')"
       >
         학생증 인증하기
+      </div>
+      <div
+        v-else-if="isAuthComplete && isBlindIng"
+        class="btn btn-apply"
+      >
+        참여중
       </div>
       <div
         v-else
@@ -185,14 +191,28 @@ export default {
   components: {},
   data() {
     return {
+      isShow: false,
       totalCount: 0,
-      isAuthComplete: false
+      isAuthComplete: false,
+      isBlindIng: false
     }
   },
   watch: {},
-  mounted() {
+  async mounted() {
     this.getApplicantTotalCnt()
-    this.getAuthState()
+
+    await this.getGraduateParticipationType().then((res) => {
+      if (res === 'FAIL') {
+        // nothing to do
+      } else if (res === 'NO') {
+        this.isAuthComplete = true
+      } else {
+        this.isAuthComplete = true
+        this.isBlindIng = true
+      }
+
+      this.isShow = true
+    })
   },
   methods: {
     async getAuthState() {
