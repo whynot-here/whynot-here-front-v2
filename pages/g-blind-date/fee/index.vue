@@ -129,7 +129,7 @@ export default {
   components: { DropdownBankName },
   data() {
     return {
-      isShow: true,
+      isShow: false,
       feeRequest: {
         name: '',
         bankName: '',
