@@ -296,7 +296,7 @@ export default {
       } else if (this.bannerType === 'MATCH_OK') {
         this.$router.push('/g-blind-date/matching')
       } else if (this.bannerType === 'MATCH_FAIL') {
-        this.$router.push('/g-blind-date/matching')
+        this.$router.push('/g-blind-date/rematching')
       } else if (this.bannerType === 'MATCH_REJECTED') {
         this.$router.push('/g-blind-date/recall')
       } else if (this.bannerType === 'REMATCH') {
