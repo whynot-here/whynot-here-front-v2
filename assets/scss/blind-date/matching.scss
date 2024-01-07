@@ -66,6 +66,44 @@
       .content {
         padding-top: 30px;
 
+        .image-lock {
+          width: 200px;
+          height: 200px;
+          border: 1px solid rgba(93, 80, 225, 1);
+          border-radius: 20px;
+          background-color: rgba(255, 255, 255, 1);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin: 0 auto;
+
+          img {
+            width: 100px;
+          }
+
+          .desc {
+            font-family: Pretendard;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 15px;
+            letter-spacing: 0em;
+            text-align: left;
+            color: rgba(69, 69, 69, 1);
+          }
+
+          .timer {
+            padding-top: 10px;
+            font-family: Pretendard;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 22px;
+            letter-spacing: 0em;
+            text-align: left;
+            color: rgba(46, 51, 72, 1);
+          }
+        }
+
         .image-links {
           .swiper-container {
             width: 100%;

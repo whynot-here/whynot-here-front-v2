@@ -16,7 +16,7 @@
         <div class="title">{{ matchingInfo.myName }} 님의 매칭상대</div>
 
         <div class="content">
-          <div class="image-links">
+          <div v-if="openImage" class="image-links">
             <div
               v-if="isNuxtReady"
               v-swiper:mySwiper="swiperOption"
@@ -35,6 +35,14 @@
               </div>
             </div>
             <div class="swiper-pagination"></div>
+          </div>
+
+          <div v-else class="image-lock">
+            <div class="img">
+              <img src="@/assets/img/blind-date/matching-lock.png" alt="" />
+            </div>
+            <div class="desc">사진 공개까지</div>
+            <div class="timer">{{ TimerStr }}</div>
           </div>
 
           <div class="intro-wrap">
@@ -363,6 +371,10 @@ export default {
       selectedAccusation: 1,
       accusationReason: '',
       isOpenAccusationCompletePopup: false,
+      timer: null,
+      openImage: false,
+      TimeCounter: 180,
+      TimerStr: ""
     }
   },
   async mounted() {
@@ -381,6 +393,12 @@ export default {
         this.$router.push('/g-blind-date/intro')
       }
     })
+
+    if(this.timer != null){
+    	this.timerStop(this.timer);
+      this.timer = null;
+    }
+    this.timer = this.timerStart();
   },
   methods: {
     async getMatchinReveal() {
@@ -492,8 +510,50 @@ export default {
         this.isOpenAccusationCompletePopup = true
         this.$router.push('/g-blind-date/proceeding_02')
       })
+    },
+    timerStart() {
+      const openDate = new Date('2024/01/08 21:50:00'); // todo: 수정 필요
+      const diff = openDate.getTime() - (new Date()).getTime()
+      if (diff < 0) {
+        this.openImage = true
+        return;
+      }
+      const interval = setInterval(() => {
+        this.TimeCounter--; // 1초씩 감소
+        this.TimerStr = this.prettyTime(openDate);
+        if (this.TimeCounter <= 0) this.timerStop(interval);
+      }, 1000);
+      return interval;
+    },
+    timerStop() {
+      this.timer = null
+      clearInterval(this.timer);
+    },
+    prettyTime(openDate) {
+      const diff = openDate.getTime() - (new Date()).getTime()
+      if (diff < 0) {
+        this.openImage = true
+        this.$router.go(0);
+        return;
+      }
+      return this.convertTime(diff)
+    },
+    convertTime(milliseconds) {
+      let seconds = Math.floor(milliseconds / 1000);
+      let minutes = Math.floor(seconds / 60);
+      let hours = Math.floor(minutes / 60);
+
+      seconds = seconds % 60;
+      minutes = minutes % 60 + 1;
+      
+      hours = hours % 24;
+
+      return `${this.padTo2Digits(hours)}시간 ${this.padTo2Digits(minutes)}분`;
+    },
+    padTo2Digits(num) {
+      return num.toString().padStart(2, '0');
     }
-  }
+  },
 }
 </script>
 
