@@ -225,6 +225,16 @@
           <div>가장 부합하는 참여자입니다.</div>
           <div>재매칭 신청을 하더라도 조건 미충족 또는</div>
           <div>인원 부족으로 <span style="color: rgba(231, 65, 51, 1);">매칭이 안될 수 있습니다.</span></div>
+          <div class="input-container">
+            <textarea
+              v-model="retryReason"
+              class="input-long"
+              type="text"
+              maxlength="300"
+              placeholder="상세 내용을 입력해주세요"
+            >
+            </textarea>
+          </div>
         </div>
         <div class="btn-list">
           <div class="btn btn1" @click.prevent="isOpenRematchAskPopup = false">
@@ -232,7 +242,7 @@
               <div>닫기</div>
             </div>
           </div>
-          <div class="btn btn2" >
+          <div class="btn btn2" @click.prevent="requestRematch()">
             <div class="btn-content-wrp">
               <div>재매칭 신청 🥲</div>
             </div>
@@ -270,7 +280,8 @@ export default {
       },
       block2List: [],
       isOpenAskPopup: false,
-      isOpenRematchAskPopup: false
+      isOpenRematchAskPopup: false,
+      retryReason: ''
     }
   },
   async mounted() {
@@ -364,6 +375,23 @@ export default {
     },
     goToInsta() {
       window.open('about:blank').location.href='https://instagram.com/wnh.crew?igshid=YmMyMTA2M2Y='
+    },
+    requestRematch() {
+      this.$axios.put(
+        `${process.env.apiUrl}/v2/blind-date/retry?season=2`,
+        {
+          "reason": this.retryReason
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+      ).then(() => {
+        this.$router.push('/g-blind-date/proceeding_02')
+      })
     }
   }
 }
