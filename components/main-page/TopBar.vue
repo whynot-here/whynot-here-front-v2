@@ -109,7 +109,11 @@
         한대소 시즌2
       </button>
     </div> -->
-    <div class="menu" @click.prevent="moveApplyOrProceedingPage()">
+    <div
+      v-if="isMainPageComp"
+      class="menu"
+      @click.prevent="moveApplyOrProceedingPage()"
+    >
       <div class="banner">
         <img :src="bannerImg" alt="" @click="routeBlindDate()" />
       </div>
