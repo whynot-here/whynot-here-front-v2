@@ -109,7 +109,11 @@
         한대소 시즌2
       </button>
     </div> -->
-    <div class="menu" @click.prevent="moveApplyOrProceedingPage()">
+    <div
+      v-if="isMainPageComp && bannerImg !== ''"
+      class="menu"
+      @click.prevent="moveApplyOrProceedingPage()"
+    >
       <div class="banner">
         <img :src="bannerImg" alt="" @click="routeBlindDate()" />
       </div>
@@ -292,7 +296,7 @@ export default {
       } else if (this.bannerType === 'MATCH_OK') {
         this.$router.push('/g-blind-date/matching')
       } else if (this.bannerType === 'MATCH_FAIL') {
-        this.$router.push('/g-blind-date/matching')
+        this.$router.push('/g-blind-date/rematching')
       } else if (this.bannerType === 'MATCH_REJECTED') {
         this.$router.push('/g-blind-date/recall')
       } else if (this.bannerType === 'REMATCH') {
@@ -302,6 +306,28 @@ export default {
       } else if (this.bannerType === 'FINISHED') {
         this.$router.push('/')
       }
+    },
+    completeFee() {
+      this.cmn_openCompleteModal({
+        option: {
+          imageUrl: require('@/assets/img/blind-date/fee-complete.png'),
+          title: '납부 확인 진행중입니다',
+          time: '한시간',
+          isContactPopup: true,
+          confirmCallback: this.cmn_goMainPage
+        }
+      })
+    },
+    completeScreen() {
+      this.cmn_openCompleteModal({
+        option: {
+          imageUrl: require('@/assets/img/blind-date/apply-complete.png'),
+          title: '내부 검수 진행중입니다',
+          time: '하루',
+          isContactPopup: false,
+          confirmCallback: this.cmn_goMainPage
+        }
+      })
     },
     closeNoticePopup() {
       this.isOpenNoticePopup = false
