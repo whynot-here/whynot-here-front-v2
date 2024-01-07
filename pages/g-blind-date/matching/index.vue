@@ -195,10 +195,16 @@
           <div>인스타 @wnh.crew</div>
           <div>DM으로 문의주세요!</div>
         </div>
-        <div class="btn btn1" @click.prevent="goToInsta()">
+        <div class="btn btn1">
+          <a
+            class="banner-admin-insta"
+            href="https://instagram.com/wnh.crew?igshid=YmMyMTA2M2Y="
+            target="_blank"
+          >
           <div class="btn-content-wrp">
-            <div>WNH 인스타로 이동</div>
-          </div>
+              <div>WNH 인스타로 이동</div>
+            </div>
+          </a>
         </div>
         <div class="btn btn2" @click.prevent="isOpenAskPopup = false">
           <div class="btn-content-wrp">
