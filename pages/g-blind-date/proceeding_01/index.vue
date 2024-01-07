@@ -14,7 +14,7 @@
         <img src="@/assets/img/blind-date/proceeding02.png" alt="" />
       </div>
       <div class="line1">WNH팀이 열심히 매칭중 입니다🤩</div>
-      <div class="line2">1.24일 (수) / 00시</div>
+      <div class="line2">1.23일 (화) / 22시</div>
       <div class="line3">1차 매칭 오픈 예정 입니다.</div>
     </div>
     <div class="notice-sub">
