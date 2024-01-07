@@ -85,7 +85,7 @@
           >
             <div class="kakao-btn">채팅방 입장</div>
           </a>
-          <div class="accusation-btn">
+          <div class="accusation-btn" @click.prevent="isOpenAccusationPopup = true">
             <img src="@/assets/img/blind-date/accusation-btn.png" alt="" />
           </div>
         </div>
@@ -181,6 +181,69 @@
         >
           확인
         </a>
+      </div>
+    </div>
+
+    <div
+      v-if="isOpenAccusationPopup"
+      class="accusation-popup"
+      @click.self="isOpenAccusationPopup = false"
+    >
+      <div class="content-wrp">
+        <div class="title">비매너 사용자 신고</div>
+        <div v-for="(item, idx) in accusationList" :key="idx">
+          <div class="select-wrp" @click="selectedAccusation = item.id">
+            <div class="select-img">
+              <img
+                v-if="item.id * 1 != selectedAccusation * 1"
+                src="@/assets/img/posting/accusation-unselected.png"
+                alt=""
+              />
+              <img
+                v-else
+                src="@/assets/img/posting/accusation-selected.png"
+                alt=""
+              />
+            </div>
+            <div>{{ item.title }}</div>
+          </div>
+        </div>
+        <div class="input-container">
+          <textarea
+            v-model="accusationReason"
+            class="input-long"
+            type="text"
+            maxlength="300"
+            placeholder="상세 내용을 입력해주세요"
+          >
+          </textarea>
+        </div>
+        <div class="btn-list">
+          <div class="prev" @click="isOpenAccusationPopup = false">
+            이전
+          </div>
+          <div
+            class="next active"
+            @click.prevent="submitAccusation()"
+          >
+            확인
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="isOpenAccusationCompletePopup"
+      class="complete-popup"
+      @click.self="isOpenAccusationCompletePopup = false"
+    >
+      <div class="content-wrp">
+        <div class="top">
+          <div>신고가 접수되었습니다.</div>
+          <div>검토까지는 최대 24시간이 소요됩니다.</div>
+        </div>
+        <div class="btn" @click.self="isOpenAccusationCompletePopup = false">
+          확인
+        </div>
       </div>
     </div>
 
@@ -281,7 +344,25 @@ export default {
       block2List: [],
       isOpenAskPopup: false,
       isOpenRematchAskPopup: false,
-      retryReason: ''
+      retryReason: '',
+      isOpenAccusationPopup: false,
+      accusationList: [
+        {
+          id: 1,
+          title: '채팅방 들어오자마자 나감',
+        },
+        {
+          id: 2,
+          title: '음란물/불건전한 만남 및 대화',
+        },
+        {
+          id: 3,
+          title: '욕설/비하',
+        }
+      ],
+      selectedAccusation: 1,
+      accusationReason: '',
+      isOpenAccusationCompletePopup: false,
     }
   },
   async mounted() {
@@ -390,6 +471,25 @@ export default {
           }
         }
       ).then(() => {
+        this.$router.push('/g-blind-date/proceeding_02')
+      })
+    },
+    submitAccusation() {
+      this.$axios.put(
+        `${process.env.apiUrl}/v2/blind-date/manners?season=2`,
+        {
+          "reason": this.accusationList[this.selectedAccusation - 1].title,
+          "reasonDesc": this.accusationReason
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+      ).then(() => {
+        this.isOpenAccusationCompletePopup = true
         this.$router.push('/g-blind-date/proceeding_02')
       })
     }
