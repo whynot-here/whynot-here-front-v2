@@ -307,6 +307,28 @@ export default {
         this.$router.push('/')
       }
     },
+    completeFee() {
+      this.cmn_openCompleteModal({
+        option: {
+          imageUrl: require('@/assets/img/blind-date/fee-complete.png'),
+          title: '납부 확인 진행중입니다',
+          time: '한시간',
+          isContactPopup: true,
+          confirmCallback: this.cmn_goMainPage
+        }
+      })
+    },
+    completeScreen() {
+      this.cmn_openCompleteModal({
+        option: {
+          imageUrl: require('@/assets/img/blind-date/apply-complete.png'),
+          title: '내부 검수 진행중입니다',
+          time: '하루',
+          isContactPopup: false,
+          confirmCallback: this.cmn_goMainPage
+        }
+      })
+    },
     closeNoticePopup() {
       this.isOpenNoticePopup = false
     },
