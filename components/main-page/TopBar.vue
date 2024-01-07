@@ -110,7 +110,7 @@
       </button>
     </div> -->
     <div
-      v-if="isMainPageComp"
+      v-if="isMainPageComp && bannerImg !== ''"
       class="menu"
       @click.prevent="moveApplyOrProceedingPage()"
     >
