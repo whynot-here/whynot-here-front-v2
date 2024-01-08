@@ -254,6 +254,8 @@ export default {
       this.bannerType = res
       if (res === 'BLIND_ING') {
         this.bannerImg = require('@/assets/img/banner/blind-date-banner-auth-complete.png')
+      } else if (res === 'NO') {
+        this.bannerImg = require('@/assets/img/banner/blind-date-banner-no.png')
       } else if (res === 'SCREEN') {
         this.bannerImg = require('@/assets/img/banner/blind-date-banner-proceeding.png')
       } else if (res === 'FEE_ING') {
@@ -267,7 +269,7 @@ export default {
       } else if (res === 'MATCH_FAIL') {
         this.bannerImg = require('@/assets/img/banner/blind-date-banner-result.png')
       } else if (res === 'MATCH_REJECTED') {
-        // this.$router.push('/g-blind-date/recall')
+        this.bannerImg = require('@/assets/img/banner/blind-date-banner-result.png')
       } else if (res === 'REMATCH') {
         this.bannerImg = require('@/assets/img/banner/blind-date-banner-proceeding-02.png')
       } else if (res === 'REMATCH_OK') {
@@ -298,7 +300,7 @@ export default {
       } else if (this.bannerType === 'MATCH_FAIL') {
         this.$router.push('/g-blind-date/rematching')
       } else if (this.bannerType === 'MATCH_REJECTED') {
-        this.$router.push('/g-blind-date/recall')
+        this.$router.push('/g-blind-date/rematching/other')
       } else if (this.bannerType === 'REMATCH') {
         this.$router.push('/g-blind-date/proceeding_02')
       } else if (this.bannerType === 'REMATCH_OK') {

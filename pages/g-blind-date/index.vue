@@ -44,7 +44,7 @@ export default {
       } else if (res === 'MATCH_FAIL') {
         this.$router.push('/g-blind-date/rematching')
       } else if (res === 'MATCH_REJECTED') {
-        this.$router.push('/g-blind-date/recall')
+        this.$router.push('/g-blind-date/rematching/other')
       } else if (res === 'REMATCH') {
         this.$router.push('/g-blind-date/proceeding_02')
       } else if (res === 'REMATCH_OK') {
