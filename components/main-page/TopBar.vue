@@ -254,8 +254,6 @@ export default {
       this.bannerType = res
       if (res === 'BLIND_ING') {
         this.bannerImg = require('@/assets/img/banner/blind-date-banner-auth-complete.png')
-      } else if (res === 'NO' || res === 'FAIL') {
-        this.bannerImg = require('@/assets/img/banner/blind-date-banner-no.png')
       } else if (res === 'SCREEN') {
         this.bannerImg = require('@/assets/img/banner/blind-date-banner-proceeding.png')
       } else if (res === 'FEE_ING') {
