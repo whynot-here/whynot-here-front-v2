@@ -111,24 +111,13 @@ export default {
     },
     openRematchingPopup() {
       if (this.selectedOption === 'rematching') {
+        // 재매칭 신청
         this.$axios
           .put(
-            `${process.env.apiUrl}/v2/blind-date/g-rematch`,
+            `${process.env.apiUrl}/v2/blind-date/g-fee/recall`,
             {
               season: 2,
-              isWantToRematch: true
-              // favoriteAge: this.applyParams.favoriteAge,
-              // favoriteAgeImportant: true,
-              // favoriteHeight: this.applyParams.favoriteHeight,
-              // favoriteHeightImportant: true,
-              // favoriteSmoke: this.applyParams.favoriteSmoke,
-              // favoriteSmokeImportant: true,
-              // favoriteDrink: this.applyParams.favoriteDrink,
-              // favoriteDrinkImportant: true,
-              // favoriteFaith: this.applyParams.favoriteFaith,
-              // favoriteFaithImportant: true,
-              // favoriteLocation: this.applyParams.favoriteLocation,
-              // favoriteLocationImportant: true
+              isRecall: false
             },
             {
               withCredentials: true,
@@ -146,6 +135,25 @@ export default {
           })
       } else if (this.selectedOption === 'finish') {
         this.isOpenStopMatchingPopup = true
+        this.$axios
+          .put(
+            `${process.env.apiUrl}/v2/blind-date/g-fee/recall`,
+            {
+              season: 2,
+              isRecall: true
+            },
+            {
+              withCredentials: true,
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: this.$store.state.userInfo.token
+              }
+            }
+          )
+          .then((res) => {})
+          .catch((error) => {
+            window.alert(error.response.data.message)
+          })
       }
     },
     selectOption(value) {
