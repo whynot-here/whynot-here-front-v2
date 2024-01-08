@@ -536,7 +536,7 @@ export default {
         })
     },
     timerStart() {
-      const openDate = new Date('2024/01/08 21:40:00') // todo: 수정 필요
+      const openDate = new Date('2024/01/08 22:10:00') // todo: 수정 필요
       const diff = openDate.getTime() - new Date().getTime()
       if (diff < 0) {
         this.openImage = true

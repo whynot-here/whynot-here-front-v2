@@ -293,6 +293,8 @@ export default {
         this.completeFee()
       } else if (this.bannerType === 'MATCH') {
         this.$router.push('/g-blind-date/proceeding_01')
+      } else if (this.bannerType === 'REMATCH_OK') {
+        this.$router.push('/g-blind-date/matching')
       } else if (this.bannerType === 'MATCH_OK') {
         this.$router.push('/g-blind-date/matching')
       } else if (this.bannerType === 'MATCH_FAIL') {
@@ -301,8 +303,6 @@ export default {
         this.$router.push('/g-blind-date/rematching/other')
       } else if (this.bannerType === 'REMATCH') {
         this.$router.push('/g-blind-date/proceeding_02')
-      } else if (this.bannerType === 'REMATCH_OK') {
-        this.$router.push('/g-blind-date/matching')
       } else if (this.bannerType === 'FINISHED') {
         this.$router.push('/')
       }

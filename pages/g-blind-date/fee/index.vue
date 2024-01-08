@@ -48,17 +48,28 @@
           </div>
         </div>
         <div class="submit-checkbox">
-          <div v-if="isFeeSubmitted" class="checkbox-img" @click.prevent="isFeeSubmitted=false">
-            <img src="@/assets/img/blind-date/fee-checkbox-selected.png" alt="" />
+          <div
+            v-if="isFeeSubmitted"
+            class="checkbox-img"
+            @click.prevent="isFeeSubmitted = false"
+          >
+            <img
+              src="@/assets/img/blind-date/fee-checkbox-selected.png"
+              alt=""
+            />
           </div>
-          <div v-else class="checkbox-img" @click.prevent="isFeeSubmitted=true">
+          <div
+            v-else
+            class="checkbox-img"
+            @click.prevent="isFeeSubmitted = true"
+          >
             <img src="@/assets/img/blind-date/fee-checkbox.png" alt="" />
           </div>
           <div class="desc">입금을 완료하셨나요?</div>
         </div>
       </div>
 
-      <div class="my-name" :class="{ active : isFeeSubmitted }">
+      <div class="my-name" :class="{ active: isFeeSubmitted }">
         <div class="my-name-title">송금자명 입력 <span>*</span></div>
         <div>
           <input
@@ -66,12 +77,12 @@
             class="my-name-input"
             placeholder="본인의 이름을 입력 해주세요"
             type="text"
-            :disabled="! isFeeSubmitted"
+            :disabled="!isFeeSubmitted"
           />
         </div>
       </div>
 
-      <div class="bank" :class="{ active : isFeeSubmitted }">
+      <div class="bank" :class="{ active: isFeeSubmitted }">
         <div class="bank-name">계좌번호 입력 <span>*</span></div>
         <DropdownBankName
           ref="DropdownBankName"
@@ -86,7 +97,7 @@
             class="bank-number-input"
             placeholder="- 제외 계좌 입력"
             type="text"
-            :disabled="! isFeeSubmitted"
+            :disabled="!isFeeSubmitted"
           />
         </div>
       </div>
@@ -163,9 +174,10 @@ export default {
         this.isShow = true
       } else if (res === 'FAIL') {
         this.$router.push('/auth')
-      } else {
-        this.$router.push('/g-blind-date/intro')
       }
+      // else {
+      //   this.$router.push('/g-blind-date/intro')
+      // }
     })
   },
   methods: {
