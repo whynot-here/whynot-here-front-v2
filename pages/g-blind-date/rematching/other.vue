@@ -41,8 +41,8 @@
           <div>시즌이 열리면 푸시알림으로 알려드려요!</div>
         </div>
         <div class="btn">
-          <div @click="go_home()">아니요</div>
-          <div>네</div>
+          <div @click="commit(false)">아니요</div>
+          <div @click="commit(true)">네</div>
         </div>
       </div>
     </div>
@@ -91,6 +91,23 @@ export default {
   methods: {
     go_home() {
       this.$router.push('/')
+    },
+    commit(value) {
+      // push 알림 업데이트
+      this.$axios.put(
+        `${process.env.apiUrl}/v2/account/blind-date-push?pushOn=${value}`,
+        null,
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        }
+      )
+
+      // 홈화면 이동
+      this.go_home()
     },
     openRematchingPopup() {
       if (this.selectedOption === 'rematching') {
