@@ -401,7 +401,7 @@ export default {
     this.getMatchingResult()
 
     await this.getGraduateParticipationType().then((res) => {
-      if (res === 'MATCH_OK' || res === 'MATCH_FAIL') {
+      if (res === 'MATCH_OK' || res === 'MATCH_FAIL' || res === 'REMATCH_OK') {
         // 매칭 페이지 진입 조건은 맞지만, getMatchinReveal() 내부에서 isShow값 업데이트 필요.
       } else if (res === 'MATCH_REJECTED') {
         this.$router.push('/g-blind-date/rematching/other') // todo: 상대방이 재매칭을 요구한 경우 페이지 필요
@@ -536,7 +536,7 @@ export default {
         })
     },
     timerStart() {
-      const openDate = new Date('2024/01/08 22:10:00') // todo: 수정 필요
+      const openDate = new Date('2024/01/08 23:00:00') // todo: 수정 필요
       const diff = openDate.getTime() - new Date().getTime()
       if (diff < 0) {
         this.openImage = true
