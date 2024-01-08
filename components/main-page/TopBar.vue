@@ -279,33 +279,36 @@ export default {
   },
   methods: {
     routeBlindDate() {
-      if (this.bannerType === 'FAIL') {
-        this.$router.push('/auth')
-      } else if (this.bannerType === 'NO') {
-        this.$router.push('/g-blind-date/intro')
-      } else if (this.bannerType === 'BLIND_ING') {
-        this.$router.push('/g-blind-date/apply/intro')
-      } else if (this.bannerType === 'SCREEN') {
-        this.completeScreen()
-      } else if (this.bannerType === 'FEE_ING') {
-        this.$router.push('/g-blind-date/fee')
-      } else if (this.bannerType === 'FEE') {
-        this.completeFee()
-      } else if (this.bannerType === 'MATCH') {
-        this.$router.push('/g-blind-date/proceeding_01')
-      } else if (this.bannerType === 'REMATCH_OK') {
-        this.$router.push('/g-blind-date/matching')
-      } else if (this.bannerType === 'MATCH_OK') {
-        this.$router.push('/g-blind-date/matching')
-      } else if (this.bannerType === 'MATCH_FAIL') {
-        this.$router.push('/g-blind-date/rematching')
-      } else if (this.bannerType === 'MATCH_REJECTED') {
-        this.$router.push('/g-blind-date/rematching/other')
-      } else if (this.bannerType === 'REMATCH') {
-        this.$router.push('/g-blind-date/proceeding_02')
-      } else if (this.bannerType === 'FINISHED') {
-        this.$router.push('/')
-      }
+      this.getGraduateParticipationType().then((res) => {
+        this.bannerType = res
+        if (this.bannerType === 'FAIL') {
+          this.$router.push('/auth')
+        } else if (this.bannerType === 'NO') {
+          this.$router.push('/g-blind-date/intro')
+        } else if (this.bannerType === 'BLIND_ING') {
+          this.$router.push('/g-blind-date/apply/intro')
+        } else if (this.bannerType === 'SCREEN') {
+          this.completeScreen()
+        } else if (this.bannerType === 'FEE_ING') {
+          this.$router.push('/g-blind-date/fee')
+        } else if (this.bannerType === 'FEE') {
+          this.completeFee()
+        } else if (this.bannerType === 'MATCH') {
+          this.$router.push('/g-blind-date/proceeding_01')
+        } else if (this.bannerType === 'REMATCH_OK') {
+          this.$router.push('/g-blind-date/matching')
+        } else if (this.bannerType === 'MATCH_OK') {
+          this.$router.push('/g-blind-date/matching')
+        } else if (this.bannerType === 'MATCH_FAIL') {
+          this.$router.push('/g-blind-date/rematching')
+        } else if (this.bannerType === 'MATCH_REJECTED') {
+          this.$router.push('/g-blind-date/rematching/other')
+        } else if (this.bannerType === 'REMATCH') {
+          this.$router.push('/g-blind-date/proceeding_02')
+        } else if (this.bannerType === 'FINISHED') {
+          this.$router.push('/')
+        }
+      })
     },
     completeFee() {
       this.cmn_openCompleteModal({
