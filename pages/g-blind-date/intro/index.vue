@@ -16,8 +16,8 @@
     <div class="status-board">
       <div class="container">
         <div class="period">
-          <span class="bold">1.17 (수) / 00시</span> 부터&nbsp;&nbsp;
-          <span class="bold">1.21 (일) / 21시</span> 까지
+          <span class="bold">1.16 (화) / 21시</span> 부터&nbsp;&nbsp;
+          <span class="bold">1.21 (일) / 22시</span> 까지
         </div>
         <div class="apply-cnt">
           현재 <strong>{{ totalCount }}명</strong> 참여중!
