@@ -122,6 +122,7 @@
         <div
           v-if="currentStep == 3"
           class="step3"
+          :class="{disabled: isClickedSubmit}"
           @click="authComplete({ type: 'register' })"
         >
           인증 완료하기
@@ -201,6 +202,7 @@
           </div>
           <div
             v-else-if="!imgAuthenticated && currentStep == 3"
+            :class="{disabled: isClickedSubmit}"
             class="step3"
             @click="authComplete({ type: 'edit' })"
           >
@@ -242,7 +244,8 @@ export default {
       inputAuthImgFront: '',
       inputAuthImgBack: '',
       dir: '',
-      isLoading: true
+      isLoading: true,
+      isClickedSubmit: false,
     }
   },
   watch: {
@@ -379,6 +382,11 @@ export default {
       }
     },
     authComplete({ type }) {
+      if (this.isClickedSubmit) {
+        return;
+      }
+      this.isClickedSubmit = true;
+
       if (type === 'register') {
         Promise.all([
           this.registerAuthImgFront(),
@@ -764,6 +772,11 @@ export default {
       .step3 {
         background-color: #3e82f1;
         border-radius: 8px;
+      }
+
+      .disabled {
+        background-color: rgba(235, 235, 235, 1);
+        border: 1px solid rgba(217, 229, 244, 1);
       }
     }
   }

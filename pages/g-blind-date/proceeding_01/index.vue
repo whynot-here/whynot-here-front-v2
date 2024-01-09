@@ -22,7 +22,7 @@
     </div>
     <div class="footer">
       <div class="go-main-btn" @click="go_home()">그동안 앱 둘러보기</div>
-      <div class="share-kakao-btn" @click="share_kakao()">카톡으로 이벤트 공유하기</div>
+      <!-- <div class="share-kakao-btn" @click="share_kakao()">카톡으로 이벤트 공유하기</div> -->
     </div>
   </div>
 </template>
@@ -154,7 +154,7 @@ export default {
   }
 
   .footer {
-    height: 130px;
+    height: 90px;
     position: fixed;
     bottom: 0px;
     left: 0;

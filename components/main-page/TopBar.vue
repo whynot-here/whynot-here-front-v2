@@ -115,7 +115,7 @@
       @click.prevent="moveApplyOrProceedingPage()"
     >
       <div class="banner">
-        <img :src="bannerImg" alt="" @click="routeBlindDate()" />
+        <img :src="bannerImg" alt="" @click.stop="routeBlindDate()" />
       </div>
     </div>
     <div v-if="isMainPageComp" class="bottom">

@@ -20,7 +20,7 @@
           <span class="bold">1.21 (일) / 22시</span> 까지
         </div>
         <div class="apply-cnt">
-          현재 <strong>{{ totalCount }}명</strong> 참여중!
+          <strong>{{ totalCount }}명</strong> 관심있게 보는중!
         </div>
       </div>
     </div>
@@ -156,22 +156,15 @@
     </div>
 
     <div v-if="isShow" class="footer">
-      <!-- <div
-        class="btn btn-comming-soon"
-      >
-        comming soon
-      </div> -->
+      <div v-if="!isEventIng" class="btn btn-comming-soon">comming soon</div>
       <div
-        v-if="!isAuthComplete"
+        v-else-if="!isAuthComplete"
         class="btn btn-need-auth"
         @click="$router.push('/auth')"
       >
         학생증 인증하기
       </div>
-      <div
-        v-else-if="isAuthComplete && isBlindIng"
-        class="btn btn-apply"
-      >
+      <div v-else-if="isAuthComplete && isBlindIng" class="btn btn-apply">
         참여중
       </div>
       <div
@@ -192,14 +185,21 @@ export default {
   data() {
     return {
       isShow: false,
-      totalCount: 0,
+      totalCount: '🎁',
       isAuthComplete: false,
-      isBlindIng: false
+      isBlindIng: false,
+      isEventIng: false
     }
   },
   watch: {},
   async mounted() {
     this.getApplicantTotalCnt()
+
+    const openDate = new Date('2024/01/16 21:00:00') // todo: 수정 필요
+    const diff = openDate.getTime() - new Date().getTime()
+    if (diff < 0) {
+      this.isEventIng = true
+    }
 
     await this.getGraduateParticipationType().then((res) => {
       if (res === 'FAIL') {
@@ -233,7 +233,7 @@ export default {
 
     async getApplicantTotalCnt() {
       await this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/total-cnt?season=2`, {
+        .get(`${process.env.apiUrl}/v2/blind-date/visit-cnt?season=2`, {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json'
