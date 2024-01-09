@@ -156,13 +156,14 @@
     </div>
 
     <div v-if="isShow" class="footer">
-      <!-- <div
+      <div
+        v-if="!isEventIng"
         class="btn btn-comming-soon"
       >
         comming soon
-      </div> -->
+      </div>
       <div
-        v-if="!isAuthComplete"
+        v-else-if="!isAuthComplete"
         class="btn btn-need-auth"
         @click="$router.push('/auth')"
       >
@@ -194,12 +195,19 @@ export default {
       isShow: false,
       totalCount: '🎁',
       isAuthComplete: false,
-      isBlindIng: false
+      isBlindIng: false,
+      isEventIng: false,
     }
   },
   watch: {},
   async mounted() {
     this.getApplicantTotalCnt()
+
+    const openDate = new Date('2024/01/09 20:50:00') // todo: 수정 필요
+    const diff = openDate.getTime() - new Date().getTime()
+    if (diff < 0) {
+      this.isEventIng = true
+    }
 
     await this.getGraduateParticipationType().then((res) => {
       if (res === 'FAIL') {
