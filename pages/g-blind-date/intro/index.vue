@@ -156,12 +156,7 @@
     </div>
 
     <div v-if="isShow" class="footer">
-      <div
-        v-if="!isEventIng"
-        class="btn btn-comming-soon"
-      >
-        comming soon
-      </div>
+      <div v-if="!isEventIng" class="btn btn-comming-soon">comming soon</div>
       <div
         v-else-if="!isAuthComplete"
         class="btn btn-need-auth"
@@ -169,10 +164,7 @@
       >
         학생증 인증하기
       </div>
-      <div
-        v-else-if="isAuthComplete && isBlindIng"
-        class="btn btn-apply"
-      >
+      <div v-else-if="isAuthComplete && isBlindIng" class="btn btn-apply">
         참여중
       </div>
       <div
@@ -196,14 +188,14 @@ export default {
       totalCount: '🎁',
       isAuthComplete: false,
       isBlindIng: false,
-      isEventIng: false,
+      isEventIng: false
     }
   },
   watch: {},
   async mounted() {
     this.getApplicantTotalCnt()
 
-    const openDate = new Date('2024/01/09 20:50:00') // todo: 수정 필요
+    const openDate = new Date('2024/01/16 21:00:00') // todo: 수정 필요
     const diff = openDate.getTime() - new Date().getTime()
     if (diff < 0) {
       this.isEventIng = true

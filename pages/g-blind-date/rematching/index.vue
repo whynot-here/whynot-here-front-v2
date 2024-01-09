@@ -56,12 +56,7 @@
                       ? 'button-half selected'
                       : 'button-half'
                   "
-                  @click="
-                    ;[
-                      (applyParams.favoriteAge = 'NO_MATTER'),
-                      checkIsNextActive(1)
-                    ]
-                  "
+                  @click=";[(applyParams.favoriteAge = 'NO_MATTER')]"
                 >
                   상관없음
                 </div>
@@ -71,9 +66,7 @@
                       ? 'button-half selected'
                       : 'button-half'
                   "
-                  @click="
-                    ;[(applyParams.favoriteAge = 'SAME'), checkIsNextActive(1)]
-                  "
+                  @click=";[(applyParams.favoriteAge = 'SAME')]"
                 >
                   동갑
                 </div>
@@ -85,9 +78,7 @@
                       ? 'button-half selected'
                       : 'button-half'
                   "
-                  @click="
-                    ;[(applyParams.favoriteAge = 'UP'), checkIsNextActive(1)]
-                  "
+                  @click=";[(applyParams.favoriteAge = 'UP')]"
                 >
                   연상
                 </div>
@@ -97,9 +88,7 @@
                       ? 'button-half selected'
                       : 'button-half'
                   "
-                  @click="
-                    ;[(applyParams.favoriteAge = 'DOWN'), checkIsNextActive(1)]
-                  "
+                  @click=";[(applyParams.favoriteAge = 'DOWN')]"
                 >
                   연하
                 </div>
@@ -151,23 +140,13 @@
                       v-if="applyParams.favoriteSmokeImportant"
                       src="@/assets/img/common/check-box-purple-selected.png"
                       alt=""
-                      @click="
-                        ;[
-                          (applyParams.favoriteSmokeImportant = false),
-                          checkIsNextActive(3)
-                        ]
-                      "
+                      @click=";[(applyParams.favoriteSmokeImportant = false)]"
                     />
                     <img
                       v-else
                       src="@/assets/img/common/check-box-purple-unselected.png"
                       alt=""
-                      @click="
-                        ;[
-                          (applyParams.favoriteSmokeImportant = true),
-                          checkIsNextActive(3)
-                        ]
-                      "
+                      @click=";[(applyParams.favoriteSmokeImportant = true)]"
                     />
                   </div>
                   <div>매칭 필수 요소</div>
@@ -180,9 +159,7 @@
                       ? 'button-half selected'
                       : 'button-half'
                   "
-                  @click="
-                    ;[(applyParams.favoriteSmoke = 'N'), checkIsNextActive(3)]
-                  "
+                  @click=";[(applyParams.favoriteSmoke = 'N')]"
                 >
                   비흡연
                 </div>
@@ -192,9 +169,7 @@
                       ? 'button-half selected'
                       : 'button-half'
                   "
-                  @click="
-                    ;[(applyParams.favoriteSmoke = 'Y'), checkIsNextActive(3)]
-                  "
+                  @click=";[(applyParams.favoriteSmoke = 'Y')]"
                 >
                   흡연
                 </div>
@@ -228,12 +203,7 @@
                       ? 'button-half selected'
                       : 'button-half'
                   "
-                  @click="
-                    ;[
-                      (applyParams.favoriteFaith = 'NO_MATTER'),
-                      checkIsNextActive(3)
-                    ]
-                  "
+                  @click=";[(applyParams.favoriteFaith = 'NO_MATTER')]"
                 >
                   상관없음
                 </div>
@@ -243,12 +213,7 @@
                       ? 'button-half selected'
                       : 'button-half'
                   "
-                  @click="
-                    ;[
-                      (applyParams.favoriteFaith = 'CHRISTIAN'),
-                      checkIsNextActive(3)
-                    ]
-                  "
+                  @click=";[(applyParams.favoriteFaith = 'CHRISTIAN')]"
                 >
                   기독교
                 </div>
