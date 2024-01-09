@@ -96,6 +96,7 @@
         </div>
         <div class="btn-list">
           <div
+            v-if="isAvailableToRetry"
             class="rematch-btn"
             @click.prevent="isOpenRematchAskPopup = true"
           >
@@ -106,7 +107,11 @@
             target="_blank"
             style="text-decoration: none"
           >
-            <div class="kakao-btn">채팅방 입장</div>
+            <div 
+              :class="{ fullSize: !isAvailableToRetry }"
+              class="kakao-btn">
+              채팅방 입장
+            </div>
           </a>
           <div
             class="accusation-btn"
@@ -423,10 +428,17 @@ export default {
       TimeCounter: 180,
       TimerStr: '',
       isOpenLockPopup: false,
+      isAvailableToRetry: true,
     }
   },
   async mounted() {
     this.isNuxtReady = true
+
+    const closedDate = new Date('2024/01/24 22:00:00') // todo: 수정 필요
+    const diff = closedDate.getTime() - new Date().getTime()
+    if (diff < 0) {
+      this.isAvailableToRetry = false
+    }
 
     this.getMatchingResult()
 
