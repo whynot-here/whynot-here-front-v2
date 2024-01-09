@@ -37,7 +37,7 @@
             <div class="swiper-pagination"></div>
           </div>
 
-          <div v-else class="image-lock">
+          <div v-else class="image-lock" @click.prevent="isOpenLockPopup = true">
             <div class="img">
               <img src="@/assets/img/blind-date/matching-lock.png" alt="" />
             </div>
@@ -299,6 +299,35 @@
     </div>
 
     <div
+      v-if="isOpenLockPopup"
+      class="lock-popup"
+      @click.self="isOpenLockPopup = false"
+    >
+      <div class="content-wrp">
+        <div class="img">
+          <img src="@/assets/img/blind-date/matching-lock-mini.png" alt="" />
+        </div>
+        <div class="top">
+          <div>단 한명의 연인을 찾는 일은,</div>
+          <div>나와 <span class="bold">‘맞는'</span> 사람을 찾는 것입니다.</div>
+          <div><span class="bold">이 사람은 한대소에서 당신과</span></div>
+          <div><span class="bold">가장 잘 맞는 사람입니다.</span></div>
+          <div>사진 확인 전, <span class="bold">‘대화'</span>를 통해 상대에 대해 진솔히</div>
+          <div>알아가는 시간을 가져보는 건 어떨까요?</div>
+        </div>
+        <div class="btn btn1">
+          <a
+            :href="matchingInfo.kakaoLink"
+            target="_blank"
+            style="text-decoration: none"
+          >
+            <div class="kakao-btn"><span class="desc">채팅방 입장하기</span></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div
       v-if="isOpenRematchAskPopup"
       class="rematch-ask-popup"
       @click.self="isOpenRematchAskPopup = false"
@@ -392,7 +421,8 @@ export default {
       timer: null,
       openImage: false,
       TimeCounter: 180,
-      TimerStr: ''
+      TimerStr: '',
+      isOpenLockPopup: false,
     }
   },
   async mounted() {
@@ -536,7 +566,7 @@ export default {
         })
     },
     timerStart() {
-      const openDate = new Date('2024/01/08 23:00:00') // todo: 수정 필요
+      const openDate = new Date('2024/01/09 18:28:00') // todo: 수정 필요
       const diff = openDate.getTime() - new Date().getTime()
       if (diff < 0) {
         this.openImage = true
@@ -576,6 +606,9 @@ export default {
     },
     padTo2Digits(num) {
       return num.toString().padStart(2, '0')
+    },
+    openLockPopup() {
+
     }
   }
 }
