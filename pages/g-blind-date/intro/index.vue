@@ -102,41 +102,6 @@
         alt=""
       />
     </div>
-    <!-- 
-    <div class="store">
-      <div class="container">
-        <div class="bottom-wrp">
-          <div class="btn" @click="moveDownloadPage('playstore')">
-            <div class="btn-title">플레이스토어 다운로드</div>
-            <div class="img-wrp">
-              <img
-                class="playstore"
-                src="@/assets/img/blind-date/blind-date-playstore.png"
-                alt=""
-              />
-            </div>
-          </div>
-          <div class="btn" @click="moveDownloadPage('appstore')">
-            <div class="btn-title">앱스토어 다운로드</div>
-            <div class="img-wrp">
-              <img
-                class="appstore"
-                src="@/assets/img/blind-date/blind-date-appstore.png"
-                alt=""
-              />
-            </div>
-          </div>
-          <div class="link-wrp">
-            <div class="left">이미 앱이 있다면?</div>
-            <div class="right">
-              <a href="https://whynot.page.link/share" target="_blank">
-                앱으로 이동
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
 
     <div class="caution">
       <div class="container">
@@ -164,15 +129,44 @@
       >
         학생증 인증하기
       </div>
-      <div v-else-if="isAuthComplete && isBlindIng" class="btn btn-apply">
+      <div
+        v-else-if = "isAuthComplete && !isGraduated"
+        class="btn btn-comming-soon"
+        @click.stop = "isOpenAskPopup = true"
+      >졸업생이 아닙니다</div>
+      <div v-else-if="isAuthComplete && isGraduated && isBlindIng" class="btn btn-apply">
         참여중
       </div>
       <div
-        v-else
+        v-else-if="isGraduated"
         class="btn btn-apply"
         @click="$router.push('/g-blind-date/terms')"
       >
         신청서 작성하기
+      </div>
+    </div>
+
+    <div
+      v-if="isOpenAskPopup"
+      class="ask-popup"
+      @click.self="isOpenAskPopup = false"
+    >
+      <div class="content-wrp">
+        <div class="top">
+          <div>재학생 한대소는</div>
+          <div>24년 3월 오픈 예정!</div>
+          <div>조금만 기다려 주세요 😊</div>
+        </div>
+        <div class="btn btn1" @click.prevent="$router.push('/auth')">
+          <div class="btn-content-wrp">
+            <div>혹시 졸업생이신가요?</div>
+          </div>
+        </div>
+        <div class="btn btn2" @click.prevent="isOpenAskPopup = false">
+          <div class="btn-content-wrp">
+            <div>닫기</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -188,7 +182,9 @@ export default {
       totalCount: '🎁',
       isAuthComplete: false,
       isBlindIng: false,
-      isEventIng: false
+      isEventIng: false,
+      isGraduated: false,
+      isOpenAskPopup: false,
     }
   },
   watch: {},
@@ -211,6 +207,12 @@ export default {
         this.isBlindIng = true
       }
 
+      if (this.$store.state.userInfo.detail.studentType === 'ENROLLED') {
+        // 재학생
+        this.isGraduated = false
+      } else {
+        this.isGraduated = true
+      }
       this.isShow = true
     })
   },
@@ -219,15 +221,6 @@ export default {
       await this.cmn_getUserInfo(this.$store.state.userInfo.token)
       if (this.$store.state.userInfo.detail.roles.includes('ROLE_USER')) {
         this.isAuthComplete = true
-      }
-    },
-    moveDownloadPage(type) {
-      if (type === 'appstore') {
-        window.open('https://apps.apple.com/kr/app/whynothere/id1665014097')
-      } else if (type === 'playstore') {
-        window.open(
-          'https://play.google.com/store/apps/details?id=com.sangjin.whynot'
-        )
       }
     },
 
