@@ -129,7 +129,15 @@
         </div>
       </section>
       <div v-else-if="isAuthEditPage" class="m-authpage-middle">
-        <div class="title">학교 인증</div>
+        <div class="title">
+          <div class="desc">학교 인증</div>
+          <div 
+            v-if="!isGraduated" 
+            class="btn-graduated" 
+            @click.prevent="isOpenAskPopup = true">
+            졸업생 인증
+          </div>
+        </div>
         <div v-if="!imgAuthenticated" class="description">
           빠른 시일 내로 학생증 인증을 완료해드리겠습니다. <br />
           사진을 클릭하면 사진 수정도 가능합니다.
@@ -214,6 +222,20 @@
         </section>
       </div>
     </section>
+
+    <div v-if="isOpenAskPopup" class="popup">
+      <div class="content-wrp">
+        <div class="top">
+          <div>확인 버튼을 누르게 된다면</div>
+          <div>기존 재학생 인증 기록은 사라지고</div>
+          <div>졸업생으로 재등록 할 수 있습니다.</div>
+        </div>
+        <div class="btn">
+          <div @click="isOpenAskPopup = false">아니요</div>
+          <div @click="deleteStudentAuth()">네</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -246,6 +268,8 @@ export default {
       dir: '',
       isLoading: true,
       isClickedSubmit: false,
+      isGraduated: false,
+      isOpenAskPopup: false,
     }
   },
   watch: {
@@ -272,6 +296,13 @@ export default {
     })
 
     this.cmn_updateAccessToken()
+
+    if (this.$store.state.userInfo.detail.studentType === 'ENROLLED') {
+      // 재학생
+      this.isGraduated = false
+    } else {
+      this.isGraduated = true
+    }
   },
   methods: {
     async getMyAuthImg() {
@@ -609,6 +640,22 @@ export default {
           }
         }
       )
+    },
+    deleteStudentAuth() {
+      this.$axios
+        .delete(`${process.env.apiUrl}/v2/student/reset-auth`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$store.state.userInfo.token
+          }
+        })
+        .then(() => {
+          this.$router.push('/')
+        })
+        .catch((error) => {
+          window.alert(error.response.data.message)
+        })
     }
   }
 }
@@ -651,6 +698,20 @@ export default {
         color: #14428d;
         font-size: 1.5rem;
         font-weight: 600;
+
+        display: flex;
+        justify-content: space-between;
+
+        .btn-graduated {
+          font-size: 1rem;
+          color: orange;
+
+          box-sizing: border-box;
+          padding: 6px 8px;
+          background: linear-gradient(0deg, #ffffff, #ffffff), #ffffff;
+          border: 1px solid #e7e7e7;
+          border-radius: 6px;
+        }
       }
       .description {
         color: #0c2958;
@@ -777,6 +838,91 @@ export default {
       .disabled {
         background-color: rgba(235, 235, 235, 1);
         border: 1px solid rgba(217, 229, 244, 1);
+      }
+    }
+  }
+
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    // background: linear-gradient(0deg, #ffffff, #ffffff), #ffffff;
+    // border: 1px solid gray;
+    // border-radius: 6px;
+    // box-sizing: border-box;
+    .content-wrp {
+      width: 355px;
+      height: 230px;
+      border-radius: 12px;
+      background: #fff;
+      .top {
+        display: flex;
+        padding: 40px 0px 24px 0px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        margin-top: 8px;
+        color: #5c6c82;
+        text-align: center;
+        font-family: Pretendard;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 400;
+
+        div:first-child {
+          padding-bottom: 10px;
+          color: #061935;
+          text-align: center;
+          font-family: Pretendard;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 24px;
+        }
+      }
+      .btn {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        padding: 16px;
+        div {
+          width: 145px;
+          height: 48px;
+          line-height: 48px;
+          text-align: center;
+        }
+        div:first-child {
+          border-radius: 8px;
+          border: 1px solid #dedede;
+          background: #fff;
+          color: #404040;
+
+          font-family: Pretendard;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 500;
+        }
+        div:nth-child(2) {
+          border-radius: 8px;
+          border: 1px solid #dedede;
+          background: #fff;
+          color: #6254f0;
+          border: 1px solid #6254f0;
+
+          font-family: Pretendard;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 500;
+        }
       }
     }
   }
