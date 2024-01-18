@@ -310,10 +310,10 @@
       .title {
         color: rgba(20, 66, 141, 1);
         font-family: Pretendard;
-        font-size: 20px;
-        font-weight: 600;
+        font-size: 24px;
+        font-weight: 700;
         line-height: 10px;
-        letter-spacing: 0em;
+        letter-spacing: -0.005em;
         text-align: center;
       }
     }
@@ -322,13 +322,13 @@
       display: flex;
       justify-self: center;
 
-      color: rgba(132, 132, 132, 1);
+      color: rgba(12, 41, 88, 1);
       font-family: Pretendard;
       font-size: 14px;
       font-weight: 500;
-      line-height: 16px;
-      letter-spacing: 0em;
-      text-align: left;
+      line-height: 20px;
+      letter-spacing: -0.005em;
+      text-align: center;
     }
 
     .matching-summary {
