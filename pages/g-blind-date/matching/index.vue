@@ -28,7 +28,7 @@
                   :key="idx"
                   class="swiper-slide"
                 >
-                  <div class="img">
+                  <div class="img" @click.prevent="openZoomPicture(image)">
                     <img class="img_src" :src="image" alt="" />
                   </div>
                 </div>
@@ -382,6 +382,18 @@
         </div>
       </div>
     </div>
+
+    <div
+      v-if="isZoomPicture"
+      class="picture-popup"
+      @click="isZoomPicture = false"
+    >
+      <div class="content-wrp">
+        <div>
+          <img :src=zoomPictureUrl alt="">
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -438,6 +450,8 @@ export default {
       TimerStr: '',
       isOpenLockPopup: false,
       isAvailableToRetry: true,
+      isZoomPicture: false,
+      zoomPictureUrl: ''
     }
   },
   async mounted() {
@@ -628,7 +642,10 @@ export default {
     padTo2Digits(num) {
       return num.toString().padStart(2, '0')
     },
-    openLockPopup() {}
+    openZoomPicture(url) {
+      this.isZoomPicture = true;
+      this.zoomPictureUrl = url;
+    }
   }
 }
 </script>

@@ -1011,4 +1011,23 @@
       }
     }
   }
+
+  .picture-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 1);
+    z-index: 9999;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    .content-wrp {
+      img {
+        width: 100%;
+      }
+    }
+  }
 }
