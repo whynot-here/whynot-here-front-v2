@@ -28,7 +28,7 @@
                   :key="idx"
                   class="swiper-slide"
                 >
-                  <div class="img">
+                  <div class="img" @click.prevent="openZoomPicture(image)">
                     <img class="img_src" :src="image" alt="" />
                   </div>
                 </div>
@@ -130,11 +130,11 @@
     <div v-else class="unmatchedScreen">
       <div class="title-wrap">
         <div class="title">
-          <p>아쉽지만 학우님과</p>
-          <p>딱 맞는 매칭 상대를 찾지 못했어요 😥</p>
+          <p>매칭을 위해 최선을 다했지만</p>
+          <p><span style="color: rgba(98, 84, 240, 1)">매칭상대를</span> 찾지 못했어요🥲</p>
         </div>
       </div>
-      <div class="sub-title">많이 기다려 주셨는데 죄송합니다.</div>
+      <div class="sub-title">참여비는 입력하신 계좌로 자동 환불됩니다.</div>
 
       <div class="matching-summary">
         <div class="row1">
@@ -382,6 +382,18 @@
         </div>
       </div>
     </div>
+
+    <div
+      v-if="isZoomPicture"
+      class="picture-popup"
+      @click="isZoomPicture = false"
+    >
+      <div class="content-wrp">
+        <div>
+          <img :src=zoomPictureUrl alt="">
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -438,6 +450,8 @@ export default {
       TimerStr: '',
       isOpenLockPopup: false,
       isAvailableToRetry: true,
+      isZoomPicture: false,
+      zoomPictureUrl: ''
     }
   },
   async mounted() {
@@ -628,7 +642,10 @@ export default {
     padTo2Digits(num) {
       return num.toString().padStart(2, '0')
     },
-    openLockPopup() {}
+    openZoomPicture(url) {
+      this.isZoomPicture = true;
+      this.zoomPictureUrl = url;
+    }
   }
 }
 </script>
