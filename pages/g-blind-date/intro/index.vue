@@ -121,7 +121,7 @@
     </div>
 
     <div v-if="isShow" class="footer">
-      <div v-if="!isEventIng" class="btn btn-comming-soon">comming soon</div>
+      <div v-if="!isEventIng" class="btn btn-comming-soon">신청마감</div>
       <div
         v-else-if="!isAuthComplete"
         class="btn btn-need-auth"
@@ -182,7 +182,7 @@ export default {
       totalCount: '🎁',
       isAuthComplete: false,
       isBlindIng: false,
-      isEventIng: false,
+      isEventIng: true,
       isGraduated: false,
       isOpenAskPopup: false,
     }
@@ -191,10 +191,10 @@ export default {
   async mounted() {
     this.getApplicantTotalCnt()
 
-    const openDate = new Date('2024/01/16 21:00:00') // todo: 수정 필요
-    const diff = openDate.getTime() - new Date().getTime()
+    const closedDate = new Date('2024/01/21 22:00:00') // todo: 수정 필요
+    const diff = closedDate.getTime() - new Date().getTime()
     if (diff < 0) {
-      this.isEventIng = true
+      this.isEventIng = false
     }
 
     await this.getGraduateParticipationType().then((res) => {
