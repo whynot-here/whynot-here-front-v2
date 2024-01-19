@@ -20,7 +20,7 @@
           <span class="bold">1.21 (일) / 22시</span> 까지
         </div>
         <div class="apply-cnt">
-          <strong>{{ totalCount }}명</strong> 관심있게 보는중!
+          현재 <strong>{{ totalCount }}명</strong> 참여중! 💕
         </div>
       </div>
     </div>
@@ -226,7 +226,7 @@ export default {
 
     async getApplicantTotalCnt() {
       await this.$axios
-        .get(`${process.env.apiUrl}/v2/blind-date/visit-cnt?season=2`, {
+        .get(`${process.env.apiUrl}/v2/blind-date/total-cnt?season=2`, {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json'
