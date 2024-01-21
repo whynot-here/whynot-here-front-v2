@@ -313,7 +313,7 @@
               <strong class="gray">(200자 이내)</strong>
             </div>
             <textarea
-              v-model="applyParams.comment"
+              v-model="applyParams.commentForMate"
               class="input-long textarea"
               placeholder="상대에게 하고싶은 말을 적어주세요"
               maxlength="255"
