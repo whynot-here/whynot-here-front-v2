@@ -111,9 +111,7 @@
             target="_blank"
             style="text-decoration: none"
           >
-            <div 
-              :class="{ fullSize: !isAvailableToRetry }"
-              class="kakao-btn">
+            <div :class="{ fullSize: !isAvailableToRetry }" class="kakao-btn">
               채팅방 입장
             </div>
           </a>
@@ -131,7 +129,10 @@
       <div class="title-wrap">
         <div class="title">
           <p>매칭을 위해 최선을 다했지만</p>
-          <p><span style="color: rgba(98, 84, 240, 1)">매칭상대를</span> 찾지 못했어요🥲</p>
+          <p>
+            <span style="color: rgba(98, 84, 240, 1)">매칭상대를</span> 찾지
+            못했어요🥲
+          </p>
         </div>
       </div>
       <div class="sub-title">참여비는 입력하신 계좌로 자동 환불됩니다.</div>
@@ -140,7 +141,7 @@
         <div class="row1">
           <div class="total-cnt box">
             <div class="info">총 참여 인원 수</div>
-            <div class="cnt">249명</div>
+            <div class="cnt">107명</div>
           </div>
         </div>
 
@@ -148,14 +149,14 @@
           <div class="ratio box">
             <div class="info">성비</div>
             <div class="cnt">
-              <div class="male">남 134</div>
-              <div class="female">여 115</div>
+              <div class="male">남 35</div>
+              <div class="female">여 72</div>
             </div>
           </div>
 
           <div class="matched-cnt box">
             <div class="info">매칭 성공</div>
-            <div class="cnt">114팀</div>
+            <div class="cnt">25팀</div>
           </div>
         </div>
       </div>
@@ -390,7 +391,7 @@
     >
       <div class="content-wrp">
         <div>
-          <img :src=zoomPictureUrl alt="">
+          <img :src="zoomPictureUrl" alt="" />
         </div>
       </div>
     </div>
@@ -643,8 +644,8 @@ export default {
       return num.toString().padStart(2, '0')
     },
     openZoomPicture(url) {
-      this.isZoomPicture = true;
-      this.zoomPictureUrl = url;
+      this.isZoomPicture = true
+      this.zoomPictureUrl = url
     }
   }
 }
