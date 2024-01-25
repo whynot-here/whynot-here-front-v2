@@ -156,7 +156,7 @@
 
           <div class="matched-cnt box">
             <div class="info">매칭 성공</div>
-            <div class="cnt">25팀</div>
+            <div class="cnt">18팀</div>
           </div>
         </div>
       </div>
