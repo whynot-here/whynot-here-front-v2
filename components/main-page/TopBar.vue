@@ -109,7 +109,7 @@
         한대소 시즌2
       </button>
     </div> -->
-    <div
+    <!-- <div
       v-if="isMainPageComp && bannerImg !== ''"
       class="menu"
       @click.prevent="moveApplyOrProceedingPage()"
@@ -117,7 +117,7 @@
       <div class="banner">
         <img :src="bannerImg" alt="" @click.stop="routeBlindDate()" />
       </div>
-    </div>
+    </div> -->
     <div v-if="isMainPageComp" class="bottom">
       <div class="category-wrp">
         <div>
